@@ -16,9 +16,6 @@ for (i in state_index){
                 deg_free = 3, fn = my_spl_fit, verbose = FALSE)
 }
 
-# Save NY and FL p-values
+# Save NY p-values
 filename <- "data/W_pvals_NY.Rdata"
 save(pvals, file = filename)
-
-
-

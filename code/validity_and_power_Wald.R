@@ -1,5 +1,4 @@
-# Test validity and power of the proposed Wald test
-# using simulated data
+# Test validity and power of the proposed Wald test on simulated data
 
 source("code/W.R")
 
@@ -18,5 +17,5 @@ for (i in 1:ncurve) {
 }
 
 # Save p-values
-filename <- "data/p_values_simulated_curves_Wald.Rdata"
+filename <- "data/pvals_sim_Wald.Rdata"
 save(pvals, file = filename)

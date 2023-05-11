@@ -1,5 +1,4 @@
-# Test validity and power of the proposed LRT
-# using simulated data
+# Test validity and power of the proposed LRT on simulated data
 
 source("code/lrt.R")
 
@@ -18,5 +17,5 @@ for (i in 1:ncurve) {
 }
 
 # Save p-values
-filename <- "data/p_values_simulated_curves_LRT.Rdata"
+filename <- "data/pvals_sim_LRT.Rdata"
 save(pvals, file = filename)

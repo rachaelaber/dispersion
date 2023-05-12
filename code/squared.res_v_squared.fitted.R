@@ -21,7 +21,8 @@ colnames(state_fits) <- c("kappa", "beta", "mu", "l", "j", "theta", "SE.theta")
 
 
 # Plot squared residuals against squared fitted values
-plot(state_fits$mu[[1]]^2, (unlist(state_fits[1,8:67]) - state_fits$mu[[1]])^2)
+plot(state_fits$mu[[1]]^2, (unlist(state_fits[1,8:67]) - state_fits$mu[[1]])^2, xlab = 
+       "Squared Fitted Values", ylab = "Squared Residuals")
 for (i in 2:length(state_index)){
   points(state_fits$mu[[i]]^2, (unlist(state_fits[i,8:67]) - state_fits$mu[[i]])^2, 
          col = sample(rainbow(i)))

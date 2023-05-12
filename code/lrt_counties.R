@@ -20,3 +20,6 @@ for (i in state_index){
 # Save NY p-values
 filename <- "data/LRT_pvals_NY.Rdata"
 save(pvals, file = filename)
+
+# Visualize p-values
+hist(pvals, col=2)

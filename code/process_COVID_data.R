@@ -49,7 +49,9 @@ end_date <- american_thanksgiving + 30
 dates_subset <- dates[dates >= start_date & dates <= end_date]
 new_cases_subset <- new_cases[, dates >= start_date & dates <= end_date]
 new_cases_subset[which(new_cases_subset < 0)] <- 0
+
 new_cases_subset <- new_cases_subset[which(rowSums(new_cases_subset) != 0),]
+populations <- populations[which(rowSums(new_cases_subset) != 0),]
 
 # Save curves
 filename <- "data/processed_dat.Rdata"

@@ -1,6 +1,6 @@
 library(NBPSeq)
 
-# TODO: citation or link
+# Di et al. (2011)
 fit.nb.regression = function(y, s, x, beta0=rep(NA, dim(x)[2]), kappa=NA) {
   
   ## Find preliminary estiamtes of mu assuming phi=1. Will serve as

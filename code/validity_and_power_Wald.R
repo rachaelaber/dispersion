@@ -19,3 +19,8 @@ for (i in 1:ncurve) {
 # Save p-values
 filename <- "data/pvals_sim_Wald.Rdata"
 save(pvals, file = filename)
+
+# Visualize p-values
+par(mfrow = c(1,2))
+hist(pvals[which(curve_parms$theta1==curve_parms$theta2)], col=1)
+hist(pvals[which(curve_parms$theta1!=curve_parms$theta2)], col=2)

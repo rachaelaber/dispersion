@@ -117,18 +117,14 @@ Note that if the offset model were perfect, the estimated coefficient on log pop
 
 ## Identifying an appropriate model of the conditional distribution 
 
-# ```{r}
-# disp_stats <- c()
-# for (i in 1:dim(new_cases_subset[state_index])[1]){
-#   Y <- new_cases_subset[i,]
-#   spline_mod.1.pois <- spl_fit_pois(Y = Y, population=ny_fl_df_t$populations[i], inds=1:(length(Y)/2))
-#   disp_stats <- c(disp_stats, spline_mod.1.pois$deviance/spline_mod.1.pois$df.residual)
-# }
-# ```
-
 To identify an appropriate conditional distribution, the value of Poisson model residual deviance (D) divided by its degrees of freedom (df) was used to verify that overdispersion at the time point level is present under this model and found that only a few dispersion statistics were less than or equal to one. Since residual deviance of a model is expected to be asymptotically distributed as $\chi^2_{df}$, where the degrees of freedom are the number of observations minus the number of estimated parameters, an indication that a model may be underestimating dispersion (that the data is inconsistent with the model) is that D/df >> 1. 
 
 ```{r}
+par(mfrow = c(1,2))
+state <- "NY"
+source("code/squared.res_v_squared.fitted.R")
+
+state <- "FL"
 source("code/squared.res_v_squared.fitted.R")
 ```
 
@@ -146,7 +142,7 @@ abline(v=30, col=2)
 #axis(1, inds, inds, cex.axis = .7)
 ```
 
-We tested the hypothesis that the incidence dispersion parameter decreases at the Thanksgiving changepoint of interest: $\theta_1 > \theta_2$. Hypothesis tests were conducted to assess whether $\theta$ is smaller (more variable incidence) after Thanksgiving 2020. The Wald test is used, where the estimates of $\theta$ in different segments are considered independent. This approach is possible because we use IRLS estimates of $\theta$ - the standard error of $\theta$ is found utilizing the observed information.
+We tested the hypothesis that the incidence dispersion parameter decreases at the Thanksgiving changepoint of interest: $\theta_1 > \theta_2$. Hypothesis tests were conducted to assess whether $\theta$ is smaller (more variable incidence) after Thanksgiving 2020. The Wald test is used, where the estimates of $\theta$ in different segments are considered independent. This approach is possible because we use IRLS estimates of $\theta$ - the standard error of $\theta$ is found utilizing the observed information matrix.
 
 $$Cov(\hat{\theta_1},\hat{\theta_2}) = 0 $$
 The form of the Wald test statistic is:
@@ -160,10 +156,23 @@ $$ = \frac{\hat{\theta_1} -\hat{\theta_2}}{\sqrt{\widehat{Var(\hat{\theta_1})} +
 First, for every county, the model was fit separately to either side of November 26th, 2020 in order to compute values of $\hat{\theta_1}$ and $\hat{\theta_2}$. A test of the one-sided upper alternative that the difference between before and after is positive (lower theta after Thanksgiving) was performed. 
 
 ```{r, fig.cap = "P-values resulting from testing whether the dispersion parameter is smaller after Thanksgiving in each county in New York (Wald)"}
+par(mfrow = c(1,2))
+state <- "NY"
+source("code/wald_counties.R")
+
+state <- "FL"
 source("code/wald_counties.R")
 ```
 ```{r, fig.cap = "P-values resulting from testing whether the dispersion parameter is smaller after Thanksgiving in each county in New York (LRT)"}
-source("code/LRT_counties.R")
+par(mfrow = c(1,2))
+state <- "NY"
+source("code/lrt_counties.R")
+NY_sig <- (which(pvals < 0.05))
+
+state <- "FL"
+source("code/lrt_counties.R")
+FL_sig <- print(which(pvals < 0.05))
+
 ```
 
 # Simulation
@@ -183,9 +192,7 @@ So that integration will result in a final outbreak size of n/10.
 ```{r, fig.cap="Wald simulation p-values."}
 source("code/validity_and_power_Wald.R")
 ```
-
 To ensure that the hypothesis test has adequate power, a simulation using unequal values of theta on either side of Thanksgiving was repeatedly run in order to ensure that the distribution of resulting p-values is heavily right-skewed. 
-
 The resulting probabilities of rejection are visualized below using one of the Gaussian epidemic curves to represent the process mean. As hoped, the proportion of tests that reject is around 0.05 for those instances where the null is true (probability of the normal variable having 0.05 of the probability density below is 0.05). Additionally, the proportion of tests that reject is high in instances where the alternative hypothesis is true. 
 
 ## Validity and power of the LRT 
@@ -193,6 +200,7 @@ The resulting probabilities of rejection are visualized below using one of the G
 ```{r, fig.cap="Wald simulation p-values."}
 source("code/validity_and_power_LRT.R")
 ```
+There appears to be slight Type I error inflation in both tests. 
 
 ## References 
 

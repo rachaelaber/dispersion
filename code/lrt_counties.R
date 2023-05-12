@@ -5,8 +5,6 @@ filename <- "data/processed_dat.RData"
 load(filename)
 rm(filename)
 
-state <- "NY"
-
 # Loop through counties and calculate p values
 state_index <- which(populations$State == state)
 pvals <- rep(NA, times = length(state_index))

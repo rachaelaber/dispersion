@@ -105,6 +105,7 @@ In this case, we use a log link function:
 $$log(E[Y_i]/n_i) = \beta_1h_1(t_i) + \beta_2h_2(t_i) + \beta_3h_3(t_i)$$
   $$log(E[Y_i])-log(n_i) = \beta_1h_1(t_i) + \beta_2h_2(t_i) + \beta_3h_3(t_i)$$
   $$log(E[Y_i]) = \beta_1(h_1(t_i) + \beta_2h_2(t_i) + \beta_3h_3(t_i) + log(n_i)$$
+
 ## IRLS 
 
 Iteratively reweighted least squares (IRLS) is used to obtain parameter estimates of the model. Briefly, IRLS works by computing an adjusted dependent variable, computing a weight matrix, and then calculating (using weighted least squares) coefficients estimates of the model used to calculate the linear predictor as well. This procedure is implemented via the irls.nb.1 and functions from the NBPSeq R package (https://CRAN.R-project.org/package=NBPSeq) and from Di et al. (2011). 
@@ -118,15 +119,6 @@ Note that if the offset model were perfect, the estimated coefficient on log pop
 ## Identifying an appropriate model of the conditional distribution 
 
 To identify an appropriate conditional distribution, the value of Poisson model residual deviance (D) divided by its degrees of freedom (df) was used to verify that overdispersion at the time point level is present under this model and found that only a few dispersion statistics were less than or equal to one. Since residual deviance of a model is expected to be asymptotically distributed as $\chi^2_{df}$, where the degrees of freedom are the number of observations minus the number of estimated parameters, an indication that a model may be underestimating dispersion (that the data is inconsistent with the model) is that D/df >> 1. 
-
-```{r}
-par(mfrow = c(1,2))
-state <- "NY"
-source("code/squared.res_v_squared.fitted.R")
-
-state <- "FL"
-source("code/squared.res_v_squared.fitted.R")
-```
 
 Directly comparing between the quasi-Poisson and the Poisson models via deviance residuals is not possible because the deviance residuals are identical. 
 
@@ -171,8 +163,37 @@ NY_sig <- (which(pvals < 0.05))
 
 state <- "FL"
 source("code/lrt_counties.R")
-FL_sig <- print(which(pvals < 0.05))
+FL_sig <- (which(pvals < 0.05))
+```
 
+```{r}
+signif_index <- c(NY_sig, FL_sig)
+
+state <- "NY"
+source("code/squared.res_v_squared.fitted.R")
+
+state <- "FL"
+source("code/squared.res_v_squared.fitted.R")
+
+source("code/vis_signific_state.R")
+```
+```{r}
+# disp_stats <- c()
+# for (i in 1:dim(new_cases_subset[state_index])[1]){
+#   Y <- new_cases_subset[i,]
+#   spline_mod.1.pois <- spl_fit_pois(Y = Y, population=ny_fl_df_t$populations[i], inds=1:(length(Y)/2))
+#   disp_stats <- c(disp_stats, spline_mod.1.pois$deviance/spline_mod.1.pois$df.residual)
+# }
+```
+
+```{r}
+# library(tigris)
+# p <- round(fl_df_t$p, digits=1)
+# p[is.na(p)] <- "na"
+# fl$p <- p 
+# 
+# ggplot(fl) +
+#   geom_sf(aes(fill=p))
 ```
 
 # Simulation

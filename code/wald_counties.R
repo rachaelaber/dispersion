@@ -20,8 +20,8 @@ for (i in state_index){
                 deg_free = 3, fn = my_spl_fit, verbose = FALSE)
 }
 
-# Save NY p-values
-filename <- "data/W_pvals_NY.Rdata"
+# Save p-values
+filename <- paste("data/W_pvals", state, ".Rdata", sep ="")
 save(pvals, file = filename)
 
 # Visualize p-values

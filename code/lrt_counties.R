@@ -15,8 +15,8 @@ for (i in state_index){
                   i2 = 31:60, df1 = 3, df2 = 3)$p
 }
 
-# Save NY p-values
-filename <- "data/LRT_pvals_NY.Rdata"
+# Save p-values
+filename <- paste("data/LRT_pvals", state, ".Rdata", sep = "")
 save(pvals, file = filename)
 
 # Visualize p-values

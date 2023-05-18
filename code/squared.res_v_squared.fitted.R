@@ -6,7 +6,6 @@ filename <- "data/processed_dat.RData"
 load(filename)
 rm(filename)
 
-signif_index <- c(1842, 1848, 1853, 1862, 1874, 1881, 1883, 1885, 323, 324, 329, 330, 364, 375)
 state_fits <- c()
 
 for (i in signif_index){

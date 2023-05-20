@@ -12,8 +12,9 @@ ncurve <- nrow(curves)
 pvals <- rep(NA, ncurve)
 
 for (i in 1:ncurve) {
-  pvals[i] <- W(curves[i, ], population_size = curve_parms$population[i], breakpoint = curve_parms$breakpoint[i], deg_free = 3, 
-           fn = my_spl_fit, verbose = FALSE)
+  pvals[i] <- W(curves[i, ], population_size = curve_parms$population[i], 
+                breakpoint = curve_parms$breakpoint[i], deg_free = 3, 
+                fn = my_spl_fit, verbose = FALSE)
 }
 
 # Save p-values
@@ -21,6 +22,6 @@ filename <- "data/pvals_sim_Wald.Rdata"
 save(pvals, file = filename)
 
 # Visualize p-values
-par(mfrow = c(1,2))
+par(mfrow = c(2, 1))
 hist(pvals[which(curve_parms$theta1==curve_parms$theta2)], col=1)
 hist(pvals[which(curve_parms$theta1!=curve_parms$theta2)], col=2)

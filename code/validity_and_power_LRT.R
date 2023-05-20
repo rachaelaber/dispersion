@@ -21,6 +21,6 @@ filename <- "data/pvals_sim_LRT.Rdata"
 save(pvals, file = filename)
 
 # Visualize p-values
-par(mfrow = c(1,2))
+par(mfrow = c(2, 1))
 hist(pvals[which(curve_parms$theta1==curve_parms$theta2)], col=1)
 hist(pvals[which(curve_parms$theta1!=curve_parms$theta2)], col=2)

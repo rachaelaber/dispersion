@@ -80,7 +80,7 @@ mean_pw <- map(segments, ~ get_mean_pw(.))
 
 # Plot the mean PW statistic v. population size
 
-plot(populations$population[which(sapply(ch_pts, length) != 0)], log(unlist(mean_pw)), xlab="Log Population Size", ylab=" Log Mean PW Statistic", col=2, xlim=c(0,1000000))
+plot(populations$population[which(sapply(ch_pts, length) != 0)], log(unlist(mean_pw)), xlab="Log Population Size", ylab=" Log Mean PW Statistic", col=2, xlim=c(0, 1000000))
 ```
 Methods designed specifically for count data show a similar dependence on population size. The cpt.meanvar function (changepoint package) is designed to detect changes in mean and variance in count data. The number of changepoints identified for a time series increases with its population size.
 
@@ -155,6 +155,18 @@ source("code/wald_counties.R")
 state <- "FL"
 source("code/wald_counties.R")
 ```
+```{r}
+library(tigris)
+fl <- counties("Florida")
+load("data/W_pvalsFL.Rdata")
+p <- round(pvals, digits=1)
+p[is.na(p)] <- "na"
+fl$p <- p
+
+ggplot(fl) +
+  geom_sf(aes(fill = p)) 
+```
+
 ```{r, fig.cap = "P-values resulting from testing whether the dispersion parameter is smaller after Thanksgiving in each county in New York (LRT)"}
 par(mfrow = c(1,2))
 state <- "NY"
@@ -165,7 +177,8 @@ state <- "FL"
 source("code/lrt_counties.R")
 FL_sig <- (which(pvals < 0.05))
 ```
-
+Note that in these visualizations, an NB2 fit would be:
+A Poisson fit would be:
 ```{r}
 signif_index <- c(NY_sig, FL_sig)
 
@@ -176,24 +189,6 @@ state <- "FL"
 source("code/squared.res_v_squared.fitted.R")
 
 source("code/vis_signific_state.R")
-```
-```{r}
-# disp_stats <- c()
-# for (i in 1:dim(new_cases_subset[state_index])[1]){
-#   Y <- new_cases_subset[i,]
-#   spline_mod.1.pois <- spl_fit_pois(Y = Y, population=ny_fl_df_t$populations[i], inds=1:(length(Y)/2))
-#   disp_stats <- c(disp_stats, spline_mod.1.pois$deviance/spline_mod.1.pois$df.residual)
-# }
-```
-
-```{r}
-# library(tigris)
-# p <- round(fl_df_t$p, digits=1)
-# p[is.na(p)] <- "na"
-# fl$p <- p 
-# 
-# ggplot(fl) +
-#   geom_sf(aes(fill=p))
 ```
 
 # Simulation
@@ -222,6 +217,18 @@ The resulting probabilities of rejection are visualized below using one of the G
 source("code/validity_and_power_LRT.R")
 ```
 There appears to be slight Type I error inflation in both tests. 
+
+
+```{r}
+load("data/pvals_sim_Wald.Rdata")
+mean(pvals[which(curve_parms$theta1==curve_parms$theta2)], col=1)
+mean(pvals[which(curve_parms$theta1!=curve_parms$theta2)], col=2)
+
+load("data/pvals_sim_LRT.Rdata")
+mean(pvals[which(curve_parms$theta1==curve_parms$theta2)], col=1)
+mean(pvals[which(curve_parms$theta1!=curve_parms$theta2)], col=2)
+
+```
 
 ## References 
 

@@ -12,7 +12,8 @@ fontsize: 12pt
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = F, warning = F, message = F, 
-                      fig.align = "center", fig.width = 5, fig.height = 5)
+                      fig.align = "center", fig.width = 5,
+                      fig.height = 5)
 ```
 
 # Introduction
@@ -151,10 +152,23 @@ First, for every county, the model was fit separately to either side of November
 par(mfrow = c(1,2))
 state <- "NY"
 source("code/wald_counties.R")
+signif_index <- state_index[(which(pvals < 0.05))]
+source("code/squared.res_v_squared.fitted.R")
+source("code/vis_signific_state.R")
 
 state <- "FL"
 source("code/wald_counties.R")
 ```
+
+```{r, fig.cap = "P-values resulting from testing whether the dispersion parameter is smaller after Thanksgiving in each county in New York (LRT)"}
+par(mfrow = c(1,2))
+state <- "NY"
+source("code/lrt_counties.R")
+
+state <- "FL"
+source("code/lrt_counties.R")
+```
+
 ```{r}
 library(tigris)
 fl <- counties("Florida")
@@ -167,29 +181,9 @@ ggplot(fl) +
   geom_sf(aes(fill = p)) 
 ```
 
-```{r, fig.cap = "P-values resulting from testing whether the dispersion parameter is smaller after Thanksgiving in each county in New York (LRT)"}
-par(mfrow = c(1,2))
-state <- "NY"
-source("code/lrt_counties.R")
-NY_sig <- (which(pvals < 0.05))
-
-state <- "FL"
-source("code/lrt_counties.R")
-FL_sig <- (which(pvals < 0.05))
-```
-Note that in these visualizations, an NB2 fit would be:
+Note that in these visualizations to check the relationship between mean and dispersion, an NB2 fit would be:
 A Poisson fit would be:
-```{r}
-signif_index <- c(NY_sig, FL_sig)
 
-state <- "NY"
-source("code/squared.res_v_squared.fitted.R")
-
-state <- "FL"
-source("code/squared.res_v_squared.fitted.R")
-
-source("code/vis_signific_state.R")
-```
 
 # Simulation
 
@@ -218,16 +212,15 @@ source("code/validity_and_power_LRT.R")
 ```
 There appears to be slight Type I error inflation in both tests. 
 
-
 ```{r}
 load("data/pvals_sim_Wald.Rdata")
-mean(pvals[which(curve_parms$theta1==curve_parms$theta2)], col=1)
-mean(pvals[which(curve_parms$theta1!=curve_parms$theta2)], col=2)
+mean(pvals[which(curve_parms$theta1 == curve_parms$theta2)] < 0.05)
+mean(pvals[which(curve_parms$theta1 != curve_parms$theta2)] < 0.05)
+
 
 load("data/pvals_sim_LRT.Rdata")
-mean(pvals[which(curve_parms$theta1==curve_parms$theta2)], col=1)
-mean(pvals[which(curve_parms$theta1!=curve_parms$theta2)], col=2)
-
+mean(pvals[which(curve_parms$theta1==curve_parms$theta2)] < 0.05)
+mean(pvals[which(curve_parms$theta1!=curve_parms$theta2)] < 0.05)
 ```
 
 ## References 

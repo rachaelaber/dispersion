@@ -9,7 +9,7 @@ rm(filename)
 pvals <- rep(NA, nrow(populations))
 
 for (i in seq_len(nrow(populations))) {
-  
+
   pvals[i] <- tryCatch(
     W(new_cases_subset[i, ],
       population_size = populations$population[i],
@@ -26,8 +26,9 @@ for (i in seq_len(nrow(populations))) {
 }
 
 # Save p-values
-filename <- paste("data/W_pvals", state, ".Rdata", sep = "")
-#save(pvals, file = filename)
+filename <- "data/pvals_allcounties.Rdata"
+save(pvals, file = filename)
+
 
 # Visualize p-values
 hist(pvals, col = 2)

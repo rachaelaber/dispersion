@@ -26,7 +26,7 @@ for (i in seq_len(nrow(populations))) {
 }
 
 # Save p-values
-filename <- "data/pvals_allcounties.Rdata"
+filename <- "data/W_pvals_allcounties.Rdata"
 save(pvals, file = filename)
 
 

@@ -1,6 +1,8 @@
 # Generate (noisy) epidemic curves with known parameters
 # to test the validity and power of the proposed method
 
+rm(list = ls())
+
 source("code/curve_templates.R")
 
 # Parameters
@@ -10,12 +12,12 @@ peak_width <- 200
 population_min <- 314000
 population_max <- 3140000
 theta_min <- 3
-theta_max <- 10
+theta_max <- 12
 breakpoint_min <- 20
 breakpoint_max <- 40
 
 ntheta <- 10      # Number of unique theta values
-nbreakpoint <- 3  # Number of unique breakpoint values
+nbreakpoint <- 5  # Number of unique breakpoint values
 npopulation <- 10 # Number of unique population values
 
 nstep <- 60       # Number of time steps in simulated trajectories

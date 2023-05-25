@@ -35,7 +35,12 @@ for (i in 1:ncurve) {
 filename <- "data/pvals_sim_LRT.Rdata"
 save(pvals, file = filename)
 
+
+
 # Visualize p-values
+dtheta <- curve_parms$theta2 - curve_parms$theta1
+
+
 filename <- "figures/pvals_sim_LRT.pdf"
 
 pdf(filename, width = 6, height = 6)

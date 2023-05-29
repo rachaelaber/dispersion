@@ -1,25 +1,57 @@
-# Compute p-values for counties 
+# Compute p-values for a state's counties
 source("code/W.R")
 
 filename <- "data/processed_dat.RData"
 load(filename)
 rm(filename)
 
-# Loop through counties and calculate p-values
+# Loop through counties and calculate p values
+pvals <- rep(NA, nrow(populations))
+theta1 <- rep(NA, nrow(populations))
+theta2 <- rep(NA, nrow(populations))
 
-pvals <- rep(NA, times = dim(new_cases_subset)[1])
+for (i in seq_len(nrow(populations))) {
+  out <- tryCatch(
+    W(new_cases_subset[i, ],
+      population_size = populations$population[i],
+      breakpoint = 30,
+      deg_free = 3,
+      fn = my_spl_fit,
+      verbose = FALSE,
+      return_thetas = TRUE
+    ),
+    error = function(e) {
+      return(NA)
+    }
+  )
 
-for (i in 1:dim(new_cases_subset)[1]){
-  pvals[i] <- tryCatch(W(new_cases_subset[i,], 
-                         population_size = populations$population[i],
-                         breakpoint = 30, deg_free = 3, 
-                         fn = my_spl_fit, verbose = FALSE), 
-                       error = function(e) return(NA))
+  if (is.list(out)) {
+    pvals[i] <- out$p
+    theta1[i] <- out$theta1
+    theta2[i] <- out$theta2
+  }
+
+  cat("County", i, "of", nrow(populations), "p-value:", pvals[i], "\n")
 }
 
 # Save p-values
-filename <- "data/W_pvals"
-save(pvals, file = filename)
+filename <- "data/W_pvals_and_thetas_allcounties.Rdata"
+save(pvals, theta1, theta2, file = filename)
 
-# Visualize p-values
-hist(pvals, col=2)
+# Visualize thetas and p-values
+theta_max <- 100
+p_max <- 0.05
+
+keep <- theta1 < theta_max & theta2 < theta_max
+
+sig <- pvals[keep] < p_max
+
+par(cex = 1.5)
+par(pin = c(4, 4))
+
+plot(log(theta1[keep]), log(theta2[keep]),
+  cex = ifelse(sig, 1, 0.5),
+  col = ifelse(sig, 2, grey(0.5)),
+  xlab = expression(paste("log ", theta[1])),
+  ylab = expression(paste("log ", theta[2]))
+)

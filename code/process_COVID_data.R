@@ -39,6 +39,10 @@ dates <- names(dat)[5:ncol(dat)]
 dates <- gsub("X", "", dates)
 dates <- as.Date(dates, format = "%Y.%m.%d")
 
+# Save curves
+filename <- "data/processed_long_dat.Rdata"
+save(new_cases, dates, file = filename)
+
 # Subset to 60 days centered on Thanksgiving
 canadian_thanksgiving <- as.Date("2020-10-12")
 american_thanksgiving <- as.Date("2020-11-26")

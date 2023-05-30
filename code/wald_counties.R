@@ -9,6 +9,7 @@ rm(filename)
 pvals <- rep(NA, nrow(populations))
 theta1 <- rep(NA, nrow(populations))
 theta2 <- rep(NA, nrow(populations))
+fips <- rep(NA, nrow(populations))
 
 for (i in seq_len(nrow(populations))) {
   out <- tryCatch(
@@ -29,6 +30,7 @@ for (i in seq_len(nrow(populations))) {
     pvals[i] <- out$p
     theta1[i] <- out$theta1
     theta2[i] <- out$theta2
+    fips[i] <- populations$countyFIPS[i]
   }
 
   cat("County", i, "of", nrow(populations), "p-value:", pvals[i], "\n")
@@ -36,9 +38,10 @@ for (i in seq_len(nrow(populations))) {
 
 # Save p-values
 filename <- "data/W_pvals_and_thetas_allcounties.Rdata"
-save(pvals, theta1, theta2, file = filename)
+save(pvals, fips, theta1, theta2, file = filename)
 
 # Visualize thetas and p-values
+
 theta_max <- 100
 p_max <- 0.05
 

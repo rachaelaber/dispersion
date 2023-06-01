@@ -7,7 +7,7 @@ library(maps)
 library(mapproj)
 library(ggplot2)
 library(viridis)
-library(magrittr)
+library(magrittr) #I will pipe from outside the damn tidyverse thank you
 
 
 
@@ -25,7 +25,7 @@ county_df$state_name <- NULL
 
 state_df <- map_data("state", projection = "albers", parameters = c(39, 45))
 
-choropleth <- merge(county_df, unemp, by = c("state", "county"))
+choropleth <- merge(county_df, unemp, by = c("state", "county"), all.x = TRUE)
 choropleth <- choropleth[order(choropleth$order), ]
 
 p1 <- ggplot(choropleth, aes(long, lat, group = group)) +
@@ -48,25 +48,29 @@ load("data/W_pvals_and_thetas_allcounties.Rdata")
 load("data/processed_dat.RData")
 
 dat <- cbind(populations, theta1, theta2, pvals)
-dat$county <- tolower(gsub(" County", "", dat$County.Name))
+dat$county <- gsub(" County", "", dat$County.Name)
+dat$county <- gsub(" Parish", "", dat$county)
+dat$county <- tolower(dat$county)
 dat$state <- dat$State
 
 dat$dtheta <- dat$theta1 - dat$theta2
 
-# A clamped version of dtheta
-clamp_tol <- 20
-dat$dtheta_trimmed <- dat$dtheta
-dat$dtheta_trimmed[dat$dtheta_trimmed > clamp_tol] <- clamp_tol
-dat$dtheta_trimmed[dat$dtheta_trimmed < -clamp_tol] <- -clamp_tol
+## a clamped version of dtheta
+clamp <- function(x, c) {
+    x[x > c] <- c
+    x[x < -c] <- -c
+    return(x)
+}
+dat$dtheta_clamped <- clamp(dat$dtheta, 20)
 
-choropleth2 <- merge(county_df, dat,
+choropleth2 <- merge(county_df, dat, all.x = TRUE,
     by = c("state", "county")
 )
 
 choropleth2 <- choropleth2[order(choropleth2$order), ]
 
 p2 <- ggplot(choropleth2, aes(long, lat, group = group)) +
-    geom_polygon(aes(fill = dtheta_trimmed), colour = alpha("white", 1 / 2), linewidth = 0.2) +
+    geom_polygon(aes(fill = dtheta_clamped), colour = alpha("white", 1 / 2), linewidth = 0.2) +
     geom_polygon(data = state_df, colour = "white", fill = NA) +
     coord_fixed() +
     theme_minimal() +
@@ -76,6 +80,7 @@ p2 <- ggplot(choropleth2, aes(long, lat, group = group)) +
         axis.ticks = element_blank(), axis.title = element_blank()
     ) +
     scale_fill_viridis(option = "magma")
+
 
 
 # Plot the 2 maps together

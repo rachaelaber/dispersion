@@ -7,12 +7,7 @@ library(maps)
 library(mapproj)
 library(ggplot2)
 library(viridis)
-library(magrittr) #I will pipe from outside the damn tidyverse thank you
-
-
-
-
-
+library(magrittr) 
 
 # This from
 # https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html
@@ -41,9 +36,7 @@ p1 <- ggplot(choropleth, aes(long, lat, group = group)) +
     scale_fill_viridis(option = "magma")
 
 
-
-
-# Adapt the above to plot thanksgiving results
+# Adapt the above to plot Thanksgiving results
 load("data/W_pvals_and_thetas_allcounties.Rdata")
 load("data/processed_dat.RData")
 
@@ -74,7 +67,7 @@ p2 <- ggplot(choropleth2, aes(long, lat, group = group)) +
     geom_polygon(data = state_df, colour = "white", fill = NA) +
     coord_fixed() +
     theme_minimal() +
-    ggtitle("theta2-theta1 (clamped)") +
+    ggtitle("Difference in k over Thanksgiving 2020") +
     theme(
         axis.line = element_blank(), axis.text = element_blank(),
         axis.ticks = element_blank(), axis.title = element_blank()
@@ -82,7 +75,13 @@ p2 <- ggplot(choropleth2, aes(long, lat, group = group)) +
     scale_fill_viridis(option = "magma")
 
 
-
-# Plot the 2 maps together
+# Save map 
 library(gridExtra)
-grid.arrange(p1, p2, nrow = 2)
+
+filename <- "./figures/map_difftheta_US.pdf"
+
+pdf(filename, width = 6, height = 6)
+
+p2
+
+dev.off()

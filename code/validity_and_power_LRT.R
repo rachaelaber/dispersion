@@ -35,11 +35,19 @@ for (i in 1:ncurve) {
 filename <- "data/pvals_sim_LRT.Rdata"
 save(pvals, file = filename)
 
+# Tabulate p-values
+X <- data.frame("Type I" =  mean(pvals[which(curve_parms$theta2 == curve_parms$theta1)]),
+                "Power at 3" = mean(pvals[which(abs(curve_parms$theta2 - curve_parms$theta1) == 3)]),
+                "Power at 9" = mean(pvals[which(abs(curve_parms$theta2 - curve_parms$theta1) == 9)]))
 
+filename <- "figures/pvals_sim_LRT_table.pdf"
+
+pdf(filename, width = 6, height = 6)
+
+dev.off()
 
 # Visualize p-values
 dtheta <- curve_parms$theta2 - curve_parms$theta1
-
 
 filename <- "figures/pvals_sim_LRT.pdf"
 

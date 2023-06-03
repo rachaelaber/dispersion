@@ -91,7 +91,7 @@ In the quasi-Poisson model (called the linear negative binomial specification by
 
 ## Proposed hypothesis test
 
-![Figure 1. Empirical increase in dispersion](./figures/empirical_increase.pdf)
+![Empirical increase in dispersion](./figures/empirical_increase.pdf)
 
 We tested the hypothesis that the incidence dispersion parameter decreases at the Thanksgiving changepoint of interest: $\theta_1 > \theta_2$. Hypothesis tests were conducted to assess whether $\theta$ is smaller (more variable incidence) after Thanksgiving 2020. The Wald test is used, where the estimates of $\theta$ in different segments are considered independent. This approach is possible because we use IRLS estimates of $\theta$ - the standard error of $\theta$ is found utilizing the observed information matrix.
 
@@ -128,14 +128,14 @@ The resulting probabilities of rejection are visualized below using one of the G
 
 ## Validity and power of the LRT 
 
-![Figure 2A. (1) Simulated p-values for the Wald test](./figures/pvals_sim_Wald.pdf)
-![(2) Simulated p-values for the Likelihood-Ratio test](./figures/pvals_sim_LRT.pdf)
+![Simulated p-values for the Wald test](./figures/pvals_sim_Wald.pdf)
+![Simulated p-values for the Likelihood-Ratio test](./figures/pvals_sim_LRT.pdf)
 
 There appears to be slight Type I error inflation in both tests. 
 
-![Figure 2B. Mapping the Thanksgiving hypothesis across the US](./figures/map_Wald_US.pdf)
+![Mapping the Thanksgiving hypothesis across the US](./figures/map_Wald_US.pdf)
 
-![Figure 3. Scanning for breakpoints using the LRT statistic](./figures/LRT_scan_figure.pdf)
+![Scanning for breakpoints using the LRT statistic](./figures/map_diff_theta_US.pdf)
 
 In some time windows, the Likelihood-Ratio statistic can't be computed because (TODO**: the weight matrix in the IRLS can't be calculated?).
 

@@ -9,15 +9,14 @@ test <- new_cases[1,]
 lrt_stat <- c()
 
 for (i in 30:(length(test) - 30 + 1)){
-  lrt_stat <- c(lrt_stat, tryCatch(lrt(y1 = test[(i - 29):i], y2 = test[(i + 1):(i + 30)], 
+  lrt_stat <- c(lrt_stat, lrt(y1 = test[(i - 29):i], y2 = test[(i + 1):(i + 30)], 
                            s1 = populations$population[1], 
                            s2 = populations$population[1],
                            i1 = (i - 29):i,
                            i2 = (i + 1):(i + 30), 
                            df1 = 3, 
-                           df2 = 3)$lambda, error = function(e) return(NA)))
+                           df2 = 3)$lambda)
 }
-
 dates <- dates[30:(length(test) - 30 + 1)]
 
 filename <- "figures/LRT_scan_figure.pdf"

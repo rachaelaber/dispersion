@@ -3,6 +3,7 @@
 rm(list = ls())
 graphics.off()
 
+library(gridExtra)
 source("code/W.R")
 
 # Load simulated curves
@@ -13,12 +14,13 @@ ncurve <- nrow(curves)
 
 # Loop through curves and calculate p values
 pvals <- rep(NA, ncurve)
+stats <- rep(NA, ncurve)
 
 for (i in 1:ncurve) {
   pvals[i] <- W(curves[i, ], population_size = curve_parms$population[i],
                 breakpoint = curve_parms$breakpoint[i], deg_free = 3,
                 fn = my_spl_fit, verbose = FALSE)
-
+  
   if (i %% 100 == 0) {
     cat(i, "of", ncurve, "\n")
   }
@@ -28,14 +30,22 @@ for (i in 1:ncurve) {
 filename <- "data/pvals_sim_Wald.Rdata"
 save(pvals, file = filename)
 
-# Tabulate p-values
-X <- data.frame("Type I" =  mean(pvals[which(curve_parms$theta2 == curve_parms$theta1)]),
-                "Power at 3" = mean(pvals[which(abs(curve_parms$theta2 - curve_parms$theta1) == 3)]),
-                "Power at 9" = mean(pvals[which(abs(curve_parms$theta2 - curve_parms$theta1) == 9)]))
+# Tabulate Type I error rate and Power
+p_vals.3 <- pvals[which(curve_parms$theta2 - curve_parms$theta1 == 3)]
+pow.3 <- mean(p_vals.3 < 0.05)
+
+p_vals.9 <- pvals[which(curve_parms$theta2 - curve_parms$theta1 == 9)]
+pow.9 <- mean(p_vals.9 < 0.05)
+
+X <- data.frame("Type I Error Rate" =  round(mean(pvals[which(curve_parms$theta2 == curve_parms$theta1)]), 2),
+                "Power at 3" = pow.3,
+                "Power at 9" = pow.9)
 
 filename <- "figures/pvals_sim_Wald_table.pdf"
 
 pdf(filename, width = 6, height = 6)
+
+grid.table(X)
 
 dev.off()
 
@@ -57,7 +67,6 @@ plot(pvals ~ jitter(abs(dtheta), 1.5),
   xaxt = "n", yaxt = "n",
   ylim = c(0, 1),
   xlim = c(-0.5, 9.5))
-
 axis(1, seq(0, 9, 3))
 axis(2, seq(0, 1, 0.25))
 

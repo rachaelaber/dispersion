@@ -13,6 +13,7 @@ ncurve <- nrow(curves)
 
 # Loop through curves and calculate p values
 pvals <- rep(NA, ncurve)
+stats <- rep(NA, ncurve)
 
 for (i in 1:ncurve) {
   pvals[i] <- lrt(
@@ -25,6 +26,17 @@ for (i in 1:ncurve) {
     df1 = 3,
     df2 = 3
   )$p
+  
+  stats[i] <- lrt(
+    y1 = curves[i, ][1:30],
+    y2 = curves[i, ][31:60],
+    s1 = curve_parms$population[i],
+    s2 = curve_parms$population[i],
+    i1 = 1:30,
+    i2 = 31:60,
+    df1 = 3,
+    df2 = 3
+  )$lambda
 
   if (i %% 100 == 0) {
     cat(i, "of", ncurve, "\n")
@@ -35,14 +47,22 @@ for (i in 1:ncurve) {
 filename <- "data/pvals_sim_LRT.Rdata"
 save(pvals, file = filename)
 
-# Tabulate p-values
-X <- data.frame("Type I" =  mean(pvals[which(curve_parms$theta2 == curve_parms$theta1)]),
-                "Power at 3" = mean(pvals[which(abs(curve_parms$theta2 - curve_parms$theta1) == 3)]),
-                "Power at 9" = mean(pvals[which(abs(curve_parms$theta2 - curve_parms$theta1) == 9)]))
+# Tabulate Type I error rate and Power
+p_vals.3 <- pvals[which(curve_parms$theta2 - curve_parms$theta1 == 3)]
+pow.3 <- mean(p_vals.3 < 0.05)
+
+p_vals.9 <- pvals[which(curve_parms$theta2 - curve_parms$theta1 == 9)]
+pow.9 <- mean(p_vals.9 < 0.05)
+
+X <- data.frame("Type I Error Rate" =  round(mean(pvals[which(curve_parms$theta2 == curve_parms$theta1)]), 2),
+                "Power at 3" = pow.3,
+                "Power at 9" = pow.9)
 
 filename <- "figures/pvals_sim_LRT_table.pdf"
 
 pdf(filename, width = 6, height = 6)
+
+grid.table(X)
 
 dev.off()
 

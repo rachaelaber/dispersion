@@ -24,11 +24,11 @@ Conversely, implementing and evaluating targeted control strategies has typicall
 
 Metrics of population-level *variability* may be overlooked and useful ways to understand epidemic dynamics and control. By population-level variability, I mean - loosely - dispersion of data around the time-averaged trajectory. The ability to estimate changing rates of *dispersion* in epidemic time series would be a step towards a more complete view and predictive understanding of NPIs and gatherings at the individual as well as the population level. This is because individual-level heterogeneity in transmission scales up to affect population-level dynamics (Lloyd-Smith 2005), so variability in epidemic trajectories at the population level may provide information about individual-level variability in the transmission process. 
 
-From a modern theoretical ecology perspective, investigating beyond the first moment of a process has also been identified as important: ecological experiments are typically geared towards assessing the impacts of the mean strength of causal processes, however the variance about mean effects has been mostly ignored as a driver in biological assemblages, but may be as important as the mean (Benedetti-Cecchi 2003). Similarly, inference based on variability in epidemic time series' are emerging: for instance, Graham et al. (2019) use the mean and interannual coefficient of variation of measles incidence to construct a metric indicative of where a location may be on the path to elimination of the pathogen. Sun et al. (2021) found a combination of individual-based and population-based strategies was required for SARS-CoV-2 control, further highlighting the importance of considering population-level variability and its relationship to individual-level variability. Analyzing variability in epidemic dynamics in terms of bursts of incidence is also important for planning surge capacity (Wallinga 2018).
+From a modern theoretical ecology perspective, investigating beyond the first moment of a process has also been identified as important: ecological experiments are typically geared towards assessing the impacts of the mean strength of causal processes, however the variance about mean effects have been mostly ignored as a driver in biological assemblages, but may be as important as the mean (Benedetti-Cecchi 2003). Similarly, inference based on variability in epidemic time series' are emerging: for instance, Graham et al. (2019) use the mean and interannual coefficient of variation of measles incidence to construct a metric indicative of where a location may be on the path to elimination of the pathogen. Sun et al. (2021) found a combination of individual-based and population-based strategies was required for SARS-CoV-2 control, further highlighting the importance of considering population-level variability and its relationship to individual-level variability. Analyzing variability in epidemic dynamics in terms of bursts of incidence is also important for planning surge capacity (Wallinga 2018).
 
 ## Causes of overdispersed disease incidence
 
-*Overdispersed disease incidence* is suggestive of underlying biological processes of superspreading (overdispersed *individual reproductive number*), demographic/environmental stochasticity affecting cases, or changes in propagation of the pathogen at the population level (i.e., population effective reproduction number changing in time). Note that some kinds of time dependence in the rate can cause autocorrelation, as can contagion (if it occurs outside of set periods), and heterogeneity (if an omitted variable is correlated in time) (Barron 1992). Demographic structure (e.g., age structure) has the potential to affect temporal autocorrelation in transmission rate - in other words, the effects of age structure can be captured by a model that includes an infection rate that varies over time (Earn et al. 1998).
+*Overdispersed disease incidence* is suggestive of underlying biological processes of superspreading (overdispersed *individual reproductive number*), demographic/environmental stochasticity affecting cases, or changes in propagation of the pathogen at the population level (i.e., population effective reproduction number changing in time). Note that some kinds of time dependence in the rate can cause autocorrelation, as can contagion (if it occurs outside of set periods), and heterogeneity (if an omitted variable is correlated in time) (Barron 1992). Also, demographic structure (e.g., age structure) has the potential to affect temporal autocorrelation in transmission rate - in other words, the effects of age structure can be captured by a model that includes an infection rate that varies over time (Earn et al. 1998).
 
 Naively, the negative binomial distribution might accurately model a time series if there is a changing process mean: for example, if the mean of a Poisson distribution itself follows a gamma distribution, the resulting distribution is negative binomial (Cook 2009). Negative binomial regression (in contrast to Poisson regression) can account for unobserved heterogeneity, time dependence in the rate of a process and contagion that all lead to overdispersion (Barron 1992). However, issues arise when modeling the entire time series as negative binomial - namely, that autocorrelation remains unaccounted for (Barron 1992). 
 
@@ -36,14 +36,14 @@ Improved understanding of the causes of overdispersion in incidence may provide 
 
 Previously, efforts to quantify the processes underlying overdispersed incidence have included the study of underlying offspring distributions. Also, comparison of simulated and observed incidence time series has been used to estimate the role of environmental and demographic stochasticity in measles: across community sizes, demographic stochasticity of measles becomes more important in small human populations, where dynamics can’t be described as well simply by contact rate and birth rate (Grenfell et al. 2002). The final process potentially underlying overdispersed incidence, varying population effective reproduction number, has been studied extensively in investigations into seasonal forcing of population-level effective reproduction number.
 
-**Using county-level SARS-CoV-2 time series from New York state, we investigate dispersion in case count time series and its relationship to a hypothesized changepoint. Specifically, we estimate and compare dispersion on either side of a putative changepoint in variability (Thanksgiving 2020), in order to test the hypothesis that dispersion significantly increases **. 
-It was recently found that $k_t$, the time-varying transmission heterogeneity for COVID-19, decreased over time and was significantly associated with interventions to slow spread in Hong Kong (Adam et al. 2022). Since $k_t$ underlies incidence overdispersion, the method developed here will allow practitioners in epidemiology to explore whether local events result in a reduction in dispersion of cases, potentially modulated by changes in $k_t$. Key unanswered questions remain in developing methodology to recover incidence dispersion estimates and using these estimates to test the effect of gatherings and NPIs.  
+**Using county-level SARS-CoV-2 time series from New York state, we investigate dispersion in case count time series and its relationship to a hypothesized changepoint. Specifically, we estimate and compare dispersion on either side of a putative changepoint in variability (Thanksgiving 2020), in order to test the hypothesis that dispersion significantly changes **. 
+It was recently found that $k_t$, the time-varying transmission heterogeneity for COVID-19, decreased over time and was significantly associated with interventions to slow spread in Hong Kong (Adam et al. 2022). Since $k_t$ underlies incidence overdispersion, the method developed here will allow practitioners in epidemiology to explore whether local events result in a change in dispersion of cases, potentially modulated by changes in $k_t$. Key unanswered questions remain in developing methodology to recover incidence dispersion estimates and using these estimates to test the effect of gatherings and NPIs.  
 
 # Data
 
 For this project, we use county-level COVID-19 incidence data. Source: [USAFacts](https://usafacts.org/visualizations/coronavirus-covid-19-spread-map/). The data is weekly case counts for each US county.
 
-Approximately one month of data on either side of November 26th, 2020 was used in the analysis. This step was done to include a set number of "waves" of incidence in the model fit to each side of the hypothesized change. However, we acknowledge that there is a trade-off between including few waves and increasing the power of the proposed test by including more time series data. 
+Approximately one month of data on either side of November 26th, 2020 was used in the analysis. This step was done to include a set "wave" of incidence in the model fit to each side of the hypothesized change. However, we acknowledge that there is a trade-off between including fewer waves and increasing the power of the proposed test by including more time series data. 
 
 # Methods
 
@@ -71,7 +71,7 @@ $$log(E[Y_i]/n_i) = \beta_1h_1(t_i) + \beta_2h_2(t_i) + \beta_3h_3(t_i)$$
 
 ## IRLS 
 
-Iteratively reweighted least squares (IRLS) is used to obtain parameter estimates of the model. Briefly, IRLS works by computing an adjusted dependent variable, computing a weight matrix, and then calculating (using weighted least squares) coefficients estimates of the model used to calculate the linear predictor as well. This procedure is implemented via the irls.nb.1 and functions from the NBPSeq R package (https://CRAN.R-project.org/package=NBPSeq) and from Di et al. (2011). 
+Iteratively reweighted least squares (IRLS) is used to obtain parameter estimates of the model. Briefly, IRLS works by computing an adjusted dependent variable, computing a weight matrix, and then calculating (using weighted least squares) coefficients estimates of the model used to calculate the linear predictor as well. This procedure is implemented via the NBPSeq R package (https://CRAN.R-project.org/package=NBPSeq) and from Di et al. (2011). 
 
 ## Inclusion of an offset term in the model  
 
@@ -93,7 +93,7 @@ In the quasi-Poisson model (called the linear negative binomial specification by
 
 ![Empirical increase in dispersion](./figures/empirical_increase.pdf)
 
-We tested the hypothesis that the incidence dispersion parameter decreases at the Thanksgiving changepoint of interest: $\theta_1 > \theta_2$. Hypothesis tests were conducted to assess whether $\theta$ is smaller (more variable incidence) after Thanksgiving 2020. The Wald test is used, where the estimates of $\theta$ in different segments are considered independent. This approach is possible because we use IRLS estimates of $\theta$ - the standard error of $\theta$ is found utilizing the observed information matrix.
+We tested the hypothesis that the incidence dispersion parameter changes at the Thanksgiving changepoint of interest: $\theta_1 > \theta_2$. Hypothesis tests were conducted to assess whether $\theta$ is smaller (more variable incidence) after Thanksgiving 2020. The Wald test is used, where the estimates of $\theta$ in different segments are considered independent. This approach is possible because we use IRLS estimates of $\theta$ - the standard error of $\theta$ is found utilizing the observed information matrix.
 
 $$Cov(\hat{\theta_1},\hat{\theta_2}) = 0 $$
 The form of the Wald test statistic is:
@@ -104,10 +104,7 @@ $$ = \frac{\hat{\theta_1} -\hat{\theta_2}}{\sqrt{\widehat{Var(\hat{\theta_1})} +
 
 ## Thanksgiving 2020: Wald test 
 
-First, for every county, the model was fit separately to either side of November 26th, 2020 in order to compute values of $\hat{\theta_1}$ and $\hat{\theta_2}$. A test of the one-sided upper alternative that the difference between before and after is positive (lower theta after Thanksgiving) was performed.
-
-Note that in these visualizations to check the relationship between mean and dispersion, an NB2 fit would be:
-A Poisson fit would be:
+First, for every county, the model was fit separately to either side of November 26th, 2020 in order to compute values of $\hat{\theta_1}$ and $\hat{\theta_2}$. A test of the two-sided alternative that the theta before is different from the theta afte (different theta after Thanksgiving) was performed.
 
 # Simulation
 
@@ -124,7 +121,7 @@ $$ \mu_t = (n/10)/\sqrt{2\pi\sigma^2} e^{-(t-61)^2/(2\sigma^2)} $$
 So that integration will result in a final outbreak size of n/10.
 
 To ensure that the hypothesis test has adequate power, a simulation using unequal values of theta on either side of Thanksgiving was repeatedly run in order to ensure that the distribution of resulting p-values is heavily right-skewed. 
-The resulting probabilities of rejection are visualized below using one of the Gaussian epidemic curves to represent the process mean. As hoped, the proportion of tests that reject is around 0.05 for those instances where the null is true (probability of the normal variable having 0.05 of the probability density below is 0.05). Additionally, the proportion of tests that reject is high in instances where the alternative hypothesis is true. 
+The resulting probabilities of rejection are visualized below: the proportion of tests that reject is around 0.05 for those instances where the null is true (the probability of the normal variable having 0.05 of the probability density below is 0.05). Additionally, the proportion of tests that reject is high in instances where the alternative hypothesis is true. We also simulated data assuming that theta was a function of the mean of the process in order to assess the robustness of the test (see Supplement).
 
 ## Validity and power of the LRT 
 

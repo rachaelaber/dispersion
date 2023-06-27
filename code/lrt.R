@@ -29,10 +29,10 @@ lrt = function(y1, y2, s1, s2, i1, i2, df1, df2){
   l0 =  function(lkappa) {
     kappa = exp(lkappa);
     phi = 1/kappa;
-    res1 = irls.nb.1(y1, s1, x1, phi, mustart=mustart1);
-    res2 = irls.nb.1(y2, s2, x2, phi, mustart=mustart2);
-    sum(dnbinom(y1, size=kappa, mu=res1$mu, log=TRUE)) + 
-      sum(dnbinom(y2, size=kappa, mu=res2$mu, log=TRUE));
+    res1 = irls.nb.1(y1, s1, x1, phi, mustart = mustart1);
+    res2 = irls.nb.1(y2, s2, x2, phi, mustart = mustart2);
+    sum(dnbinom(y1, size = kappa, mu = res1$mu, log = TRUE)) + 
+      sum(dnbinom(y2, size = kappa, mu = res2$mu, log = TRUE));
   }
   
   obj0 = optimize(l0, c(log(1e-20), log(1e20)), maximum=TRUE);
@@ -67,10 +67,10 @@ lrt = function(y1, y2, s1, s2, i1, i2, df1, df2){
   kappa2 = exp(obj2$maximum);
   l12 = obj2$objective;
   phi12 = 1/kappa2;
-  res12 = irls.nb.1(y2, s2, x2, phi12, mustart=mustart2);
+  res12 = irls.nb.1(y2, s2, x2, phi12, mustart = mustart2);
   
   lambda = (l11 + l12 - l0) * 2;
-  p = pchisq(lambda, df=1, lower.tail=FALSE);
+  p = pchisq(lambda, df = 1, lower.tail = FALSE);
   
   list(p = p, lambda = lambda, l0 = l0, l11 = l11, l12= l12, 
        phi0 = phi0, phi11 = phi11, phi12 = phi12, 

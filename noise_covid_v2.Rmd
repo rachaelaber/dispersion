@@ -43,7 +43,7 @@ It was recently found that $k_t$, the time-varying transmission heterogeneity fo
 
 For this project, we use county-level COVID-19 incidence data. Source: [USAFacts](https://usafacts.org/visualizations/coronavirus-covid-19-spread-map/). The data is weekly case counts for each US county.
 
-Approximately one month of data on either side of November 26th, 2020 was used in the analysis. This step was done to include a set "wave" of incidence in the model fit to each side of the hypothesized change. However, we acknowledge that there is a trade-off between including fewer waves and increasing the power of the proposed test by including more time series data. 
+Approximately one month of data on either side of November 26th, 2020 was used in the analysis. This step was done to include a set "wave" of incidence in the model fit to each side of the hypothesized change. In both the full data and the subsetted data, rows that were all zeroes were omitted. However, we acknowledge that there is a trade-off between including fewer waves and increasing the power of the proposed test by including more time series data. 
 
 # Methods
 

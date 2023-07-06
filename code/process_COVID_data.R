@@ -39,7 +39,12 @@ dates <- names(dat)[5:ncol(dat)]
 dates <- gsub("X", "", dates)
 dates <- as.Date(dates, format = "%Y.%m.%d")
 
-# Save curves
+# Process full data
+new_cases[which(new_cases < 0)] <- 0
+new_cases <- new_cases[which(rowSums(new_cases) != 0),]
+populations <- populations[which(rowSums(new_cases) != 0),]
+
+# Save full data 
 filename <- "data/processed_long_dat.Rdata"
 save(new_cases, dates, file = filename)
 
@@ -52,11 +57,12 @@ end_date <- american_thanksgiving + 30
 
 dates_subset <- dates[dates >= start_date & dates <= end_date]
 new_cases_subset <- new_cases[, dates >= start_date & dates <= end_date]
-new_cases_subset[which(new_cases_subset < 0)] <- 0
 
+# Process subsetted data
+new_cases_subset[which(new_cases_subset < 0)] <- 0
 new_cases_subset <- new_cases_subset[which(rowSums(new_cases_subset) != 0),]
 populations <- populations[which(rowSums(new_cases_subset) != 0),]
 
-# Save curves
+# Save subsetted data
 filename <- "data/processed_dat.Rdata"
 save(populations, new_cases_subset, file = filename)

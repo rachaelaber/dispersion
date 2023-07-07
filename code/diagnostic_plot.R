@@ -1,4 +1,5 @@
 source("code/W.R")
+load("data/processed_dat.Rdata")
 
 diagnostic <- function(y = new_cases_subset[i, ], 
                        population = populations$population[i]){
@@ -38,8 +39,14 @@ diagnostic <- function(y = new_cases_subset[i, ],
   
 }
 
+filename <- "figures/diagnostic_plot.pdf"
+
+pdf(filename, width = 6, height = 6)
+
 par(mfrow = c(2,2))
 
 for (i in c(2, 40, 300, 777)){
   diagnostic()
 }
+
+dev.off()

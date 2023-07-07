@@ -1,4 +1,4 @@
-# Compute dispersion stat for each county
+# Compute dispersion stat (deviance divided by degrees of freedom) for each county
 
 disp_stats <- rep(NA, times = nrow(new_cases_subset))
 
@@ -12,7 +12,6 @@ for (i in 1:nrow(new_cases_subset)){
   
   pois.fit <- glm(y ~ ns(inds, df = 3, intercept = TRUE) + offset(log(pop)), 
                   family = poisson)
-  print(pois.fit)
-  #disp_stats[i] = pois.fit$deviance/(length(y) - 3)
+  disp_stats[i] = pois.fit$deviance/(length(y) - 3)
   
 }

@@ -24,6 +24,6 @@ get_mean_pw <- function(segments){
 spl_fit_pois <- function(Y, population, inds){ 
   y = Y[inds]
   pop_vec = rep(population, times=length(y))
-  fit = glm(y ~ gam(Y[inds] ~ s(inds))$fitted.values + offset(log(pop_vec)), family=poisson(link=log))
+  fit = glm(y ~ gam(Y[inds] ~ s(inds))$fitted.values + offset(log(pop_vec)), family = poisson(link = log))
   return(fit)
 }

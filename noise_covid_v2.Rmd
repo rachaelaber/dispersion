@@ -132,7 +132,10 @@ There appears to be slight Type I error inflation in both tests.
 
 In some time windows, the Likelihood-Ratio statistic can't be computed due to zero variance: the variance of mu is a function of mu and dispersion, both of which are zero in a stretch of zeroes. 
 
+![The LRT surface](./figures/map_diff_theta_US.pdf)
+
 \newpage 
+
 
 ## References 
 

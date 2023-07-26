@@ -34,5 +34,5 @@ dat <- data.frame(fips = fips, dtheta_clamped = dtheta_clamped)
 
 reg_df <- merge(unemp, dat, by = "fips")
 
-# Regression
+# Spatial regression
 

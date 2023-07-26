@@ -17,7 +17,9 @@ z <- t(lrt_stats)
 x <- seq_len(nrow(z))
 y <- seq_len(ncol(z))
 
+filename <- "figures/lrt_surface_figure.pdf"
 
+pdf(filename, width = 8, height = 8)
 
 # Plot
 par(pin = c(7, 5))
@@ -30,3 +32,5 @@ image(x, y, z,
 
 par(las = 2)
 axis(1, x, dates, tick = FALSE)
+
+dev.off()

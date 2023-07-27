@@ -76,12 +76,12 @@ p2 <- ggplot(choropleth2, aes(long, lat, group = group)) +
 
 
 # Save map 
-library(gridExtra)
-
-filename <- "./figures/map_difftheta_US.pdf"
-
-pdf(filename, width = 6, height = 6)
-
-p2
-
-dev.off()
+# library(gridExtra)
+# 
+# filename <- "./figures/map_difftheta_US.pdf"
+# 
+# pdf(filename, width = 6, height = 6)
+# 
+# p2
+# 
+# dev.off()

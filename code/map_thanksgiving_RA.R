@@ -9,7 +9,7 @@ load("data/processed_dat.Rdata")
 
 county.map = map("county", fill = TRUE, plot = FALSE)
 county.map = sf::st_as_sf(county.map) # Convert from map object to sf
-plot (st_geometry(county.map)) # Only plot the polygons
+plot(st_geometry(county.map)) # Only plot the polygons
 
 # Prepare the dataframe to be merged w/polygon data
 dat <- cbind(populations, theta1, theta2, pvals)
@@ -39,8 +39,8 @@ dev.off()
 
 # Spatial (Poisson) regression for dtheta_clamped
 dat_clor = st_transform(dat.clor, crs = "ESRI:102004")
-nb = poly2nb (dat_clor)
-nb = nblag (nb, 2) #Create 2nd order and this makes nb into a list
+nb = poly2nb(dat_clor)
+nb = nblag(nb, 2) #Create 2nd order and this makes nb into a list
 
 #2nd-order has about twice as many links
 nb[[1]]

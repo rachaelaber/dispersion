@@ -12,7 +12,7 @@ my_spl_fit <- function(Y, population, inds, df) {
 }
 
 
-W <- function(y, population_size, breakpoint, deg_free = 3, fn = my_spl_fit, verbose = FALSE, return_thetas = FALSE) {
+W <- function(y, population_size, breakpoint, deg_free = 3, fn = my_spl_fit, verbose = FALSE, return_theta_diff = FALSE) {
 
     pop <- population_size
     df <- deg_free
@@ -38,8 +38,8 @@ W <- function(y, population_size, breakpoint, deg_free = 3, fn = my_spl_fit, ver
     theta2 <- spline_mod.2$theta
     p <- 2 * (1 - pnorm(abs(test_stat)))
 
-    if (return_thetas) {
-        return(list(p = p, theta1 = theta1, theta2 = theta2))
+    if (return_theta_diff) {
+        return(theta1 - theta2)
     } else {
         return(p)
     }

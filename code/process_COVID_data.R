@@ -46,7 +46,7 @@ populations <- populations[which(rowSums(new_cases) != 0),]
 
 # Save full data 
 filename <- "data/processed_long_dat.Rdata"
-save(new_cases, dates, file = filename)
+save(new_cases, populations, dates, file = filename)
 
 # Subset to 60 days centered on Thanksgiving
 canadian_thanksgiving <- as.Date("2020-10-12")
@@ -61,8 +61,8 @@ new_cases_subset <- new_cases[, dates >= start_date & dates <= end_date]
 # Process subsetted data
 new_cases_subset[which(new_cases_subset < 0)] <- 0
 new_cases_subset <- new_cases_subset[which(rowSums(new_cases_subset) != 0),]
-populations <- populations[which(rowSums(new_cases_subset) != 0),]
+populations_subset <- populations[which(rowSums(new_cases_subset) != 0),]
 
 # Save subsetted data
 filename <- "data/processed_dat.Rdata"
-save(populations, new_cases_subset, file = filename)
+save(populations_subset, new_cases_subset, file = filename)

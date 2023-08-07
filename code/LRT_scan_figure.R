@@ -12,13 +12,15 @@ load("data/processed_long_dat.Rdata")
 
 new_cases_lg <- cbind(new_cases, populations)
 
-new_cases_lg <- new_cases_lg %>% group_by(State) %>% slice_max(n = 1, population) 
+new_cases_lg <- new_cases_lg %>% group_by(State) %>% slice_max(n = 1, population)
 
-# No longer need metadata columns
+# No longer need metadata columns in same dataframe
 
+populations_lg <- subset(new_cases_lg, select = c(countyFIPS, County.Name, State, population))
+  
 new_cases_lg <- subset(new_cases_lg, select = -c(countyFIPS, County.Name, State, population))
 
-new_cases_lg <- as.data.frame(new_cases_lg)
+new_cases_lg <- as.matrix(new_cases_lg)
 
 # Set up empty matrices 
 
@@ -37,7 +39,10 @@ for (j in 1:51){
   thetadiff <- c()
   
   for (i in 30:(length(series) - 30 + 1)){
-    lrt_stat = c(lrt_stat, tryCatch(lrt(y1 = series[(i - 29):i], y2 = series[(i + 1):(i + 30)], 
+    
+    Y = series[(i - 29):(i + 30)]
+    
+    lrt_stat = c(lrt_stat, tryCatch(lrt(y1 = Y[1:(length(Y)/2)], y2 = Y[((length(Y)/2) + 1):length(Y)], 
                                         s1 = populations_lg$population[j], 
                                         s2 = populations_lg$population[j],
                                         i1 = (i - 29):i,
@@ -45,7 +50,7 @@ for (j in 1:51){
                                         df1 = 3, 
                                         df2 = 3)$lambda, error = function(e) return(NA)))
     
-    thetadiff = c(thetadiff, tryCatch(W(y = series[(i - 29):(i + 30)], 
+    thetadiff = c(thetadiff, tryCatch(W(y = Y, 
                   population_size = populations_lg$population[j], 
                   breakpoint = i, deg_free = 3, 
                   fn = my_spl_fit, verbose = FALSE, return_theta_diff = TRUE),
@@ -56,6 +61,7 @@ for (j in 1:51){
   }
   
   lrt_stats[j,] <- lrt_stat
+  
   thetadiffs[j,] <- thetadiff
   
 }

@@ -1,0 +1,15 @@
+---
+title: "Changepoint Approach"
+output: pdf_document
+---
+
+## Detecting variability changes in count data: the problem of population size
+
+One might expect that in segments where the mean parameter is approximately the same, inference based on the Poisson distribution might be effective in detecting overdispersed incidence. There are several approaches to testing the Poisson assumption for count data, including testing variance-to-mean relationship, testing the probability-generating function (PGF) against an alternative, and standard goodness-of-fit tests (Karlis and Xekalaki 2000). However, an important consideration should be addressed for modeling time series of counts: the Poisson model has a spread of values that is comparatively more narrow for a process with larger mean (the mean/standard deviation ratio of a Poisson process is larger for larger total counts). For example, consider the mean to standard deviation ratios of the Poisson processes tabulated below: $\mu = \sigma^2 = 5$ and another with $\mu = \sigma^2 = 10$. For the process with a smaller mean, the mean to standard deviation ratio is smaller, whereas for the process with a larger mean, the mean to standard deviation ratio is larger. This presents an issue for using tests of Poisson variance to detect overdispersion or changes in dispersion in count time series, such as (importantly for epidemiology) incidence time series from populations of different sizes. 
+
+To illustrate this issue, we identified segments with approximately steady mean by mean changepoint detection (performed using an information criterion, MBIC). The cpt.mean function in the changepoint package (Killick and Eckley 2014) assumes that the variance of the process is equal to one, so each New York county time series was scaled beforehand. Once these segments were identified, we used a goodness-of-fit test assuming that the Poisson mean parameter of each segment, $\lambda_i$ is unknown. This is called the variance test, and it has an optimal power property against the negative binomial alternative. The rejection region is demarcated by large values of the test statistic (Potthoff and Whittinghill 1966), and values of the test statistic increase with population size.
+
+Methods designed specifically for count data show a similar dependence on population size. The cpt.meanvar function (changepoint package) is designed to detect changes in mean and variance in count data. The number of changepoints identified for a time series increases with its population size.
+
+![Changepoint figures](./figures/changepoint_figures.pdf)
+

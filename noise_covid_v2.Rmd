@@ -90,7 +90,7 @@ We tested the hypothesis that the incidence dispersion parameter changes at the 
 ![Empirical change in dispersion](./figures/empirical_increase.pdf)
 
 
-$$Cov(\hat{\theta_1},\hat{\theta_2}) = 0 $$
+$$Cov(\hat{\theta_1}, \hat{\theta_2}) = 0 $$
 The form of the Wald test statistic is:
 
 $$\frac{\hat{\theta_1} -\hat{\theta_2}}{SE(\hat{\theta_1} -\hat{\theta_2})}$$
@@ -99,15 +99,16 @@ $$ = \frac{\hat{\theta_1} -\hat{\theta_2}}{\sqrt{\widehat{Var(\hat{\theta_1})} +
 
 ## Thanksgiving 2020: Wald test 
 
-First, for every county, the model was fit separately to either side of November 26th, 2020 in order to compute values of $\hat{\theta_1}$ and $\hat{\theta_2}$. A test of the two-sided alternative that theta before is different from theta after (different theta after Thanksgiving) was performed.
+For every county, the model was fit separately to either side of November 26th, 2020 in order to compute values of $\hat{\theta_1}$ and $\hat{\theta_2}$. A test of the two-sided alternative that $\theta$ before is different from theta after (different theta after Thanksgiving) was performed.
 
 # Simulation
 
 ## Validity and power of the Wald test
 
-To ensure that the hypothesis testing framework is valid, a simulation with known (equal) values of theta on either side of Thanksgiving 2020 was run in order to ensure that the distribution of resulting p-values from the test of the two-sided alternative is approximately uniform on the interval from zero to one. In both the validity and power simulations, representative epidemic curves are used. The area under these curves (final outbreak size) is set to be the population size divided by ten. 
+To ensure that the hypothesis testing framework is valid, a simulation with known (equal) values of theta on either side of Thanksgiving 2020 was run in order to ensure that the distribution of resulting p-values from the test of the two-sided alternative is approximately uniform on the interval from zero to one. In both the validity and power simulations, Gaussian and uniform epidemic curves (see figure above which demonstrates correct behavior of the test in either case) are used. The area under these curves (final outbreak size) is set to be the population size divided by ten. 
 
-To implement these constraints on the integral:
+To implement these constraints on the integral in the Gaussian case:
+
 we use a normalizing constant of (n/10) * sqrt(2*pi* $\sigma^2$)
 
 $$ \int_0^\infty {(n/10)/\sqrt{2\pi(\sigma^2))} e^{-(t-61)^2/(2\sigma^2)}}dt = n/10$$
@@ -118,20 +119,28 @@ So that integration will result in a final outbreak size of n/10.
 To ensure that the hypothesis test has adequate power, a simulation using unequal values of theta on either side of Thanksgiving was repeatedly run in order to ensure that the distribution of resulting p-values is heavily right-skewed. 
 The resulting probabilities of rejection are visualized below: the proportion of tests that reject is around 0.05 for those instances where the null is true (the probability of the normal variable having 0.05 of the probability density below is 0.05). Additionally, the proportion of tests that reject is high in instances where the alternative hypothesis is true. We also simulated data assuming that theta was a function of the mean of the process in order to assess the robustness of the test (see Supplement).
 
+![Type I Error Rate and Power - Wald Test](figures/pvals_sim_Wald_table.pdf)
+
+![Wald Test p-values v. Theta Difference](figures/pvals_sim_Wald.pdf)
+
+
 ## Validity and power of the LRT 
 
-![Simulated p-values for the Wald test](./figures/pvals_sim_Wald.pdf)
-![Simulated p-values for the Likelihood-Ratio test](./figures/pvals_sim_LRT.pdf)
+![Type I Error Rate and Power - LRT Test](figures/pvals_sim_LRT_table.pdf)
 
-There appears to be slight Type I error inflation in both tests. 
+![LRT  p-values v. Theta Difference](figures/pvals_sim_LRT.pdf)
 
-![Mapping the Thanksgiving hypothesis across the US](./figures/map_Wald_US.pdf)
+## Biogeography of Superspreading Dynamics
 
-![Scanning for breakpoints using the LRT statistic](./figures/map_diff_theta_US.pdf)
+![Mapping the Thanksgiving hypothesis across the US](./figures/map_difftheta_US.pdf)
+
+![LRT Scan Figure](./figures/LRT_scan_figure.pdf)
+
+![The LRT surface](./figures/lrt_surface_figure.pdf)
+
+![The Theta Difference Surface](./figures/thetadiff_surface.pdf)
 
 In some time windows, the Likelihood-Ratio statistic can't be computed due to zero variance: the variance of mu is a function of mu and dispersion, both of which are zero in a stretch of zeroes. 
-
-![The LRT surface](./figures/map_diff_theta_US.pdf)
 
 \newpage 
 

@@ -43,7 +43,7 @@ rm(theta1, theta2, breakpoint, population, curve_type)
 
 # Generate epidemic curves
 ncurve <- nrow(curve_parms)
-curves <- matrix(NA, nrow = ncurve, ncol = nstep)
+curves_b <- matrix(NA, nrow = ncurve, ncol = nstep)
 for (i in 1:ncurve) {
 
     breakpoint <- curve_parms$breakpoint[i]
@@ -64,10 +64,10 @@ for (i in 1:ncurve) {
     c1 <- rnbinom(n = length(means1), mu = means1, size = k1 * means1)
     c2 <- rnbinom(n = length(means2), mu = means2, size = k2 * means2)
 
-    curves[i, ] <- c(c1, c2)
+    curves_b[i, ] <- c(c1, c2)
 
 }
 
 # Save curves
-filename <- "data/simulated_curves.Rdata"
-save(curves, curve_parms, file = filename)
+filename <- "data/simulated_curves_b.Rdata"
+save(curves_b, curve_parms, file = filename)

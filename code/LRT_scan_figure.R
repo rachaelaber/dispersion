@@ -76,94 +76,94 @@ filename <- "data/thetadiff_lg_pops.Rdata"
 
 save(thetadiffs, file = filename)
 
-# # Produce figure for one county - use first (of large populations) full time series 
-# 
-# this_series <- new_cases_lg[1, ]
-# 
-# dates <- dates[30:(length(this_series) - 30 + 1)]
-# 
-# filename <- "figures/LRT_scan_figure.pdf"
-# 
-# pdf(filename, width = 6, height = 6)
-# 
-# plot(lrt_stats[1, ] ~ dates, type = "l", xlab = "Date", ylab = "LRT Statistic")
-# 
-# plot(this_series[30:(length(this_series) - 30 + 1)] ~ dates, col = "red", type = "l")
-# 
-# abline(h = quantile(lrt_stats[1, ], probs = 0.95, na.rm =TRUE), col = "black")
-# 
-# abline(h = qchisq(0.95, 1), col = "blue")
-# 
-# dev.off()
-# 
-# # Create surfaces 
-# 
-# # Plot likelihood ratios as a surface over counties and time
-# 
-# rm(list = ls())
-# 
-# graphics.off()
-# 
-# library(viridis)
-# 
-# 
-# # Load data
-# 
-# load("data/lrt_lg_pops.Rdata")
-# 
-# load("data/processed_long_dat.Rdata")   # for dates
-# 
-# # Data setup
-# dates <- dates[30:(length(dates) - 30 + 1)]
-# z <- t(lrt_stats)
-# x <- seq_len(nrow(z))
-# y <- seq_len(ncol(z))
-# 
-# filename <- "figures/lrt_surface_figure.pdf"
-# 
-# pdf(filename, width = 8, height = 8)
-# 
-# # Plot
-# par(pin = c(7, 5))
-# image(x, y, z,
-#       xaxt = "n",
-#       yaxt = "n",
-#       xlab = "",
-#       ylab = "Locations",
-#       col = rev(mako(32)))
-# 
-# par(las = 2)
-# axis(1, x, dates, tick = FALSE)
-# 
-# dev.off()
-# 
-# # Dates of bands: 
-# # Just after 2021-03-01; just after 2021-05-15; 2021-04-05
-# # 2021-01-10 seen across many of the counties
-# 
-# # Color by direction of theta change by making same matrix w/
-# # theta change
-# 
-# load("data/thetadiff_lg_pops.Rdata")
-# 
-# z <- t(thetadiffs)
-# x <- seq_len(nrow(z))
-# y <- seq_len(ncol(z))
-# 
-# filename <- "figures/thetadiff_surface_figure.pdf"
-# 
-# pdf(filename, width = 8, height = 8)
-# 
-# # Plot
-# par(pin = c(7, 5))
-# image(x, y, z,
-#       xaxt = "n",
-#       yaxt = "n",
-#       xlab = "",
-#       ylab = "Locations",
-#       col = rev(mako(32)))
-# 
-# par(las = 2)
-# axis(1, x, dates, tick = FALSE)
-# 
-# dev.off()
+# Produce figure for one county - use first (of large populations) full time series
+
+this_series <- new_cases_lg[1, ]
+
+dates <- dates[30:(length(this_series) - 30 + 1)]
+
+filename <- "figures/LRT_scan_figure.pdf"
+
+pdf(filename, width = 6, height = 6)
+
+plot(lrt_stats[1, ] ~ dates, type = "l", xlab = "Date", ylab = "LRT Statistic")
+
+plot(this_series[30:(length(this_series) - 30 + 1)] ~ dates, col = "red", type = "l")
+
+abline(h = quantile(lrt_stats[1, ], probs = 0.95, na.rm =TRUE), col = "black")
+
+abline(h = qchisq(0.95, 1), col = "blue")
+
+dev.off()
+
+# Create surfaces
+
+# Plot likelihood ratios as a surface over counties and time
+
+rm(list = ls())
+
+graphics.off()
+
+library(viridis)
+
+
+# Load data
+
+load("data/lrt_lg_pops.Rdata")
+
+load("data/processed_long_dat.Rdata")   # for dates
+
+# Data setup
+dates <- dates[30:(length(dates) - 30 + 1)]
+z <- t(lrt_stats)
+x <- seq_len(nrow(z))
+y <- seq_len(ncol(z))
+
+filename <- "figures/lrt_surface_figure.pdf"
+
+pdf(filename, width = 8, height = 8)
+
+# Plot
+par(pin = c(7, 5))
+image(x, y, z,
+      xaxt = "n",
+      yaxt = "n",
+      xlab = "",
+      ylab = "Locations",
+      col = rev(mako(32)))
+
+par(las = 2)
+axis(1, x, dates, tick = FALSE)
+
+dev.off()
+
+# Dates of bands:
+# Just after 2021-03-01; just after 2021-05-15; 2021-04-05
+# 2021-01-10 seen across many of the counties
+
+# Color by direction of theta change by making same matrix w/
+# theta change
+
+load("data/thetadiff_lg_pops.Rdata")
+
+z <- t(thetadiffs)
+x <- seq_len(nrow(z))
+y <- seq_len(ncol(z))
+
+filename <- "figures/thetadiff_surface.pdf"
+
+pdf(filename, width = 8, height = 8)
+
+# Plot
+par(pin = c(7, 5))
+image(x, y, z,
+      xaxt = "n",
+      yaxt = "n",
+      xlab = "",
+      ylab = "Locations",
+      col = rev(mako(32)))
+
+par(las = 2)
+axis(1, x, dates, tick = FALSE)
+
+dev.off()

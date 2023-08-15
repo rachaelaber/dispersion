@@ -51,6 +51,9 @@ We propose a generalized linear model (GLM) approach to quantify incidence dispe
 
 A recently proposed negative binomial regression model for time series of counts also accommodates serial dependence (Davis and Wu 2009). The approach presented here is similar, but we use a linear predictor, $\eta$, that includes a natural spline in time to account for autocorrelation in case counts. Natural splines are cubic splines which are linear outside of the boundary knots (Perperoglou et al. 2019). The degrees of freedom for the spline were chosen to be three, as there appeared to be no more than one knot in a time series of 30 days. In addition, increasing degrees of freedom above three results in overfitting to the time series and thus potentially insignificant changes in dispersion are more readily detected.
 
+![Fitted Curves With Three Spline Degrees of Freedom](figures/FL_signif_fittedcurves.pdf)
+
+
   $$g(E[Y_i]/n_i) = \beta_1h_1(t_i) + \beta_2h_2(t_i) + \beta_3h_3(t_i)$$ $$log(E[Y_i]/n_i) = \sum_m^M\beta_m h_m(t_i)$$
   ,where $n_i$ is the population size, $Y_i$ is incidence, and $t_i$ is the time point.
 
@@ -80,8 +83,12 @@ Directly comparing between the quasi-Poisson and the Poisson models via deviance
 
 We use a diagnostic plot approach in which we rely on the expected value of the residuals to infer "p" using the slope of a regression of log(Y) on log(X), where X is r^2 - Y. The expectation of X is phi * mu^p, so
  log(E(X)) ~ log(phi) + p log(E(Y))
+ 
+We use a second diagnostic plot, squared residuals versus squared fitted values to look for a linear trend in the Florida counties with a significant LRT test result for the Thanksgiving hypothesis. If the constant dispersion model (NB2) model is ok, then we should see a linear trend. If that checks out, then we don’t have to consider more complicated models.
 
 ![Diagnostic Plot](figures/diagnostic_plot.pdf)
+
+![Diagnostic Plot 2](figures/diagnostic_plot.2.pdf)
 
 ## Proposed hypothesis test
 

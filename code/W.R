@@ -34,9 +34,9 @@ W <- function(y, population_size, breakpoint, deg_free = 3, fn = my_spl_fit, ver
         ))
     }
 
-    theta1 <- spline_mod.1$theta
-    theta2 <- spline_mod.2$theta
-    p <- 2 * (1 - pnorm(abs(test_stat)))
+    theta1 = spline_mod.1$theta
+    theta2 = spline_mod.2$theta
+    p = 2 * (1 - pnorm(abs(test_stat)))
 
     if (return_theta_diff) {
         return(theta1 - theta2)

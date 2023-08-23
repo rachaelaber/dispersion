@@ -168,7 +168,7 @@ image(x, y, z,
       yaxt = "n",
       xlab = "",
       ylab = "Locations",
-      col = rev(mako(32)))
+      col = c("blue", "green", "purple", "pink", "red"))
 
 par(las = 2)
 axis(1, x, dates, tick = FALSE)

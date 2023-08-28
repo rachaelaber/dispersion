@@ -26,7 +26,7 @@ colnames(state_fits) <- c("kappa", "beta", "mu", "l", "j", "theta", "SE.theta")
 
 filename <- "figures/diagnostic_plot.2.pdf"
 
-pdf(file = filename, width = 6, height = 6)
+pdf(file = filename, width = 3, height = 3)
 
 par(mfrow = c(2, 3))
 

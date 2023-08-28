@@ -41,7 +41,7 @@ diagnostic <- function(y = new_cases_subset[i, ],
 
 filename <- "figures/diagnostic_plot.pdf"
 
-pdf(filename, width = 6, height = 6)
+pdf(filename, width = 3, height = 3)
 
 par(mfrow = c(2,2))
 

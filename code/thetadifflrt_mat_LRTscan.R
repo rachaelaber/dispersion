@@ -34,6 +34,7 @@ lrt_stats <- matrix(NA, nrow = 51, ncol = 1124)
 
 thetadiffs <- matrix(NA, nrow = 51, ncol = 1124)
 
+thetas <- matrix(NA, nrow = 51, ncol = 1124)
 
 for (j in 1:nstate){
   
@@ -42,6 +43,8 @@ for (j in 1:nstate){
   lrt_stat <- c()
   
   thetadiff <- c()
+  
+  theta <- c()
   
   for (i in 30:(length(series) - 30 + 1)){
     
@@ -57,23 +60,36 @@ for (j in 1:nstate){
     
     lrt_stat = c(lrt_stat, test)
     
-    test.1 = tryCatch(W(y = Y, population_size = populations_lg$population[j], 
-                        breakpoint = 30, deg_free = 3, 
-                        fn = my_spl_fit, verbose = FALSE, return_theta_diff = TRUE),
-                      error = function(e) return(NA))
-    
+    test.1 = tryCatch(W(y = Y, population_size = populations_lg$population[j],
+                         breakpoint = 30, deg_free = 3,
+                         fn = my_spl_fit, verbose = FALSE, return_theta_diff = TRUE),
+                       error = function(e) return(NA))
+
     thetadiff = c(thetadiff, test.1)
     
+    test.2 = tryCatch(W(y = Y, population_size = populations_lg$population[j],
+                        breakpoint = 30, deg_free = 3,
+                        fn = my_spl_fit, verbose = FALSE, return_theta = TRUE),
+                      error = function(e) return(NA))
+    
+
+    theta = c(theta, test.2)
+    
   }
-  
+
   lrt_stats[j,] <- lrt_stat
-  
+
   thetadiffs[j,] <- thetadiff
+  
+  thetas[j,] <- theta
   
 }
 
-# Save LRT statistic array; save thetadiff array
+# Save LRT statistic array; save thetadiff array; save theta array
 
+# Note that the matrix of thetas does not include the first theta 
+# for each county (the one used in first thetadiff for each county)
+# 
 filename <- "data/lrt_lg_pops.Rdata"
 
 save(lrt_stats, file = filename)
@@ -82,11 +98,15 @@ filename <- "data/thetadiff_lg_pops.Rdata"
 
 save(thetadiffs, file = filename)
 
+filename <- "data/theta_lg_pops.Rdata"
+
+save(thetas, file = filename)
+
 # Load data
 
 load("data/lrt_lg_pops.Rdata")
 
-load("data/processed_long_dat.Rdata")  
+load("data/processed_long_dat.Rdata")
 
 # Plot
 

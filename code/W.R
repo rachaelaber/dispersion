@@ -12,7 +12,8 @@ my_spl_fit <- function(Y, population, inds, df) {
 }
 
 
-W <- function(y, population_size, breakpoint, deg_free = 3, fn = my_spl_fit, verbose = FALSE, return_theta_diff = FALSE) {
+W <- function(y, population_size, breakpoint, deg_free = 3, fn = my_spl_fit, verbose = FALSE, 
+              return_theta_diff = FALSE, return_theta = FALSE) {
 
     pop <- population_size
     df <- deg_free
@@ -40,7 +41,11 @@ W <- function(y, population_size, breakpoint, deg_free = 3, fn = my_spl_fit, ver
 
     if (return_theta_diff) {
         return(theta1 - theta2)
-    } else {
+    } 
+    if (return_theta) {
+      return(theta2)
+    }
+    else {
         return(p)
     }
 }

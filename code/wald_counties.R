@@ -6,34 +6,36 @@ load(filename)
 rm(filename)
 
 # Loop through counties and calculate p values
-pvals <- rep(NA, nrow(populations))
-theta1 <- rep(NA, nrow(populations))
-theta2 <- rep(NA, nrow(populations))
-fips <- rep(NA, nrow(populations))
+pvals <- rep(NA, nrow(populations_subset))
+theta1 <- rep(NA, nrow(populations_subset))
+theta2 <- rep(NA, nrow(populations_subset))
+fips <- rep(NA, nrow(populations_subset))
 
-for (i in seq_len(nrow(populations))) {
-  out <- tryCatch(
-    W(new_cases_subset[i, ],
-      population_size = populations$population[i],
-      breakpoint = 30,
-      deg_free = 3,
-      fn = my_spl_fit,
-      verbose = FALSE,
-      return_thetas = TRUE
-    ),
-    error = function(e) {
-      return(NA)
-    }
-  )
+for (i in seq_len(nrow(populations_subset))) {
 
-  if (is.list(out)) {
-    pvals[i] <- out$p
-    theta1[i] <- out$theta1
-    theta2[i] <- out$theta2
-    fips[i] <- populations$countyFIPS[i]
-  }
+    pvals[i] <- tryCatch(W(new_cases_subset[i, ],
+                  population_size = populations_subset$population[i],
+                  breakpoint = 30,
+                  deg_free = 3,
+                  fn = my_spl_fit), 
+                  error = function(e) return(NA))
+    theta1[i] <- tryCatch(W(new_cases_subset[i, ],
+                   population_size = populations_subset$population[i],
+                   breakpoint = 30,
+                   deg_free = 3,
+                   fn = my_spl_fit,
+                   return_thetas = TRUE)[[1]][1], 
+                   error = function(e) return(NA))
+    theta2[i] <- tryCatch(W(new_cases_subset[i, ],
+                   population_size = populations_subset$population[i],
+                   breakpoint = 30,
+                   deg_free = 3,
+                   fn = my_spl_fit, return_thetas = TRUE)[[1]][2], 
+                    error = function(e) return(NA))
+   
+     fips[i] <- populations_subset$countyFIPS[i]
 
-  cat("County", i, "of", nrow(populations), "p-value:", pvals[i], "\n")
+  cat("County", i, "of", nrow(populations_subset), "p-value:", pvals[i], "\n")
 }
 
 # Save p-values

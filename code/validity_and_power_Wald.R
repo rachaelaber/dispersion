@@ -55,6 +55,7 @@ grid.table(X)
 dev.off()
 
 # Visualize p-values
+
 dtheta <- curve_parms$theta2 - curve_parms$theta1
 
 filename <- "figures/pvals_sim_Wald.pdf"

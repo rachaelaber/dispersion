@@ -13,19 +13,21 @@ my_spl_fit <- function(Y, population, inds, df) {
 
 
 W <- function(y, population_size, breakpoint, deg_free = 3, fn = my_spl_fit, verbose = FALSE, 
-              return_theta_diff = FALSE, return_theta = FALSE) {
+              return_theta_diff = FALSE, return_theta = FALSE, return_thetas = FALSE) {
 
-    pop <- population_size
-    df <- deg_free
-    inds1 <- 1:breakpoint
-    inds2 <- (breakpoint + 1):length(y)
+    pop = population_size
+    df = deg_free
+    inds1 = 1:breakpoint
+    inds2 = (breakpoint + 1):length(y)
+    indsall = 1:length(y)
 
-    spline_mod.1 <- fn(Y = y, population = pop, inds = inds1, df = df)
-    spline_mod.2 <- fn(Y = y, population = pop, inds = inds2, df = df)
+    spline_mod.1 = fn(Y = y, population = pop, inds = inds1, df = df)
+    spline_mod.2 = fn(Y = y, population = pop, inds = inds2, df = df)
+    spline_mod.all = fn(Y = y, population = pop, inds = indsall, df = df)
 
-    test_stat <- ((spline_mod.1$theta - spline_mod.2$theta) -
-        0) / sqrt((spline_mod.1$SE.theta^2 +
-        spline_mod.2$SE.theta^2))
+    test_stat = ((log10(spline_mod.1$theta) - log10(spline_mod.2$theta)) -
+        0)/sqrt(spline_mod.1$SE.theta^2/spline_mod.1$theta^2 +
+        spline_mod.2$SE.theta^2/spline_mod.2$theta^2)
 
     if (verbose == TRUE) {
         return(sprintf(
@@ -42,9 +44,15 @@ W <- function(y, population_size, breakpoint, deg_free = 3, fn = my_spl_fit, ver
     if (return_theta_diff) {
         return(theta1 - theta2)
     } 
+    
     if (return_theta) {
-      return(theta2)
+      return(spline_mod.all$theta)
     }
+    
+    if (return_thetas){
+      return(list(c(theta1, theta2)))
+    }
+    
     else {
         return(p)
     }

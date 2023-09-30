@@ -1,0 +1,39 @@
+---
+title: Supplementary Information 
+author: "Rachael Aber, Yanming Di, Ben Dalziel"
+header-includes: \usepackage{setspace}\doublespacing
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+geometry: margin = 2.54cm
+fontsize: 12pt
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, 
+                      fig.align = "center", fig.width = 5,
+                      fig.height = 5)
+```
+
+# Wald Test
+
+In the Wald test framework, the estimates of $\theta$ in different segments were considered independent. This approach is possible because we used IRLS estimates of $\theta$ - the standard error of $\theta$ was found utilizing the observed information matrix.
+
+$$Cov(\hat{\theta_1}, \hat{\theta_2}) = 0 $$
+The form of the Wald test statistic is:
+
+$$\frac{\hat{\theta_1} -\hat{\theta_2}}{SE(\hat{\theta_1} -\hat{\theta_2})}$$
+$$ = \frac{\hat{\theta_1} -\hat{\theta_2}}{\sqrt{\widehat{Var(\hat{\theta_1})} + \widehat{Var(\hat{\theta_2})}}}$$
+
+However, the dispersion parameter is biologically relevant on a log scale (i.e., the change in dispersion from a $\theta$ change of 0.3 to 3 is equivalent to the change from 3 to 30), a more appropriate hypothesis test statistic (using the Delta Method) is:
+
+$$ = \frac{g(\hat{\theta_1},\hat{\theta_2}) - g(\theta_1, \theta_2)}{\sqrt{(\nabla(g(\theta_1,\theta_2))^T[\widehat{Var(\hat{\theta_1}, \hat{\theta_2}}]\nabla(g(\theta_1,\theta_2))}}$$
+
+= $$\frac{(log(\hat{\theta_1)}-log(\hat{\theta_2})) - 0}{\sqrt{\widehat{Var(\hat\theta_1)}/\theta_1^2 + \widehat{Var(\hat\theta_2)}/\theta_2^2}}$$
+
+![Type I Error Rate and Power - Wald Test](figures/pvals_sim_Wald_table.pdf)
+
+![Wald Test p-values v. Theta Difference](figures/pvals_sim_Wald.pdf){width=30%, height=30%}
+
+# Alternative Simulation Method

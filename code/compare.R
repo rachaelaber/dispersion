@@ -2,9 +2,9 @@
 load("data/processed_long_dat.Rdata")
 dates <- dates[30:(length(new_cases[1,]) - 30 + 1)]
 
-#load("data/lrt_lg_pops.Rdata")
-#load("data/thetadiff_lg_pops.Rdata")
-load("data/theta_lg_pops.Rdata")
+#load("data/lrt_lg_pops.Rdata") # doesn't need to be put on log scale
+#load("data/thetadiff_lg_pops.Rdata") # already on log scale
+load("data/theta_lg_pops.Rdata") # already on log scale
 
 
 # Indices for largest counties in each state
@@ -40,7 +40,7 @@ for (i in 1:length(keep)){
   abline(v = 281, col = "red")
   #plot(lrt_stats[i, ], type = "l", col = 2, main = "LRT")
   #plot(thetadiffs[i, ], type = "l", col = 3, main = "Theta Difference")
-  plot(log(thetas[i, ]), type = "l", col = 4, main = "Theta")
+  plot(log(thetas[i, ]), type = "l", col = 4, main = "Log Theta")
   abline(v = 281, col = "red")
 }
 

@@ -20,7 +20,7 @@ knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE,
 
 Evaluating infectious disease dynamics using only course-scale changes in incidence over time may fail to account for important parts of the social-biological context of transmission and control. For instance, the impact of non-pharmateutical interventions (NPIs; e.g., mask mandates) is often assessed in terms of changes in *mean* incidence, yet mask mandates are implemented and adhered to heterogeneously, so their effects may be context-dependent, leading to geographic and temporal variation in impact for the same policy. Similarly, the impacts of gatherings (such as those on national holidays) may result in changes in epidemic trajectories that differ based on context, and these changes may not be elucidated by simply examining aggregate mean changes in the US or even mean changes per county. 
 
-We present a method to identify shifts in population-level dispersion in incidence, so the impact of events or NPIs on superspreading dynamics can be assessed using freely available population-level data. This method may also be useful in identifying geographical areas that would benefit from targeted control strategies to reduce superspreading dynamics. Implementing and evaluating targeted control strategies has typically required detailed data on individual-level variation in transmission rates, which are often unavailable.
+We present a method to identify shifts in population-level dispersion in incidence, so the impact of events or NPIs on superspreading dynamics can be assessed using freely available population-level data. This method may also be useful in identifying geographical areas that would benefit from targeted control strategies to reduce superspreading. Implementing and evaluating targeted control strategies has typically required detailed data on individual-level variation in transmission rates, which are often unavailable.
 
 Metrics of population-level *variability* may be overlooked and useful ways to understand epidemic dynamics and control. Population-level variability can be thought of as dispersion of data around the time-averaged trajectory. The ability to estimate changing rates of *dispersion* in epidemic time series would be a step towards a more complete view and predictive understanding of NPIs and gatherings at the individual as well as the population level. This is because individual-level heterogeneity in transmission scales up to affect population-level dynamics (Lloyd-Smith 2005), so variability in epidemic trajectories at the population level may provide information about individual-level variability in the transmission process. 
 
@@ -36,18 +36,14 @@ Improved understanding of the causes of overdispersion in incidence may provide 
 
 The negative binomial distribution might accurately model a time series if there is a changing process mean: for example, if the mean of a Poisson distribution itself follows a gamma distribution, the resulting distribution is negative binomial (Cook 2009). Negative binomial regression (in contrast to Poisson regression) can account for unobserved heterogeneity, time dependence in the rate of a process and contagion that all lead to overdispersion (Barron 1992).
 
-**Using county-level SARS-CoV-2 time series from New York state, we investigate dispersion in case count time series (by fitting negative binomial models) and its relationship to a hypothesized changepoint. Specifically, we estimate and compare dispersion on either side of a putative changepoint in variability (Thanksgiving 2020), in order to test the hypothesis that dispersion changes significantly**. 
+**Using county-level SARS-CoV-2 time series, we investigate dispersion in case count time series (by fitting negative binomial models) and its relationship to a hypothesized changepoint. Specifically, we estimate and compare dispersion on either side of a putative changepoint in variability (Thanksgiving 2020), in order to test the hypothesis that dispersion changes significantly**. 
 It was recently found that $k_t$, the time-varying transmission heterogeneity for COVID-19, decreased over time and was significantly associated with interventions to slow spread in Hong Kong (Adam et al. 2022). Since $k_t$ underlies incidence overdispersion, the method developed here will allow practitioners in epidemiology to explore whether local events result in a change in dispersion of cases, potentially modulated by changes in $k_t$. Key unanswered questions remain in developing methodology to recover incidence dispersion estimates and using these estimates to test the effect of gatherings and NPIs.  
 
 # Data
 
 For this project, we use county-level COVID-19 incidence data. Source: [USAFacts](https://usafacts.org/visualizations/coronavirus-covid-19-spread-map/). The data is weekly case counts for each US county.
 
-Approximately one month of data on either side of November 26th, 2020 was used in the analysis. This step was done to include a set "wave" of incidence in the model fit to each side of the hypothesized change. However, we acknowledge that there is a trade-off between including fewer waves and increasing the power of the proposed test by including more time series data. 
-
-We additionally use the full dataset to "scan" for variability breakpoints using a likelihood ratio test statistic and visualizations of a dispersion metric.
-
-In both the full data and the subset of data, rows that were all zeroes were omitted.
+Approximately one month of data on either side of November 26th, 2020 was used in the analysis. This step was done to include a set "wave" of incidence in the model fit to each side of the hypothesized change. However, we acknowledge that there is a trade-off between including fewer waves and increasing the power of the proposed test by including more time series data. We additionally use the full dataset to investigate variability breakpoints using a likelihood ratio test statistic and visualizations of other dispersion metrics. In both the full data and the subset of data, time series that were all zeroes were omitted.
 
 # Methods
 
@@ -61,8 +57,8 @@ Issues arise when modeling the entire time series as negative binomial - namely,
 
 
 $$g(E[Y_i]/n_i) = \beta_1h_1(t_i) + \beta_2h_2(t_i) + \beta_3h_3(t_i)$$
-$$log(E[Y_i]/n_i) = \sum_m^M\beta_m h_m(t_i)$$
-  ,where $n_i$ is the population size, $Y_i$ is incidence, and $t_i$ is the time point.
+$$log(E[Y_i]/n_i) = \sum_m^M\beta_m h_m(t_i)$$, 
+where $n_i$ is the population size, $Y_i$ is incidence, and $t_i$ is the time point.
 
 In this case, we use a log link function:
 
@@ -120,7 +116,7 @@ So that integration will result in a final outbreak size of n/10.
 
 To ensure that the hypothesis test has adequate power, a simulation using unequal values of theta on either side of Thanksgiving was repeatedly run in order to ensure that the distribution of resulting p-values is heavily right-skewed. 
 
-The resulting probabilities of rejection are tabulated below: the proportion of tests that reject is around 0.05 for those instances where the null is true (the probability of the normal variable having 0.05 of the probability density below is 0.05). Additionally, the proportion of tests that reject is high in instances where the alternative hypothesis is true. We also simulated data assuming that theta was a function of the mean of the process in order to assess the robustness of the test (Supplement).
+The resulting probabilities of rejection are tabulated below: the proportion of tests that reject is around 0.05 for those instances where the null is true. Additionally, the proportion of tests that reject is high in instances where the alternative hypothesis is true. We also simulated data assuming that theta was a function of the mean of the process in order to assess the robustness of the test (Supplement).
 
 The tabulated Type I error rate and power, as well as the relationship between p-values and effect size is presented below for the likelihood ratio test approach.
 
@@ -134,28 +130,28 @@ The tabulated Type I error rate and power, as well as the relationship between p
 
 For every county, the negative binomial model was fit separately to either side of November 26th, 2020 in order to compute values of $\hat{\theta_1}$ and $\hat{\theta_2}$. A test of the two-sided alternative that $\theta$ before is different from $\theta$ after (different theta after Thanksgiving) was performed.
 
-The spatial pattern of theta difference after Thanksgiving 2020 shows that there is spatial correlation in the degree of change. In particular, spatial clusters of increased dispersion occur on the East Coast and in the South. 
+The spatial pattern of the difference in log(theta) after Thanksgiving 2020 shows that there is spatial correlation in the degree of change. For example, a spatial clusters of increased dispersion occurs in the South. 
 
-![Mapping the Thanksgiving hypothesis across the US](./figures/map_difftheta_US.pdf){width=30%, height=30%}
+![Mapping the Thanksgiving hypothesis across the US (Log Theta)](./figures/map_difftheta_US.pdf){width=30%, height=30%}
 
-Additionally, the likelihood ratio test statistic does not necessarily track with changes in mean incidence in a county, but rather captures dispersion changes. In some time windows, the Likelihood-Ratio statistic can't be computed due to zero variance: the variance of mu is a function of mu and dispersion, both of which are zero in a stretch of zeroes. 
+Additionally, the likelihood ratio test statistic does not necessarily track with changes in mean incidence in a county, but rather captures dispersion changes. In some time windows, the Likelihood-Ratio statistic can't be computed due to zero variance: the variance of $\mu$ is a function of $\mu$ and dispersion, both of which are zero in a stretch of zeroes. 
 
 ![LRT Scan Figure](./figures/LRT_scan_figure.pdf){width=30%, height=30%}
 
-In visualizing a surface of the likelihood ratio test statistic and associated direction of the change in theta, it appears that 
+Visualizations surfaces of the likelihood ratio test statistic and associated direction of the change in theta for large populations are presented below.
 
 ![The LRT Surface](./figures/lrt_surface_figure.pdf){width=30%, height=30%}
 
 
 ![The Theta Difference Surface](./figures/thetadiff_surface.pdf){width=30%, height=30%}
 
-## Less dispersion over time
+## Patterns in dispersion over time
 
-In many US counties between 2020-09-27 and 2021-01-25, there is less burstiness (larger theta) in COVID-19 case counts over time. In other words, cases fluctuate less around a time-averaged trajectory later on, possibly indicating structure in the population with some groups experiencing different infection rates (overdispersed individual reproduction number), demographic/environmental stochasticity, or fast changes in propagation/reporting at the population level may have occurred earlier on. However, the trend of decreased burstiness over this period seems to be modulated by population size: among the largest population counties per state, those in the top half had an average theta change of approx. 28.95604 (less burstiness), while the small populations had an average change in theta of approx. -3.741856 (more burstiness). This means that in the large populations, dynamics became "smoother", but this didn't happen in the smaller populations, where more burstiness might be a result of cases "stuttering out". This is a key observation, as smoother and more predictable case count time series may require less surge capacity in hospitals.
+In many US counties after late fall of 2020, there was more burstiness (smaller log theta) in COVID-19 case counts over time. In other words, cases fluctuated more around a time-averaged trajectory later on, possibly indicating structure in the population with some groups experiencing different infection rates (overdispersed individual reproduction number), demographic/environmental stochasticity, or fast changes in propagation/reporting at the population level. I will investigate whether the trend of increased burstiness over this period is modulated by factors such population size. I predict that in very large populations, dynamics may be "smoother", but this may not be the case in other populations, where more burstiness might be a result of cases "stuttering out" or dispersion at the individual level affecting case count time series. This research avenue has practical implications: smoother and more predictable case count time series may require less surge capacity in hospitals.
 
-We hypothesized that there would be an increase in burstiness (decrease in theta) around Thanksgiving 2020 due to people gathering and causing clusters of infection. However, we observed that in many counties, although there was more burstiness (a decrease in theta), it was a relatively small change, and not modulated by population size. The average difference between theta estimated in the window starting at 2020-11-26 and theta estimated in the window ending 2020-11-25 was -1.77944 in the top half and -1.104289 in the bottom half of population sizes. People may have avoided gathering due to personal preference, cultural norms, and other factors, contributing to less superspreading than anticipated
+We hypothesized that there would be an increase in burstiness (decrease in theta) around Thanksgiving 2020 due to people gathering and causing clusters of infection. However, we observed that in many counties, this was not the case. People may have avoided gathering due to personal preference, cultural norms, and other factors, contributing to less superspreading than anticipated in some locations. 
 
-![Compare](./figures/compare.pdf){width=30%, height=30%}
+![Compare](./figures/compare1.pdf){width=30%, height=30%}
 
 \newpage 
 

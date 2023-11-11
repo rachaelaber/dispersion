@@ -54,7 +54,7 @@ sig <- pvals[keep] < p_max
 par(cex = 1.5)
 par(pin = c(4, 4))
 
-plot(log(theta1[keep]), log(theta2[keep]),
+plot(theta1[keep], theta2[keep],
   cex = ifelse(sig, 1, 0.5),
   col = ifelse(sig, 2, grey(0.5)),
   xlab = expression(paste("log ", theta[1])),

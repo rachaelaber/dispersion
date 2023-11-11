@@ -53,7 +53,7 @@ y <- seq_len(ncol(z))
 
 filename <- "figures/thetadiff_surface.pdf"
 
-pdf(filename, width = 6, height = 6)
+pdf(filename, width = 8, height = 8)
 
 # Plot
 par(pin = c(7, 5))
@@ -62,7 +62,7 @@ image(x, y, z,
       yaxt = "n",
       xlab = "",
       ylab = "Locations",
-      col = c("blue", "green", "purple", "pink", "red"))
+      col = rev(mako(32)))
 
 par(las = 2)
 axis(1, x, dates, tick = FALSE)

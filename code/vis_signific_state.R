@@ -18,10 +18,10 @@ par(mfrow = c(2, 3))
 
 for (i in FL_index){
   
-  mu <- my_spl_fit(Y = new_cases_subset[i,], population = populations_subset$population[i], 
-                   inds = 1:length(new_cases_subset[i,]), df = 3)$mu
+  mu <- my_spl_fit(Y = new_cases_subset[i,1:30], population = populations_subset$population[i], 
+                   inds = 1:length(new_cases_subset[i,1:30]), df = 3)$mu
   
-  plot(1:length(new_cases_subset[i,]), new_cases_subset[i,], xlab = , ylab = )
+  plot(1:length(new_cases_subset[i,1:30]), new_cases_subset[i,1:30], xlab = "Day Index", ylab = "Cases")
   lines(mu, col=2)
 }
 

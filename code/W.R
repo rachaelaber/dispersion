@@ -42,15 +42,15 @@ W <- function(y, population_size, breakpoint, deg_free = 3, fn = my_spl_fit, ver
     p = 2 * (1 - pnorm(abs(test_stat)))
 
     if (return_theta_diff) {
-        return(theta1 - theta2)
+        return(log(theta1) - log(theta2))
     } 
     
     if (return_theta) {
-      return(spline_mod.all$theta)
+      return(log(spline_mod.all$theta))
     }
     
     if (return_thetas){
-      return(list(c(theta1, theta2)))
+      return(list(c(log(theta1), log(theta2))))
     }
     
     else {

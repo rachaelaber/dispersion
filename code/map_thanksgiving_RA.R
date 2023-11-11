@@ -18,7 +18,7 @@ dat$county <- gsub(" County", "", dat$County.Name)
 dat$county <- gsub(" Parish", "", dat$county)
 dat$county <- tolower(dat$county)
 dat$state <- dat$State
-dat$dtheta <- dat$theta1 - dat$theta2
+dat$dtheta <- dat$theta2 - dat$theta1
 
 ## a clamped version of dtheta
 clamp <- function(x, c) {
@@ -38,7 +38,7 @@ filename <- "./figures/map_difftheta_US.pdf"
 
 pdf(filename, width = 6, height = 6)
 
-plot(dat.clor["dtheta_clamped"], main = "dtheta_clamped")
+plot(dat.clor["dtheta_clamped"], main = "Change in dispersion parameter - Thanksgiving 2020")
 
 dev.off()
 

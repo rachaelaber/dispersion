@@ -61,14 +61,14 @@ for (j in 1:length(keep)){
     #                     df2 = 3)$lambda, error = function(e) return(NA))
     # 
     # lrt_stat = c(lrt_stat, test)
+# 
+#     test.1 = tryCatch(W(y = Y, population_size = populations_lg$population[j],
+#                          breakpoint = 30, deg_free = 3,
+#                          fn = my_spl_fit, verbose = FALSE, return_theta_diff = TRUE),
+#                        error = function(e) return(NA))
+# 
+#     thetadiff = c(thetadiff, test.1)
 
-    # test.1 = tryCatch(W(y = Y, population_size = populations_lg$population[j],
-    #                      breakpoint = 30, deg_free = 3,
-    #                      fn = my_spl_fit, verbose = FALSE, return_theta_diff = TRUE),
-    #                    error = function(e) return(NA))
-    # 
-    # thetadiff = c(thetadiff, test.1)
-    
     test.2 = tryCatch(W(y = Y, population_size = populations_lg$population[j],
                         breakpoint = 30, deg_free = 3,
                         fn = my_spl_fit, verbose = FALSE, return_theta = TRUE),
@@ -82,7 +82,7 @@ for (j in 1:length(keep)){
   # 
   # thetadiffs[j,] <- thetadiff
   
-  thetas[j,] <- theta
+   thetas[j,] <- theta
   
 }
 
@@ -114,13 +114,13 @@ dates <- dates[30:(length(this_series) - 30 + 1)]
 
 filename <- "figures/LRT_scan_figure.pdf"
 
-pdf(filename, width = 3, height = 3)
+pdf(filename, width = 6, height = 6)
 
 par(mfrow = c(2, 1))
 
 plot(lrt_stats[1, ] ~ dates, type = "l", xlab = "Date", ylab = "LRT Statistic")
 
-plot(this_series[30:(length(this_series) - 30 + 1)] ~ dates, col = "red", type = "l")
+plot(this_series[30:(length(this_series) - 30 + 1)] ~ dates, col = "red", type = "l", xlab = "Date", ylab = "Incidence")
 
 abline(h = quantile(lrt_stats[1, ], probs = 0.95, na.rm =TRUE), col = "black")
 

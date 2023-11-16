@@ -4,13 +4,16 @@ library(maps)
 library(spdep)
 library(spatialreg)
 
+rm(list = ls())
+graphics.off()
+
 load("data/W_pvals_and_thetas_allcounties.Rdata")
 
 load("data/processed_dat.Rdata")
 
 county.map = map("county", fill = TRUE, plot = FALSE)
 county.map = sf::st_as_sf(county.map) # Convert from map object to sf
-plot(st_geometry(county.map)) # Only plot the polygons
+#plot(st_geometry(county.map)) # Only plot the polygons
 
 # Prepare the dataframe to be merged w/polygon data
 dat <- cbind(populations_subset, theta1, theta2, pvals)
@@ -26,7 +29,9 @@ clamp <- function(x, c) {
   x[x < -c] <- -c
   return(x)
 }
-dat$dtheta_clamped <- clamp(dat$dtheta, 20)
+dat$dtheta_clamped <- clamp(dat$dtheta, 3)
+
+
 
 data(county.fips)
 county.map$FIPS = county.fips$fips[match(county.map$ID, county.fips$polyname)]
@@ -38,7 +43,12 @@ filename <- "./figures/map_difftheta_US.pdf"
 
 pdf(filename, width = 6, height = 6)
 
-plot(dat.clor["dtheta_clamped"], main = "Change in dispersion parameter - Thanksgiving 2020")
+plot(dat.clor["dtheta_clamped"],
+      pal = function(n) rev(viridis(n)),
+      main = "Change in dispersion parameter - Thanksgiving 2020",
+      border = 0,
+      lwd = 0.1
+      )
 
 dev.off()
 

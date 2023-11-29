@@ -56,6 +56,7 @@ for (target in targets) {
   #lines(ll, col = 2)
   #lines(ul, col = 2)
   mypoly(1:60, ll, ul)
+  lines(mu, col = 2, lwd = 2)
   pch <- ifelse(cases > ul | cases < ll, 19, 21)
   points(cases, cex = 1, pch = pch)
   segments(30, -10, 30, 10^6)

@@ -1,5 +1,5 @@
 library(splines)
-source("code/nb_estimation.R")
+source("code/fit.nb.regression.R")
 
 my_spl_fit <- function(Y, population, inds, df) {
     y <- Y[inds]
@@ -12,8 +12,8 @@ my_spl_fit <- function(Y, population, inds, df) {
 }
 
 
-W <- function(y, population_size, breakpoint, deg_free = 3, fn = my_spl_fit, verbose = FALSE, 
-              return_theta_diff = FALSE, return_theta = FALSE, return_thetas = FALSE) {
+W <- function(y, population_size, breakpoint, deg_free = 3, fn = my_spl_fit, 
+              ret_ltheta_diff = FALSE, ret_ltheta = FALSE, ret_lthetas = FALSE) {
 
     pop = population_size
     df = deg_free
@@ -29,27 +29,19 @@ W <- function(y, population_size, breakpoint, deg_free = 3, fn = my_spl_fit, ver
         0)/sqrt(spline_mod.1$SE.theta^2/spline_mod.1$theta^2 +
         spline_mod.2$SE.theta^2/spline_mod.2$theta^2)
 
-    if (verbose == TRUE) {
-        return(sprintf(
-            "p-value: %.2f ; SE.theta1 = %.2f ; SE.theta2 = %.2f; theta1 =%.2f; theta2 = %.2f", 
-            2 * (1 - pnorm(abs(test_stat))), spline_mod.1$SE.theta,
-            spline_mod.2$SE.theta, spline_mod.1$theta, spline_mod.2$theta
-        ))
-    }
-
     theta1 = spline_mod.1$theta
     theta2 = spline_mod.2$theta
     p = 2 * (1 - pnorm(abs(test_stat)))
 
-    if (return_theta_diff) {
+    if (ret_ltheta_diff) {
         return(log(theta1) - log(theta2))
     } 
     
-    if (return_theta) {
+    if (ret_ltheta) {
       return(log(spline_mod.all$theta))
     }
     
-    if (return_thetas){
+    if (ret_lthetas){
       return(list(c(log(theta1), log(theta2))))
     }
     

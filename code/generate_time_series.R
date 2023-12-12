@@ -12,7 +12,7 @@ peak_width <- 200
 population_min <- 314000
 population_max <- 3140000
 theta_min <- 3
-theta_max <- 12
+theta_max <- 30
 breakpoint_min <- 20
 breakpoint_max <- 40
 
@@ -58,8 +58,11 @@ for (i in 1:ncurve) {
     means1 <- means[1:breakpoint]
     means2 <- means[(breakpoint + 1):length(means)]
 
-    c1 <- rnbinom(n = length(means1), mu = means1, size = theta1)
-    c2 <- rnbinom(n = length(means2), mu = means2, size = theta2)
+    k1 <- theta1 / mean(means1)
+    k2 <- theta2 / mean(means2)
+
+    c1 <- rnbinom(n = length(means1), mu = means1, size = k1 * means1)
+    c2 <- rnbinom(n = length(means2), mu = means2, size = k2 * means2)
 
     curves[i, ] <- c(c1, c2)
 

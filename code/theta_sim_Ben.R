@@ -5,8 +5,6 @@
   
 mu <- 100
   
-  
-  
 x30 <- rnbinom(n = 10000, mu = mu, size = 30)
   
 x3 <- rnbinom(n = 10000, mu = mu, size = 3)

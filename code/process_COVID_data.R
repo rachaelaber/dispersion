@@ -65,4 +65,4 @@ populations_subset <- populations[which(rowSums(new_cases_subset) != 0),]
 
 # Save subsetted data
 filename <- "data/processed_dat.Rdata"
-save(populations_subset, new_cases_subset, file = filename)
+save(populations_subset, new_cases_subset, dates_subset, file = filename)

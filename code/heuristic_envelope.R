@@ -1,14 +1,16 @@
-# Possible visualization for figure 1, representing the null hypothesis as an envelope
+# Null hypothesis as an envelope
 
 rm(list = ls())
 graphics.off()
 
-# Load functions to fit model
-source("code/W.R")
+# Load function to fit model
+source("code/fit.nb.regression.R")
+source("code/my_spl_fit.R")
+source("code/lrt.R")
 
 # Load data and set indices for example time series
 load("data/processed_dat.Rdata")
-targets <- c(100, 9) # rejected and not rejected, respectively
+targets <- c(100, 9) 
 
 
 # Function to make polygon
@@ -26,18 +28,18 @@ par(mfrow = c(1, 2))
 
 for (target in targets) {
   
-  cases <- new_cases_subset[target, ]
-  pop <- populations_subset$population[target]
-  w_p_value <- W(y = cases, population = pop, 
-                 breakpoint = 30)
+  cases = new_cases_subset[target, ]
+  pop = populations_subset$population[target]
+  p_value <- lrt(y1 = cases[1:30], y2 = cases[31:60],
+                 s1 = pop, s2 = pop, i1 = 1:30, i2 = 31:60, df1 = 3,
+                 df2 = 3)$p
   
   # Get the null process
-  spl1 <- my_spl_fit(cases, pop, inds = 1:30, df = 3)
-  spl2 <- my_spl_fit(cases, pop, inds = 31:60, df = 3)
+  spl <- my_spl_fit(Y = cases, population = pop, inds = 1:60, df = 6)
   
   # Sample from the null process
-  mu <- c(spl1$mu, spl2$mu)
-  theta <- spl1$theta
+  mu <- spl$mu
+  theta <-spl$theta
   
   nsim <- 1000
   sim_matrix <- matrix(NA, nsim, 60)
@@ -51,7 +53,7 @@ for (target in targets) {
   ul <- apply(sim_matrix, 2, quantile, probs = 0.975)
   
   # Plot
-  plot(cases, pch = 21, cex = 1, main = sprintf("Wald test p-value:%.2f", w_p_value))
+  plot(cases, pch = 21, cex = 1, main = sprintf("LRT p-value:%.2f", p_value))
   #points(sim, col = 3, pch = 19, cex = 4)
   #lines(ll, col = 2)
   #lines(ul, col = 2)

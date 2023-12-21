@@ -1,4 +1,7 @@
 # Null hypothesis as an envelope
+# Skip counties where spline model can't be fit. Note that this
+# is more stringent than the later requirement that spline model
+# of either side must converge
 
 rm(list = ls())
 graphics.off()
@@ -37,22 +40,24 @@ for (target in targets) {
   cases <- new_cases_subset[target, ]
   pop <- populations_subset$population[target]
 
-  too_many_zeros <- sum(cases == 0) > 30
-  if (too_many_zeros) next
-
-  out <- lrt(
+  out <- tryCatch(lrt(
     y1 = cases[1:30], y2 = cases[31:60],
     s1 = pop, s2 = pop, i1 = 1:30, i2 = 31:60, df1 = 3,
     df2 = 3
-  )
-
+  ), error = function(e) return(NA))
+  
+  if (all(is.na(out))) next
+  
   p_value <- out$p
   theta1 <- 1 / out$phi11
   theta2 <- 1 / out$phi12
 
   # Get the null process
-  spl <- my_spl_fit(Y = cases, population = pop, inds = 1:60, df = 6)
+  spl <- tryCatch(my_spl_fit(Y = cases, population = pop, inds = 1:60, df = 6),
+                  error = function(e) return(NA))
 
+  if (all(is.na(spl))) next
+  
   # Sample from the null process
   mu <- spl$mu
   theta <- spl$theta
@@ -69,7 +74,7 @@ for (target in targets) {
   ul <- apply(sim_matrix, 2, quantile, probs = 0.9)
 
   # Plot
-  filename <- paste0("figures/envelopes/", target, ".pdf")
+  filename <- paste0("figures/", target, ".pdf")
   pdf(file = filename, width = 6, height = 6)
 
   state <- populations_subset$State[target]

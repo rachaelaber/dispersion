@@ -2,13 +2,16 @@ library(here)
 library(sf)
 library(maps)
 
-load("data/W_pvals_lthetas_allcounties.Rdata")
+load("data/lrt_pvals_phis_allcounties.Rdata")
 
 load("data/processed_dat.Rdata")
 
 county.map = map("county", fill = TRUE, plot = FALSE)
 county.map = sf::st_as_sf(county.map) # Convert from map object to sf
 plot(st_geometry(county.map)) # Only plot the polygons
+
+ltheta1 <- log(1/phi11)
+ltheta2 <- log(1/phi12)
 
 # Prepare the dataframe to be merged w/polygon data
 dat <- cbind(populations_subset, ltheta1, ltheta2, pvals)

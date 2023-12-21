@@ -27,7 +27,7 @@ new_cases_lg <- new_cases[keep,]
 
 populations_lg <- populations[keep,]
 
-filename <- "data/new_cases_lg"
+filename <- "data/new_cases_lg.Rdata"
 
 save(new_cases_lg, populations_lg, file = filename)
 
@@ -43,9 +43,9 @@ for (j in 1:length(keep)){
   
   series = new_cases_lg[j,]
   
-  lrt_stat <- c()
+  lrt_stat = c()
 
-  theta <- c()
+  theta = c()
   
   for (i in 30:(length(series) - 30 + 1)){
     

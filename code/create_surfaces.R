@@ -39,15 +39,9 @@ axis(1, x, dates, tick = FALSE)
 
 dev.off()
 
-# Dates of bands:
-# Just after 2021-03-01; just after 2021-05-15; 2021-04-05
-# 2021-01-10 seen across many of the counties
-# Color by direction of theta change by making same matrix w/
-# theta change
+load("data/lthetadiffs_lg_pops.Rdata")
 
-load("data/thetadiff_lg_pops.Rdata")
-
-z <- t(thetadiffs)
+z <- t(lthetadiffs)
 x <- seq_len(nrow(z))
 y <- seq_len(ncol(z))
 

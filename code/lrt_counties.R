@@ -3,7 +3,9 @@
 source("code/lrt.R")
 
 filename <- "data/processed_dat.RData"
+
 load(filename)
+
 rm(filename)
 
 # Loop through counties 
@@ -32,6 +34,7 @@ for (i in 1:nrow(populations_subset)){
 # Save 
 
 filename <- "data/lrt_pvals_phis_allcounties.Rdata"
+
 save(pvals, phi11, phi12, fips, file = filename)
 
 # Visualize

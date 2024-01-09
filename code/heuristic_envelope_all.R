@@ -1,7 +1,5 @@
 # Null hypothesis as an envelope
-# Skip counties where spline model can't be fit. Note that this
-# is more stringent than the later requirement that spline model
-# of either side must converge
+# Skip counties where spline model can't be fit
 
 rm(list = ls())
 graphics.off()
@@ -31,7 +29,7 @@ mypoly <- function(x, y1, y2) {
 }
 
 # Plot
-targets <- 1:200
+targets <- 600:2500
 
 par(pin = c(6, 6), cex = 2.5)
 

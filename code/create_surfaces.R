@@ -45,7 +45,7 @@ z <- t(lthetadiffs)
 x <- seq_len(nrow(z))
 y <- seq_len(ncol(z))
 
-filename <- "figures/thetadiff_surface.pdf"
+filename <- "figures/lthetadiff_surface.pdf"
 
 pdf(filename, width = 8, height = 8)
 

@@ -77,6 +77,8 @@ for (j in 1:length(keep)){
    lrt_stats[j,] <- lrt_stat
 
    thetas[j,] <- theta
+   
+   print(lrt_stat)
   
 }
 

@@ -39,7 +39,15 @@ axis(1, x, dates, tick = FALSE)
 
 dev.off()
 
-load("data/lthetadiffs_lg_pops.Rdata")
+# Plot difference in log theta as a surface over counties and time
+
+load("data/theta_lg_pops.Rdata")
+
+lthetas <- log(thetas)
+
+lthetadiffs <- diff(lthetas)
+
+rm(lthetas)
 
 z <- t(lthetadiffs)
 x <- seq_len(nrow(z))

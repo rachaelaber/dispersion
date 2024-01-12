@@ -39,8 +39,6 @@ thetas <- matrix(NA, nrow = length(keep), ncol = 1124)
 
 for (j in 1:length(keep)){
   
-  print(j)
-  
   series = new_cases_lg[j,]
   
   lrt_stat = c()
@@ -78,8 +76,6 @@ for (j in 1:length(keep)){
 
    thetas[j,] <- theta
    
-   print(lrt_stat)
-  
 }
 
 # Save 

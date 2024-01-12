@@ -13,7 +13,7 @@ filename <- "figures/compare.pdf"
 
 pdf(filename, height = 6, width = 6)
 
-for (i in 1:length(keep)){
+for (i in 1:length(populations_lg$population)){
   
   series = new_cases_lg[i,]
   

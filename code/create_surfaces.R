@@ -45,9 +45,10 @@ load("data/theta_lg_pops.Rdata")
 
 lthetas <- log(thetas)
 
-lthetadiffs <- diff(lthetas)
+lthetadiffs <- t(diff(t(lthetas)))
 
 rm(lthetas)
+
 
 z <- t(lthetadiffs)
 x <- seq_len(nrow(z))
@@ -67,6 +68,6 @@ image(x, y, z,
       col = rev(mako(32)))
 
 par(las = 2)
-axis(1, x, dates, tick = FALSE)
+axis(1, x, dates[-1], tick = FALSE)
 
 dev.off()

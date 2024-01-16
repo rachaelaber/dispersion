@@ -1,6 +1,8 @@
 rm(list = ls())
 graphics.off()
 
+library(viridis)
+
 
 # Prep data
 load("data/lrt_lg_pops_weekly.Rdata")
@@ -33,8 +35,9 @@ i <- 100
 
 par(mfrow = c(2, 2))
 
-x <- new_cases_lg_weekly[i, ]
-plot(dates, x)
+x <- colMeans(new_cases_lg_weekly)
+plot(dates, x, type = 'l')
+
 
 x <- clamp(thetas[i,], 0, 100)
 plot(dates, x)

@@ -8,7 +8,7 @@ load("data/processed_long_dat.Rdata")
 # Example of the potential "zeros problem" in daily data
 # It looks as if cases alternate between 0s and nonzero numbers
 # in a way that might be nonrandom
-par(mfrow = c(2, 1))    
+par(mfrow = c(2, 1))
 plot(new_cases[1, ])
 
 

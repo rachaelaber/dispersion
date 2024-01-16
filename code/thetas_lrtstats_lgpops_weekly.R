@@ -47,23 +47,22 @@ save(new_cases_lg, new_cases_lg_weekly, populations_lg, file = filename)
 # Set up empty matrices and loop through counties/time points
 
 lrt_stats <- matrix(NA, nrow = length(keep), ncol = 1124)
-
+lrt_ps <- matrix(NA, nrow = length(keep), ncol = 1124)
 thetas <- matrix(NA, nrow = length(keep), ncol = 1124)
 
 for (j in 1:length(keep)) {
-  
   print(paste("County", j, "of", length(keep)))
 
   series <- new_cases_lg_weekly[j, ]
 
   lrt_stat <- c()
-
+  lrt_p <- c()
   theta <- c()
 
   for (i in 30:(length(series) - 30 + 1)) {
     Y <- series[(i - 29):(i + 30)]
 
-    test <- tryCatch(lrt(
+    out <- tryCatch(lrt(
       y1 = Y[1:(length(Y) / 2)], y2 = Y[((length(Y) / 2) + 1):length(Y)],
       s1 = populations_lg$population[j],
       s2 = populations_lg$population[j],
@@ -71,30 +70,23 @@ for (j in 1:length(keep)) {
       i2 = 31:60,
       df1 = 3,
       df2 = 3
-    )$lambda, error = function(e) {
+    ), error = function(e) {
       return(NA)
     })
 
-    lrt_stat <- c(lrt_stat, test)
-
-
-    test.2 <- tryCatch(lrt(
-      y1 = Y[1:(length(Y) / 2)], y2 = Y[((length(Y) / 2) + 1):length(Y)],
-      s1 = populations_lg$population[j],
-      s2 = populations_lg$population[j],
-      i1 = 1:30,
-      i2 = 31:60,
-      df1 = 3,
-      df2 = 3
-    )$phi11, error = function(e) {
-      return(NA)
-    })
-
-    theta <- c(theta, 1 / test.2)
+    if (!is.na(out[1])) {
+      lrt_stat <- c(lrt_stat, out$lambda)
+      lrt_p <- c(lrt_p, out$p)
+      theta <- c(theta, 1 / out$phi11)
+    }else{
+      lrt_stat <- c(lrt_stat, NA)
+      lrt_p <- c(lrt_p, NA)
+      theta <- c(theta, NA)
+    }
   }
 
   lrt_stats[j, ] <- lrt_stat
-
+  lrt_ps[j, ] <- lrt_p
   thetas[j, ] <- theta
 }
 

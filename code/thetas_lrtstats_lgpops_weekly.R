@@ -40,7 +40,7 @@ new_cases_lg_weekly[is.na(new_cases_lg_weekly)] <- 0
 
 
 # Save
-filename <- "data/new_cases_lg.Rdata"
+filename <- "data/new_cases_lg_weekly.Rdata"
 
 save(new_cases_lg, new_cases_lg_weekly, populations_lg, file = filename)
 

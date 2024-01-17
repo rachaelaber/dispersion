@@ -99,3 +99,7 @@ save(lrt_stats, file = filename)
 filename <- "data/theta_lg_pops_weekly.Rdata"
 
 save(thetas, file = filename)
+
+filename <- "data/lrtps_lg_pops_weekly.Rdata"
+
+save(lrt_ps, file = filename)

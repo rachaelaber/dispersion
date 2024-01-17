@@ -8,6 +8,7 @@ library(viridis)
 load("data/lrt_lg_pops_weekly.Rdata")
 load("data/new_cases_lg_weekly.Rdata")
 load("data/theta_lg_pops_weekly.Rdata")
+load("data/lrtps_lg_pops_weekly.Rdata")
 load("data/processed_long_dat.Rdata")  
 
 
@@ -31,6 +32,11 @@ clamp <- function(x, a, b) {
 
 
 # Plot
+
+filename <- "figures/roughdraft_surfaces.pdf"
+
+pdf(filename, width = 8, height = 8)
+
 i <- 100
 
 par(mfrow = c(2, 2))
@@ -52,4 +58,10 @@ image(t(clamp(thetas, 0, 100)), col = rev(viridis(32)))
 
 
 #
-image(t((lrt_stats)))
+image(t((lrt_ps)))
+legend("topright", cex = 0.5, bg = "white", legend = seq(round(min(lrt_ps, na.rm = TRUE), 2), 
+                                round(max(lrt_ps, na.rm = TRUE), 2), 
+                                length = 11), 
+       fill = heat.colors(10))
+
+dev.off()

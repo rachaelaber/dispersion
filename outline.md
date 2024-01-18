@@ -28,7 +28,8 @@
 3. The model components and why we include them:
   a) Linear predictor includes a natural spline (3 df) in time to account for autocorrelation in case counts
   b) Offset term in order to directly model counts (here, COVID-19 cases) per unit of observation (here, per individual)
-  $log(E[Y_i]/n_i) = \beta_1h_1(t_i) + \beta_2h_2(t_i) + \beta_3h_3(t_i)$
+  
+  $$log(E[Y_i]/n_i) = \beta_1h_1(t_i) + \beta_2h_2(t_i) + \beta_3h_3(t_i)$$
   $$log(E[Y_i])-log(n_i) = \beta_1h_1(t_i) + \beta_2h_2(t_i) + \beta_3h_3(t_i)$$
   $$log(E[Y_i]) = \beta_1(h_1(t_i) + \beta_2h_2(t_i) + \beta_3h_3(t_i) + log(n_i)$$
 

@@ -90,3 +90,77 @@ axis.Date(1, at = at, labels = labels)
 
 
 dev.off()
+
+
+
+
+
+# Some questions:
+
+# 1. It looks as if estimate of theta may be constrained to be
+# between 10^-20 and 10^20. Is that true?
+quantile(log10(thetas), na.rm = TRUE)
+max(thetas, na.rm = TRUE)
+min(thetas, na.rm = TRUE)
+
+# 2. The density of log10(thetas) appears 'clumped'
+# with a cluster near 0, one near 10 and one near 15.
+# And then there is a lot of density focussed right near -20.
+# Why would this be?
+hist(log10(thetas), breaks = 200)
+
+
+# 3. This method of making an image of thetas, 
+# using roughly the quartiles of log10(thetas),
+# seems to work. Each color has a transparent meaning.
+# And does not require arbitrary clamping.
+# Should we use it instead?
+image(t(log10(thetas)), 
+        breaks = c(-20, 1, 2, 10, 20),
+        col = rev(viridis(4)))
+
+
+# 4. The quantiles of log10(thetas) over time look strange. 
+# They seem to sometimes 'stick' to particular values then change suddenly.
+# This may be related to #1 and #2
+q1 <- apply(log10(thetas), MARGIN = 2, FUN = quantile, 0.2, na.rm = TRUE)
+q2 <- apply(log10(thetas), MARGIN = 2, FUN = quantile, 0.4, na.rm = TRUE)
+q3 <- apply(log10(thetas), MARGIN = 2, FUN = quantile, 0.6, na.rm = TRUE)
+q4 <- apply(log10(thetas), MARGIN = 2, FUN = quantile, 0.8, na.rm = TRUE)
+
+plot(dates, q1, type = "l", ylim = c(-20, 20))
+lines(dates, q2, col = 2)
+lines(dates, q3, col = 3)
+lines(dates, q4, col = 4)
+
+
+# 5. Searching for simpler and more transparent ways to
+# show the signal we're on to. Maybe something like this?
+# Could we use this instead of "average theta" in the top
+# right corner of the plot above?
+# Two versions are here, with and without NAs.
+# They "agree" but each have strengths
+
+#  Version 1 where NAs propegate.
+#  The shape of the time series is not affected by 
+#  the number missing at each time point.
+is_overdispersed <- log10(thetas) < 2
+noverdispersed <- colSums(is_overdispersed, na.rm = FALSE)
+plot(dates, noverdispersed, xaxt = "n")
+
+#  custom date labels
+at <- seq.Date(from = min(dates), to = max(dates), by = 'month')
+labels <- format(at, format = "%b")
+labels <- substr(labels, 1, 1)
+par(cex.axis = 0.7)
+axis.Date(1, at = at, labels = labels)
+
+
+#  Version 2 where NAs are removed.
+#  The shape of the time series may be affected
+#  by the number missing at each time point.
+is_overdispersed <- log10(thetas) < 2
+noverdispersed <- colSums(is_overdispersed, na.rm = TRUE)
+plot(dates, noverdispersed, xaxt = "n")
+par(cex.axis = 0.7)
+axis.Date(1, at = at, labels = labels)

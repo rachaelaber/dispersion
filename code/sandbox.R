@@ -173,3 +173,54 @@ noverdispersed <- colSums(is_overdispersed, na.rm = TRUE)
 plot(dates, noverdispersed, xaxt = "n")
 par(cex.axis = 0.7)
 axis.Date(1, at = at, labels = labels)
+
+
+#6. For the upper right plot of overall trends in theta
+#   over time, What about a sort of stacked bar plot
+#   where for every month we say what proportion
+#   of the counties where between each quartile?
+
+my <- format(dates, "%b-%y")
+umy <- unique(my)
+nmy <- length(umy)
+
+breaks <- c(-20, seq(1, 10, len = 8), 20)
+x <- matrix(NA, nrow = length(breaks) - 1, ncol = nmy)
+
+for (i in 1:nmy) {
+      these_thetas <- thetas[, my == umy[i]]
+      these_thetas[log10(these_thetas) < -3] <- NA    #TEMPORARY experimenting with suppressing very small thetas which I am suspecting might be a kind of failure in the estimatation process, like hitting boundary conditions in the optimizer?
+      x[, i] <- as.numeric(table(cut(log10(these_thetas), breaks = breaks)))
+}
+
+barplot(x,
+      col = rev(viridis(length(breaks) - 1)),
+      names.arg = substr(umy, 1, 1))
+
+
+#7. How do the spikes in the number of overdispersed 
+#time series compare with incidence?
+incidence <- matrix(NA,
+                    nrow = nrow(new_cases_lg_weekly),
+                    ncol = ncol(new_cases_lg_weekly))
+for (i in seq_len(nrow(new_cases_lg_weekly))) {
+      incidence[i, ] <- new_cases_lg_weekly[i,] / populations_lg$population[i]
+}
+
+par(mfrow = c(2, 1))
+barplot(x,
+      col = rev(viridis(length(breaks) - 1)),
+      names.arg = substr(umy, 1, 1))
+
+m <- substr(format(dates, "%b"), 1, 1)
+image(dates, 1:150, t(log10(incidence)),
+      xaxt = "n",
+      xlab = "",
+      ylab = "",
+      yaxt = "n")
+
+at <- seq.Date(from = min(dates), to = max(dates), by = 'month')
+labels <- format(at, format = "%b")
+labels <- substr(labels, 1, 1)
+
+axis.Date(1, at = at, labels = labels)

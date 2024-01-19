@@ -115,13 +115,15 @@ min(thetas, na.rm = TRUE)
 # 2. The density of log10(thetas) appears 'clumped'
 # with a cluster near 0, one near 10 and one near 15.
 # And then there is a lot of density focussed right near -20.
-# Why would this be?
+# Why would this be? For this and question 1 above I'm wondering if 
+# there is an optimizer that is hitting boundary counditions
+# during the estimation of theta. Just a wild guess.
 hist(log10(thetas), breaks = 200)
 
 
 # 3. This method of making an image of thetas, 
 # using roughly the quartiles of log10(thetas),
-# seems to work. Each color has a transparent meaning.
+# seems to work. Each color has a simple meaning.
 # And does not require arbitrary clamping.
 # Should we use it instead?
 image(t(log10(thetas)), 
@@ -199,7 +201,13 @@ barplot(x,
 
 
 #7. How do the spikes in the number of overdispersed 
-#time series compare with incidence?
+#time series compare with incidence? The were more overdispersed
+#counties near the spikes in incidence, which is potentially
+#interesting.
+
+#TODO: the two plots are not properly lined up in terms
+# of the months.
+
 incidence <- matrix(NA,
                     nrow = nrow(new_cases_lg_weekly),
                     ncol = ncol(new_cases_lg_weekly))

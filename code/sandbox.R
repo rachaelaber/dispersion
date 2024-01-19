@@ -60,10 +60,19 @@ plot(dates, x, type = 'l', lwd = 3)
 # as theta increases much beyond 30, it is not practically different
 # than poisson. (see figures/ecdfs.pdf)
 
+x <- clamp(thetas, 0, 30)
 
-image(t(clamp(thetas, 0, 100)), col = rev(viridis(32)))
+image(dates,
+      1:nrow(x),
+      t(x),
+      col = rev(viridis(32)),
+      xaxt = "n")
 
+at <- seq.Date(from = min(dates), to = max(dates), by = 'month')
+labels <- format(at, format = "%b")
+labels <- substr(labels, 1, 1)
 
+axis.Date(1, at = at, labels = labels)
 
 #
 

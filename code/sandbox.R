@@ -37,8 +37,6 @@ filename <- "figures/roughdraft_surfaces.pdf"
 
 pdf(filename, width = 8, height = 8)
 
-i <- 100
-
 par(mfrow = c(2, 2))
 
 x <- colMeans(new_cases_lg_weekly)
@@ -52,7 +50,7 @@ lines(dates, x / sum(x, na.rm = T), col = 2)
 
 
 
-x <- clamp(thetas, 0, 10000)
+x <- clamp(thetas, 0, 30)
 x <- colMeans(x, na.rm = TRUE)
 plot(dates, x, type = 'l', lwd = 3)
 
@@ -60,7 +58,7 @@ plot(dates, x, type = 'l', lwd = 3)
 # as theta increases much beyond 30, it is not practically different
 # than poisson. (see figures/ecdfs.pdf)
 
-x <- clamp(thetas, 0, 30)
+x <- clamp(thetas, 0, 30) 
 
 image(dates,
       1:nrow(x),
@@ -104,20 +102,26 @@ dev.off()
 
 
 
-# Some questions:
+# Questions: 
 
-# 1. It looks as if estimate of theta may be constrained to be
-# between 10^-20 and 10^20. Is that true?
-quantile(log10(thetas), na.rm = TRUE)
+# 1. Estimate of theta constrained to be
+# between 1.000045e-20 and 19.999525e+19. 
 max(thetas, na.rm = TRUE)
 min(thetas, na.rm = TRUE)
 
 # 2. The density of log10(thetas) appears 'clumped'
 # with a cluster near 0, one near 10 and one near 15.
-# And then there is a lot of density focussed right near -20.
+# And then there is a lot of density focused right near -20.
 # Why would this be? For this and question 1 above I'm wondering if 
 # there is an optimizer that is hitting boundary counditions
 # during the estimation of theta. Just a wild guess.
+
+# Since the lrt function uses the irls.nb.1 function to fit the
+# model, we might be running into the fact that an initial value of 
+# phi = 1 is used, and also the optimize call has the following args 
+# in all the likelihood optimizations (see lrt.R):
+# obj0 = optimize(l0, c(log(1e-20), log(1e20)), maximum=TRUE)
+quantile(log10(thetas), na.rm = TRUE)
 hist(log10(thetas), breaks = 200)
 
 
@@ -129,6 +133,9 @@ hist(log10(thetas), breaks = 200)
 image(t(log10(thetas)), 
         breaks = c(-20, 1, 2, 10, 20),
         col = rev(viridis(4)))
+
+# I think so, although somewhere we should highlight the info above
+# about the range in which theta is being optimized
 
 
 # 4. The quantiles of log10(thetas) over time look strange. 
@@ -143,6 +150,10 @@ plot(dates, q1, type = "l", ylim = c(-20, 20))
 lines(dates, q2, col = 2)
 lines(dates, q3, col = 3)
 lines(dates, q4, col = 4)
+
+# I wonder if this is basically the "true" value of theta being similar
+# at points close in time, but the algorithm estimates something near a
+# boundary or near 1
 
 
 # 5. Searching for simpler and more transparent ways to

@@ -91,18 +91,39 @@ for (j in 1:length(keep)) {
   thetas[j, ] <- theta
 }
 
-# Save
-
-filename <- "data/lrt_lg_pops_weekly.Rdata"
-
-save(lrt_stats, file = filename)
+# Save (drop entries with unreasonably small theta)
 
 filename <- "data/theta_lg_pops_weekly.Rdata"
 
+thetas[thetas < 1e-10] <- NA
+
 save(thetas, file = filename)
+
+# Make thetas the same dim as the other two dataframes for subsetting
+
+comb_df <- matrix(nrow = nrow(thetas), ncol = ncol(thetas)/2)
+
+comb_df[, 1] <- paste(thetas[ , 1], thetas[ , 2], sep = ",")
+
+odds <- seq(1, ncol(thetas), by = 2)
+
+evs  <- seq(2, ncol(thetas), by = 2)
+
+for (c in 1:(ncol(thetas)/2)) {
+  
+  comb_df[, c] = paste(thetas[ , odds[c]], thetas[ , evs[c]], sep = ",")
+}
+
+comb_df <- as.data.frame(comb_df)
+
+filename <- "data/lrt_lg_pops_weekly.Rdata"
+
+lrt_stats[] <- NA
+
+save(lrt_stats, file = filename)
 
 filename <- "data/lrtps_lg_pops_weekly.Rdata"
 
-save(lrt_ps, file = filename)
+lrt_ps[] <- NA
 
-load("data/theta_lg_pops_weekly.Rdata")
+save(lrt_ps, file = filename)

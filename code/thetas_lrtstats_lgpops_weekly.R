@@ -48,7 +48,7 @@ save(new_cases_lg, new_cases_lg_weekly, populations_lg, file = filename)
 
 lrt_stats <- matrix(NA, nrow = length(keep), ncol = 1124)
 lrt_ps <- matrix(NA, nrow = length(keep), ncol = 1124)
-thetas <- matrix(NA, nrow = length(keep), ncol = 1124)
+thetas <- matrix(NA, nrow = length(keep), ncol = 2248)
 
 for (j in 1:length(keep)) {
   print(paste("County", j, "of", length(keep)))
@@ -75,13 +75,14 @@ for (j in 1:length(keep)) {
     })
 
     if (!is.na(out[1])) {
-      lrt_stat <- c(lrt_stat, out$lambda)
-      lrt_p <- c(lrt_p, out$p)
-      theta <- c(theta, 1 / out$phi11)
+        theta <- c(theta, 1 / out$phi11, 1 / out$phi12)
+        lrt_stat <- c(lrt_stat, out$lambda)
+        lrt_p <- c(lrt_p, out$p)
+  
     }else{
       lrt_stat <- c(lrt_stat, NA)
       lrt_p <- c(lrt_p, NA)
-      theta <- c(theta, NA)
+      theta <- c(theta, NA, NA)
     }
   }
 
@@ -103,3 +104,5 @@ save(thetas, file = filename)
 filename <- "data/lrtps_lg_pops_weekly.Rdata"
 
 save(lrt_ps, file = filename)
+
+load("data/theta_lg_pops_weekly.Rdata")

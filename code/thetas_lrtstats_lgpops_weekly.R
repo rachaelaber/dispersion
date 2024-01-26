@@ -96,13 +96,26 @@ for (j in 1:length(keep)) {
   thetas2[j, ] <- theta2
 }
 
-# Save
+# Save/drop indices with theta too small
+
+bad_indices <- thetas1 < 1e-10 | thetas2 < 1e-10
 
 filename <- "data/theta_lg_pops_weekly.Rdata"
+
+thetas1[bad_indices] <- NA
+
+thetas2[bad_indices] <- NA
+
 save(thetas1, thetas2, file = filename)
 
 filename <- "data/lrt_lg_pops_weekly.Rdata"
+
+lrt_stats[bad_indices] <- NA
+
 save(lrt_stats, file = filename)
 
 filename <- "data/lrtps_lg_pops_weekly.Rdata"
+
+lrt_ps[bad_indices] <- NA
+
 save(lrt_ps, file = filename)

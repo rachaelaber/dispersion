@@ -48,17 +48,21 @@ lines(dates, x / sum(x, na.rm = T), col = 2)
 x <- new_cases_lg_weekly[100, ]
 lines(dates, x / sum(x, na.rm = T), col = 2)
 
-
-
-x <- clamp(thetas, 0, 30)
-x <- colMeans(x, na.rm = TRUE)
-plot(dates, x, type = 'l', lwd = 3)
+# Clamp
 
 # reasoning for clamping:
 # as theta increases much beyond 30, it is not practically different
 # than poisson. (see figures/ecdfs.pdf)
 
-x <- clamp(thetas, 0, 30) 
+thetas1 <- clamp(thetas1, 0, 30)
+thetas2 <- clamp(thetas2, 0, 30)
+
+theta_ratios <- thetas2/thetas1
+
+x <- colMeans(theta_ratios, na.rm = TRUE)
+plot(dates, x, type = 'l', lwd = 3)
+
+x <- theta_ratios
 
 image(dates,
       1:nrow(x),

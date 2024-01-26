@@ -3,9 +3,9 @@
 
 ## Introduction (why is dispersion important?)
 
-1. Mean may not capture context-dependent changes in epidemic trajectories
+1. Metrics of variability are often overlooked and useful ways to understand epidemic dynamics
 
-2. Metrics of variability are often overlooked and useful ways to understand epidemic dynamics
+2. Dispersion around the mean (moving window) contain information about the size and frequency of local outbreaks, which can in turn indicate X.
 
 2. Overdispersed incidence suggests overdispersed individual reproductive number (superspreading), demographic/environmental heterogeneity, changes in population effective reproduction number (R)
 (Mention relationship to autocorrelation?)
@@ -14,8 +14,12 @@
  a) Give a more complete (predictive) understanding at both individual and population level (scales up)
  b) Allow for preparing surge capacity in certain months
 
-5. We could use dispersion estimates to identify areas of space and periods of time that could benefit from targeted control strategies to reduce superspreading
- a) Could also evaluate the success of these strategies
+
+
+## Model
+
+$$I_t(t+1) = NB(R_t I_t, I_t)$$
+
 
 ## Introduce the method
 

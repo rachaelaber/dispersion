@@ -63,4 +63,6 @@ to test the hypothesis that dispersion changes
 2. Theta and p-value surfaces indicate that cases fluctuated more around a time-averaged county trajectory during N-F 
 
 
+Potential abstract (add edits):
 
+Changes in epidemic trajectories depend on biogeographical context and may not be captured by quantifying changes in the process mean. Overdispersed incidence is suggestive of key underlying biological processes, so measuring variability (in this case, dispersion) would allow preparation of surge capacity and targeting of control measures, as well as improve our predictive understanding of epidemic dynamics. Our method identifies shifts in population-level dispersion in COVID-19 incidence by fitting negative binomial models to county-level incidence time series and using a likelihood ratio testing framework. Dispersion estimates from either side of putative changepoint are used to test the hypothesis that dispersion changes (i.e., that there is either more or less "superspreading"). We found that across the US, there was no consistent directional dispersion change, but rather some clusters of counties experienced increased superspreading dynamics. When examining the most populated counties in each state, a conspicuous increase in dispersion was seen following November of both 2020 and 2021.

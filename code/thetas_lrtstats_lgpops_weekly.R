@@ -48,7 +48,8 @@ save(new_cases_lg, new_cases_lg_weekly, populations_lg, file = filename)
 
 lrt_stats <- matrix(NA, nrow = length(keep), ncol = 1124)
 lrt_ps <- matrix(NA, nrow = length(keep), ncol = 1124)
-thetas <- matrix(NA, nrow = length(keep), ncol = 2248)
+thetas1 <- matrix(NA, nrow = length(keep), ncol = 1124)
+thetas2 <- matrix(NA, nrow = length(keep), ncol = 1124)
 
 for (j in 1:length(keep)) {
   print(paste("County", j, "of", length(keep)))
@@ -57,7 +58,8 @@ for (j in 1:length(keep)) {
 
   lrt_stat <- c()
   lrt_p <- c()
-  theta <- c()
+  theta1 <- c()
+  theta2 <- c()
 
   for (i in 30:(length(series) - 30 + 1)) {
     Y <- series[(i - 29):(i + 30)]
@@ -75,55 +77,32 @@ for (j in 1:length(keep)) {
     })
 
     if (!is.na(out[1])) {
-        theta <- c(theta, 1 / out$phi11, 1 / out$phi12)
+        theta1 <- c(theta1, 1 / out$phi11)
+        theta2 <- c(theta2, 1 / out$phi12)
         lrt_stat <- c(lrt_stat, out$lambda)
         lrt_p <- c(lrt_p, out$p)
   
     }else{
       lrt_stat <- c(lrt_stat, NA)
       lrt_p <- c(lrt_p, NA)
-      theta <- c(theta, NA, NA)
+      theta1 <- c(theta1, NA)
+      theta2 <- c(theta2, NA) 
     }
   }
 
   lrt_stats[j, ] <- lrt_stat
   lrt_ps[j, ] <- lrt_p
-  thetas[j, ] <- theta
+  thetas1[j, ] <- theta1
+  thetas2[j, ] <- theta2
 }
 
-# Save (drop entries with unreasonably small theta)
+# Save
 
 filename <- "data/theta_lg_pops_weekly.Rdata"
-
-thetas[thetas < 1e-10] <- NA
-
-save(thetas, file = filename)
-
-# Make thetas the same dim as the other two dataframes for subsetting
-
-comb_df <- matrix(nrow = nrow(thetas), ncol = ncol(thetas)/2)
-
-comb_df[, 1] <- paste(thetas[ , 1], thetas[ , 2], sep = ",")
-
-odds <- seq(1, ncol(thetas), by = 2)
-
-evs  <- seq(2, ncol(thetas), by = 2)
-
-for (c in 1:(ncol(thetas)/2)) {
-  
-  comb_df[, c] = paste(thetas[ , odds[c]], thetas[ , evs[c]], sep = ",")
-}
-
-comb_df <- as.data.frame(comb_df)
+save(thetas1, thetas2, file = filename)
 
 filename <- "data/lrt_lg_pops_weekly.Rdata"
-
-lrt_stats[] <- NA
-
 save(lrt_stats, file = filename)
 
 filename <- "data/lrtps_lg_pops_weekly.Rdata"
-
-lrt_ps[] <- NA
-
 save(lrt_ps, file = filename)

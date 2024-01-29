@@ -48,27 +48,42 @@ lines(dates, x / sum(x, na.rm = T), col = 2)
 x <- new_cases_lg_weekly[100, ]
 lines(dates, x / sum(x, na.rm = T), col = 2)
 
-# Clamp
-
-# reasoning for clamping:
-# as theta increases much beyond 30, it is not practically different
-# than poisson. (see figures/ecdfs.pdf)
-
-thetas1 <- clamp(thetas1, 0, 30)
-thetas2 <- clamp(thetas2, 0, 30)
-
 theta_ratios <- thetas2/thetas1
 
 x <- colMeans(theta_ratios, na.rm = TRUE)
-plot(dates, x, type = 'l', lwd = 3)
 
-x <- theta_ratios
+# upper right
+thetas <- thetas1
+my <- format(dates, "%b-%y")
+umy <- unique(my)
+nmy <- length(umy)
 
-image(dates,
-      1:nrow(x),
-      t(x),
-      col = rev(viridis(32)),
-      xaxt = "n")
+breaks <- log10(c(0.0001, 1, 100, 1000, 10^20))
+x <- matrix(NA, nrow = length(breaks) - 1, ncol = nmy)
+
+for (i in 1:nmy) {
+      these_thetas <- thetas[, my == umy[i]]
+      these_thetas[log10(these_thetas) < -3] <- NA    #TEMPORARY experimenting with suppressing very small thetas which I am suspecting might be a kind of failure in the estimatation process, like hitting boundary conditions in the optimizer?
+      x[, i] <- as.numeric(table(cut(log10(these_thetas), breaks = breaks)))
+}
+
+barplot(x,
+      col = rev(viridis(length(breaks) - 1)),
+      names.arg = substr(umy, 1, 1))
+
+
+
+
+
+
+
+#lower left
+
+x <- thetas1
+
+image(t(log10(x)), 
+        breaks = breaks,
+        col = rev(viridis(4)))
 
 at <- seq.Date(from = min(dates), to = max(dates), by = 'month')
 labels <- format(at, format = "%b")
@@ -107,6 +122,7 @@ dev.off()
 
 
 # Questions: 
+thetas <- thetas2
 
 # 1. Estimate of theta constrained to be
 # between 1.000045e-20 and 19.999525e+19. 
@@ -201,7 +217,7 @@ my <- format(dates, "%b-%y")
 umy <- unique(my)
 nmy <- length(umy)
 
-breaks <- c(-20, seq(1, 10, len = 8), 20)
+breaks <- log10(c(0.0001, 1, 100, 1000, 10^20))
 x <- matrix(NA, nrow = length(breaks) - 1, ncol = nmy)
 
 for (i in 1:nmy) {

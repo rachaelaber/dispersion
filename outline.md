@@ -17,8 +17,16 @@
 
 
 ## Model
+Potential eqn flow:
+
 
 $$I_t(t+1) = NB(R_t I_t, I_t)$$
+
+Maybe size isn't I_t, it's $\theta_t$. 
+
+Would be interesting to look at changes in $\theta_t$
+
+Leads into talking about model w offset.
 
 
 ## Introduce the method

@@ -9,6 +9,7 @@
 
 2. Overdispersed incidence suggests overdispersed individual reproductive number (superspreading), demographic/environmental heterogeneity, changes in population effective reproduction number (R)
 (Mention relationship to autocorrelation?)
+(Mention that variation in incidence and population size might appear to influence theta if they are not properly adjust for)
 
 4. So, measuring (changing) dispersion would:
  a) Give a more complete (predictive) understanding at both individual and population level (scales up)
@@ -16,20 +17,39 @@
 
 
 
-## Model
+### Model
 Potential eqn flow:
 
-
+"Classical theory" (May and others host-parasitoid models then Grenfell et al.) (cite) says:
 $$I_t(t+1) = NB(R_t I_t, I_t)$$
 
-Maybe size isn't I_t, it's $\theta_t$. 
+Other processes might affect size parameter, so maybe it isn't $I_t$, it's $\theta_t$. 
 
-Would be interesting to look at changes in $\theta_t$
+Would be interesting to look at changes in $\theta_t$ to understand important processes that may leave a signal in dispersion. Specifically estimate theta over time and scan for changepoints. 
 
+### Telegraph main results?
+
+
+## Results
+
+1. Simulations reveal method is robust to changes in incidence and to population size
+[envelopes] 
+2. Increases in dispersion around the holiday periods in the dataset; concurrent with increases in incidence.
+[roughdraft_surface.pdf]
+3. Evidence for a change in theta observed across many counties (evidenced by concentration of low p-values)  
+[roughdraft_surface.pdf]
+4. Highly overdispersed incidence patterns occuring more frequently later in time series, consistant with more heterogeneity in transmission, susceptibility and reporting
+[roughdraft_surface.pdf]
+
+
+
+
+## Materials and Methods
+
+### Introduce the method
+
+Challenge has been "spurious correlation" with population size.
 Leads into talking about model w offset.
-
-
-## Introduce the method
 
 1. Our method identifies shifts in population-level dispersion in incidence
 
@@ -49,22 +69,13 @@ Leads into talking about model w offset.
 
 4. IRLS to get parameter estimates of the model
 
-## Application of the method to simulated data
+### Application of the method to simulated data
 
 1. Validity/power simulations: used Gaussian and uniform epidemic curves
 
 2. Also simulated data assuming that theta was a function of the mean of the process in order to assess the robustness of the test (Supplement)
 
 3. Include tabulated Type I error rate and power as well as p-value plot?
-
-## Thanksgiving hypothesis
-
-1. For every county, NB model was fit separately to either side of November 26th, 2020 (Thanksgiving 2020)
-
-2. Values of $\hat{\theta_1}$ and $\hat{\theta_2}$ from either side of putative changepoint used in LRT
-to test the hypothesis that dispersion changes 
-
-3. US map (no consistent directional theta change)
 
 ### Scanning for breakpoints 
 

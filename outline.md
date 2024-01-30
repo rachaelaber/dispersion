@@ -75,6 +75,39 @@ to test the hypothesis that dispersion changes
 2. Theta and p-value surfaces indicate that cases fluctuated more around a time-averaged county trajectory during N-F 
 
 
-Potential abstract (add edits):
+Abstract:
 
-Changes in epidemic trajectories depend on biogeographical context and may not be captured by quantifying changes in the process mean. Overdispersed incidence is suggestive of key underlying biological processes, so measuring variability (in this case, dispersion) would allow preparation of surge capacity and targeting of control measures, as well as improve our predictive understanding of epidemic dynamics. Our method identifies shifts in population-level dispersion in COVID-19 incidence by fitting negative binomial models to county-level incidence time series and using a likelihood ratio testing framework. Dispersion estimates from either side of putative changepoint are used to test the hypothesis that dispersion changes (i.e., that there is either more or less "superspreading"). We found that across the US, there was no consistent directional dispersion change, but rather some clusters of counties experienced increased superspreading dynamics. When examining the most populated counties in each state, a conspicuous increase in dispersion was seen following November of both 2020 and 2021.
+Metrics of variability are often overlooked and useful ways to understand epidemic dynamics. Our method identifies shifts in population-level dispersion in incidence, allowing a more complete (predictive) understanding at both the individual and population level, and allowing practitioners to prepare surge capacity in certain months. Although classical theory predicts that dispersion is governed by previous incidence, we consider a more general negative binomial regression framework to take into account processes that may also affect the spread of cases. We investigate changes in dispersion over time and space and find that there are increases in dispersion around holiday periods in many US counties in the dataset, concurrent with incidence increases. In addition, highly overdispersed patterns occur more frequently later in time series, consistent with more heterogeneity in transmission, susceptibility and reporting. Our method is robust to changes in incidence and to population size, allowing for quantification of dispersion (indicative of superspreading dynamics) without artifactual contributions from these features.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

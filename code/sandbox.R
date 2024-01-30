@@ -37,7 +37,9 @@ filename <- "figures/roughdraft_surfaces.pdf"
 
 pdf(filename, width = 8, height = 8)
 
-par(mfrow = c(2, 2))
+par(mfrow = c(2, 3))
+
+# 1
 
 x <- colMeans(new_cases_lg_weekly)
 plot(dates, x / sum(x, na.rm = T), type = 'l', lwd = 3)
@@ -48,11 +50,9 @@ lines(dates, x / sum(x, na.rm = T), col = 2)
 x <- new_cases_lg_weekly[100, ]
 lines(dates, x / sum(x, na.rm = T), col = 2)
 
-theta_ratios <- thetas2/thetas1
 
-x <- colMeans(theta_ratios, na.rm = TRUE)
+# 2
 
-# upper right
 thetas <- thetas1
 my <- format(dates, "%b-%y")
 umy <- unique(my)
@@ -72,12 +72,7 @@ barplot(x,
       names.arg = substr(umy, 1, 1))
 
 
-
-
-
-
-
-#lower left
+# 3
 
 x <- thetas1
 
@@ -91,7 +86,28 @@ labels <- substr(labels, 1, 1)
 
 axis.Date(1, at = at, labels = labels)
 
-#
+# 4
+
+mu <- 100
+
+x1 <- rnbinom(n = 10000, mu = mu, size = 1)
+
+x2 <- rnbinom(n = 10000, mu = mu, size = 100)
+
+y <- rpois(n = 10000, lambda = mu)
+
+plot(ecdf(x1), col = "yellow", xlim = c(0, 300), main = "Empirical CDF", cex = 0.5, verticals = T, do.points = F)
+
+plot(ecdf(x2), col = "seagreen3", pch = 21, cex = 0.5, add = T, verticals = T, do.points = F, )
+
+plot(ecdf(y), col = "black", pch = 21, cex = 0.5, add = T, verticals = T, do.points = F)
+  
+legend("bottomright", legend=c("1", "100", "Poisson"),
+       col = c("yellow", "seagreen3", "black"), lty = 1, cex = 0.8,
+       title = "Size", text.font = 3, bg = "white")
+
+
+# 5
 
 x <- lrt_ps
 lower_range <- c(0, 10^seq(-50, -2, len = 12))
@@ -118,7 +134,7 @@ axis.Date(1, at = at, labels = labels)
 dev.off()
 
 
-
+#_______________________________________________________________________________
 
 
 # Questions: 

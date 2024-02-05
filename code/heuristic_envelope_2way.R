@@ -5,7 +5,7 @@ graphics.off()
 
 
 # Script parameters
-use_simulated_data <- FALSE
+use_simulated_data <- TRUE
 
 
 # Load function to fit model
@@ -19,7 +19,7 @@ source("code/lrt.R")
 # Load data and set indices for example time series
 if (use_simulated_data) {
   load("data/simulated_curves.Rdata")
-  targets <- c(210, 35) # rejected and not rejected, respectively
+  targets <- c(201, 210, 5212, 5210) # population 314000, breakpoint 30 for all
   new_cases_subset <- curves
   populations_subset <- curve_parms
   filename <- "figures/envelope_sim.pdf"
@@ -40,7 +40,7 @@ mypoly <- function(x, y1, y2) {
 
 # Create two-panel visualization
 pdf(filename, width = 6, height = 6)
-par(mfrow = c(1, 2))
+par(mfrow = c(2, 2))
 
 for (target in targets) {
   cases <- new_cases_subset[target, ]

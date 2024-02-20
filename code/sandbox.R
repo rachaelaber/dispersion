@@ -37,18 +37,18 @@ filename <- "figures/roughdraft_surfaces.pdf"
 
 pdf(filename, width = 8, height = 8)
 
-par(mfrow = c(2, 3))
+par(mfrow = c(2, 2))
 
 # 1
 
-x <- colMeans(new_cases_lg_weekly)
-plot(dates, x / sum(x, na.rm = T), type = 'l', lwd = 3)
+#x <- colMeans(new_cases_lg_weekly)
+#plot(dates, x / sum(x, na.rm = T), type = 'l', lwd = 3)
 
-x <- new_cases_lg_weekly[1, ]
-lines(dates, x / sum(x, na.rm = T), col = 2)
+#x <- new_cases_lg_weekly[1, ]
+#lines(dates, x / sum(x, na.rm = T), col = 2)
 
-x <- new_cases_lg_weekly[100, ]
-lines(dates, x / sum(x, na.rm = T), col = 2)
+#x <- new_cases_lg_weekly[100, ]
+#lines(dates, x / sum(x, na.rm = T), col = 2)
 
 
 # 2
@@ -58,7 +58,7 @@ my <- format(dates, "%b-%y")
 umy <- unique(my)
 nmy <- length(umy)
 
-breaks <- log10(c(0.0001, 1, 100, 1000, 10^20))
+breaks <- log10(c(1, 3, 10, 100, 1000, 10^20))
 x <- matrix(NA, nrow = length(breaks) - 1, ncol = nmy)
 
 for (i in 1:nmy) {
@@ -67,8 +67,9 @@ for (i in 1:nmy) {
       x[, i] <- as.numeric(table(cut(log10(these_thetas), breaks = breaks)))
 }
 
+colors <- c(rev(viridis(length(breaks) - 1)))
 barplot(x,
-      col = rev(viridis(length(breaks) - 1)),
+      col = colors,
       names.arg = substr(umy, 1, 1))
 
 
@@ -78,7 +79,7 @@ x <- thetas1
 
 image(t(log10(x)), 
         breaks = breaks,
-        col = rev(viridis(4)))
+        col = colors)
 
 at <- seq.Date(from = min(dates), to = max(dates), by = 'month')
 labels <- format(at, format = "%b")
@@ -90,20 +91,24 @@ axis.Date(1, at = at, labels = labels)
 
 mu <- 100
 
-x1 <- rnbinom(n = 10000, mu = mu, size = 1)
+x1 <- rnbinom(n = 10000, mu = mu, size = 10^breaks[2])
 
-x2 <- rnbinom(n = 10000, mu = mu, size = 100)
+x2 <- rnbinom(n = 10000, mu = mu, size = 10^breaks[3])
+
+x3 <- rnbinom(n = 10000, mu = mu, size = 10^breaks[4])
 
 y <- rpois(n = 10000, lambda = mu)
 
-plot(ecdf(x1), col = "yellow", xlim = c(0, 300), main = "Empirical CDF", cex = 0.5, verticals = T, do.points = F)
+plot(ecdf(x1), col = colors[2], xlim = c(0, 200), main = "Empirical CDF", cex = 0.5, verticals = T, do.points = F)
 
-plot(ecdf(x2), col = "seagreen3", pch = 21, cex = 0.5, add = T, verticals = T, do.points = F, )
+plot(ecdf(x2), col = colors[3], pch = 21, cex = 0.5, add = T, verticals = T, do.points = F, )
+
+plot(ecdf(x3), col = colors[4], pch = 21, cex = 0.5, add = T, verticals = T, do.points = F, )
 
 plot(ecdf(y), col = "black", pch = 21, cex = 0.5, add = T, verticals = T, do.points = F)
   
-legend("bottomright", legend=c("1", "100", "Poisson"),
-       col = c("yellow", "seagreen3", "black"), lty = 1, cex = 0.8,
+legend("bottomright", legend=c(10^breaks[2:4], "Poisson"),
+       col = c(colors[2:4], "black"), lty = 1, cex = 0.8,
        title = "Size", text.font = 3, bg = "white")
 
 
@@ -233,7 +238,6 @@ my <- format(dates, "%b-%y")
 umy <- unique(my)
 nmy <- length(umy)
 
-breaks <- log10(c(0.0001, 1, 100, 1000, 10^20))
 x <- matrix(NA, nrow = length(breaks) - 1, ncol = nmy)
 
 for (i in 1:nmy) {

@@ -1,17 +1,26 @@
 # Using simulated data, visualize relationship between mean 
-# p-value and population size, and between mean p-value and 
-# final outbreak size
+# p-value and population size
 
 load("data/pvals_sim_LRT.Rdata")
 
 load("data/simulated_curves.Rdata")
 
-# Rejection (p-values) v. population size 
-mean_pval <- tapply(pvals, curve_parms$population, mean)
-plot(unique(curve_parms$population), mean_pval, type = "p", 
-     ylim = c(0, 1))
+# p-values v. population size 
 
-# Rejection (p-values) v. final size
-mean_pval2 <- tapply(pvals, curve_parms$final_size, mean)
-plot(unique(curve_parms$final_size), mean_pval2, type = "p",
-     ylim = c(0, 1))
+mean_pval <- tapply(pvals, curve_parms$population, mean)
+
+var_pval <- tapply(pvals, curve_parms$population, var)
+
+se_pval <- sqrt(var_pval)
+
+filename <- "figures/sim_meanp_v_pop.pdf"
+
+pdf(file = filename, width = 6, height = 6)
+
+plot(unique(curve_parms$population), mean_pval, type = "l", 
+     ylim = c(0, 1), main = "Mean p-value v. population size",
+     xlab = "Population Size", ylab = "Mean p-value")
+lines(unique(curve_parms$population), (mean_pval + .3 * se_pval), col = 2)
+lines(unique(curve_parms$population), (mean_pval - .3 * se_pval), col = 2)
+
+dev.off()

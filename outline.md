@@ -32,8 +32,11 @@ Would be interesting to look at changes in $\theta_t$ to understand important pr
 
 ## Results
 
-1. Simulations reveal method is robust to changes in incidence and to population size
-[envelopes] 
+1. Simulations reveal method is robust to changes in:
+a) population size
+[sim_meanp_v_pop.pdf]
+b) incidence 
+[compare.pdf] 
 2. Increases in dispersion around the holiday periods in the dataset; concurrent with increases in incidence.
 [roughdraft_surface.pdf]
 3. Evidence for a change in theta observed across many counties (evidenced by concentration of low p-values)  

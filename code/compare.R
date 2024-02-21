@@ -1,3 +1,4 @@
+# Note that the first 24 are omitted in these plots
 
 load("data/processed_long_dat.Rdata")
 
@@ -13,21 +14,18 @@ filename <- "figures/compare.pdf"
 
 pdf(filename, height = 6, width = 6)
 
-for (i in 1:length(populations_lg$population)){
+for (i in 1:1){ # 1:length(populations_lg$population)d
   
   series = new_cases_lg[i,]
   
-  par(mfrow = c(2, 1))
+  par(mfrow = c(3, 1))
   
-  plot(series[30:(length(series) - 30 + 1)], type = "l", main = "Incidence")
+  plot(series[(30 + 35):(length(series) - 30 + 1)], type = "h", main = "Incidence")
   
-  abline(v = 281, col = "red")
+  plot(lrt_stats[i, 35:dim(lrt_stats)[2]], type = "h", col = 2, main = "LRT")
   
-  plot(lrt_stats[i, ], type = "l", col = 2, main = "LRT")
+  plot(log(thetas[i, 35:dim(thetas)[2]]), type = "l", col = 4, main = "Log Theta")
   
-  plot(log(thetas[i, ]), type = "l", col = 4, main = "Log Theta")
-  
-  abline(v = 281, col = "red")
 }
 
 dev.off()

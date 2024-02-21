@@ -32,10 +32,7 @@ Would be interesting to look at changes in $\theta_t$ to understand important pr
 
 ## Results
 
-1. Simulations reveal method is robust to changes in:
-a) population size
-[sim_meanp_v_pop.pdf]
-b) incidence 
+1. Simulations reveal method is robust to changes in incidence 
 [compare.pdf] 
 2. Increases in dispersion around the holiday periods in the dataset; concurrent with increases in incidence.
 [roughdraft_surface.pdf]
@@ -87,6 +84,11 @@ Leads into talking about model w offset.
 2. Investigated large counties (top 4% in each state)
 
 2. Theta and p-value surfaces indicate that cases fluctuated more around a time-averaged county trajectory during N-F 
+
+### Figures for Supplement
+
+1. Simulations reveal method is robust to population size
+[sim_pval_v_pop.pdf] 
 
 
 Abstract:

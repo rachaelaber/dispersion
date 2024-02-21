@@ -1,26 +1,33 @@
-# Using simulated data, visualize relationship between mean 
-# p-value and population size
+# Using simulated data, visualize relationship between p-values
+# and population size
 
 load("data/pvals_sim_LRT.Rdata")
-
 load("data/simulated_curves.Rdata")
 
-# p-values v. population size 
+filename <- "figures/sim_pval_v_pop.pdf"
+pdf(filename, width = 6, height = 6)
 
-mean_pval <- tapply(pvals, curve_parms$population, mean)
+par(cex = 1.5)
+par(pin = c(3, 3))
 
-var_pval <- tapply(pvals, curve_parms$population, var)
+plot(pvals ~ jitter(curve_parms$population, 1.5),
+     pch = 21, col = NA, cex = 0.2,
+     bg = rgb(0.4, 0.4, 0.4, 0.3),
+     xlab = "Population Size",
+     ylab = "p-value",
+     xaxt = "n", yaxt = "n",
+     ylim = c(0, 1),
+)
 
-se_pval <- sqrt(var_pval)
+axis(1, seq(314000, 3140000, length = 10))
+axis(2, seq(0, 1, 0.25))
 
-filename <- "figures/sim_meanp_v_pop.pdf"
+ag <- aggregate(pvals ~ curve_parms$population, FUN = mean)
+points(ag[, 1], ag[, 2], pch = 19, col = 2, cex = 1)
 
-pdf(file = filename, width = 6, height = 6)
-
-plot(unique(curve_parms$population), mean_pval, type = "l", 
-     ylim = c(0, 1), main = "Mean p-value v. population size",
-     xlab = "Population Size", ylab = "Mean p-value")
-lines(unique(curve_parms$population), (mean_pval + .3 * se_pval), col = 2)
-lines(unique(curve_parms$population), (mean_pval - .3 * se_pval), col = 2)
+ag <- aggregate(pvals ~ curve_parms$population, FUN = quantile, probs = c(0.25, 0.75))
+lo <- ag[, 2][, 1]
+hi <- ag[, 2][, 2]
+segments(ag[, 1], lo, ag[, 1], hi, col = 2, lwd = 3)
 
 dev.off()

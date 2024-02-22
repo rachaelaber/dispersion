@@ -3,7 +3,6 @@ graphics.off()
 
 library(viridis)
 
-
 # Prep data
 load("data/lrt_lg_pops_weekly.Rdata")
 load("data/new_cases_lg_weekly.Rdata")
@@ -39,19 +38,9 @@ pdf(filename, width = 8, height = 8)
 
 par(mfrow = c(2, 2))
 
+
+
 # 1
-
-#x <- colMeans(new_cases_lg_weekly)
-#plot(dates, x / sum(x, na.rm = T), type = 'l', lwd = 3)
-
-#x <- new_cases_lg_weekly[1, ]
-#lines(dates, x / sum(x, na.rm = T), col = 2)
-
-#x <- new_cases_lg_weekly[100, ]
-#lines(dates, x / sum(x, na.rm = T), col = 2)
-
-
-# 2
 
 thetas <- thetas1
 my <- format(dates, "%b-%y")
@@ -72,8 +61,10 @@ barplot(x,
       col = colors,
       names.arg = substr(umy, 1, 1))
 
-
-# 3
+legend("topright", col = colors, cex = .4, 
+       legend = c("very dispersed", "dispersed", "?", "?", "Poisson-ish"), 
+       lty = 1)
+# 2
 
 x <- thetas1
 
@@ -87,32 +78,31 @@ labels <- substr(labels, 1, 1)
 
 axis.Date(1, at = at, labels = labels)
 
+# 3
+incidence <- matrix(NA,
+                    nrow = nrow(new_cases_lg_weekly),
+                    ncol = ncol(new_cases_lg_weekly))
+for (i in seq_len(nrow(new_cases_lg_weekly))) {
+  incidence[i, ] <- new_cases_lg_weekly[i,] / populations_lg$population[i]
+}
+
+
+m <- substr(format(dates, "%b"), 1, 1)
+image(dates, 1:150, t(log10(incidence)),
+      xaxt = "n",
+      xlab = "",
+      ylab = "",
+      yaxt = "n")
+
+at <- seq.Date(from = min(dates), to = max(dates), by = 'month')
+labels <- format(at, format = "%b")
+labels <- substr(labels, 1, 1)
+
+axis.Date(1, at = at, labels = labels)
+
+
+
 # 4
-
-mu <- 100
-
-x1 <- rnbinom(n = 10000, mu = mu, size = 10^breaks[2])
-
-x2 <- rnbinom(n = 10000, mu = mu, size = 10^breaks[3])
-
-x3 <- rnbinom(n = 10000, mu = mu, size = 10^breaks[4])
-
-y <- rpois(n = 10000, lambda = mu)
-
-plot(ecdf(x1), col = colors[2], xlim = c(0, 200), main = "Empirical CDF", cex = 0.5, verticals = T, do.points = F)
-
-plot(ecdf(x2), col = colors[3], pch = 21, cex = 0.5, add = T, verticals = T, do.points = F, )
-
-plot(ecdf(x3), col = colors[4], pch = 21, cex = 0.5, add = T, verticals = T, do.points = F, )
-
-plot(ecdf(y), col = "black", pch = 21, cex = 0.5, add = T, verticals = T, do.points = F)
-  
-legend("bottomright", legend=c(10^breaks[2:4], "Poisson"),
-       col = c(colors[2:4], "black"), lty = 1, cex = 0.8,
-       title = "Size", text.font = 3, bg = "white")
-
-
-# 5
 
 x <- lrt_ps
 lower_range <- c(0, 10^seq(-50, -2, len = 12))
@@ -259,27 +249,26 @@ barplot(x,
 #TODO: the two plots are not properly lined up in terms
 # of the months.
 
-incidence <- matrix(NA,
-                    nrow = nrow(new_cases_lg_weekly),
-                    ncol = ncol(new_cases_lg_weekly))
-for (i in seq_len(nrow(new_cases_lg_weekly))) {
-      incidence[i, ] <- new_cases_lg_weekly[i,] / populations_lg$population[i]
-}
+# 
+# mu <- 100
+# 
+# x1 <- rnbinom(n = 10000, mu = mu, size = 10^breaks[2])
+# 
+# x2 <- rnbinom(n = 10000, mu = mu, size = 10^breaks[3])
+# 
+# x3 <- rnbinom(n = 10000, mu = mu, size = 10^breaks[4])
+# 
+# y <- rpois(n = 10000, lambda = mu)
+# 
+# plot(ecdf(x1), col = colors[2], xlim = c(0, 200), main = "Empirical CDF", cex = 0.5, verticals = T, do.points = F)
+# 
+# plot(ecdf(x2), col = colors[3], pch = 21, cex = 0.5, add = T, verticals = T, do.points = F, )
+# 
+# plot(ecdf(x3), col = colors[4], pch = 21, cex = 0.5, add = T, verticals = T, do.points = F, )
+# 
+# plot(ecdf(y), col = "black", pch = 21, cex = 0.5, add = T, verticals = T, do.points = F)
+# 
+# legend("bottomright", legend=c(10^breaks[2:4], "Poisson"),
+#        col = c(colors[2:4], "black"), lty = 1, cex = 0.8,
+#        title = "Size", text.font = 3, bg = "white")
 
-par(mfrow = c(2, 1))
-barplot(x,
-      col = rev(viridis(length(breaks) - 1)),
-      names.arg = substr(umy, 1, 1))
-
-m <- substr(format(dates, "%b"), 1, 1)
-image(dates, 1:150, t(log10(incidence)),
-      xaxt = "n",
-      xlab = "",
-      ylab = "",
-      yaxt = "n")
-
-at <- seq.Date(from = min(dates), to = max(dates), by = 'month')
-labels <- format(at, format = "%b")
-labels <- substr(labels, 1, 1)
-
-axis.Date(1, at = at, labels = labels)

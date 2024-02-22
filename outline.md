@@ -36,7 +36,7 @@ Would be interesting to look at changes in $\theta_t$ to understand important pr
 [compare.pdf] 
 2. Increases in dispersion around the holiday periods in the dataset; concurrent with increases in incidence.
 [roughdraft_surface.pdf]
-3. Evidence for a change in theta observed across many counties (evidenced by concentration of low p-values)  
+3. Evidence for a change in theta observed across many counties (evidenced by concentration of low p-values concurrent with peak incidence).
 [roughdraft_surface.pdf]
 4. Highly overdispersed incidence patterns occuring more frequently later in time series, consistant with more heterogeneity in transmission, susceptibility and reporting
 [roughdraft_surface.pdf]

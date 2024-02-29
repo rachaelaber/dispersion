@@ -36,7 +36,7 @@ Would be interesting to look at changes in $\theta_t$ to understand important pr
 [compare.pdf] 
 2. Increases in dispersion around the holiday periods in the dataset; concurrent with increases in incidence.
 [roughdraft_surface.pdf]
-3. Evidence for a change in theta observed across many counties (evidenced by concentration of low p-values)  
+3. Evidence for a change in theta observed across many counties (evidenced by concentration of low p-values concurrent with peak incidence).
 [roughdraft_surface.pdf]
 4. Highly overdispersed incidence patterns occuring more frequently later in time series, consistant with more heterogeneity in transmission, susceptibility and reporting
 [roughdraft_surface.pdf]
@@ -101,7 +101,9 @@ Abstract:
 
 Metrics of variability are often overlooked and useful ways to understand epidemic dynamics. For instance, superspreading of viruses such as SARS-CoV-2 can be elucidated by utilizing such metrics. Our method identifies shifts in population-level incidence dispersion, allowing a more complete and predictive understanding at both the individual and population level, and allowing practitioners to prepare surge capacity in certain months. Although classical theory predicts that there will be less dispersion when incidence is higher, we consider a more general negative binomial regression framework to take into account processes that may also affect the spread of cases. We investigate changes in dispersion over time and space and find that there are increases in dispersion around holiday periods in many US counties, concurrent with observed incidence increases. In addition, highly overdispersed patterns occur more frequently later in time series, consistent with more heterogeneity in transmission, susceptibility, and reporting. Our method is robust to changes in incidence and to population size, allowing for quantification of dispersion—indicative of superspreading dynamics—without artifactual contributions from these features.
 
-
+-second sentence "our method" feels a bit out of place. Start by framing the problem. Maybe something about how, variability itself varies and affects epidemic dynamics is not well understood? [that may not be good.. just one possible starting point to take or leave]
+-"we consider a more general negative binomial regression framework to take into account processes that may also affect the spread of cases" doesn't give a clear enough idea about the contribution. Something like: "We develop a flexible way of estimating how variability changes over time, including detecting breakpoints representing discrete shifts in variability." And it factors out population size and case numbers. Able to detect changes in variability that matter, and distinguish them from changes due to simple statistical effects of population size or case number.
+-
 
 
 

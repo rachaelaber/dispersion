@@ -41,7 +41,9 @@ Would be interesting to look at changes in $\theta_t$ to understand important pr
 4. Highly overdispersed incidence patterns occuring more frequently later in time series, consistant with more heterogeneity in transmission, susceptibility and reporting
 [roughdraft_surface.pdf]
 
+A change from $\theta = 1000$ to $\theta = 100$ is operationally significant for large populations during times of peak incidence due to variance-mean scaling. In particular, for a period of high incidence, the variance/mean ratio will be larger than the variance/mean ratio for smaller incidence (assuming theta is the same in both populations). So, a small decrement in theta could have large impacts on the variance in large populations at times of peak incidence.
 
+$$var = mu + mu^2/theta$$
 
 
 ## Materials and Methods
@@ -85,7 +87,11 @@ Leads into talking about model w offset.
 
 2. Theta and p-value surfaces indicate that cases fluctuated more around a time-averaged county trajectory during N-F 
 
-### Figures for Supplement
+## Discussion
+
+The results imply that we can revise our understanding of case count dispersion: dispersion is high at unexpected times (peak incidence) and corresponds to significant increases in variance when incidence is high.
+
+## Figures for Supplement
 
 1. Simulations reveal method is robust to population size
 [sim_pval_v_pop.pdf] 

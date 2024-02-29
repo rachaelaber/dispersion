@@ -32,14 +32,15 @@ Would be interesting to look at changes in $\theta_t$ to understand important pr
 
 ## Results
 
-1. Simulations reveal method is robust to changes in incidence 
+1. Method is robust to changes in number of cases. Algebra and simulations.  
 [compare.pdf] 
-2. Increases in dispersion around the holiday periods in the dataset; concurrent with increases in incidence.
+2. Highly overdispersed incidence patterns occuring more frequently later in time series, consistant with more heterogeneity in transmission, susceptibility and reporting
 [roughdraft_surface.pdf]
-3. Evidence for a change in theta observed across many counties (evidenced by concentration of low p-values concurrent with peak incidence).
+3. Increases in dispersion around the holiday periods in the dataset; concurrent with increases in incidence.
 [roughdraft_surface.pdf]
-4. Highly overdispersed incidence patterns occuring more frequently later in time series, consistant with more heterogeneity in transmission, susceptibility and reporting
+4. Evidence for a change in theta observed across many counties (evidenced by concentration of low p-values concurrent with peak incidence).
 [roughdraft_surface.pdf]
+
 
 A change from $\theta = 1000$ to $\theta = 100$ is operationally significant for large populations during times of peak incidence due to variance-mean scaling. In particular, for a period of high incidence, the variance/mean ratio will be larger than the variance/mean ratio for smaller incidence (assuming theta is the same in both populations). So, a small decrement in theta could have large impacts on the variance in large populations at times of peak incidence.
 

@@ -3,20 +3,28 @@
 
 ## Introduction (why is dispersion important?)
 
-1. Metrics of variability are often overlooked and useful ways to understand epidemic dynamics
+1. Metrics of variability are often overlooked and useful ways to understand epidemic dynamics.   However, techniques based on variability in epidemic time series' are emerging. One area of interest is how variability is related to different phases of an epidemic. For instance, Graham et al. (2019) use the mean and interannual coefficient of variation of measles incidence to construct a metric indicative of where a location may be on the path to elimination of the pathogen. Similarly, it was recently found that $k_t$, the time-varying transmission heterogeneity for COVID-19, decreased over time and was significantly associated with interventions to slow spread in Hong Kong (Adam et al. 2022).
 
-2. Dispersion around the mean (moving window) contain information about the size and frequency of local outbreaks, which can in turn indicate X.
+
+2. Dispersion around the mean (moving window) contains information about the size and frequency of local outbreaks, which can in turn indicate locally experienced epidemic dynamics. 
+Epidemic burstiness can also be studied from the perspective of the individual. This is a useful way to think about dispersion in case count time series, as one can think of degree of dispersion as degree of clustering/crowding of cases. A 'mean crowding' parameter was proposed, which is the mean number per individual of other individuals in the same quadrat (Lloyd 1967).  An added benefit of this framework is variation in incidence and population size might appear to influence theta if they are not properly adjusted for, and this approach allows us to sidestep that. 
 
 2. Overdispersed incidence suggests overdispersed individual reproductive number (superspreading), demographic/environmental heterogeneity, changes in population effective reproduction number (R)
-(Mention relationship to autocorrelation?)
-(Mention that variation in incidence and population size might appear to influence theta if they are not properly adjust for)
+Individual-level heterogeneity in transmission scales up to affect population-level dynamics (Lloyd-Smith 2005), so variability in epidemic trajectories at the population level may provide information about individual-level variability in the transmission process. Importantly, contact tracing data is expensive to collect (cite), so analysis of incidence data may often be more feasible.
+Comparison of simulated and observed incidence time series has been used to estimate the role of environmental and demographic stochasticity in measles: across community sizes, demographic stochasticity of measles becomes more important in small human populations, where dynamics can’t be described as well simply by contact rate and birth rate (Grenfell et al. 2002). A similar phenomenon may be observed at the end of an epidemic (cite). 
 
 4. So, measuring (changing) dispersion would:
  a) Give a more complete (predictive) understanding at both individual and population level (scales up)
+ Analyzing variability in epidemic dynamics in terms of bursts of incidence is also important for planning surge capacity (Wallinga 2018).
  b) Allow for preparing surge capacity in certain months
+ Sun et al. (2021) found a combination of individual-based and population-based strategies was required for SARS-CoV-2 control, further highlighting the importance of considering population-level variability and its relationship to individual-level variability. 
 
 
 
+ Note that some kinds of time dependence in the rate can cause autocorrelation, as can contagion (if it occurs outside of set periods), and heterogeneity (if an omitted variable is correlated in time) (Barron 1992). Also, demographic structure (e.g., age structure) has the potential to affect temporal autocorrelation in transmission rate - the effects of age structure can be captured by a model that includes an infection rate that varies over time (Earn et al. 1998). 
+
+ 
+ 
 ### Model
 Potential eqn flow:
 
@@ -34,7 +42,7 @@ Would be interesting to look at changes in $\theta_t$ to understand important pr
 
 1. Method is robust to changes in number of cases. Algebra and simulations.  
 [compare.pdf] 
-2. Highly overdispersed incidence patterns occuring more frequently later in time series, consistant with more heterogeneity in transmission, susceptibility and reporting
+2. Highly overdispersed incidence patterns occurring more frequently later in time series, consistent with more heterogeneity in transmission, susceptibility and reporting
 [roughdraft_surface.pdf]
 3. Increases in dispersion around the holiday periods in the dataset; concurrent with increases in incidence.
 [roughdraft_surface.pdf]
@@ -115,10 +123,21 @@ Metrics of variability are often overlooked and useful ways to understand epidem
 
 
 
+Sources for methods:
 
+The negative binomial distribution might accurately model a time series if there is a changing process mean: for example, if the mean of a Poisson distribution itself follows a gamma distribution, the resulting distribution is negative binomial (Cook 2009).
 
+Negative binomial regression (in contrast to Poisson regression) can account for unobserved heterogeneity, time dependence in the rate of a process and contagion that all lead to overdispersion (Barron 1992).
 
+A recently proposed negative binomial regression model for time series of counts also accommodates serial dependence (Davis and Wu 2009).
 
+Natural splines are cubic splines which are linear outside of the boundary knots (Perperoglou et al. 2019).
+
+ Therefore, to evaluate whether the negative binomial conditional distribution is needed (opposed to a Poisson/quasi-Poisson conditional distribution with the same model of process mean), inspection of mean-variance relationships using a diagnostic plot is possible (Ver Hoef and Boveng 2007)
+ 
+ This procedure is implemented via the NBPSeq R package (https://CRAN.R-project.org/package=NBPSeq) and from Di et al. (2011). 
+
+ From a modern theoretical ecology perspective, investigating beyond the first moment of a process has also been identified as important: ecological experiments are typically geared towards assessing the impacts of the mean strength of causal processes, however the variance about mean effects have been mostly ignored as a driver in biological assemblages, but may be as important as the mean (Benedetti-Cecchi 2003).
 
 
 

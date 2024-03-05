@@ -3,39 +3,44 @@
 
 ## Introduction (why is dispersion important?)
 
-1. Metrics of variability are often overlooked and useful ways to understand epidemic dynamics.   However, techniques based on variability in epidemic time series' are emerging. One area of interest is how variability is related to different phases of an epidemic. For instance, Graham et al. (2019) use the mean and interannual coefficient of variation of measles incidence to construct a metric indicative of where a location may be on the path to elimination of the pathogen. Similarly, it was recently found that $k_t$, the time-varying transmission heterogeneity for COVID-19, decreased over time and was significantly associated with interventions to slow spread in Hong Kong (Adam et al. 2022).
+1. Start with 1-2 sentences introducing the idea of 'noise' in population-level incidence time series. Noise can come from a variety of processes, including X Y and Z. [the pivot here is the 'noise' has information in it:] Metrics of variability are often overlooked and useful ways to understand epidemic dynamics. However, techniques based on variability in epidemic time series' are still emerging. One area of interest is how variability is related to different phases of an epidemic. For instance, Graham et al. (2019) use the mean and interannual coefficient of variation of measles incidence to construct a metric indicative of where a location may be on the path to elimination of the pathogen. Similarly, it was recently found that $k_t$, the time-varying transmission heterogeneity for COVID-19, decreased over time and was significantly associated with interventions to slow spread in Hong Kong (Adam et al. 2022). [something like: variability in population-level incidence time series may therefore provide information about what the phase or dynamic regime an epidemic is in, as well as potentially indicating the level of heterogeneity at finer spatial and temporal scales, in transmission, susceptibility, and/orreporting.]
 
 
-2. Dispersion around the mean (moving window) contains information about the size and frequency of local outbreaks, which can in turn indicate locally experienced epidemic dynamics. 
-Epidemic burstiness can also be studied from the perspective of the individual. This is a useful way to think about dispersion in case count time series, as one can think of degree of dispersion as degree of clustering/crowding of cases. A 'mean crowding' parameter was proposed, which is the mean number per individual of other individuals in the same quadrat (Lloyd 1967).  An added benefit of this framework is variation in incidence and population size might appear to influence theta if they are not properly adjusted for, and this approach allows us to sidestep that. 
+2. Dispersion around the rolling mean (moving window) of an incidence time series may contain information about the size and frequency of local outbreaks. From the perspective of an infectious individual, incidence experienced in their spatial-temporal neighborhood will be higher than the global mean when there is a lot of dispersion. A 'mean crowding' parameter was proposed, which is the mean number per individual of other individuals in the same quadrat (Lloyd 1967). This is a useful way to think about dispersion in case count time series, as (absent other processes that influence dispersion such as variation in reporting) one can think of degree of dispersion as degree of clustering/crowding of cases, which is related to concepts like transmission heterogeneity (refs). 
 
-2. Overdispersed incidence suggests overdispersed individual reproductive number (superspreading), demographic/environmental heterogeneity, changes in population effective reproduction number (R)
+3. One of the reasons why studying variability in incidence time series is not more widely done is because it is difficult to disentangle the effects of population size and incidence on variance. For instance, the variance of a Poisson distribution is equal to the mean, so if the mean of a process is changing, the variance will change as well. This is a problem because the mean of the process is often changing in an epidemic. The negative binomial distribution might accurately model a time series if there is a changing process mean: for example, if the mean of a Poisson distribution itself follows a gamma distribution, the resulting distribution is negative binomial (Cook 2009). The result is that we should use the dispersion parameter of a negative biomeal distribution to measure changes in dispersion, not the variance.
+
+4. [does this para get absorbed above? The causes and importance of overdispersion.] Overdispersed incidence suggests overdispersed individual reproductive number (superspreading), demographic/environmental heterogeneity, changes in population effective reproduction number (R)
 Individual-level heterogeneity in transmission scales up to affect population-level dynamics (Lloyd-Smith 2005), so variability in epidemic trajectories at the population level may provide information about individual-level variability in the transmission process. Importantly, contact tracing data is expensive to collect (cite), so analysis of incidence data may often be more feasible.
-Comparison of simulated and observed incidence time series has been used to estimate the role of environmental and demographic stochasticity in measles: across community sizes, demographic stochasticity of measles becomes more important in small human populations, where dynamics can’t be described as well simply by contact rate and birth rate (Grenfell et al. 2002). A similar phenomenon may be observed at the end of an epidemic (cite). 
+Comparison of simulated and observed incidence time series has been used to estimate the role of environmental and demographic stochasticity in measles: across community sizes, demographic stochasticity of measles becomes more important in small human populations, where dynamics can’t be described as well simply by contact rate and birth rate (Grenfell et al. 2002). A similar phenomenon may be observed at the end of an epidemic (cite). Consider the relationship between dispersion in a moving window sense like we are here, and autocorrelation. Note that some kinds of time dependence in the rate can cause autocorrelation, as can contagion (if it occurs outside of set periods), and heterogeneity (if an omitted variable is correlated in time) (Barron 1992). Also, demographic structure (e.g., age structure) has the potential to affect temporal autocorrelation in transmission rate - the effects of age structure can be captured by a model that includes an infection rate that varies over time (Earn et al. 1998). 
 
-4. So, measuring (changing) dispersion would:
+5. [same for this paragraph]. So, measuring (changing) dispersion would:
  a) Give a more complete (predictive) understanding at both individual and population level (scales up)
  Analyzing variability in epidemic dynamics in terms of bursts of incidence is also important for planning surge capacity (Wallinga 2018).
  b) Allow for preparing surge capacity in certain months
  Sun et al. (2021) found a combination of individual-based and population-based strategies was required for SARS-CoV-2 control, further highlighting the importance of considering population-level variability and its relationship to individual-level variability. 
 
+6. Develop a method that quantifies dispersion along incidence time series, allowing for the detection of changes in dispersion that are not due to changes in population size or incidence. We apply the method to COVID-19 incidence data in US counties to investigate the relationships between incidence, dispersion and epidemic dynamic regimes over the course of the pandemic (or something like that?).
 
 
- Note that some kinds of time dependence in the rate can cause autocorrelation, as can contagion (if it occurs outside of set periods), and heterogeneity (if an omitted variable is correlated in time) (Barron 1992). Also, demographic structure (e.g., age structure) has the potential to affect temporal autocorrelation in transmission rate - the effects of age structure can be captured by a model that includes an infection rate that varies over time (Earn et al. 1998). 
-
- 
- 
-### Model
+## Materials and Methods
 Potential eqn flow:
 
 "Classical theory" (May and others host-parasitoid models then Grenfell et al.) (cite) says:
-$$I_t(t+1) = NB(R_t I_t, I_t)$$
+$$I_{t+1} = NB(\mu = R_t I_t, \theta_t = I_t)$$
 
-Other processes might affect size parameter, so maybe it isn't $I_t$, it's $\theta_t$. 
+where $R_t I_t$ is the expected value and the dispersion parameter is equal to I_t.
 
-Would be interesting to look at changes in $\theta_t$ to understand important processes that may leave a signal in dispersion. Specifically estimate theta over time and scan for changepoints. 
+The mean, variance and dispersion in a negative binomial are related by $\sigma^2 = \mu + \dfrac{\mu^2}{\theta}$
 
-### Telegraph main results?
+Other processes besides the current number infected might dispersion so we should look at changes in $\theta_t$ to understand important processes that may leave a signal in dispersion. Specifically estimate theta over time, and also scan for changepoints. 
+
+The general framework is that incidence is drawn from a negative binomial distribution with time-varying mean and dispersion parameters.
+
+$$f_t(I) = [pdf of a negative binomial with parameters \mu_t and \theta_t]$$
+
+where $\mu_t$ represents the time-varying mean incidence and $theta_t$ the time-varying dispersion parameter. We estimate $\mu$ and $\theta$ using iterative reweighted least-squares (citation) within a moving window approach (see Supplemental X). For each window what is estimated $\mu_t$ within the window as a spline, and a single value for $\theta$ for the window. By moving the window one time step at a time, a time series for $\theta_t$ can be produced. While population size influences mean and variance in count data, and thus could have an impact on estimates of dispersion, we robustly adjust for that by using population size an offset in the model (see Supplemental X).
+
 
 
 ## Results

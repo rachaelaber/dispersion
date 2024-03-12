@@ -27,9 +27,10 @@ Other processes besides the current number infected might dispersion so we shoul
 
 The general framework is that incidence is drawn from a negative binomial distribution with time-varying mean and dispersion parameters.
 
-$$f_t(I) = [pdf of a negative binomial with parameters \mu_t and \theta_t]$$
+$$f_t(I) = $$
 
-where $\mu_t$ represents the time-varying mean incidence and $theta_t$ the time-varying dispersion parameter. We estimate $\mu$ and $\theta$ using iterative reweighted least-squares (citation) within a moving window approach (see Supplemental X). For each window what is estimated $\mu_t$ within the window as a spline, and a single value for $\theta$ for the window. By moving the window one time step at a time, a time series for $\theta_t$ can be produced. While population size influences mean and variance in count data, and thus could have an impact on estimates of dispersion, we robustly adjust for that by using population size an offset in the model (see Supplemental X).
+where $\mu_t$ represents the time-varying mean incidence and $theta_t$ the dispersion parameter. We estimate $\mu_t$ and $\theta$ using iterative reweighted least-squares (citation lrt) with a moving window approach (see Supplemental X). For each window, $\mu_t$ is estimated using a spline function in time, and a single value of $\theta$ is estimated for the window. 
+By moving the window one time step at a time, a time series for $\theta_t$ can be produced. While population size influences mean and variance in count data, and thus could have an impact on estimates of dispersion, we robustly adjust for that by using population size an offset in the model (see Supplemental X).
 
 
 

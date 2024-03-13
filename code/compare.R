@@ -10,9 +10,9 @@ load("data/theta_lg_pops.Rdata")
 
 dates <- dates[30:(length(new_cases[1,]) - 30 + 1)]
 
-filename <- "figures/compare.pdf"
+filename <- "figures/compare.png"
 
-pdf(filename, height = 6, width = 6)
+png(filename)
 
 for (i in 1:1){ # 1:length(populations_lg$population)d
   

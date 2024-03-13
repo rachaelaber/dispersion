@@ -52,9 +52,9 @@ save(pvals, file = filename)
 
 dtheta <- curve_parms$theta2 - curve_parms$theta1
 
-filename <- "figures/pvals_sim_LRT.pdf"
+filename <- "figures/pvals_sim_LRT.png"
 
-pdf(filename, width = 6, height = 6)
+png(filename)
 
 par(cex = 1.5)
 par(pin = c(3, 3))

@@ -4,8 +4,8 @@
 load("data/pvals_sim_LRT.Rdata")
 load("data/simulated_curves.Rdata")
 
-filename <- "figures/sim_pval_v_pop.pdf"
-pdf(filename, width = 6, height = 6)
+filename <- "figures/sim_pval_v_pop.png"
+png(filename)
 
 par(cex = 1.5)
 par(pin = c(3, 3))

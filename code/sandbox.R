@@ -32,9 +32,9 @@ clamp <- function(x, a, b) {
 
 # Plot
 
-filename <- "figures/roughdraft_surfaces.pdf"
+filename <- "figures/roughdraft_surfaces.png"
 
-pdf(filename, width = 8, height = 8)
+png(filename)
 
 par(mfrow = c(2, 2))
 

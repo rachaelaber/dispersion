@@ -15,15 +15,23 @@ We develop a method that quantifies the evolution of dispersion along incidence 
 ## Results
 
 1. Method is robust to changes in number of cases. Algebra and simulations.  
-[compare.pdf] 
-2. Highly overdispersed incidence patterns occurring more frequently later in time series, consistent with more heterogeneity in transmission, susceptibility and reporting
-[roughdraft_surface.pdf]
-3. Increases in dispersion around the holiday periods in the dataset; concurrent with increases in incidence.
-[roughdraft_surface.pdf]
-4. Evidence for a change in theta observed across many counties (evidenced by concentration of low p-values concurrent with peak incidence).
-[roughdraft_surface.pdf]
 
-Here is a paragraph about what kinds of changes in theta are meaningful. What makes a change in theta meaningful is how it affects variance and variance mean relationships. Say why operationally that may be. Give practical examples. A change from $\theta = 1000$ to $\theta = 100$ is operationally significant for large populations during times of peak incidence due to variance-mean scaling. In particular, for a period of high incidence, the variance/mean ratio will be larger than the variance/mean ratio for smaller incidence (assuming theta is the same in both populations). So, a small decrement in theta could have large impacts on the variance in large populations at times of peak incidence. Raising variance relative to mean implies spatiotemporal "crowding" of cases (i.e. localized surges) which may impact X Y and Z and may indicate A B and C (Lloyd paper on crowding, dalziel flu science paper). Bottom line for the paragraph is drops from eg theta = 1000 to theta = 100 can indicate signficant increases in overdispersion of incidence and that can be important. (Maybe we can remark in the figure legend and text that some common theta drop we observe is equivalent, conditioned on some common observed mean, to a doubling of variance). Grab an example value out of what we are actually seeing where the variance doubles. [We should look at how this paragraph complements the setup in the intro and which parts of this argument we want to frontload versus say in the results and discussion].
+![Figure 1](/figures/sim_pval_v_pop.png "Figure 1.")
+
+![Figure 2](/figures/compare.png "Figure 2.")
+
+![Figure 3](/figures/pvals_sim_LRT.png "Figure 3.")
+
+
+
+3. Highly overdispersed incidence patterns occurring more frequently later in time series, consistent with more heterogeneity in transmission, susceptibility and reporting
+4. Increases in dispersion around the holiday periods in the dataset; concurrent with increases in incidence.
+5. Evidence for a change in theta observed across many counties (evidenced by concentration of low p-values concurrent with peak incidence).
+
+![Figure 4](/figures/roughdraft_surfaces.png#center)
+*Figure 4.*
+
+What makes a change in theta meaningful is how it affects variance and variance mean relationships. Say why operationally that may be. Give practical examples. A change from $\theta = 1000$ to $\theta = 100$ is operationally significant for large populations during times of peak incidence due to variance-mean scaling. In particular, for a period of high incidence, the variance/mean ratio will be larger than the variance/mean ratio for smaller incidence (assuming theta is the same in both populations). So, a small decrement in theta could have large impacts on the variance in large populations at times of peak incidence. Raising variance relative to mean implies spatiotemporal "crowding" of cases (i.e. localized surges) which may impact X Y and Z and may indicate A B and C (Lloyd paper on crowding, dalziel flu science paper). Bottom line for the paragraph is drops from eg theta = 1000 to theta = 100 can indicate signficant increases in overdispersion of incidence and that can be important. (Maybe we can remark in the figure legend and text that some common theta drop we observe is equivalent, conditioned on some common observed mean, to a doubling of variance). Grab an example value out of what we are actually seeing where the variance doubles. [We should look at how this paragraph complements the setup in the intro and which parts of this argument we want to frontload versus say in the results and discussion].
 
 $$var = mu + mu^2/theta$$
 

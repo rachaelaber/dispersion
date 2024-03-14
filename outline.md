@@ -1,7 +1,7 @@
 # Detecting changes in dispersion in COVID-19 incidence time series using a negative binomial model
 
 
-## Introduction (why is dispersion important?)
+## Introduction 
 
 Time series of observed infectious disease incidence are, to varying degrees, "noisy", showing higher frequency oscillations around trends broader temporal scales. The noise derives from various processes, including X, Y and Z. Highly variable incidence that characterizes noisey data suggests transmission heterogeneity (superspreading), demographic/environmental heterogeneity, or changes in population effective reproduction number (R). Therefore, variability can contain information important to understanding epidemic dynamics. Metrics of variability are often overlooked and useful ways to understand epidemic dynamics. However, techniques based on variability in epidemic time series are still emerging. One area of interest is how variability is related to different phases of an epidemic. For instance, Graham et al. (2019) use the mean and interannual coefficient of variation of measles incidence to construct a metric indicative of where a location may be on the path to elimination of the pathogen. Similarly, it was recently found that $k_t$, the time-varying transmission heterogeneity for COVID-19, decreased over time and was significantly associated with interventions to slow spread in Hong Kong (Adam et al. 2022). Variability in population-level incidence time series may therefore provide information about what phase or dynamic regime an epidemic is in, as well as potentially indicating the level of heterogeneity at finer spatial and temporal scales, in transmission, susceptibility, and/or reporting (mention demographic/environmental heterogeneity in this sentence since it's above). Analyzing variability in epidemic dynamics in terms of bursts of incidence is also important for planning surge capacity (Wallinga 2018). Sun et al. (2021) found a combination of individual-based and population-based strategies was required for SARS-CoV-2 control, further highlighting the importance of considering population-level variability and its relationship to individual-level variability. 
 
@@ -22,14 +22,14 @@ We develop a method that quantifies the evolution of dispersion along incidence 
 <p align="center">Figure 1. Likelihood ratio test p-values for simulated epidemic curves. For each simulated population size, a set of noisy epidemic curves was generated with known parameters. The set contained a variety of breakpoint locations, values of the dispersion parameter on either side of the breakpoint, epidemic final sizes and curve types. The average p-value remained relatively stable across the population sizes considered.</p>
 
 <p align="center">
-  <img src="/figures/compare.pdf" alt="Figure 2" title="Figure 2" />
+  <img src="/figures/compare.png" alt="Figure 2" title="Figure 2" />
 </p>
-<p align="center">Figure 2.  </p>
+<p align="center">Figure 2. COVID-19 incidence, likelihood ratio test statistic values, and the dispersion parameter values for Jefferson County, AL between 2020-03-25 and 2023-03-19. Values of the likelihood ratio test statistic, and the dispersion parameter were computed on by fitting the negative binomial model and conducting likelihood ratio tests about dispersion on a rolling basis.  </p>
 
 <p align="center">
   <img src="/figures/pvals_sim_LRT.png" alt="Figure 3" title="" />
 </p>
-<p align="center">Figure 3</p>
+<p align="center">Figure 3. Simulated p-values v. absolute difference in known dispersion parameter. Using the same set of simulated epidemic curves as in Figure 1., the p-value was computed for each curve considering a specified breakpoint. As absolute difference in dispersion increases, the likelihood ratio test produces greater significance.  </p>
 
 3. Highly overdispersed incidence patterns occurring more frequently later in time series, consistent with more heterogeneity in transmission, susceptibility and reporting
 4. Increases in dispersion around the holiday periods in the dataset; concurrent with increases in incidence.
@@ -38,7 +38,7 @@ We develop a method that quantifies the evolution of dispersion along incidence 
 <p align="center">
   <img src="/figures/roughdraft_surfaces.png" alt="Figure 4" title="Surfaces" />
 </p>
-<p align="center">Figure 4. Surfaces</p>
+<p align="center">Figure 4. a) Evolution of dispersion between 2020-02-20 and 2023-03-19 in large counties in the US.b) log theta c) log incidence, d) LRt stat.</p>
 
 
 What makes a change in theta meaningful is how it affects variance and variance mean relationships. Say why operationally that may be. Give practical examples. A change from $\theta = 1000$ to $\theta = 100$ is operationally significant for large populations during times of peak incidence due to variance-mean scaling. In particular, for a period of high incidence, the variance/mean ratio will be larger than the variance/mean ratio for smaller incidence (assuming theta is the same in both populations). So, a small decrement in theta could have large impacts on the variance in large populations at times of peak incidence. Raising variance relative to mean implies spatiotemporal "crowding" of cases (i.e. localized surges) which may impact X Y and Z and may indicate A B and C (Lloyd paper on crowding, dalziel flu science paper). Bottom line for the paragraph is drops from eg theta = 1000 to theta = 100 can indicate signficant increases in overdispersion of incidence and that can be important. (Maybe we can remark in the figure legend and text that some common theta drop we observe is equivalent, conditioned on some common observed mean, to a doubling of variance). Grab an example value out of what we are actually seeing where the variance doubles. [We should look at how this paragraph complements the setup in the intro and which parts of this argument we want to frontload versus say in the results and discussion].

@@ -19,12 +19,12 @@ We develop a method that quantifies the evolution of dispersion along incidence 
 <p align="center">
   <img src="/figures/sim_pval_v_pop.png" alt="Figure 1" title="Simulated p-values" />
 </p>
-<p align="center">Figure 1</p>
+<p align="center">Figure 1. Likelihood ratio test p-values for simulated epidemic curves. For each simulated population size, a set of noisy epidemic curves was generated with known parameters. The set contained a variety of breakpoint locations, values of the dispersion parameter on either side of the breakpoint, epidemic final sizes and curve types. The average p-value remained relatively stable across the population sizes considered.</p>
 
 <p align="center">
-  <img src="/figures/compare.png" alt="Figure 2" title="Figure 2" />
+  <img src="/figures/compare.pdf" alt="Figure 2" title="Figure 2" />
 </p>
-<p align="center">Figure 2</p>
+<p align="center">Figure 2.  </p>
 
 <p align="center">
   <img src="/figures/pvals_sim_LRT.png" alt="Figure 3" title="" />

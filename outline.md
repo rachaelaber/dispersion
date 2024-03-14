@@ -16,13 +16,20 @@ We develop a method that quantifies the evolution of dispersion along incidence 
 
 1. Method is robust to changes in number of cases. Algebra and simulations.  
 
-![Figure 1](/figures/sim_pval_v_pop.png "Figure 1.")
+<p align="center">
+  <img src="/figures/sim_pval_v_pop.png" alt="Figure 1" title="Simulated p-values" />
+</p>
+<p align="center">Figure 1</p>
 
-![Figure 2](/figures/compare.png "Figure 2.")
+<p align="center">
+  <img src="/figures/compare.png" alt="Figure 2" title="Figure 2" />
+</p>
+<p align="center">Figure 2</p>
 
-![Figure 3](/figures/pvals_sim_LRT.png "Figure 3.")
-
-
+<p align="center">
+  <img src="/figures/pvals_sim_LRT.png" alt="Figure 3" title="" />
+</p>
+<p align="center">Figure 3</p>
 
 3. Highly overdispersed incidence patterns occurring more frequently later in time series, consistent with more heterogeneity in transmission, susceptibility and reporting
 4. Increases in dispersion around the holiday periods in the dataset; concurrent with increases in incidence.

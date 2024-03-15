@@ -52,13 +52,16 @@ $$I_{t+1} = NB(\mu = R_t I_t, \theta_t = I_t)$$
 
 where $R_t I_t$ is the expected value and the dispersion parameter is equal to I_t.
 
-The mean, variance and dispersion in a negative binomial are related by $\sigma^2 = \mu + \dfrac{\mu^2}{\theta}$
-
 Other processes besides the current number infected might dispersion so we should look at changes in $\theta_t$ to understand important processes that may leave a signal in dispersion. Specifically estimate theta over time, and also scan for changepoints. 
 
 The general framework is that incidence is drawn from a negative binomial distribution with time-varying mean and dispersion parameters.
 
-$$f_t(I) = $$
+$$f_t(I) = {I + \theta - 1 \choose I} \frac{\mu}{\mu+\theta}^I \frac{\theta}{\mu +\theta}^\theta$$
+
+$$E(I) = \mu$$
+
+$$Var(I) = \mu + \frac{\mu^2}{\theta}$$
+
 
 where $\mu_t$ represents the time-varying mean incidence and $theta_t$ the dispersion parameter. We estimate $\mu_t$ and $\theta$ using iterative reweighted least-squares (citation lrt) with a moving window approach (see Supplemental X). For each window, $\mu_t$ is estimated using a spline function in time, and a single value of $\theta$ is estimated for the window. 
 By moving the window one time step at a time, a time series for $\theta_t$ can be produced. While population size influences mean and variance in count data, and thus could have an impact on estimates of dispersion, we robustly adjust for that by using population size an offset in the model (see Supplemental X).

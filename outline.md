@@ -17,17 +17,17 @@ We develop a method that quantifies the evolution of dispersion along incidence 
 1. The negative binomial method is robust to changes in population size (for analytical derivation see Supplement X).
 
 <p align="center">
-  <img src="/figures/sim_pval_v_pop.png" alt="Figure 1" title="Simulated p-values" />
+  <img src="figures/sim_pval_v_pop.png" alt="Figure 1" title="Simulated p-values" />
 </p>
 <p align="center">Figure 1. Likelihood ratio test p-values for simulated epidemic curves. For each simulated population size, a set of noisy epidemic curves was generated with known parameters. The set contained a variety of breakpoint locations, values of the dispersion parameter on either side of the breakpoint, epidemic final sizes and curve types. The average p-value remained stable across the population sizes considered (attack rate was 0.1 across all simulated curves).</p>
 
 <p align="center">
-  <img src="/figures/compare.png" alt="Figure 2" title="Figure 2" />
+  <img src="figures/compare.png" alt="Figure 2" title="Figure 2" />
 </p>
 <p align="center">Figure 2. COVID-19 incidence, likelihood ratio test statistic values, and the dispersion parameter values for Jefferson County, AL between 2020-03-25 and 2023-03-19. Values of the likelihood ratio test statistic, and the dispersion parameter were computed on by fitting the negative binomial model and conducting likelihood ratio tests about dispersion on a rolling basis.  </p>
 
 <p align="center">
-  <img src="/figures/pvals_sim_LRT.png" alt="Figure 3" title="" />
+  <img src="figures/pvals_sim_LRT.png" alt="Figure 3" title="" />
 </p>
 <p align="center">Figure 3. Simulated p-values v. absolute difference in known dispersion parameter. Using the same set of simulated epidemic curves as in Figure 1., the p-value was computed for each curve considering a specified breakpoint. As absolute difference in dispersion increases, the likelihood ratio test produces greater significance.  </p>
 
@@ -36,7 +36,7 @@ We develop a method that quantifies the evolution of dispersion along incidence 
 5. Evidence for a change in theta observed across many counties (evidenced by concentration of low p-values concurrent with peak incidence).
 
 <p align="center">
-  <img src="/figures/roughdraft_surfaces.png" alt="Figure 4" title="Surfaces" />
+  <img src="figures/roughdraft_surfaces.png" alt="Figure 4" title="Surfaces" />
 </p>
 <p align="center">Figure 4.  Evolution of dispersion between 2020-02-20 and 2023-03-19 in large counties in the US.b) log theta. a) Binned log of the dispersion parameter over time; b) Log of the dispersion parameter over time as well as for each of the large counties (y-axis); c) Log incidence (new cases per individual) over time as well as for each of the large counties (y-axis); d) LRT p-values over time as well as for each of the large counties (y-axis).</p>
 

@@ -64,6 +64,8 @@ barplot(x,
 legend("topright", col = colors, cex = .4, 
        legend = c("very dispersed", "dispersed", "?", "?", "Poisson-ish"), 
        lty = 1)
+
+# Used entry [11,6] in legend example
 # 2
 
 x <- thetas1

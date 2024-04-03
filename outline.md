@@ -19,7 +19,7 @@ We develop a method that quantifies the evolution of dispersion along incidence 
 <p align="center">
   <img src="figures/pvals_sim_LRT.png" alt="Figure 3" title="" />
 </p>
-<p align="center">Figure 3. Simulated p-values v. absolute difference in known dispersion parameter. Using the same set of simulated epidemic curves as in Figure 1., the p-value was computed for each curve considering a specified breakpoint. As absolute difference in dispersion increases, the likelihood ratio test produces greater significance./Figure 1. Likelihood ratio test p-values for simulated epidemic curves. For each simulated population size, a set of noisy epidemic curves was generated with known parameters. The set contained a variety of breakpoint locations, values of the dispersion parameter on either side of the breakpoint, epidemic final sizes and curve types. The average p-value remained stable across the population sizes considered (attack rate was 0.1 across all simulated curves). </p>
+<p align="center">Figure 1. Detecting dispersion changes in incidence time series in populations of different sizes. A) Simulated incidence when dispersion is constant and B) when dispersion changes during the epidemic. C) Daily COVID-19 cases in Jefferson County, AL and associated (log) dispersion estimates. D) Shows the performance of the method with simulated data that has different absolute differences in theta (horizontal axis of each pane) across different population sizes (each panes is one population size). O and X mark the null and alternate hypotheses indicated in panels A and B. </p>
 
 
 

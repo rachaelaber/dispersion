@@ -17,7 +17,7 @@ We develop a method that quantifies the evolution of dispersion along incidence 
 1. The negative binomial method is robust to changes in population size (for analytical derivation see Supplement X).
 
 <p align="center">
-  <img src="figures/pvals_sim_LRT.png" alt="Figure 3" title="" />
+  <img src="figures/fig1.png" alt="Figure 1" title="Figure 1" />
 </p>
 <p align="center">Figure 1. Detecting dispersion changes in incidence time series in populations of different sizes. A) Simulated incidence when dispersion is constant and B) when dispersion changes during the epidemic. C) Daily COVID-19 cases in Jefferson County, AL and associated (log) dispersion estimates. D) Shows the performance of the method with simulated data that has different absolute differences in theta (horizontal axis of each pane) across different population sizes (each panes is one population size). O and X mark the null and alternate hypotheses indicated in panels A and B. </p>
 

@@ -22,21 +22,21 @@ dates <- dates[35: length(dates)]
 thetas <- thetas[1, 35:dim(thetas)[2]]
 
 # Row 1
-plot(curves[9701,], xlab = "Day of Epidemic", type = "l", ylab = "Incidence")
-plot(curves[9710,], xlab = "Day of Epidemic", type = "l", ylab = "Incidence")
+plot(curves[2701,], xlab = "Day of Epidemic", type = "l", ylab = "Incidence")
+plot(curves[2710,], xlab = "Day of Epidemic", type = "l", ylab = "Incidence")
 plot(dates, series, xlab = "Date", type = "h", ylab = "Incidence")
 
 
 # Row 2
-plot(rep(curve_parms$theta1[9701], times = length(curves[9701,])),
+plot(rep(curve_parms$theta1[2701], times = length(curves[2701,])),
      xlab = "Day of Epidemic", ylab = expression(theta))
-plot(c(rep(curve_parms$theta1[9710], times = length(curves[9710,])/2), 
-       rep(curve_parms$theta2[9710], times = length(curves[9710,])/2)),
+plot(c(rep(curve_parms$theta1[2710], times = length(curves[2710,])/2), 
+       rep(curve_parms$theta2[2710], times = length(curves[2710,])/2)),
      xlab = "Day of Epidemic", ylab = expression(theta))
-plot(dates, log(thetas), type = "l", col = 4, xlab = "Date", ylab = expression(log(theta)))
+plot(dates, thetas, type = "l", col = 4, xlab = "Date", ylab = expression(theta))
 
 # Row 3
-pops <- c(314000, 1570000, 3140000)
+pops <- c(10^2, 10^4, 10^6)
 dtheta <- curve_parms$theta2 - curve_parms$theta1
 
 for (pop in pops) {

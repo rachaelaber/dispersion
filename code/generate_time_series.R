@@ -9,8 +9,9 @@ source("code/curve_templates.R")
 final_attack_rate <- 0.1
 peak_time <- 30
 peak_width <- 200
-population_min <- 314000
-population_max <- 3140000
+population_min <- 10^2
+population_mid <- 10^4
+population_max <- 10^6
 theta_min <- 3
 theta_max <- 30
 breakpoint_min <- 20
@@ -18,7 +19,6 @@ breakpoint_max <- 40
 
 ntheta <- 10      # Number of unique theta values
 nbreakpoint <- 5  # Number of unique breakpoint values
-npopulation <- 10 # Number of unique population values
 
 nstep <- 60       # Number of time steps in simulated trajectories
 
@@ -27,7 +27,7 @@ nstep <- 60       # Number of time steps in simulated trajectories
 theta1 <- seq(theta_min, theta_max, length.out = ntheta)
 theta2 <- seq(theta_min, theta_max, length.out = ntheta)
 breakpoint <- seq(breakpoint_min, breakpoint_max, length.out = nbreakpoint)
-population <- seq(population_min, population_max, length.out = npopulation)
+population <- c(population_min, population_mid, population_max)
 curve_type <- c(1, 2)
 
 # Expand grid and add population size, peak time and peak width

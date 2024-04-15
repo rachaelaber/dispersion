@@ -21,15 +21,6 @@ We develop a method that quantifies the evolution of dispersion along incidence 
 </p>
 <p align="center">Figure 1. Detecting dispersion changes in incidence time series in populations of different sizes. A) Simulated incidence when dispersion is constant and B) when dispersion changes during the epidemic. C) Daily COVID-19 cases in Jefferson County, AL and associated dispersion estimates. D) Shows the performance of the method with simulated data that has different absolute differences in theta (horizontal axis of each pane) across different population sizes (each pane is one population size). O and X mark the null and alternative hypotheses indicated in panels A and B. </p>
 
-
-
-<p align="center">
-  <img src="figures/compare.png" alt="Figure 2" title="Figure 2" />
-</p>
-<p align="center">Figure 2. COVID-19 incidence, likelihood ratio test statistic values, and the (log) dispersion parameter values for Jefferson County, AL between 2020-03-25 and 2023-03-19. Values of the likelihood ratio test statistic and the dispersion parameter were computed by fitting the negative binomial model and conducting likelihood ratio tests about dispersion on a rolling basis.  </p>
-
-
-
 3. Highly overdispersed incidence patterns occurring more frequently later in time series, consistent with more heterogeneity in transmission, susceptibility and reporting
 4. Increases in dispersion around the holiday periods in the dataset; concurrent with increases in incidence.
 5. Evidence for a change in theta observed across many counties (evidenced by concentration of low p-values concurrent with peak incidence).

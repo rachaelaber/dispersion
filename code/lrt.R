@@ -35,7 +35,7 @@ lrt = function(y1, y2, s1, s2, i1, i2, df1, df2){
       sum(dnbinom(y2, size = kappa, mu = res2$mu, log = TRUE));
   }
   
-  obj0 = optimize(l0, c(log(1e-20), log(1e20)), maximum=TRUE);
+  obj0 = optimize(l0, c(log(1e-6), log(1e6)), maximum=TRUE);
   kappa0 = exp(obj0$maximum);
   l0 = obj0$objective;
   phi0 = 1/kappa0;
@@ -50,7 +50,7 @@ lrt = function(y1, y2, s1, s2, i1, i2, df1, df2){
     sum(dnbinom(y1, size=kappa, mu=res1$mu, log=TRUE));
   }
   
-  obj1 = optimize(l1, c(log(1e-20), log(1e20)), maximum=TRUE);
+  obj1 = optimize(l1, c(log(1e-6), log(1e6)), maximum=TRUE);
   kappa1 = exp(obj1$maximum);
   l11 = obj1$objective;
   phi11 = 1/kappa1;
@@ -63,7 +63,7 @@ lrt = function(y1, y2, s1, s2, i1, i2, df1, df2){
     sum(dnbinom(y2, size=kappa, mu=res2$mu, log=TRUE));
   }
   
-  obj2 = optimize(l2, c(log(1e-20), log(1e20)), maximum=TRUE);
+  obj2 = optimize(l2, c(log(1e-6), log(1e6)), maximum=TRUE);
   kappa2 = exp(obj2$maximum);
   l12 = obj2$objective;
   phi12 = 1/kappa2;

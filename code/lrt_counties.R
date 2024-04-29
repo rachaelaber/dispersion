@@ -1,38 +1,104 @@
-# Compute p-values for counties 
+# Compute thetas and LRT statistics for all counties (above population threshold of 10,000)
+# over time
+
+rm(list = ls())
 
 source("code/lrt.R")
 
-filename <- "data/processed_dat.RData"
+load("data/processed/new_cases_weekly.Rdata")
 
-load(filename)
+load("data/processed/processed_long_dat.Rdata")
+rm(new_cases) # don't need non-smoothed data
+rm(dates)     # don't need date range
 
-rm(filename)
+# Subset to just data that has population larger than threshold of 10,000
 
-# Loop through counties 
+new_cases_weekly <- new_cases_weekly[populations$population > 10000, ]
 
-pvals <- rep(NA, nrow(populations_subset))
-phi11 <- rep(NA, nrow(populations_subset))
-phi12 <- rep(NA, nrow(populations_subset))
-fips <- rep(NA, nrow(populations_subset))
+populations <- populations[populations$population > 10000, ]
 
-for (i in 1:nrow(populations_subset)){
-  pvals[i] <- tryCatch(lrt(y1 = new_cases_subset[i,][1:30], y2 = new_cases_subset[i,][31:60], 
-                  s1 = populations_subset$population[i], s2 = populations_subset$population[i], i1 = 1:30, 
-                  i2 = 31:60, df1 = 3, df2 = 3)$p, error = function(e) return(NA))
-  phi11[i] <- tryCatch(lrt(y1 = new_cases_subset[i,][1:30], y2 = new_cases_subset[i,][31:60], 
-                  s1 = populations_subset$population[i], s2 = populations_subset$population[i], i1 = 1:30, 
-                  i2 = 31:60, df1 = 3, df2 = 3)$phi11, error = function(e) return(NA))
-  phi12[i] <- tryCatch(lrt(y1 = new_cases_subset[i,][1:30], y2 = new_cases_subset[i,][31:60], 
-                  s1 = populations_subset$population[i], s2 = populations_subset$population[i], i1 = 1:30, 
-                  i2 = 31:60, df1 = 3, df2 = 3)$phi12, error = function(e) return(NA))
-  fips[i] <- populations_subset$countyFIPS[i]
+# Set up empty matrices and loop through counties and time points
+lrt_stats <- matrix(NA, nrow = nrow(new_cases_weekly), ncol = 1124)
+lrt_ps <- matrix(NA, nrow = nrow(new_cases_weekly), ncol = 1124)
+thetas1 <- matrix(NA, nrow = nrow(new_cases_weekly), ncol = 1124)
+thetas2 <- matrix(NA, nrow = nrow(new_cases_weekly), ncol = 1124)
+thetas <- matrix(NA, nrow = nrow(new_cases_weekly), ncol = 1124)
+
+for (j in 1:nrow(new_cases_weekly)) {
   
-  cat("County", i, "of", nrow(populations_subset), "p-value:", pvals[i], "\n")
+  print(paste("County", j, "of", nrow(new_cases_weekly)))
+  
+  series <- new_cases_weekly[j, ]
+  
+  lrt_stat <- c()
+  lrt_p <- c()
+  theta1 <- c()
+  theta2 <- c()
+  theta <- c()
+  
+  for (i in 30:(length(series) - 30 + 1)) {
+    Y <- series[(i - 29):(i + 30)]
+    
+    out <- tryCatch(lrt(
+      y1 = Y[1:(length(Y) / 2)], y2 = Y[((length(Y) / 2) + 1):length(Y)],
+      s1 = populations$population[j],
+      s2 = populations$population[j],
+      i1 = 1:30,
+      i2 = 31:60,
+      df1 = 3,
+      df2 = 3
+    ), error = function(e) {
+      return(NA)
+    })
+    
+    if (!is.na(out[1])) {
+      theta1 <- c(theta1, 1 / out$phi11)
+      theta2 <- c(theta2, 1 / out$phi12)
+      theta <- c(theta, 1/ out$phi0)
+      lrt_stat <- c(lrt_stat, out$lambda)
+      lrt_p <- c(lrt_p, out$p)
+      
+    }else{
+      lrt_stat <- c(lrt_stat, NA)
+      lrt_p <- c(lrt_p, NA)
+      theta1 <- c(theta1, NA)
+      theta2 <- c(theta2, NA) 
+      theta <- c(theta, NA)
+    }
+  }
+  
+  lrt_stats[j, ] <- lrt_stat
+  lrt_ps[j, ] <- lrt_p
+  thetas1[j, ] <- theta1
+  thetas2[j, ] <- theta2
+  thetas[j, ] <- theta
   
 }
 
-# Save 
+# Save/drop indices with theta too small
+bad_indices <- thetas1 < 1e-10 | thetas2 < 1e-10
 
-filename <- "data/lrt_pvals_phis_allcounties.Rdata"
+bad_indices2 <- thetas < 1e-10
 
-save(pvals, phi11, phi12, fips, file = filename)
+filename <- "data/processed/theta_pops_weekly.Rdata"
+
+thetas1[bad_indices] <- NA
+
+thetas2[bad_indices] <- NA
+
+thetas[bad_indices2] <- NA
+
+save(thetas1, thetas2, thetas, file = filename)
+
+filename <- "data/processed/lrt_pops_weekly.Rdata"
+
+lrt_stats[bad_indices] <- NA
+
+save(lrt_stats, file = filename)
+
+filename <- "data/processed/lrtps_pops_weekly.Rdata"
+
+lrt_ps[bad_indices] <- NA
+
+save(lrt_ps, file = filename)
+

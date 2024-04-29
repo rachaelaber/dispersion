@@ -1,6 +1,5 @@
 # Compute thetas and LRT statistics for large counties over time
 rm(list = ls())
-graphics.off()
 
 source("code/lrt.R")
 

@@ -1,9 +1,9 @@
 library(NBPSeq)
 
-# Di et al. (2011)
+# Adapted from Di et al. (2011)
 fit.nb.regression = function(y, s, x, beta0=rep(NA, dim(x)[2]), kappa=NA) {
   
-  ## Find preliminary estiamtes of mu assuming phi=1. Will serve as
+  ## Find preliminary estimates of mu assuming phi=1. Will serve as
   ## initial values for the later irls algorithm.
   mustart = irls.nb.1(y, s, x, 1.0, beta0)$mu;
   

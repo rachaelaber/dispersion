@@ -19,15 +19,15 @@ new_cases_lg_weekly <- new_cases_lg_weekly[, keep]
 
 
 # Functions
-clamp <- function(x, a, b) {
-
-    y <- x
-    y[y < a] <- a
-    y[y > b] <- b
-
-    return(y)
-
-}
+# clamp <- function(x, a, b) {
+# 
+#     y <- x
+#     y[y < a] <- a
+#     y[y > b] <- b
+# 
+#     return(y)
+# 
+# }
 
 
 # Plot

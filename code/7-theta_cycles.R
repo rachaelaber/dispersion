@@ -40,9 +40,9 @@ rm(i, n, m)
 
 
 # Plot
-theta_clamped <- theta
-theta_clamped[log10(theta) > 6] <- 10^6
-theta_clamped[log10(theta) < -6] <- 10^-6
+# theta_clamped <- theta
+# theta_clamped[log10(theta) > 6] <- 10^6
+# theta_clamped[log10(theta) < -6] <- 10^-6
 
 
 frame1 <- 101:500
@@ -58,14 +58,14 @@ par(mfrow = c(1, 3))
 for (i in 1:3) {
   frame <- frames[[i]]
   x <- log10(colMeans(incidence)[frame])
-  y <- log10(colMeans(theta_clamped, na.rm = TRUE)[frame])
+  y <- log10(colMeans(theta, na.rm = TRUE)[frame])
   plot(x, y,
     pch = 21,
     col = pal[frame - 100],
     cex = 2,
     cex.lab = 1.5,
     xlab = "log10 Mean incidence",
-    ylab = "log10 Mean clamped theta",
+    ylab = "log10 Mean theta",
     xaxt = "n",
     xlim = c(-5, -2),
     ylim = c(4.75, 6),

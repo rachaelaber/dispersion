@@ -76,29 +76,29 @@ for (j in 1:nrow(new_cases_weekly)) {
 }
 
 # Save/drop indices with theta too small
-bad_indices <- thetas1 < 1e-10 | thetas2 < 1e-10
-
-bad_indices2 <- thetas < 1e-10
+# bad_indices <- thetas1 < 1e-10 | thetas2 < 1e-10
+# 
+# bad_indices2 <- thetas < 1e-10
 
 filename <- "data/processed/theta_pops_weekly.Rdata"
 
-thetas1[bad_indices] <- NA
-
-thetas2[bad_indices] <- NA
-
-thetas[bad_indices2] <- NA
+# thetas1[bad_indices] <- NA
+# 
+# thetas2[bad_indices] <- NA
+# 
+# thetas[bad_indices2] <- NA
 
 save(thetas1, thetas2, thetas, file = filename)
 
 filename <- "data/processed/lrt_pops_weekly.Rdata"
 
-lrt_stats[bad_indices] <- NA
+# lrt_stats[bad_indices] <- NA
 
 save(lrt_stats, file = filename)
 
 filename <- "data/processed/lrtps_pops_weekly.Rdata"
 
-lrt_ps[bad_indices] <- NA
+# lrt_ps[bad_indices] <- NA
 
 save(lrt_ps, file = filename)
 

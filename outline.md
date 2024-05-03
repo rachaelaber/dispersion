@@ -14,16 +14,16 @@ We develop a method that quantifies the evolution of dispersion along incidence 
 
 ## Results
 
-1. The negative binomial method is robust to changes in population size (for analytical derivation see Supplement X).
+1. The negative binomial method is robust to changes in population size (for population sizes of at least 10,000). For an analytical derivation, see Supplement 1.
 
 <p align="center">
   <img src="figures/fig1.png" alt="Figure 1" title="Figure 1" />
 </p>
 <p align="center">Figure 1. Detecting dispersion changes in incidence time series in populations of different sizes. A) Simulated incidence when dispersion is constant and B) when dispersion changes during the epidemic. C) Daily COVID-19 cases in Jefferson County, AL and associated dispersion estimates. D) Shows the performance of the method with simulated data that has different absolute differences in theta (horizontal axis of each pane) across different population sizes (each pane is one population size). O and X mark the null and alternative hypotheses indicated in panels A and B. </p>
 
-3. Highly overdispersed incidence patterns occurring more frequently later in time series, consistent with more heterogeneity in transmission, susceptibility and reporting
+3. Highly overdispersed incidence patterns occur more frequently later in time series, consistent with more heterogeneity in transmission, susceptibility and reporting
 4. Increases in dispersion around the holiday periods in the dataset; concurrent with increases in incidence.
-5. Evidence for a change in theta observed across many counties (evidenced by concentration of low p-values concurrent with peak incidence).
+5. Evidence for a change in $\theta$ observed across many counties (evidenced by concentration of low p-values concurrent with peak incidence).
 
 <p align="center">
   <img src="figures/roughdraft_surfaces.png" alt="Figure 4" title="Surfaces" />
@@ -41,9 +41,9 @@ $$I_{t+1} = NB(\mu = R_t I_t, \theta_t = I_t)$$
 
 where $R_t I_t$ is the expected value and the dispersion parameter is equal to I_t.
 
-Other processes besides the current number infected might dispersion so we should look at changes in $\theta_t$ to understand important processes that may leave a signal in dispersion. Specifically estimate theta over time, and also scan for changepoints. 
+Other processes besides the current number infected might affect dispersion so we should look at changes in $\theta_t$ to understand important processes that may leave a signal in dispersion. Specifically, we estimate $\theta$ over time.
 
-The general framework is that incidence is drawn from a negative binomial distribution with time-varying mean and dispersion parameters.
+The general framework is that incidence is drawn from a negative binomial distribution with time-varying mean and dispersion parameters that vary more slowly than the mean. 
 
 $$f_t(I) = {I + \theta - 1 \choose I} \frac{\mu}{\mu+\theta}^I \frac{\theta}{\mu +\theta}^\theta$$
 
@@ -73,8 +73,8 @@ Natural splines are cubic splines which are linear outside of the boundary knots
 
 ### Introduce the method
 
-Challenge has been "spurious correlation" with population size.
-Leads into talking about model w offset.
+The persistent challenge in investigating changes in variability has been "spurious correlation" with population size.
+Therefore, a model that incorporates an offset for population size is a natural choice.
 
 1. Our method identifies shifts in population-level dispersion in incidence
 
@@ -96,7 +96,7 @@ Leads into talking about model w offset.
 
 ### Application of the method to simulated data
 
-1. Validity/power simulations: used Gaussian and uniform epidemic curves
+1. Validity/power simulations: We used both Gaussian and uniform epidemic curves in the simulated set of time series. 
 
 2. Also simulated data assuming that theta was a function of the mean of the process in order to assess the robustness of the test (Supplement)
 
@@ -123,12 +123,9 @@ The results imply that we can revise our understanding of case count dispersion:
 
 ## Supplement
 
-1. Simulations reveal method is robust to population size
-[sim_pval_v_pop.pdf] 
+1. Analytical approach: robust to population size changes
 
-Abstract:
-Metrics of variability are often overlooked and useful ways to understand epidemic dynamics. For instance, superspreading of viruses such as SARS-CoV-2 can be elucidated by utilizing such metrics. Our method identifies shifts in population-level incidence dispersion, allowing a more complete and predictive understanding at both the individual and population level, and allowing practitioners to prepare surge capacity in certain months. Although classical theory predicts that there will be less dispersion when incidence is higher,"We develop a flexible way of estimating how variability changes over time, including detecting breakpoints representing discrete shifts in variability." And it factors out population size and case numbers. Able to detect changes in variability that matter, and distinguish them from changes due to simple statistical effects of population size or case number.
- We investigate changes in dispersion over time and space and find that there are increases in dispersion around holiday periods in many US counties, concurrent with observed incidence increases. In addition, highly overdispersed patterns occur more frequently later in time series, consistent with more heterogeneity in transmission, susceptibility, and reporting. Our method is robust to changes in incidence and to population size, allowing for quantification of dispersion—indicative of superspreading dynamics—without artifactual contributions from these features.
+
 
 
 

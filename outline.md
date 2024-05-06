@@ -37,7 +37,7 @@ $$var = \mu + \mu^2/\theta$$
 
 ### Introduce the method 
 Classical theory put forward by Grenfell et al. (2002) proposes that incidence can be modeled by a negative binomial variable with expectation $\mu$ equal to the epidemic intensity and dispersion $\theta$ equal to previous incidence:
-$$I_{t+1} = NB(\mu = lambda_, \theta_t = I_t)$$
+$$I_{t+1} = NB(\mu = \lambda_{t+1}, \theta_t = I_t)$$
 However, other processes besides the current number infected might affect dispersion, so we instead investigate changes in $\theta_t$ to understand important processes that may leave a signal in dispersion. In other words, we estimate $\theta$ over time. 
 A persistent challenge in investigating changes in variability has been "spurious correlation" with population size. Since population size influences mean and variance in count data and thus could have an impact on estimates of dispersion, we robustly adjust for population size using an offset in the model. 
 In sum, our method identifies shifts in population-level dispersion in incidence while accounting for population size. 
@@ -53,7 +53,7 @@ So, the form of the probability mass function is:
 $$f_t(I) = {I + \theta - 1 \choose I} \frac{\mu}{\mu+\theta}^I \frac{\theta}{\mu +\theta}^\theta$$
 This form has expectation and variance as follows:
 $$E(I) = \mu$$
-$Var(I) = \mu + \frac{\mu^2}{\theta}$, where $\mu_t$ represents the time-varying mean incidence and $theta_t$ the dispersion parameter.
+$$Var(I) = \mu + \frac{\mu^2}{\theta}$$
 
 ### Application of the method to simulated data
 

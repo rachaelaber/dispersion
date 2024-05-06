@@ -7,23 +7,22 @@ Time series of observed infectious disease incidence are, to varying degrees, "n
 
 Dispersion around a rolling mean (moving window) of an incidence time series may contain information about the size and frequency of local outbreaks. From the perspective of an infectious individual, incidence experienced in their local spatial-temporal neighborhood will be higher than the global mean when dispersion is high. A 'mean crowding' parameter was proposed, which is the mean number per individual of other individuals in the same quadrat (Lloyd 1967). This is a useful way to think about dispersion in case count time series, as (absent other processes that influence dispersion such as variation in reporting) one can think of degree of dispersion as degree of clustering/crowding of cases, which is related to concepts like transmission heterogeneity. Specifically, individual-level heterogeneity in transmission scales up to affect population-level dynamics (Lloyd-Smith 2005), so dispersion in epidemic trajectories at the population level may provide information about individual-level variability in the transmission process. Individual-level variability in transmission is most often studied using contact-tracing data. However, contact tracing data requires intense investment of resources (Kretzschmar et al. 2020), so analysis of incidence data may often be more feasible.
 
-One of the reasons why studying variability in incidence time series is not more widely done is because it is difficult to disentangle the effects of population size/incidence on variance. For instance, if we model a process as Poisson, we assume that if the mean of the process is large, the variance will be large as well. Since mean case counts is directly related to population size/incidence, we would infer that variance in case counts is large in large population/incidence settings. Furthermore, the rate of the case-count-generating process is often changing in an epidemic, which cannot be accomodated by a Poisson model. The negative binomial distribution may accurately model a time series if there is a changing process mean: for example, if the mean of a Poisson distribution itself follows a gamma distribution, the resulting distribution is negative binomial (Cook 2009). The result is that we should use the dispersion parameter of a negative binomial distribution to measure changes in meaningful variability in settings with differing base population/incidence, not the variance of a Poisson model.
+One of the reasons why studying variability in incidence time series is not more widely done is because it is difficult to disentangle the effects of population size/incidence on variance. For instance, if we model a process as Poisson, we assume that if the mean of the process is large, the variance will be large as well. Since mean case counts is directly related to population size/incidence, we would infer that variance in case counts is large in large population/incidence settings. Furthermore, the rate of the case-count-generating process is often changing in an epidemic, which cannot be accomodated by a Poisson model. The negative binomial distribution may accurately model a time series if there is a changing process mean: for example, if the mean of a Poisson distribution itself follows a gamma distribution, the resulting distribution is negative binomial (Cook 2009). The result is that we should use the dispersion parameter of a negative binomial distribution to measure changes in meaningful variability in settings with differing base population/incidence, not the variance of a Poisson model. Negative binomial regression (in contrast to Poisson regression) can account for unobserved heterogeneity, time dependence in the rate of a process and contagion that all lead to overdispersion (Barron 1992).
 
-We develop a method that quantifies the evolution of dispersion along incidence time series, allowing for the detection of changes in variability that are not due to changes in population size or overall burden of incidence. We apply the method to COVID-19 incidence data in US counties to investigate the relationships between incidence, dispersion and epidemic dynamic regimes over a portion of the pandemic. 
-
+We develop a method that quantifies the evolution of dispersion along incidence time series, allowing for the detection of changes in variability that are not due to changes in population size or overall burden of incidence. We apply the method to COVID-19 incidence data in US counties to investigate the relationships between incidence, dispersion and epidemic dynamic regimes over a portion of the pandemic. From a modern theoretical ecology perspective, investigating beyond the first moment of a process has also been identified as important: ecological experiments are typically geared towards assessing the impacts of the mean strength of causal processes, however the variance about mean effects have been mostly ignored as a driver in biological assemblages, but may be as important as the mean (Benedetti-Cecchi 2003).
 
 ## Results
 
-1. The negative binomial method is robust to changes in population size (for analytical derivation see Supplement X).
+1. The negative binomial method is robust to changes in population size (for population sizes of at least 10,000). For an analytical derivation, see Supplement 1.
 
 <p align="center">
   <img src="figures/fig1.png" alt="Figure 1" title="Figure 1" />
 </p>
 <p align="center">Figure 1. Detecting dispersion changes in incidence time series in populations of different sizes. A) Simulated incidence when dispersion is constant and B) when dispersion changes during the epidemic. C) Daily COVID-19 cases in Jefferson County, AL and associated dispersion estimates. D) Shows the performance of the method with simulated data that has different absolute differences in theta (horizontal axis of each pane) across different population sizes (each pane is one population size). O and X mark the null and alternative hypotheses indicated in panels A and B. </p>
 
-3. Highly overdispersed incidence patterns occurring more frequently later in time series, consistent with more heterogeneity in transmission, susceptibility and reporting
+3. Highly overdispersed incidence patterns occur more frequently later in time series, consistent with more heterogeneity in transmission, susceptibility and reporting
 4. Increases in dispersion around the holiday periods in the dataset; concurrent with increases in incidence.
-5. Evidence for a change in theta observed across many counties (evidenced by concentration of low p-values concurrent with peak incidence).
+5. Evidence for a change in $\theta$ observed across many counties (evidenced by concentration of low p-values concurrent with peak incidence).
 
 <p align="center">
   <img src="figures/roughdraft_surfaces.png" alt="Figure 4" title="Surfaces" />
@@ -36,81 +35,33 @@ $$var = \mu + \mu^2/\theta$$
 
 ## Materials and Methods
 
-"Classical theory" (May and others host-parasitoid models then Grenfell et al.) (cite) says:
-$$I_{t+1} = NB(\mu = R_t I_t, \theta_t = I_t)$$
-
-where $R_t I_t$ is the expected value and the dispersion parameter is equal to I_t.
-
-Other processes besides the current number infected might dispersion so we should look at changes in $\theta_t$ to understand important processes that may leave a signal in dispersion. Specifically estimate theta over time, and also scan for changepoints. 
-
-The general framework is that incidence is drawn from a negative binomial distribution with time-varying mean and dispersion parameters.
-
-$$f_t(I) = {I + \theta - 1 \choose I} \frac{\mu}{\mu+\theta}^I \frac{\theta}{\mu +\theta}^\theta$$
-
-$$E(I) = \mu$$
-
-$$Var(I) = \mu + \frac{\mu^2}{\theta}$$
-
-
-where $\mu_t$ represents the time-varying mean incidence and $theta_t$ the dispersion parameter. We estimate $\mu_t$ and $\theta$ using iterative reweighted least-squares (citation lrt) with a moving window approach (see Supplemental X). For each window, $\mu_t$ is estimated using a spline function in time, and a single value of $\theta$ is estimated for the window. 
-By moving the window one time step at a time, a time series for $\theta_t$ can be produced. While population size influences mean and variance in count data, and thus could have an impact on estimates of dispersion, we robustly adjust for that by using population size an offset in the model (see Supplemental X).
-
-Sources for methods:
-
-The negative binomial distribution might accurately model a time series if there is a changing process mean: for example, if the mean of a Poisson distribution itself follows a gamma distribution, the resulting distribution is negative binomial (Cook 2009).
-
-Negative binomial regression (in contrast to Poisson regression) can account for unobserved heterogeneity, time dependence in the rate of a process and contagion that all lead to overdispersion (Barron 1992).
-
-A recently proposed negative binomial regression model for time series of counts also accommodates serial dependence (Davis and Wu 2009).
-
-Natural splines are cubic splines which are linear outside of the boundary knots (Perperoglou et al. 2019).
-
- Therefore, to evaluate whether the negative binomial conditional distribution is needed (opposed to a Poisson/quasi-Poisson conditional distribution with the same model of process mean), inspection of mean-variance relationships using a diagnostic plot is possible (Ver Hoef and Boveng 2007)
- 
- This procedure is implemented via the NBPSeq R package (https://CRAN.R-project.org/package=NBPSeq) and from Di et al. (2011). 
-
- From a modern theoretical ecology perspective, investigating beyond the first moment of a process has also been identified as important: ecological experiments are typically geared towards assessing the impacts of the mean strength of causal processes, however the variance about mean effects have been mostly ignored as a driver in biological assemblages, but may be as important as the mean (Benedetti-Cecchi 2003).
-
-### Introduce the method
-
-Challenge has been "spurious correlation" with population size.
-Leads into talking about model w offset.
-
-1. Our method identifies shifts in population-level dispersion in incidence
-
-2. NB regression can account for unobserved heterogeneity, time dependence in the rate of a process/contagion that all lead to overdispersion (Barron 1992)
-
-3. We examined dispersion statistics, and diagnostic plots(s) to make sure we needed to account for overdispersion
-
-3. The model components and why we include them:
-  a) Linear predictor includes a natural spline (3 df) in time to account for autocorrelation in case counts
-  b) Offset term in order to directly model counts (here, COVID-19 cases) per unit of observation (here, per individual)
-  
+### Introduce the method 
+Classical theory put forward by Grenfell et al. (2002) proposes that incidence can be modeled by a negative binomial variable with expectation $\mu$ equal to the epidemic intensity and dispersion $\theta$ equal to previous incidence:
+$$I_{t+1} = NB(\mu = \lambda_{t+1}, \theta_t = I_t)$$
+However, other processes besides the current number infected might affect dispersion, so we instead investigate changes in $\theta_t$ to understand important processes that may leave a signal in dispersion. In other words, we estimate $\theta$ over time. 
+A persistent challenge in investigating changes in variability has been "spurious correlation" with population size. Since population size influences mean and variance in count data and thus could have an impact on estimates of dispersion, we robustly adjust for population size using an offset in the model. 
+In sum, our method identifies shifts in population-level dispersion in incidence while accounting for population size. 
+The general framework is that incidence is drawn from a negative binomial distribution with time-varying mean and dispersion parameters (that vary more slowly than the mean). 
+The model is formulated as follows:
+  1) The linear predictor includes a natural spline in time with three degrees of freedom to account for autocorrelation in case counts. Natural splines are cubic splines which are linear outside of the boundary knots (Perperoglou et al. 2019). A recently proposed negative binomial regression model for time series of counts also accommodates serial dependence (Davis and Wu 2009).
+  b) There is an offset term in order to directly model counts (here, COVID-19 cases) per unit of observation (here, individual):
   $$log(E[Y_i]/n_i) = \beta_1h_1(t_i) + \beta_2h_2(t_i) + \beta_3h_3(t_i)$$
-  
   $$log(E[Y_i])-log(n_i) = \beta_1h_1(t_i) + \beta_2h_2(t_i) + \beta_3h_3(t_i)$$
-  
   $$log(E[Y_i]) = \beta_1(h_1(t_i) + \beta_2h_2(t_i) + \beta_3h_3(t_i) + log(n_i)$$
 
-4. IRLS to get parameter estimates of the model
+So, the form of the probability mass function is:
+$$f_t(I) = {I + \theta - 1 \choose I} \frac{\mu}{\mu+\theta}^I \frac{\theta}{\mu +\theta}^\theta$$
+This form has expectation and variance as follows:
+$$E(I) = \mu$$
+$$Var(I) = \mu + \frac{\mu^2}{\theta}$$
 
 ### Application of the method to simulated data
 
-1. Validity/power simulations: used Gaussian and uniform epidemic curves
+For validity/power simulations, we used both Gaussian and uniform epidemic curves with an attack rate of 0.1 in the simulated set of time series--3,000 epidemic curves over 60 days each were produced, and the LRT test procedure was applied to each. Varying the effect size, location of the breakpoint, population size, and curve shape allowed us to test the validity and power of our approach.
 
-2. Also simulated data assuming that theta was a function of the mean of the process in order to assess the robustness of the test (Supplement)
-
-3. Include tabulated Type I error rate and power as well as p-value plot?
-
-### Scanning for breakpoints 
-
-1. LRT statistic doesn't necessarily track with changes in mean incidence in a county, but rather captures dispersion changes
-
-2. Investigated large counties (top 4% in each state)
-
-2. Theta and p-value surfaces indicate that cases fluctuated more around a time-averaged county trajectory during N-F 
-
-
+### Application of the method to empirical data
+To evaluate whether the negative binomial conditional distribution is needed (opposed to a Poisson/quasi-Poisson conditional distribution with the same model of process mean), inspection of mean-variance relationships using a diagnostic plot is possible (Ver Hoef and Boveng 2007), along with evaluation of dispersion statistics.
+We then estimated $\mu_t$ and $\theta$ using iterative reweighted least-squares (procedure implemented via the NBPSeq R package (https://CRAN.R-project.org/package=NBPSeq) and from Di et al. (2011)) with a moving window approach. For each window, $\mu_t$ was estimated using a spline function in time, and a single value of $\theta$ was estimated for the window. By moving the window one time step at a time, a time series for $\theta_t$ was produced. We investigated large counties (top 4% in each state), due to the power constraints detected by the approach in the previous section.
 
 ## Discussion
 
@@ -123,12 +74,9 @@ The results imply that we can revise our understanding of case count dispersion:
 
 ## Supplement
 
-1. Simulations reveal method is robust to population size
-[sim_pval_v_pop.pdf] 
+1. Analytical approach: robust to population size changes
 
-Abstract:
-Metrics of variability are often overlooked and useful ways to understand epidemic dynamics. For instance, superspreading of viruses such as SARS-CoV-2 can be elucidated by utilizing such metrics. Our method identifies shifts in population-level incidence dispersion, allowing a more complete and predictive understanding at both the individual and population level, and allowing practitioners to prepare surge capacity in certain months. Although classical theory predicts that there will be less dispersion when incidence is higher,"We develop a flexible way of estimating how variability changes over time, including detecting breakpoints representing discrete shifts in variability." And it factors out population size and case numbers. Able to detect changes in variability that matter, and distinguish them from changes due to simple statistical effects of population size or case number.
- We investigate changes in dispersion over time and space and find that there are increases in dispersion around holiday periods in many US counties, concurrent with observed incidence increases. In addition, highly overdispersed patterns occur more frequently later in time series, consistent with more heterogeneity in transmission, susceptibility, and reporting. Our method is robust to changes in incidence and to population size, allowing for quantification of dispersion—indicative of superspreading dynamics—without artifactual contributions from these features.
+
 
 
 

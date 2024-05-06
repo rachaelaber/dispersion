@@ -13,7 +13,6 @@ load("data/processed/new_cases_lg_weekly.Rdata")
 load("data/processed/theta_lg_pops_weekly.Rdata")
 load("data/processed/pvals_sim_LRT.Rdata")
 
-
 # Trim empirical incidence to same length as thetas2
 series <- new_cases_lg_weekly[1, 30:(length(new_cases_lg_weekly[1,]) - 30 + 1)]
 dates <- dates[30:(length(new_cases_lg_weekly[1,]) - 30 + 1)]
@@ -21,7 +20,7 @@ dates <- dates[30:(length(new_cases_lg_weekly[1,]) - 30 + 1)]
 # Remove first observations from all
 series <- series[35:length(series)]
 dates <- dates[35: length(dates)]
-thetas2 <- thetas2[1, 35:dim(thetas2)[2]]
+thetas <- thetas[1, 35:dim(thetas2)[2]]
 
 # Row 1
 plot(curves[2701,], xlab = "Day of Epidemic", type = "l", ylab = "Incidence")
@@ -35,7 +34,7 @@ plot(rep(curve_parms$theta1[2701], times = length(curves[2701,])),
 plot(c(rep(curve_parms$theta1[2710], times = length(curves[2710,])/2), 
        rep(curve_parms$theta2[2710], times = length(curves[2710,])/2)),
      xlab = "Day of Epidemic", ylab = expression(theta))
-plot(dates[170:230], thetas2[170:230], type = "l", col = 4, xaxt = "n", xlab = "Date", ylab = expression(theta))
+plot(dates[170:230], thetas[170:230], type = "l", col = 4, xaxt = "n", xlab = "Date", ylab = expression(theta))
 axis.Date(1, at = seq(min(dates[170:230]), max(dates[170:230]), by = "months"), format = "%m-%Y")
 
 # Row 3
@@ -71,3 +70,4 @@ for (pop in pops) {
 }
 
 dev.off()
+

@@ -91,3 +91,4 @@ filename <- "data/processed/lrtps_lg_pops_weekly.Rdata"
 # lrt_ps[bad_indices] <- NA
 
 save(lrt_ps, file = filename)
+

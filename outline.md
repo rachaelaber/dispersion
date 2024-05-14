@@ -13,38 +13,37 @@ We develop a method that quantifies the evolution of dispersion along incidence 
 
 ## Results
 
-1. The negative binomial method is robust to changes in population size (for population sizes of at least 10,000). For an analytical derivation, see Supplement 1.
+We found that the negative binomial method is robust to changes in population size (for population sizes of at least 10,000). For an analytical derivation, see Supplement 1. The criteria are that the average p-value is 0.5 when the effect size is zero, and low average p-values are observed with increasing effect size. In row one and two of Figure 1, we illustrated that a drop in $\theta$ is associated with increased variability in simulated incidence time series, and that the same relationship is observable in the empirical time series, with an increase in $\theta$ corresponding to a decrease in variability around the trend in incidence.
 
 <p align="center">
   <img src="figures/fig1.png" alt="Figure 1" title="Figure 1" />
 </p>
 <p align="center">Figure 1. Detecting dispersion changes in incidence time series in populations of different sizes. A) Simulated incidence when dispersion is constant and B) when dispersion changes during the epidemic. C) Daily COVID-19 cases in Jefferson County, AL and associated dispersion estimates. D) Shows the performance of the method with simulated data that has different absolute differences in theta (horizontal axis of each pane) across different population sizes (each pane is one population size). O and X mark the null and alternative hypotheses indicated in panels A and B. </p>
 
-3. Highly overdispersed incidence patterns occur more frequently later in time series, consistent with more heterogeneity in transmission, susceptibility and reporting
-4. Increases in dispersion around the holiday periods in the dataset; concurrent with increases in incidence.
-5. Evidence for a change in $\theta$ observed across many counties (evidenced by concentration of low p-values concurrent with peak incidence).
+Highly overdispersed incidence patterns were observed more frequently later in time series, consistent with more heterogeneity in transmission, susceptibility and reporting. Interestingly, the most dispersed category reaches its highest proportion near the end of the timeframe (Figure 1.(a)) In addition, there are increases in dispersion around the holiday periods in the dataset (Figure 1.(b)), concurrent with increases in incidence (Figure 1.(c)). The evidence for a change in $\theta$ was observed across many counties (evidenced by concentration of low p-values concurrent with peak incidence) (Figure 1.(d)).
 
 <p align="center">
   <img src="figures/roughdraft_surfaces.png" alt="Figure 4" title="Surfaces" />
 </p>
-<p align="center">Figure 4.  Evolution of dispersion between 2020-02-20 and 2023-03-19 in large counties in the US.b) log theta. a) Binned log of the dispersion parameter over time; b) Log of the dispersion parameter over time as well as for each of the large counties (y-axis); c) Log incidence (new cases per individual) over time as well as for each of the large counties (y-axis); d) LRT p-values over time as well as for each of the large counties (y-axis).</p>
+<p align="center">Figure 4.  Evolution of dispersion between 2020-02-20 and 2023-03-19 in large counties in the US. a) Binned log of the dispersion parameter over time; b) Log of the dispersion parameter over time as well as for each of the large counties (y-axis); c) Log incidence (new cases per individual) over time as well as for each of the large counties (y-axis); d) LRT p-values over time as well as for each of the large counties (y-axis).</p>
 
 
-What makes a change in dispersion meaningful is how it affects variance and variance-mean relationships. For instance, if dispersion is high in a high incidence setting, the variance-mean ratio would be larger than for the same dispersion in a smaller incidence setting. A change from $\theta = 1000$ to $\theta = 100$ is operationally significant for large populations during times of peak incidence due this variance-mean scaling. So, a small increase in dispersion could have large impacts on the variance in large populations at times of peak incidence. Raising variance relative to mean implies spatiotemporal "crowding" of cases (i.e. localized surges) which may necessitate more surge capacity in hospitals and testing centers. Additionally, it may indicate less diffuse epidemics that are potentially more subject to climate forcing (Dalziel et al. 2018), or increased locally experienced mean density (Lloyd 1967). From the data, we observe a drop from $\theta$ = 2.707735e+16 to $\theta = 21.8711$, which, conditional on the observed case count of 3$$, would lead to an increase in variance from around 3 to around 3.4. In contrast, if the observed case count were 300, variance would go from around 300 to around 4415.019.
+The occurrence of high dispersion at times of peak incidence is of interest because it has more impact on variability than when incidence is lower. In other words, what makes a change in dispersion meaningful is how it affects variance and variance-mean relationships. For instance, if dispersion is high in a high incidence setting, the variance-mean ratio would be larger than for the same dispersion in a smaller incidence setting. A change from $\theta = 1000$ to $\theta = 100$ is operationally significant for large populations during times of peak incidence due to this variance-mean scaling:
 $$var = \mu + \mu^2/\theta$$
+So, a small increase in dispersion could have large impacts on the variance in large populations at times of peak incidence. Raising variance relative to mean implies spatiotemporal "crowding" of cases (i.e. localized surges) which may necessitate more surge capacity in hospitals and testing centers. Additionally, it may indicate less diffuse epidemics that are potentially more subject to climate forcing (Dalziel et al. 2018), or increased locally experienced mean density (Lloyd 1967). To illustrate this using the empirical data, we observed an increase from $\theta$ = 2.707735e+16 to $\theta = 21.8711$, which, conditional on the observed case count of 3$$, would lead to an increase in variance from around 3 to around 3.4. In contrast, if the observed case count were 300, variance would go from around 300 to around 4415.019.
 
 ## Materials and Methods
 
 ### Introduce the method 
-Classical theory put forward by Grenfell et al. (2002) proposes that incidence can be modeled by a negative binomial variable with expectation $\mu$ equal to the epidemic intensity and dispersion $\theta$ equal to previous incidence:
+Classical theory put forward by Grenfell et al. (2002) proposed that incidence can be modeled by a negative binomial variable with expectation $\mu$ equal to the epidemic intensity and dispersion $\theta$ equal to previous incidence:
 $$I_{t+1} = NB(\mu = \lambda_{t+1}, \theta_t = I_t)$$
-However, other processes besides the current number infected might affect dispersion, so we instead investigate changes in $\theta_t$ to understand important processes that may leave a signal in dispersion. In other words, we estimate $\theta$ over time. 
-A persistent challenge in investigating changes in variability has been "spurious correlation" with population size. Since population size influences mean and variance in count data and thus could have an impact on estimates of dispersion, we robustly adjust for population size using an offset in the model. 
+However, other processes besides the current number infected might affect dispersion, so we instead investigated changes in $\theta_t$ to understand important processes that may leave a signal in dispersion. In other words, we estimated $\theta$ over time. 
+A persistent challenge in investigating changes in variability has been "spurious correlation" with population size. Since population size influences mean and variance in count data and thus could have an impact on estimates of dispersion, we robustly adjusted for population size using an offset in the model. 
 In sum, our method identifies shifts in population-level dispersion in incidence while accounting for population size. 
 The general framework is that incidence is drawn from a negative binomial distribution with time-varying mean and dispersion parameters (that vary more slowly than the mean). 
 The model is formulated as follows:
   1) The linear predictor includes a natural spline in time with three degrees of freedom to account for autocorrelation in case counts. Natural splines are cubic splines which are linear outside of the boundary knots (Perperoglou et al. 2019). A recently proposed negative binomial regression model for time series of counts also accommodates serial dependence (Davis and Wu 2009).
-  b) There is an offset term in order to directly model counts (here, COVID-19 cases) per unit of observation (here, individual):
+  b) There is an offset term in order to directly model counts (here, COVID-19 cases) per unit of observation (here, per individual):
   $$log(E[Y_i]/n_i) = \beta_1h_1(t_i) + \beta_2h_2(t_i) + \beta_3h_3(t_i)$$
   $$log(E[Y_i])-log(n_i) = \beta_1h_1(t_i) + \beta_2h_2(t_i) + \beta_3h_3(t_i)$$
   $$log(E[Y_i]) = \beta_1(h_1(t_i) + \beta_2h_2(t_i) + \beta_3h_3(t_i) + log(n_i)$$
@@ -61,7 +60,7 @@ For validity/power simulations, we used both Gaussian and uniform epidemic curve
 
 ### Application of the method to empirical data
 To evaluate whether the negative binomial conditional distribution is needed (opposed to a Poisson/quasi-Poisson conditional distribution with the same model of process mean), inspection of mean-variance relationships using a diagnostic plot is possible (Ver Hoef and Boveng 2007), along with evaluation of dispersion statistics.
-We then estimated $\mu_t$ and $\theta$ using iterative reweighted least-squares (procedure implemented via the NBPSeq R package (https://CRAN.R-project.org/package=NBPSeq) and from Di et al. (2011)) with a moving window approach. For each window, $\mu_t$ was estimated using a spline function in time, and a single value of $\theta$ was estimated for the window. By moving the window one time step at a time, a time series for $\theta_t$ was produced. We investigated large counties (top 4% in each state), due to the power constraints detected by the approach in the previous section.
+We then estimated $\mu_t$ and $\theta$ using iterative reweighted least-squares (procedure implemented via the NBPSeq R package (https://CRAN.R-project.org/package=NBPSeq) and from Di et al. (2011)) with a moving window approach. For each window, $\mu_t$ was estimated using a spline function in time, and a single value of $\theta$ was estimated for the window. By moving the window one time step at a time, a time series for $\theta_t$ was produced. We investigated large counties (top 4% in each state), due to the power constraints discussed above.
 
 ## Discussion
 

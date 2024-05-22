@@ -64,12 +64,11 @@ We then estimated $\mu_t$ and $\theta$ using iterative reweighted least-squares 
 
 ## Discussion
 
-Deep thought: Consider the relationship between dispersion in a moving window sense like we are here, and autocorrelation. Note that some kinds of time dependence in the rate can cause autocorrelation, as can contagion (if it occurs outside of set periods), and heterogeneity (if an omitted variable is correlated in time) (Barron 1992). Also, demographic structure (e.g., age structure) has the potential to affect temporal autocorrelation in transmission rate - the effects of age structure can be captured by a model that includes an infection rate that varies over time (Earn et al. 1998). 
+Here we presented an approach to comparing variability in epidemic time series that does not instead detect artifacts based on population size/incidence. The ability to compare variability both within one location over time and across locations is crucial to inform the timing and spatial allocation of public health resources. In addition, a big city with more hospitals could effectively be analogous to a collection of small towns, and therefore experience a benefit of reduced variance-mean relationships, especially during periods of peak incidence.
 
-Deep thought: does a big city with more hospitals, effecitively dividing up into a collection of small towns?, experience a benefit of better (reduced) variance-mean relationships? especially during periods of peak incidence?
+Our results imply that we can revise our understanding of case count dispersion: dispersion is high at unexpected times (peak incidence) and corresponds to significant increases in variance when incidence is high. This flies in the face of the notion that large cities are subject to more "smooth" epidemic dynamics.
 
-
-The results imply that we can revise our understanding of case count dispersion: dispersion is high at unexpected times (peak incidence) and corresponds to significant increases in variance when incidence is high.
+Though some kinds of time dependence in the rate can cause autocorrelation, as can contagion (if it occurs outside of set periods), and heterogeneity (if an omitted variable is correlated in time) (Barron 1992), our focus on dispersion makes sense because we are concerned with the clustering of cases from the point of view of an individual case. Also, demographic structure (e.g., age structure) has the potential to affect temporal autocorrelation in transmission rate - the effects of age structure can be captured by a model that includes an infection rate that varies over time (Earn et al. 1998). 
 
 ## Supplement
 

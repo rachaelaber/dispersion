@@ -44,6 +44,9 @@ rm(i, n, m)
 # theta_clamped[log10(theta) > 6] <- 10^6
 # theta_clamped[log10(theta) < -6] <- 10^-6
 
+filename <- "figures/theta_cycles.png"
+
+png(filename)
 
 frame1 <- 101:500
 frame2 <- 501:650
@@ -82,3 +85,5 @@ for (i in 1:3) {
   )
 }
 rm(i, x, y, frame, frames)
+
+dev.off()

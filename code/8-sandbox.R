@@ -17,19 +17,6 @@ dates <- dates[keep]
 new_cases_lg_weekly <- new_cases_lg_weekly[, keep]
 
 
-
-# Functions
-# clamp <- function(x, a, b) {
-# 
-#     y <- x
-#     y[y < a] <- a
-#     y[y > b] <- b
-# 
-#     return(y)
-# 
-# }
-
-
 # Plot
 
 filename <- "figures/fig3.png"
@@ -37,7 +24,6 @@ filename <- "figures/fig3.png"
 png(filename)
 
 par(mfrow = c(2, 2))
-
 
 
 # 1
@@ -59,10 +45,12 @@ for (i in 1:nmy) {
 colors <- c(rev(viridis(length(breaks) - 1)))
 barplot(x,
       col = colors,
-      names.arg = substr(umy, 1, 1))
+      names.arg = substr(umy, 1, 1), 
+      xlab = "Date", 
+      ylab = expression(theta))
 
 legend("topright", col = colors, cex = .4, 
-       legend = c("very dispersed", "dispersed", "?", "?", "Poisson-ish"), 
+       legend = c("Most dispersed", "Very Dispersed", "Dispersed", "Somewhat Dispersed", "Approaching Poisson"), 
        lty = 1)
 
 # Used entry [11,6] in legend example
@@ -70,15 +58,19 @@ legend("topright", col = colors, cex = .4,
 
 x <- thetas2
 
-image(t(log10(x)), 
+image(dates, 1:150, t(log10(x)), 
         breaks = breaks,
-        col = colors)
+        col = colors, 
+        yaxt = "n",
+        ylab = "",
+        xaxt = "n",
+        xlab = "Date")
 
 at <- seq.Date(from = min(dates), to = max(dates), by = 'month')
 labels <- format(at, format = "%b")
 labels <- substr(labels, 1, 1)
 
-axis.Date(1, at = at, labels = labels)
+axis.Date(1, at = at, labels = labels, ti)
 
 # 3
 incidence <- matrix(NA,
@@ -92,17 +84,15 @@ for (i in seq_len(nrow(new_cases_lg_weekly))) {
 m <- substr(format(dates, "%b"), 1, 1)
 image(dates, 1:150, t(log10(incidence)),
       xaxt = "n",
-      xlab = "",
       ylab = "",
-      yaxt = "n")
+      yaxt = "n",
+      xlab = "Date")
 
 at <- seq.Date(from = min(dates), to = max(dates), by = 'month')
 labels <- format(at, format = "%b")
 labels <- substr(labels, 1, 1)
 
 axis.Date(1, at = at, labels = labels)
-
-
 
 # 4
 
@@ -119,7 +109,10 @@ image(dates,
       t(x),
       col = cols,
       breaks = breakpoints,
-      xaxt = "n")
+      ylab = "",
+      yaxt = "n",
+      xaxt = "n",
+      xlab = "Date")
 
 at <- seq.Date(from = min(dates), to = max(dates), by = 'month')
 labels <- format(at, format = "%b")

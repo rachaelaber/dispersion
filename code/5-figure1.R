@@ -23,19 +23,30 @@ dates <- dates[35: length(dates)]
 thetas <- thetas[1, 35:dim(thetas2)[2]]
 
 # Row 1
-plot(curves[2701,], xlab = "Day of Epidemic", type = "l", ylab = "Incidence")
-plot(curves[2710,], xlab = "Day of Epidemic", type = "l", ylab = "Incidence")
-plot(dates[170:230], series[170:230], xaxt = "n", xlab = "Date", type = "l", ylab = "Incidence")
-axis.Date(1, at = seq(min(dates[170:230]), max(dates[170:230]), by = "months"), format = "%m-%Y")
+plot(curves[2701,], xlab = "Day", type = "l", ylab = "Incidence")
+plot(curves[2710,], xlab = "Day", type = "l", ylab = "Incidence")
+plot(dates[170:230], series[170:230], xaxt = "n", xlab = "Day", type = "l", ylab = "Incidence")
+
+at <- seq.Date(from = min(dates[170:230]), max(dates[170:230]), by = '10 days')
+labels <- format(at, format = "%b")
+labels <- substr(labels, 1, 1)
+
+axis.Date(1, at = at, labels = labels)
 
 # Row 2
 plot(rep(curve_parms$theta1[2701], times = length(curves[2701,])),
-     xlab = "Day of Epidemic", ylab = expression(theta))
+     xlab = "Day", ylab = expression(theta), col = 4, cex = .1)
 plot(c(rep(curve_parms$theta1[2710], times = length(curves[2710,])/2), 
        rep(curve_parms$theta2[2710], times = length(curves[2710,])/2)),
-     xlab = "Day of Epidemic", ylab = expression(theta))
-plot(dates[170:230], thetas[170:230], type = "l", col = 4, xaxt = "n", xlab = "Date", ylab = expression(theta))
-axis.Date(1, at = seq(min(dates[170:230]), max(dates[170:230]), by = "months"), format = "%m-%Y")
+     xlab = "Day", ylab = expression(theta), col = 4, cex = .1)
+plot(dates[170:230], thetas[170:230], type = "l", col = 4, xaxt = "n", xlab = "Day", ylab = expression(theta))
+
+at <- seq.Date(from = min(dates[170:230]), max(dates[170:230]), by = '10 days')
+labels <- format(at, format = "%b")
+labels <- substr(labels, 1, 1)
+
+axis.Date(1, at = at, labels = labels)
+
 
 # Row 3
 pops <- c(10^2, 10^4, 10^6)

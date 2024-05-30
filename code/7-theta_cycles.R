@@ -55,7 +55,7 @@ frames <- list(frame1, frame2, frame3)
 
 pal <- rev(viridis(900))
 
-par(pin = c(2, 2))
+par(pin = c(1.5, 1.5))
 par(mfrow = c(1, 3))
 
 for (i in 1:3) {
@@ -67,8 +67,8 @@ for (i in 1:3) {
     col = pal[frame - 100],
     cex = 2,
     cex.lab = 1.5,
-    xlab = "log10 Mean incidence",
-    ylab = "log10 Mean theta",
+    xlab = "log_10 Mean incidence",
+    ylab = "log_10 Mean theta",
     xaxt = "n",
     xlim = c(-5, -2),
     ylim = c(4.75, 6),

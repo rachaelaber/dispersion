@@ -39,20 +39,20 @@ mtext("C", side = 3)
 # Row 2
 plot(rep(curve_parms$theta1[2701], times = length(curves[2701,])),
      xlab = "Day", ylab = expression(theta), ylim = c(0, 30), col = 4, cex = .1)
-mtext("D", side = 3)
-mtext("0", side = 3, line = -2, at = c(1,1))
+mtext("d", side = 3, line = 1, adj = 0)
+mtext("O", side = 3, line = -2)
 plot(c(rep(curve_parms$theta1[2710], times = length(curves[2710,])/2), 
        rep(curve_parms$theta2[2710], times = length(curves[2710,])/2)),
      xlab = "Day", ylab = expression(theta), ylim = c(0, 30), col = 4, cex = .1)
-mtext("E", side = 3)
-mtext("X", side = 3, line = -2, at = c(1,1))
+mtext("e", side = 3, line = 1, adj = 0)
+mtext("X", side = 3, line = -2)
 plot(dates[170:230], thetas[170:230], type = "l", col = 4, xaxt = "n", xlab = "Day", ylab = expression(theta))
 
 at <- seq.Date(from = min(dates[170:230]), max(dates[170:230]), by = '10 days')
 labels <- seq(0, 60, by = 10)
 
 axis.Date(1, at = at, labels = labels)
-mtext("F", side = 3)
+mtext("f", side = 3, line = 1, adj = 0)
 
 
 
@@ -67,7 +67,8 @@ for (i in 1:length(pops)) {
   plot(current_pvals ~ jitter(abs(current_dtheta), 1.5),
        pch = 21, col = NA, cex = 0.2,
        bg = rgb(0.4, 0.4, 0.4, 0.3),
-       main = paste("Population size", pops[i]),
+       #main = paste("Population size", pops[i]),
+       main = "",
        xlab = expression(paste(abs(theta[2] - theta[1]))),
        ylab = "p-value",
        xaxt = "n", yaxt = "n",
@@ -75,6 +76,8 @@ for (i in 1:length(pops)) {
        xlim = c(-0.5, 27.5)
   )
   
+  mtext(letters[7:9][i], side = 3, line = 1, adj = 0)
+
   axis(1, seq(0, 27, 3))
   axis(2, seq(0, 1, 0.25))
   
@@ -85,10 +88,14 @@ for (i in 1:length(pops)) {
   lo <- ag[, 2][, 1]
   hi <- ag[, 2][, 2]
   segments(ag[, 1], lo, ag[, 1], hi, col = 2, lwd = 3)
+
+  text(0, 0.9, "O", cex = 1.2)
+  text(27, 0.9, "X", cex = 1.2)
+
   
-  mtext(LETTERS[7:9][i], side = 3)
-  mtext("X", side = 3, line = -2, at = c(27, 1))
-  mtext("0", side = 3, line = -2, at = c(1, 1))
+
+  #mtext("X", side = 3, line = -2, at = c(27, 1))
+  #mtext("0", side = 3, line = -2, at = c(1, 1))
   
 }
 

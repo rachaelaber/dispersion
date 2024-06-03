@@ -44,9 +44,9 @@ rm(i, n, m)
 # theta_clamped[log10(theta) > 6] <- 10^6
 # theta_clamped[log10(theta) < -6] <- 10^-6
 
-filename <- "figures/theta_cycles.png"
+filename <- "figures/fig3.pdf"
 
-png(filename)
+pdf(filename)
 
 frame1 <- 101:500
 frame2 <- 501:650

@@ -1,7 +1,7 @@
 rm(list = ls())
 
-filename <- "figures/fig1.png"
-png(filename)
+filename <- "figures/fig1.pdf"
+pdf(filename)
 
 par(mfrow = c(3, 3))
 
@@ -24,40 +24,50 @@ thetas <- thetas[1, 35:dim(thetas2)[2]]
 
 # Row 1
 plot(curves[2701,], xlab = "Day", type = "l", ylab = "Incidence")
+mtext("A", side = 3)
 plot(curves[2710,], xlab = "Day", type = "l", ylab = "Incidence")
+mtext("B", side = 3)
 plot(dates[170:230], series[170:230], xaxt = "n", xlab = "Day", type = "l", ylab = "Incidence")
 
 at <- seq.Date(from = min(dates[170:230]), max(dates[170:230]), by = '10 days')
 labels <- seq(0, 60, by = 10)
 
 axis.Date(1, at = at, labels = labels)
+mtext("C", side = 3)
+
 
 # Row 2
 plot(rep(curve_parms$theta1[2701], times = length(curves[2701,])),
      xlab = "Day", ylab = expression(theta), ylim = c(0, 30), col = 4, cex = .1)
+mtext("D", side = 3)
+mtext("0", side = 3, line = -2, at = c(1,1))
 plot(c(rep(curve_parms$theta1[2710], times = length(curves[2710,])/2), 
        rep(curve_parms$theta2[2710], times = length(curves[2710,])/2)),
      xlab = "Day", ylab = expression(theta), ylim = c(0, 30), col = 4, cex = .1)
+mtext("E", side = 3)
+mtext("X", side = 3, line = -2, at = c(1,1))
 plot(dates[170:230], thetas[170:230], type = "l", col = 4, xaxt = "n", xlab = "Day", ylab = expression(theta))
 
 at <- seq.Date(from = min(dates[170:230]), max(dates[170:230]), by = '10 days')
 labels <- seq(0, 60, by = 10)
 
 axis.Date(1, at = at, labels = labels)
+mtext("F", side = 3)
+
 
 
 # Row 3
 pops <- c(61128, 856272, 10039107)
 dtheta <- curve_parms$theta2 - curve_parms$theta1
 
-for (pop in pops) {
-  current_dtheta <- dtheta[which(curve_parms$population == pop)]
-  current_pvals <- pvals[which(curve_parms$population == pop)]
+for (i in 1:length(pops)) {
+  current_dtheta <- dtheta[which(curve_parms$population == pops[i])]
+  current_pvals <- pvals[which(curve_parms$population == pops[i])]
   
   plot(current_pvals ~ jitter(abs(current_dtheta), 1.5),
        pch = 21, col = NA, cex = 0.2,
        bg = rgb(0.4, 0.4, 0.4, 0.3),
-       main = paste("Population size", pop),
+       main = paste("Population size", pops[i]),
        xlab = expression(paste(abs(theta[2] - theta[1]))),
        ylab = "p-value",
        xaxt = "n", yaxt = "n",
@@ -76,14 +86,10 @@ for (pop in pops) {
   hi <- ag[, 2][, 2]
   segments(ag[, 1], lo, ag[, 1], hi, col = 2, lwd = 3)
   
+  mtext(LETTERS[7:9][i], side = 3)
+  mtext("X", side = 3, line = -2, at = c(27, 1))
+  mtext("0", side = 3, line = -2, at = c(1, 1))
+  
 }
-
-labels <- LETTERS[1:9]
-for (i in 1:9) {
-  mtext(labels[i], side=3, line=0.5, at=mean(par("usr")[1:2]), cex=1.5, adj=0)
-}
-
-
 
 dev.off()
-

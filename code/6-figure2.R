@@ -19,9 +19,9 @@ new_cases_lg_weekly <- new_cases_lg_weekly[, keep]
 
 # Plot
 
-filename <- "figures/fig3.png"
+filename <- "figures/fig2.pdf"
 
-png(filename)
+pdf(filename)
 
 par(mfrow = c(2, 2))
 

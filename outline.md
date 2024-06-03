@@ -25,7 +25,7 @@ Highly overdispersed incidence patterns were observed more frequently later in t
 <p align="center">
   <img src="figures/roughdraft_surfaces.png" alt="Figure 2" title="Surfaces" />
 </p>
-<p align="center">Figure 2.  Evolution of dispersion between 2020-02-20 and 2023-03-19 in large counties in the US. a) Binned log of the dispersion parameter over time; b) Log of the dispersion parameter over time as well as for each of the large counties (y-axis); c) Log incidence (new cases per individual) over time as well as for each of the large counties (y-axis); d) LRT p-values over time as well as for each of the large counties (y-axis).</p>
+<p align="center">Figure 2.  Incidence and dispersion between 2020-02-20 and 2023-03-19 in large counties in the US. a) Binned log of the dispersion parameter over time; b) Log of the dispersion parameter over time as well as for each of the large counties (y-axis); c) Log incidence (new cases per individual) over time as well as for each of the large counties (y-axis); d) LRT p-values over time as well as for each of the large counties (y-axis).</p>
 
 
 The occurrence of high dispersion at times of peak incidence is of interest because it has more impact on variability than when incidence is lower. In other words, what makes a change in dispersion meaningful is how it affects variance and variance-mean relationships. For instance, if dispersion is high in a high incidence setting, the variance-mean ratio would be larger than for the same dispersion in a smaller incidence setting. A change from $\theta = 1000$ to $\theta = 100$ is operationally significant for large populations during times of peak incidence due to this variance-mean scaling:

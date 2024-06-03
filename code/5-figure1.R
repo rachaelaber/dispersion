@@ -28,28 +28,26 @@ plot(curves[2710,], xlab = "Day", type = "l", ylab = "Incidence")
 plot(dates[170:230], series[170:230], xaxt = "n", xlab = "Day", type = "l", ylab = "Incidence")
 
 at <- seq.Date(from = min(dates[170:230]), max(dates[170:230]), by = '10 days')
-labels <- format(at, format = "%b")
-labels <- substr(labels, 1, 1)
+labels <- seq(0, 60, by = 10)
 
 axis.Date(1, at = at, labels = labels)
 
 # Row 2
 plot(rep(curve_parms$theta1[2701], times = length(curves[2701,])),
-     xlab = "Day", ylab = expression(theta), col = 4, cex = .1)
+     xlab = "Day", ylab = expression(theta), ylim = c(0, 30), col = 4, cex = .1)
 plot(c(rep(curve_parms$theta1[2710], times = length(curves[2710,])/2), 
        rep(curve_parms$theta2[2710], times = length(curves[2710,])/2)),
-     xlab = "Day", ylab = expression(theta), col = 4, cex = .1)
+     xlab = "Day", ylab = expression(theta), ylim = c(0, 30), col = 4, cex = .1)
 plot(dates[170:230], thetas[170:230], type = "l", col = 4, xaxt = "n", xlab = "Day", ylab = expression(theta))
 
 at <- seq.Date(from = min(dates[170:230]), max(dates[170:230]), by = '10 days')
-labels <- format(at, format = "%b")
-labels <- substr(labels, 1, 1)
+labels <- seq(0, 60, by = 10)
 
 axis.Date(1, at = at, labels = labels)
 
 
 # Row 3
-pops <- c(10^2, 10^4, 10^6)
+pops <- c(61128, 856272, 10039107)
 dtheta <- curve_parms$theta2 - curve_parms$theta1
 
 for (pop in pops) {
@@ -79,6 +77,13 @@ for (pop in pops) {
   segments(ag[, 1], lo, ag[, 1], hi, col = 2, lwd = 3)
   
 }
+
+labels <- LETTERS[1:9]
+for (i in 1:9) {
+  mtext(labels[i], side=3, line=0.5, at=mean(par("usr")[1:2]), cex=1.5, adj=0)
+}
+
+
 
 dev.off()
 

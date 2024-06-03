@@ -4,14 +4,19 @@
 rm(list = ls())
 
 source("code/curve_templates.R")
+load("data/processed/new_cases_lg_weekly.Rdata")
+populations <- populations_lg$population
+rm(populations_lg)
+rm(new_cases_lg_weekly)
+
 
 # Parameters
 final_attack_rate <- 0.1
 peak_time <- 30
 peak_width <- 200
-population_min <- 10^2
-population_mid <- 10^4
-population_max <- 10^6
+population_min <- min(populations)
+population_mid <- round(mean(populations))
+population_max <- max(populations)
 theta_min <- 3
 theta_max <- 30
 breakpoint_min <- 20

@@ -23,27 +23,27 @@ dates <- dates[35: length(dates)]
 thetas <- thetas[1, 35:dim(thetas2)[2]]
 
 # Row 1
-plot(curves[2701,], xlab = "Day", type = "l", ylab = "Incidence")
-mtext("A", side = 3)
-plot(curves[2710,], xlab = "Day", type = "l", ylab = "Incidence")
-mtext("B", side = 3)
+plot(curves[1701,], xlab = "Day", type = "l", ylab = "Incidence")
+mtext("a", side = 3, line = 1, adj = 0)
+plot(curves[1791,], xlab = "Day", type = "l", ylab = "Incidence")
+mtext("b", side = 3, line = 1, adj = 0)
 plot(dates[170:230], series[170:230], xaxt = "n", xlab = "Day", type = "l", ylab = "Incidence")
 
 at <- seq.Date(from = min(dates[170:230]), max(dates[170:230]), by = '10 days')
 labels <- seq(0, 60, by = 10)
 
 axis.Date(1, at = at, labels = labels)
-mtext("C", side = 3)
+mtext("c", side = 3, line = 1, adj = 0 )
 
 
 # Row 2
-plot(rep(curve_parms$theta1[2701], times = length(curves[2701,])),
-     xlab = "Day", ylab = expression(theta), ylim = c(0, 30), col = 4, cex = .1)
+plot(rep(curve_parms$theta1[1701], times = length(curves[1701,])),
+     xlab = "Day", ylab = expression(theta), ylim = c(0, 30), col = 4, cex = .1, type = "l")
 mtext("d", side = 3, line = 1, adj = 0)
 mtext("O", side = 3, line = -2)
-plot(c(rep(curve_parms$theta1[2710], times = length(curves[2710,])/2), 
-       rep(curve_parms$theta2[2710], times = length(curves[2710,])/2)),
-     xlab = "Day", ylab = expression(theta), ylim = c(0, 30), col = 4, cex = .1)
+plot(c(rep(curve_parms$theta1[1791], times = length(curves[1791,])/2), 
+       rep(curve_parms$theta2[1791], times = length(curves[1791,])/2)),
+     xlab = "Day", ylab = expression(theta), ylim = c(0, 30), col = 4, cex = .1, type = "l")
 mtext("e", side = 3, line = 1, adj = 0)
 mtext("X", side = 3, line = -2)
 plot(dates[170:230], thetas[170:230], type = "l", col = 4, xaxt = "n", xlab = "Day", ylab = expression(theta))
@@ -57,7 +57,7 @@ mtext("f", side = 3, line = 1, adj = 0)
 
 
 # Row 3
-pops <- c(61128, 856272, 10039107)
+pops <- c(10000, 61000, 10000000)
 dtheta <- curve_parms$theta2 - curve_parms$theta1
 
 for (i in 1:length(pops)) {
@@ -65,7 +65,7 @@ for (i in 1:length(pops)) {
   current_pvals <- pvals[which(curve_parms$population == pops[i])]
   
   plot(current_pvals ~ jitter(abs(current_dtheta), 1.5),
-       pch = 21, col = NA, cex = 0.2,
+       pch = 21, col = "darkgrey", cex = 0.2,
        bg = rgb(0.4, 0.4, 0.4, 0.3),
        #main = paste("Population size", pops[i]),
        main = "",

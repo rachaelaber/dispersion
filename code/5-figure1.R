@@ -23,9 +23,9 @@ dates <- dates[35: length(dates)]
 thetas <- thetas[1, 35:dim(thetas2)[2]]
 
 # Row 1
-plot(curves[1701,], xlab = "Day", type = "l", ylab = "Incidence")
+plot(curves[2201,], xlab = "Day", type = "l", ylab = "Incidence")
 mtext("a", side = 3, line = 1, adj = 0)
-plot(curves[1791,], xlab = "Day", type = "l", ylab = "Incidence")
+plot(curves[2291,], xlab = "Day", type = "l", ylab = "Incidence")
 mtext("b", side = 3, line = 1, adj = 0)
 plot(dates[170:230], series[170:230], xaxt = "n", xlab = "Day", type = "l", ylab = "Incidence")
 
@@ -37,12 +37,12 @@ mtext("c", side = 3, line = 1, adj = 0 )
 
 
 # Row 2
-plot(rep(curve_parms$theta1[1701], times = length(curves[1701,])),
+plot(rep(curve_parms$theta1[2201], times = length(curves[2201,])),
      xlab = "Day", ylab = expression(theta), ylim = c(0, 30), col = 4, cex = .1, type = "l")
 mtext("d", side = 3, line = 1, adj = 0)
 mtext("O", side = 3, line = -2)
-plot(c(rep(curve_parms$theta1[1791], times = length(curves[1791,])/2), 
-       rep(curve_parms$theta2[1791], times = length(curves[1791,])/2)),
+plot(c(rep(curve_parms$theta1[2291], times = length(curves[2291,])/2), 
+       rep(curve_parms$theta2[2291], times = length(curves[2291,])/2)),
      xlab = "Day", ylab = expression(theta), ylim = c(0, 30), col = 4, cex = .1, type = "l")
 mtext("e", side = 3, line = 1, adj = 0)
 mtext("X", side = 3, line = -2)

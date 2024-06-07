@@ -47,11 +47,11 @@ barplot(x,
       col = colors,
       names.arg = substr(umy, 1, 1), 
       xlab = "Date", 
-      ylab = expression(theta))
+      ylab = expression(theta),
+      main = "Dispersion")
 
-legend("topright", col = colors, cex = .4, 
-       legend = c("Most dispersed", "Very Dispersed", "Dispersed", "Somewhat Dispersed", "Approaching Poisson"), 
-       lty = 1)
+mtext("a", side = 3, line = 1, adj = 0)
+
 
 # Used entry [11,6] in legend example
 # 2
@@ -64,13 +64,16 @@ image(dates, 1:150, t(log10(x)),
         yaxt = "n",
         ylab = "",
         xaxt = "n",
-        xlab = "Date")
+        xlab = "Date",
+        main = "Dispersion")
 
 at <- seq.Date(from = min(dates), to = max(dates), by = 'month')
 labels <- format(at, format = "%b")
 labels <- substr(labels, 1, 1)
 
 axis.Date(1, at = at, labels = labels, ti)
+
+mtext("b", side = 3, line = 1, adj = 0)
 
 # 3
 incidence <- matrix(NA,
@@ -86,13 +89,16 @@ image(dates, 1:150, t(log10(incidence)),
       xaxt = "n",
       ylab = "",
       yaxt = "n",
-      xlab = "Date")
+      xlab = "Date",
+      main = "Incidence")
 
 at <- seq.Date(from = min(dates), to = max(dates), by = 'month')
 labels <- format(at, format = "%b")
 labels <- substr(labels, 1, 1)
 
 axis.Date(1, at = at, labels = labels)
+
+mtext("c", side = 3, line = 1, adj = 0)
 
 # 4
 
@@ -112,7 +118,8 @@ image(dates,
       ylab = "",
       yaxt = "n",
       xaxt = "n",
-      xlab = "Date")
+      xlab = "Date",
+      main = "p-value")
 
 at <- seq.Date(from = min(dates), to = max(dates), by = 'month')
 labels <- format(at, format = "%b")
@@ -120,5 +127,6 @@ labels <- substr(labels, 1, 1)
 
 axis.Date(1, at = at, labels = labels)
 
+mtext("d", side = 3, line = 1, adj = 0)
 
 dev.off()

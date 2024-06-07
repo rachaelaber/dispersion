@@ -46,7 +46,7 @@ rm(i, n, m)
 
 filename <- "figures/fig3.pdf"
 
-pdf(filename)
+pdf(filename, width = 8, height = 8)
 
 frame1 <- 101:500
 frame2 <- 501:650
@@ -83,6 +83,8 @@ for (i in 1:3) {
     seq(5, 6, 0.5),
     cex.axis = 1
   )
+  mtext(letters[1:3][i], side = 3, line = 1, adj = 0)
+  
 }
 rm(i, x, y, frame, frames)
 

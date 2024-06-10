@@ -57,7 +57,7 @@ mtext("f", side = 3, line = 1, adj = 0)
 
 
 # Row 3
-pops <- c(10000, 61000, 10000000)
+pops <- c(1000, 61000, 10000000)
 dtheta <- curve_parms$theta2 - curve_parms$theta1
 
 for (i in 1:length(pops)) {

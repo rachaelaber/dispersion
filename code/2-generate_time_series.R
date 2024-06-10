@@ -14,7 +14,7 @@ rm(new_cases_lg_weekly)
 final_attack_rate <- 0.1
 peak_time <- 30
 peak_width <- 200
-population_min <- 10000
+population_min <- 1000
 population_mid <- signif(min(populations), 2)
 population_max <- signif(max(populations), 2)
 theta_min <- 3

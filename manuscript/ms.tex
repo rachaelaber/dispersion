@@ -93,8 +93,8 @@
 \usepackage[right]{lineno}
 
 % ligatures disabled
-\usepackage[nopatch=eqnum]{microtype}
-\DisableLigatures[f]{encoding = *, family = * }
+% \usepackage[nopatch=eqnum]{microtype}
+% \DisableLigatures[f]{encoding = *, family = * }
 
 % color can be used to apply background shading to table cells only
 \usepackage[table]{xcolor}
@@ -179,20 +179,16 @@
 \newline
 % Insert author names, affiliations and corresponding author email (do not include titles, positions, or degrees).
 \\
-Rachael Aber\textsuperscript{1,2\Yinyang},
-Benjamin Dalziel\textsuperscript{2\Yinyang},
-Yanming Di\textsuperscript{1\textcurrency},
-Name4 Surname\textsuperscript{2},
-Name5 Surname\textsuperscript{2\ddag},
-Name6 Surname\textsuperscript{2\ddag},
-Name7 Surname\textsuperscript{1,2,3*},
-with the Lorem Ipsum Consortium\textsuperscript{\textpilcrow}
+Rachael Aber\textsuperscript{1,2},
+Yanming Di\textsuperscript{2},
+Benjamin Dalziel\textsuperscript{1, 3},
 \\
 \bigskip
-\textbf{1} Department of Integrative Biology, Oregon State University, Corvallis, Oregon, United States of America
+\textbf{1} Department of Integrative Biology, Oregon State University, Corvallis, Oregon, USA
 \\
-\textbf{2} Department of Statistics, Oregon State University, Corvallis, Oregon, United States of America
+\textbf{2} Department of Statistics, Corvallis, Oregon, Oregon State University, Corvallis, Oregon, USA
 \\
+\textbf{3} Department of Mathematics, Oregon State University, Corvallis, Oregon, USA
 \bigskip
 
 % Insert additional author notes using the symbols described below. Insert symbol callouts after author names as necessary.
@@ -200,51 +196,65 @@ with the Lorem Ipsum Consortium\textsuperscript{\textpilcrow}
 % Remove or comment out the author notes below if they aren't used.
 %
 % Primary Equal Contribution Note
-\Yinyang These authors contributed equally to this work.
+% \Yinyang These authors contributed equally to this work.
 
 % Additional Equal Contribution Note
 % Also use this double-dagger symbol for special authorship notes, such as senior authorship.
-\ddag These authors also contributed equally to this work.
+% \ddag These authors also contributed equally to this work.
 
 % Current address notes
-\textcurrency Current Address: Dept/Program/Center, Institution Name, City, State, Country % change symbol to "\textcurrency a" if more than one current address note
+%%\textcurrency Current Address: Dept/Program/Center, Institution Name, City, State, Country % change symbol to "\textcurrency a" if more than one current address note
 % \textcurrency b Insert second current address 
 % \textcurrency c Insert third current address
 
 % Deceased author note
-\dag Deceased
+% \dag Deceased
 
 % Group/Consortium Author Note
-\textpilcrow Membership list can be found in the Acknowledgments section.
+%\textpilcrow Membership list can be found in the Acknowledgments section.
 
 % Use the asterisk to denote corresponding authorship and provide email address in note below.
-* correspondingauthor@institute.edu
+* aberr@oregonstate.edu
 
 \end{flushleft}
 % Please keep the abstract below 300 words
 \section*{Abstract}
-Metrics of variability are often overlooked and useful ways to understand epidemic dynamics. For instance, superspreading of SARS-CoV-2 can be elucidated by utilizing such metrics. Our method identifies shifts in population-level incidence dispersion, allowing a more complete and predictive understanding at both the individual and population level, and allowing practitioners to prepare surge capacity in certain months. Although classical theory predicts that there will be less dispersion when incidence is higher, we consider a more general negative binomial regression framework to account for processes that may also affect the spread of cases. We investigate changes in dispersion and find that there are increases in dispersion around holiday periods in many US counties, concurrent with incidence increases. In addition, highly overdispersed patterns occur more frequently later in time series, consistent with more heterogeneity in transmission, susceptibility, and reporting. Our method is robust to changes in incidence and to population size, allowing for quantification of dispersion-indicative of superspreading dynamics-without artifactual contributions from these features.
+Metrics of variability are often overlooked and useful ways to understand epidemic dynamics. 
+For instance, superspreading of SARS-CoV-2 can be elucidated by utilizing such metrics. Our method identifies shifts in population-level incidence dispersion, allowing a more complete and predictive understanding at both the individual and population level, and allowing practitioners to prepare surge capacity in certain months. 
+Although classical theory predicts that there will be less dispersion when incidence is higher, we consider a more general negative binomial regression framework to account for processes that may also affect the spread of cases. 
+We investigate changes in dispersion and find that there are increases in dispersion around holiday periods in many US counties, concurrent with incidence increases. 
+In addition, highly overdispersed patterns occur more frequently later in time series, consistent with more heterogeneity in transmission, susceptibility, and reporting. 
+Our method is robust to changes in incidence and to population size, allowing for quantification of dispersion-indicative of superspreading dynamics-without artifactual contributions from these features.
 
 
 % Please keep the Author Summary between 150 and 200 words
 % Use first person. PLOS ONE authors please skip this step. 
 % Author Summary not valid for PLOS ONE submissions.   
 \section*{Author summary}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eget porta erat. Morbi consectetur est vel gravida pretium. Suspendisse ut dui eu ante cursus gravida non sed sem. Nullam sapien tellus, commodo id velit id, eleifend volutpat quam. Phasellus mauris velit, dapibus finibus elementum vel, pulvinar non tellus. Nunc pellentesque pretium diam, quis maximus dolor faucibus id. Nunc convallis sodales ante, ut ullamcorper est egestas vitae. Nam sit amet enim ultrices, ultrices elit pulvinar, volutpat risus.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eget porta erat. 
+Morbi consectetur est vel gravida pretium. 
+Suspendisse ut dui eu ante cursus gravida non sed sem. Nullam sapien tellus, commodo id velit id, eleifend volutpat quam. 
+Phasellus mauris velit, dapibus finibus elementum vel, pulvinar non tellus. 
+Nunc pellentesque pretium diam, quis maximus dolor faucibus id. 
+Nunc convallis sodales ante, ut ullamcorper est egestas vitae. 
+Nam sit amet enim ultrices, ultrices elit pulvinar, volutpat risus.
 
 \linenumbers
 
 % Use "Eq" instead of "Equation" for equation citations.
 \section*{Introduction}
-Time series of observed infectious disease incidence are, to varying degrees, "noisy", showing higher frequency oscillations around trends at broader temporal scales. Highly variable incidence that characterizes noisy data arise from imperfect and variable reporting (i.e, 'measurement error'), but also suggests transmission heterogeneity (superspreading), demographic/environmental heterogeneity, or changes in population effective reproduction number (R). Therefore, variability can contain information important to understanding epidemic dynamics and societal responses. Yet metrics of variability are often overlooked ways to understand these dynamics, and techniques based on variability in epidemic time series are still emerging. One area of interest is how variability is related to different phases of an epidemic. For instance, Graham et al. (2019) use the mean and interannual coefficient of variation of measles incidence to construct a metric indicative of where a location may be on the path to elimination of the pathogen. Similarly, it was recently found that 
-, the time-varying transmission heterogeneity for COVID-19, decreased over time and was significantly associated with interventions to slow spread in Hong Kong (Adam et al. 2022). Variability in population-level incidence time series may therefore provide information about what phase or dynamic regime an epidemic is in, as well as potentially indicating the level of heterogeneity at finer spatial and temporal scales, in transmission, susceptibility, reporting and/or that resulting from environmental/demographic stochasticity. Recently, an index of effective aggregate dispersion (EffDI) was proposed to elucidate clusters of infection from incidence data (Schneckenreither et al. 2023). Analyzing variability in terms of bursts of incidence is also important for planning surge capacity (Wallinga 2018). Sun et al. (2021) found a combination of individual-based and population-based strategies was required for SARS-CoV-2 control, further highlighting the importance of considering population-level variability and its relationship to individual-level variability.
+Time series of observed infectious disease incidence are, to varying degrees, "noisy", showing higher frequency oscillations around trends at broader temporal scales. Highly variable incidence that characterizes noisy data arise from imperfect and variable reporting (i.e, 'measurement error'), but also suggests transmission heterogeneity (superspreading), demographic/environmental heterogeneity, or changes in population effective reproduction number (R). Therefore, variability can contain information important to understanding epidemic dynamics and societal responses. Yet metrics of variability are often overlooked ways to understand these dynamics, and techniques based on variability in epidemic time series are still emerging. One area of interest is how variability is related to different phases of an epidemic. For instance, \cite{graham2019measles} use the mean and interannual coefficient of variation of measles incidence to construct a metric indicative of where a location may be on the path to elimination of the pathogen. Similarly, it was recently found that the time-varying transmission heterogeneity for COVID-19, decreased over time and was significantly associated with interventions to slow spread in Hong Kong \cite{adam2022time}. Variability in population-level incidence time series may therefore provide information about what phase or dynamic regime an epidemic is in, as well as potentially indicating the level of heterogeneity at finer spatial and temporal scales, in transmission, susceptibility, reporting and/or that resulting from environmental/demographic stochasticity. Recently, an index of effective aggregate dispersion (EffDI) was proposed to elucidate clusters of infection from incidence data (Schneckenreither et al. 2023). Analyzing variability in terms of bursts of incidence is also important for planning surge capacity (Wallinga 2018). Sun et al. \cite{sun2021transmission} found a combination of individual-based and population-based strategies was required for SARS-CoV-2 control, further highlighting the importance of considering population-level variability and its relationship to individual-level variability.
 
 Dispersion around a rolling mean (moving window) of an incidence time series may contain information about the size and frequency of local outbreaks. From the perspective of an infectious individual, incidence experienced in their local spatial-temporal neighborhood will be higher than the global mean when dispersion is high. A 'mean crowding' parameter was proposed, which is the mean number per individual of other individuals in the same quadrat (Lloyd 1967). This is a useful way to think about dispersion in case count time series, as (absent other processes that influence dispersion such as variation in reporting) one can think of degree of dispersion as degree of clustering/crowding of cases, which is related to concepts like transmission heterogeneity. Specifically, individual-level heterogeneity in transmission scales up to affect population-level dynamics (Lloyd-Smith 2005), so dispersion in epidemic trajectories at the population level may provide information about individual-level variability in the transmission process. Individual-level variability in transmission is most often studied using contact-tracing data. However, contact tracing data requires intense investment of resources (Kretzschmar et al. 2020), so analysis of incidence data may often be more feasible. 
 
 One of the reasons why studying variability in incidence time series is not more widely done is because it is difficult to disentangle the effects of population size/incidence on variance. For instance, if we model a process as Poisson, we assume that if the mean of the process is large, the variance will be large as well. Since mean case counts is directly related to population size/incidence, we would infer that variance in case counts is large in large population/incidence settings. Furthermore, the rate of the case-count-generating process is often changing in an epidemic, which cannot be accomodated by a Poisson model. The negative binomial distribution may accurately model a time series if there is a changing process mean: for example, if the mean of a Poisson distribution itself follows a gamma distribution, the resulting distribution is negative binomial (Cook 2009). The result is that we should use the dispersion parameter of a negative binomial distribution to measure changes in meaningful variability in settings with differing base population/incidence, not the variance of a Poisson model. In distributions that form part of the exponential family, the dispersion parameter determines the mean-variance relationship. 
 
-$$f(y_i; \theta_i, \phi) = exp\{\theta_i y_i - b(\theta_i)/a_i(\phi) - c(y_i; \phi)\}, i = 1,...,n$$
-$$Var(y_i) = b''(\theta_i) a_i(\phi) $$
+\begin{align}
+  f(y_i| \theta_i, \phi) &= \exp\left( \dfrac{\theta_i y_i - b (\theta_i)}{a_i(\phi)} - c(y_i, \phi) \right) \\
+  \notag \\
+  Var(y_i | \phi) &= b''(\theta_i) a_i(\phi)
+\end{align}
+
 
 Where $\theta_i$ is the natural (canonical) parameter and $\phi$ is the dispersion parameter.
 
@@ -258,21 +268,28 @@ We develop a method that quantifies the evolution of dispersion along incidence 
 % For figure citations, please use "Fig" instead of "Figure".
 Classical theory put forward by Grenfell et al. (2002) proposed that incidence can be modeled by a negative binomial variable with expectation equal to the epidemic intensity and dispersion equal to previous incidence:
 
-    $$\mathrm{I_t+1} = NB(\mu = \lambda_t+1, \theta_t = I_t)$$
+\begin{equation}
+    \mathrm{I_t} = NB(\mu = \lambda_t, \theta_t = I_{t-1})
+\end{equation}
 
 However, other processes besides the current number infected might affect dispersion, so we instead investigated changes in 
  to understand important processes that may leave a signal in dispersion. In other words, we estimated 
- over time. A persistent challenge in investigating changes in variability has been "spurious correlation" with population size. Since population size influences mean and variance in count data and thus could have an impact on estimates of dispersion, we robustly adjusted for population size using an offset in the model. In sum, our method identifies shifts in population-level dispersion in incidence while accounting for population size. The general framework is that incidence is drawn from a negative binomial distribution with time-varying mean and dispersion parameters (that vary more slowly than the mean). The model is formulated as follows:
+ over time. A persistent challenge in investigating changes in variability has been ``spurious correlation'' with population size. Since population size influences mean and variance in count data and thus could have an impact on estimates of dispersion, we robustly adjusted for population size using an offset in the model. In sum, our method identifies shifts in population-level dispersion in incidence while accounting for population size. The general framework is that incidence is drawn from a negative binomial distribution with time-varying mean and dispersion parameters (that vary more slowly than the mean). The model is formulated as follows:
 
  The linear predictor includes a natural spline in time with three degrees of freedom to account for autocorrelation in case counts. Natural splines are cubic splines which are linear outside of the boundary knots (Perperoglou et al. 2019). A recently proposed negative binomial regression model for time series of counts also accommodates serial dependence (Davis and Wu 2009). b) There is an offset term in order to directly model counts (here, COVID-19 cases) per unit of observation (here, per individual):
 
-    $$log(E[Y_i]/n_i) = \beta_1h_1(t_i) + \beta_2h_2(t_i) + \beta_3h_3(t_i)$$
-    $$log(E[Y_i])-log(n_i) = \beta_1h_1(t_i) + \beta_2h_2(t_i) + \beta_3h_3(t_i)$$
-    $$log(E[Y_i]) = \beta_1(h_1(t_i) + \beta_2h_2(t_i) + \beta_3h_3(t_i) + log(n_i)$$
+\begin{align}
+  log(E[Y_i]/n_i) &= \beta_1h_1(t_i) + \beta_2h_2(t_i) + \beta_3h_3(t_i) \\
+  \log(E[Y_i])-log(n_i) &= \beta_1h_1(t_i) + \beta_2h_2(t_i) + \beta_3h_3(t_i) \\ 
+  log(E[Y_i]) &= \beta_1(h_1(t_i) + \beta_2h_2(t_i) + \beta_3h_3(t_i) + log(n_i) 
+\end{align}
 
 So, the form of the probability mass function is:
 
-$$f_t(I) = {I + \theta - 1 \choose I} \frac{\mu}{\mu+\theta}^I \frac{\theta}{\mu +\theta}^\theta$$
+\begin{equation}
+x  f_t(I) = \binom{I + \theta - 1}{I} \frac{\mu}{\mu+\theta}^I \frac{\theta}{\mu +\theta}^\theta
+\end{equation}
+
 
 This form has expectation and variance as follows:
 
@@ -426,28 +443,7 @@ Cras egestas velit mauris, eu mollis turpis pellentesque sit amet. Interdum et m
 % here. See http://journals.plos.org/plosone/s/latex for 
 % step-by-step instructions.
 % 
-\begin{thebibliography}{10}
-
-\bibitem{bib1}
-Conant GC, Wolfe KH.
-\newblock {{T}urning a hobby into a job: how duplicated genes find new
-  functions}.
-\newblock Nat Rev Genet. 2008 Dec;9(12):938--950.
-
-\bibitem{bib2}
-Ohno S.
-\newblock Evolution by gene duplication.
-\newblock London: George Alien \& Unwin Ltd. Berlin, Heidelberg and New York:
-  Springer-Verlag.; 1970.
-
-\bibitem{bib3}
-Magwire MM, Bayer F, Webster CL, Cao C, Jiggins FM.
-\newblock {{S}uccessive increases in the resistance of {D}rosophila to viral
-  infection through a transposon insertion followed by a {D}uplication}.
-\newblock PLoS Genet. 2011 Oct;7(10):e1002337.
-
-\end{thebibliography}
-
+\bibliography{references}
 
 
 \end{document}

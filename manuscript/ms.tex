@@ -231,20 +231,21 @@ Our method is robust to changes in incidence and to population size, allowing fo
 % Use first person. PLOS ONE authors please skip this step. 
 % Author Summary not valid for PLOS ONE submissions.   
 \section*{Author summary}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eget porta erat. 
-Morbi consectetur est vel gravida pretium. 
-Suspendisse ut dui eu ante cursus gravida non sed sem. Nullam sapien tellus, commodo id velit id, eleifend volutpat quam. 
-Phasellus mauris velit, dapibus finibus elementum vel, pulvinar non tellus. 
-Nunc pellentesque pretium diam, quis maximus dolor faucibus id. 
-Nunc convallis sodales ante, ut ullamcorper est egestas vitae. 
-Nam sit amet enim ultrices, ultrices elit pulvinar, volutpat risus.
+Understanding how diseases spread is crucial for managing epidemics, but traditional metrics often overlook the variability in how diseases like COVID-19 spread. 
+We present a method to identify shifts in the spread patterns of SARS-CoV-2, the virus that causes COVID-19. 
+By examining how the virus spreads differently at various times and places, we can better predict and prepare for surges in cases.
+Our study uses negative binomial regression to account for various factors that might influence the spread of cases, allowing us to use a single parameter to infer the degree of clustering of cases. 
+We found that during holiday periods, the spread of COVID-19 becomes more erratic, with some individuals spreading the virus to many more people than others. 
+Additionally, as the pandemic progressed, the spread of the virus became erratic, suggesting increased differences in factors such as how people transmit the virus or how susceptible they are to it.
+Our method is able to accurately measure spreading heterogeneity, regardless of the number of cases or the size of the underlying population, providing a way to understand the dynamics of superspreading events across a range of locations.
+This can help public health officials better anticipate and manage outbreaks, especially during times when the virus spreads more unpredictably.
 
 \linenumbers
 
 % Use "Eq" instead of "Equation" for equation citations.
 \section*{Introduction}
-Time series of observed infectious disease incidence are, to varying degrees, "noisy", showing higher frequency oscillations around trends at broader temporal scales.
-Highly variable incidence that characterizes noisy data arise from imperfect and variable reporting (i.e, 'measurement error'), but also suggests transmission heterogeneity (superspreading), demographic/environmental heterogeneity, or changes in population effective reproduction number (R).
+Time series of observed infectious disease incidence are, to varying degrees, ``noisy'', showing higher frequency oscillations around trends at broader temporal scales.
+Highly variable incidence that characterizes noisy data arise from imperfect and variable reporting (i.e, measurement error), but also suggests transmission heterogeneity (superspreading), demographic/environmental heterogeneity, or changes in population effective reproduction number (R).
 Therefore, variability can contain information important to understanding epidemic dynamics and societal responses. 
 Yet metrics of variability are often overlooked ways to understand these dynamics, and techniques based on variability in epidemic time series are still emerging. 
 One area of interest is how variability is related to different phases of an epidemic. 
@@ -364,7 +365,7 @@ So, a small increase in dispersion could have large impacts on the variance in l
 Raising variance relative to mean implies spatiotemporal "crowding" of cases (i.e. localized surges) which may necessitate more surge capacity in hospitals and testing centers. 
 Additionally, it may indicate less diffuse epidemics that are potentially more subject to climate forcing \cite{dalziel_urbanization_2018}, or increased locally experienced mean density \cite{lloyd_mean_1967}. To illustrate this using the empirical data, we observed an increase from \begin{math}\theta = 2.707735e+16\end{math} to \begin{math}\theta = 21.8711\end{math}, which, conditional on the observed case count of 3, would lead to an increase in variance from around 3 to around 3.4. In contrast, if the observed case count were 300, variance would go from around 300 to around 4415.019.
 
-Additionally, \begin{math}\theta\end{math} seems to behave like a state variable. That is, its rate of change is dependent on its value and the values of other state variables (like incidence), which determine the "state" of the system. State variables depend only on the current state and not on the history or the process, so they allow for the formulation of predictable relationships, such as those found in the laws of thermodynamics. This predictability and simplicity are crucial for both theoretical studies and practical applications, and creating a reliable description of this (epidemic) system is overdue.
+Additionally, \begin{math}\theta\end{math} seems to behave like a state variable. That is, its rate of change is dependent on its own value and the values of other state variables (like incidence), which determine the "state" of the system. State variables depend only on the current state and not on the history or the process, so they allow for the formulation of predictable relationships, such as those found in the laws of thermodynamics. This predictability and simplicity are crucial for both theoretical studies and practical applications, and creating a reliable description of this (epidemic) system is overdue.
 
 \begin{figure}[!h]
 \caption{{\bf Fig 3.}

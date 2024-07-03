@@ -258,7 +258,7 @@ Sun et al. \cite{sun_transmission_2021} found a combination of individual-based 
 
 Dispersion around a rolling mean (moving window) of an incidence time series may contain information about the size and frequency of local outbreaks. 
 From the perspective of an infectious individual, incidence experienced in their local spatial-temporal neighborhood will be higher than the global mean when dispersion is high. 
-A 'mean crowding' parameter was proposed, which is the mean number per individual of other individuals in the same quadrat \cite{lloyd_mean_1967}. 
+A ``mean crowding'' parameter was proposed, which is the mean number per individual of other individuals in the same quadrat \cite{lloyd_mean_1967}. 
 This is a useful way to think about dispersion in case count time series, as (absent other processes that influence dispersion such as variation in reporting) one can think of degree of dispersion as degree of clustering/crowding of cases, which is related to concepts like transmission heterogeneity. 
 Specifically, individual-level heterogeneity in transmission scales up to affect population-level dynamics (Lloyd-Smith 2005), so dispersion in epidemic trajectories at the population level may provide information about individual-level variability in the transmission process. 
 Individual-level variability in transmission is most often studied using contact-tracing data. 
@@ -362,10 +362,10 @@ var = \mu + \mu^2/\theta
 \end{equation}
 
 So, a small increase in dispersion could have large impacts on the variance in large populations at times of peak incidence. 
-Raising variance relative to mean implies spatiotemporal "crowding" of cases (i.e. localized surges) which may necessitate more surge capacity in hospitals and testing centers. 
+Raising variance relative to mean implies spatiotemporal ``crowding'' of cases (i.e. localized surges) which may necessitate more surge capacity in hospitals and testing centers. 
 Additionally, it may indicate less diffuse epidemics that are potentially more subject to climate forcing \cite{dalziel_urbanization_2018}, or increased locally experienced mean density \cite{lloyd_mean_1967}. To illustrate this using the empirical data, we observed an increase from \begin{math}\theta = 2.707735e+16\end{math} to \begin{math}\theta = 21.8711\end{math}, which, conditional on the observed case count of 3, would lead to an increase in variance from around 3 to around 3.4. In contrast, if the observed case count were 300, variance would go from around 300 to around 4415.019.
 
-Additionally, \begin{math}\theta\end{math} seems to behave like a state variable. That is, its rate of change is dependent on its own value and the values of other state variables (like incidence), which determine the "state" of the system. State variables depend only on the current state and not on the history or the process, so they allow for the formulation of predictable relationships, such as those found in the laws of thermodynamics. This predictability and simplicity are crucial for both theoretical studies and practical applications, and creating a reliable description of this (epidemic) system is overdue.
+Additionally, \begin{math}\theta\end{math} seems to behave like a state variable. That is, its rate of change is dependent on its own value and the values of other state variables (like incidence), which determine the ``state'' of the system. State variables depend only on the current state and not on the history or the process, so they allow for the formulation of predictable relationships, such as those found in the laws of thermodynamics. This predictability and simplicity are crucial for both theoretical studies and practical applications, and creating a reliable description of this (epidemic) system is overdue.
 
 \begin{figure}[!h]
 \caption{{\bf Fig 3.}

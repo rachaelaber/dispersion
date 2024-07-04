@@ -251,13 +251,13 @@ This can help public health officials better anticipate and manage outbreaks, es
 
 % Use "Eq" instead of "Equation" for equation citations.
 \section*{Introduction}
-Time series of infectious disease incidence are, to varying degrees, ``noisy'', showing higher frequency oscillations around trends at broader temporal scales.
+Time series of observed infectious disease incidence are, to varying degrees, ``noisy'', showing higher frequency oscillations around trends at broader temporal scales.
 Highly variable incidence that characterizes noisy data arise from imperfect and variable reporting (i.e, measurement error), but also suggests transmission heterogeneity (superspreading), demographic/environmental heterogeneity, or changes in population effective reproduction number (R).
 Therefore, variability can contain information important to understanding epidemic dynamics and societal responses. 
 Yet metrics of variability are often overlooked ways to understand these dynamics, and techniques based on variability in epidemic time series are still emerging. 
 One area of interest is how variability is related to different phases of an epidemic. 
 For instance, the mean and interannual coefficient of variation of measles incidence was used to construct a metric indicative of where a location may be on the path to elimination of a pathogen \cite{graham_measles_2019}. 
-Similarly, it was recently found that the time-varying transmission heterogeneity for COVID-19 decreased over time and was significantly associated with interventions to slow spread in Hong Kong \cite{adam_time-varying_2022}. 
+Similarly, it was recently found that the time-varying transmission heterogeneity for COVID-19, decreased over time and was significantly associated with interventions to slow spread in Hong Kong \cite{adam_time-varying_2022}. 
 Variability in population-level incidence time series may therefore provide information about what phase or dynamic regime an epidemic is in, as well as potentially indicating the level of heterogeneity at finer spatial and temporal scales, in transmission, susceptibility, reporting and/or that resulting from environmental/demographic stochasticity. 
 To that end, an index of effective aggregate dispersion (EffDI) was proposed to elucidate clusters of infection directly from incidence data \cite{schneckenreither_assessing_2023}. 
 Analyzing variability in terms of bursts of incidence is also important for planning surge capacity \cite{wallinga_metropolitan_2018}. 
@@ -266,7 +266,7 @@ Sun et al. \cite{sun_transmission_2021} found a combination of individual-based 
 Dispersion around a rolling mean (moving window) of an incidence time series may contain information about the size and frequency of local outbreaks. 
 Dispersion may be a more useful metric than variance because the same value of the dispersion parameter will result in a larger variance/mean ratio when the mean is larger, thus capturing clustering in the true sense, and not just reflecting the statistical artifact that large mean results in large variance. 
 From the perspective of an infectious individual, incidence experienced in their local spatial-temporal neighborhood will be higher than the global mean when dispersion is high. 
-A 'mean crowding' parameter was proposed, which is the mean number per individual of other individuals in the same quadrat \cite{lloyd_mean_1967}. 
+A ``mean crowding'' parameter was proposed, which is the mean number per individual of other individuals in the same quadrat \cite{lloyd_mean_1967}. 
 This is a useful way to think about dispersion in case count time series, as (absent other processes that influence dispersion such as variation in reporting) one can think of degree of dispersion as degree of clustering/crowding of cases, which is related to concepts like transmission heterogeneity. 
 Specifically, individual-level heterogeneity in transmission scales up to affect population-level dynamics \cite{lloyd-smith_superspreading_2005}, so dispersion in epidemic trajectories at the population level may provide information about individual-level variability in the transmission process. 
 Individual-level variability in transmission is most often studied using contact-tracing data. 
@@ -314,7 +314,7 @@ There is an offset term in order to directly model counts (here, COVID-19 cases)
 So, the form of the probability mass function is:
 
 \begin{equation}
-  f_t(I) = \binom{I + \theta - 1}{I} \frac{\mu}{\mu+\theta}^I \frac{\theta}{\mu +\theta}^\theta
+x  f_t(I) = \binom{I + \theta - 1}{I} \frac{\mu}{\mu+\theta}^I \frac{\theta}{\mu +\theta}^\theta
 \end{equation}
 
 This form has expectation and variance as follows:
@@ -388,10 +388,10 @@ Log of the mean (over a single time series) dispersion parameter v. log of the m
 \end{figure}
 
 \section*{Discussion}
-We presented an approach to compare dispersion in epidemic time series that does not detect artifacts based on population size and incidence. 
+We presented an approach to compare variability in epidemic time series that does not detect artifacts based on population size and incidence. 
 Our method forms part of a larger push to investigate variability as an important attribute of epidemic time series.
 Burst-tree decomposition of time series’ has also facilitated computation of a burst-size distribution for a series given a specified time window \cite{jo_burst-tree_2020}, allowing comparison of variability within one location over time. 
-Similarly, spatial variation in superspreading potential has been investigated through e.g., risk maps of superspreading environments \cite{loo_identification_2021}. 
+Similarly, spatial variation in superspreading potential has been investigated through e.g., risk maps of superspreading environments \cite{loo_identification_2021}.
 Methods that use incidence time series are a crucial part of this research area due to the ease of obtaining incidence data, so the timing/geographical allocation of public health resources can be achieved with limited resources. 
 Additionally, population-wide disease control approaches are often less effective than those which are targeted to individuals in high-transmission contexts \cite{lloyd-smith_superspreading_2005}, so models that incorporate transmission heterogeneity may catalyze the development of more efficient control strategies.
 Our results imply that we can revise our understanding of case count dispersion: dispersion is high at unexpected times (peak incidence) and corresponds to significant increases in variance when incidence is high. 
@@ -400,7 +400,6 @@ In addition, a big city with more (smaller) hospitals could effectively be analo
 This implies that there may be merit to revising current public health strategies. 
 Previous research to evaluate bursty dynamics based on Influenza-like Illness (ILI) times series’ showed that epidemics in smaller communities are concentrated on narrower windows of the influenza season - the proportion of disease incidence that occurred in a given week was a metric of interest \cite{dalziel_urbanization_2018}. 
 So, additional research is needed to understand the balance between burstiness of small communities and the potentially less severe effect of increased dispersion.
-
 %Though some kinds of time dependence in the rate can cause autocorrelation, as can contagion (if it occurs outside of set periods), and heterogeneity (if an omitted variable is correlated in time) \cite{barron_analysis_1992}, our focus on dispersion makes sense because we are concerned with the clustering of cases from the point of view of an individual case. Also, demographic structure (e.g., age structure) has the potential to affect temporal autocorrelation in transmission rate - the effects of age structure can be captured by a model that includes an infection rate that varies over time \cite{earn_dynamic_nodate}. 
 
 \section*{Conclusion}

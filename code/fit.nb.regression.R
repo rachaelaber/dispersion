@@ -17,7 +17,7 @@ fit.nb.regression = function(y, s, x, beta0=rep(NA, dim(x)[2]), kappa=NA) {
       ## log.likelihood.nb(kappa, res$mu, y);
     }
     
-    res = optimize(ll, c(log(1e-6), log(1e6)), maximum=TRUE);
+    res = optimize(ll, c(log(1e-20), log(1e20)), maximum=TRUE);
     kappa.hat = exp(res$maximum);
   } else {
     kappa.hat = kappa

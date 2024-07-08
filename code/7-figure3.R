@@ -71,7 +71,7 @@ for (i in 1:3) {
     ylab = "log_10 Mean theta",
     xaxt = "n",
     xlim = c(-5, -2),
-    ylim = c(4.75, 6),
+   # ylim = c(4.75, 6),
     yaxt = "n",
     bty = "n"
   )

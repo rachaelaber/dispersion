@@ -3,8 +3,6 @@ rm(list = ls())
 
 source("code/lrt.R")
 
-source("code/my_spl_fit.R")
-
 load("data/processed/new_cases_lg_weekly.Rdata")
 
 # Set up empty matrices and loop through counties and time points

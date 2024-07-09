@@ -15,10 +15,12 @@ final_attack_rate <- 0.1
 peak_time <- 30
 peak_width <- 200
 population_min <- 1000
+population_low <- 10000
 population_mid <- signif(min(populations), 2)
 population_max <- signif(max(populations), 2)
 theta_min <- 3
 theta_max <- 30
+theta_bonus <- 10^c(2, 4, 6)
 breakpoint_min <- 20
 breakpoint_max <- 40
 
@@ -31,7 +33,7 @@ nstep <- 60       # Number of time steps (days) in simulated trajectories
 theta1 <- seq(theta_min, theta_max, length.out = ntheta)
 theta2 <- seq(theta_min, theta_max, length.out = ntheta)
 breakpoint <- seq(breakpoint_min, breakpoint_max, length.out = nbreakpoint)
-population <- c(population_min, population_mid, population_max)
+population <- c(population_min, population_low, population_mid, population_max)
 curve_type <- c(1, 2)
 
 # Expand grid and add final size

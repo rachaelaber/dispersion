@@ -38,6 +38,6 @@ for (i in 1:nrow(curves)) {
 theta0s <- 1/phi0s
 true_theta <- curve_parms$theta1
 
-is_small_pop <- as.factor(rowSums(curves) < 200)
+is_small_pop <- as.factor(rowSums(curves) < 1000)
 plot(log10(true_theta), log10(theta0s), col = is_small_pop)
 abline(0, 1, col = "red")

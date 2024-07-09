@@ -1,9 +1,5 @@
 rm(list = ls())
 
-filename <- "figures/fig1.pdf"
-pdf(filename)
-
-par(mfrow = c(3, 3))
 
 load("data/processed/simulated_curves.Rdata")
 load("data/processed/processed_long_dat.Rdata") # for dates
@@ -12,6 +8,12 @@ rm(populations)
 load("data/processed/new_cases_lg_weekly.Rdata")
 load("data/processed/theta_lg_pops_weekly.Rdata")
 load("data/processed/pvals_sim_LRT.Rdata")
+
+
+filename <- "figures/fig1.pdf"
+pdf(filename)
+
+par(mfrow = c(3, 3))
 
 # Trim empirical incidence to same length as thetas2
 series <- new_cases_lg_weekly[1, 30:(length(new_cases_lg_weekly[1,]) - 30 + 1)]
@@ -23,9 +25,9 @@ dates <- dates[35: length(dates)]
 thetas <- thetas[1, 35:dim(thetas2)[2]]
 
 # Row 1
-plot(curves[2201,], xlab = "Day", type = "l", ylab = "Incidence")
+plot(curves[1184,], xlab = "Day", type = "l", ylab = "Incidence")
 mtext("a", side = 3, line = 1, adj = 0)
-plot(curves[2291,], xlab = "Day", type = "l", ylab = "Incidence")
+plot(curves[1340,], xlab = "Day", type = "l", ylab = "Incidence")
 mtext("b", side = 3, line = 1, adj = 0)
 plot(dates[170:230], series[170:230], xaxt = "n", xlab = "Day", type = "l", ylab = "Incidence")
 
@@ -37,13 +39,13 @@ mtext("c", side = 3, line = 1, adj = 0 )
 
 
 # Row 2
-plot(rep(curve_parms$theta1[2201], times = length(curves[2201,])),
+plot(rep(curve_parms$theta1[1184], times = length(curves[1184,])),
      xlab = "Day", ylab = expression(theta), ylim = c(0, 30), col = 4, cex = .1, type = "l")
 mtext("d", side = 3, line = 1, adj = 0)
 mtext("O", side = 3, line = -2)
-plot(c(rep(curve_parms$theta1[2291], times = length(curves[2291,])/2), 
-       rep(curve_parms$theta2[2291], times = length(curves[2291,])/2)),
-     xlab = "Day", ylab = expression(theta), ylim = c(0, 30), col = 4, cex = .1, type = "l")
+plot(c(rep(curve_parms$theta1[1340], times = length(curves[1340,])/2), 
+       rep(curve_parms$theta2[1340], times = length(curves[1340,])/2)),
+     xlab = "Day", ylab = expression(theta), col = 4, cex = .1, type = "l")
 mtext("e", side = 3, line = 1, adj = 0)
 mtext("X", side = 3, line = -2)
 plot(dates[170:230], thetas[170:230], type = "l", col = 4, xaxt = "n", xlab = "Day", ylab = expression(theta))
@@ -57,7 +59,7 @@ mtext("f", side = 3, line = 1, adj = 0)
 
 
 # Row 3
-pops <- c(1000, 61000, 10000000)
+pops <- c(1.0e+03, 1.0e+04, 1.0e+07)
 dtheta <- curve_parms$theta2 - curve_parms$theta1
 
 for (i in 1:length(pops)) {
@@ -100,3 +102,4 @@ for (i in 1:length(pops)) {
 }
 
 dev.off()
+

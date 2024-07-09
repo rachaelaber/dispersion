@@ -37,7 +37,12 @@ for (i in 1:nrow(curves)) {
 # Plot against true theta0 values
 theta0s <- 1/phi0s
 true_theta <- curve_parms$theta1
-
 is_small_pop <- as.factor(rowSums(curves) < 1000)
+
+filename <- "figures/thetaest_v_theta.pdf"
+pdf(filename, width = 6, height = 6)
+
 plot(log10(true_theta), log10(theta0s), col = is_small_pop)
 abline(0, 1, col = "red")
+
+dev.off()

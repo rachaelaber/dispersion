@@ -30,8 +30,8 @@ nbreakpoint <- 5  # Number of unique breakpoint values
 nstep <- 60       # Number of time steps (days) in simulated trajectories
 
 # Theta, breakpoint, population size, and curve type sequences
-theta1 <- seq(theta_min, theta_max, length.out = ntheta)
-theta2 <- seq(theta_min, theta_max, length.out = ntheta)
+theta1 <- c(seq(theta_min, theta_max, length.out = ntheta), theta_bonus)
+theta2 <- c(seq(theta_min, theta_max, length.out = ntheta), theta_bonus)
 breakpoint <- seq(breakpoint_min, breakpoint_max, length.out = nbreakpoint)
 population <- c(population_min, population_low, population_mid, population_max)
 curve_type <- c(1, 2)

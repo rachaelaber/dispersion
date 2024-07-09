@@ -38,4 +38,5 @@ for (i in 1:nrow(curves)) {
 theta0s <- 1/phi0s
 true_theta <- curve_parms$theta1
 
-plot(theta0s ~ true_theta)
+plot(log10(true_theta), log10(theta0s))
+abline(0, 1, col = "red")

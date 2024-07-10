@@ -57,16 +57,19 @@ axis.Date(1, at = at, labels = labels)
 mtext("f", side = 3, line = 1, adj = 0)
 
 
-
 # Row 3
 pops <- c(1.0e+03, 1.0e+04, 1.0e+07)
 dtheta <- curve_parms$theta2 - curve_parms$theta1
 
 for (i in 1:length(pops)) {
-  current_dtheta <- dtheta[which(curve_parms$population == pops[i])]
-  current_pvals <- pvals[which(curve_parms$population == pops[i])]
   
-  plot(current_pvals ~ jitter(abs(current_dtheta), 1.5),
+  current_dtheta = dtheta[which(curve_parms$population == pops[i])]
+  current_pvals = pvals[which(curve_parms$population == pops[i])]
+  
+  current_dtheta_sm = current_dtheta[abs(current_dtheta) <= 27]
+  current_pvals_sm = current_pvals[abs(current_dtheta) <= 27]
+  
+  plot(current_pvals_sm ~ jitter(abs(current_dtheta_sm), 1.5),
        pch = 21, col = "darkgrey", cex = 0.2,
        bg = rgb(0.4, 0.4, 0.4, 0.3),
        #main = paste("Population size", pops[i]),
@@ -75,30 +78,48 @@ for (i in 1:length(pops)) {
        ylab = "p-value",
        xaxt = "n", yaxt = "n",
        ylim = c(0, 1),
-       xlim = c(-0.5, 27.5)
   )
   
   mtext(letters[7:9][i], side = 3, line = 1, adj = 0)
-
+  
   axis(1, seq(0, 27, 3))
   axis(2, seq(0, 1, 0.25))
   
-  ag <- aggregate(current_pvals ~ abs(current_dtheta), FUN = median)
+  ag <- aggregate(current_pvals_sm ~ abs(current_dtheta_sm), FUN = median)
   points(ag[, 1], ag[, 2], pch = 19, col = 2, cex = 1)
   
-  ag <- aggregate(current_pvals ~ abs(current_dtheta), FUN = quantile, probs = c(0.25, 0.75))
+  ag <- aggregate(current_pvals_sm ~ abs(current_dtheta_sm), FUN = quantile, probs = c(0.25, 0.75))
+  lo <- ag[, 2][, 1]
+  hi <- ag[, 2][, 2]
+  segments(ag[, 1], lo, ag[, 1], hi, col = 2, lwd = 3)
+  
+  text(0, 0.9, "O", cex = 1.2)
+
+  current_dtheta_lg = current_dtheta[abs(current_dtheta) > 27 & abs(current_dtheta) <= 97]
+  current_pvals_lg = current_pvals[abs(current_dtheta) > 27 & abs(current_dtheta) <= 97]
+  
+  plot(current_pvals_lg ~ jitter(abs(current_dtheta_lg), 1.5),
+       pch = 21, col = "darkgrey", cex = 0.2,
+       bg = rgb(0.4, 0.4, 0.4, 0.3),
+       #main = paste("Population size", pops[i]),
+       main = "",
+       xlab = expression(paste(abs(theta[2] - theta[1]))),
+       ylab = "p-value",
+       xaxt = "n", yaxt = "n",
+       ylim = c(0, 1),
+  )
+
+  axis(1, seq(27, 97, by = 3))
+  axis(2, seq(0, 1, 0.25))
+  
+  ag <- aggregate(current_pvals_lg ~ abs(current_dtheta_lg), FUN = median)
+  points(ag[, 1], ag[, 2], pch = 19, col = 2, cex = 1)
+  
+  ag <- aggregate(current_pvals_lg ~ abs(current_dtheta_lg), FUN = quantile, probs = c(0.25, 0.75))
   lo <- ag[, 2][, 1]
   hi <- ag[, 2][, 2]
   segments(ag[, 1], lo, ag[, 1], hi, col = 2, lwd = 3)
 
-  text(0, 0.9, "O", cex = 1.2)
-  text(27, 0.9, "X", cex = 1.2)
-
-  
-
-  #mtext("X", side = 3, line = -2, at = c(27, 1))
-  #mtext("0", side = 3, line = -2, at = c(1, 1))
-  
 }
 
 dev.off()

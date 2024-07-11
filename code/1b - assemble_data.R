@@ -25,6 +25,18 @@ epi <- rbind(epi, temp)
 rm(temp)
 
 
+# Remove regions we will not analyze
+# Alaska is excluded due to fips mismatches between census and epi data
+excluded_regions <- c("Alaska",
+                      "American Samoa",
+                      "District of Columbia",
+                      "Guam",
+                      "Puerto Rico",
+                      "Northern Mariana Islands",
+                      "Virgin Islands")
+epi <- epi[!epi$state %in% excluded_regions, ]
+epi <- epi[!is.na(epi$fips), ]
+
 
 # Convert date
 epi$date <- as.Date(epi$date, format = "%Y-%m-%d")
@@ -32,8 +44,15 @@ epi$date <- as.Date(epi$date, format = "%Y-%m-%d")
 
 
 # Load population data
-pop <- read.csv("data/raw/covid_county_population_usafacts.csv")
-names(pop) <- c("fips", "county2", "state2", "population")
+# csv is not on github and can be downloaded from
+# https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/counties/totals/  #nolint
+temp <- read.csv("data/raw/co-est2021-alldata.csv")
+pop <- data.frame(fips = temp$STATE * 1000 + temp$COUNTY,
+                  population = temp$POPESTIMATE2020,
+                  state = temp$STNAME,
+                  county = temp$CTYNAME)
+pop <- pop[pop$state != pop$county, ] # remove state rows
+rm(temp)
 
 
 
@@ -42,9 +61,18 @@ dat <- merge(epi, pop, by = "fips", all.x = TRUE)
 
 
 
-# Remove unmatched rows
-dat <- dat[complete.cases(dat), ]
+# Investiage any unmatched fips
+unmatched <- subset(dat, !complete.cases(dat))
 
+
+# Drop unnecessary columns
+dat <- data.frame(county = dat$county.x,
+                  state = dat$state.x,
+                  fips = dat$fips,
+                  date = dat$date,
+                  cases = dat$cases,
+                  population = dat$population)
+dat <- dat[order(dat$fips, dat$date), ]
 
 
 # Subset to the three largest counties in each state

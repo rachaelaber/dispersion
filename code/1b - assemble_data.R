@@ -119,7 +119,7 @@ for (i in 1:nfips) {
   ss$new_cases <- rpois(length(lambda), lambda)
 
 
-  # write to matrices
+  # write to matrices, now calling new cases "cases"
   cases[i, ] <- ss$new_cases
   incidence[i, ] <- ss$new_cases / ss$population
   imputed[i, ] <- ss$impute
@@ -127,6 +127,12 @@ for (i in 1:nfips) {
 }
 
 
+# Assemble a data frame of county info
+county <- dat_lg[!duplicated(dat_lg$fips),
+                 c("fips", "county", "state", "population")]
+
+
 # Save
-#filename <- "data/processed/main.Rdata"
-#save(cases, incidence, imputed, pops, file = filename)
+filename <- "data/processed/nyt.Rdata"
+save(cases, incidence, imputed, pops, county,
+     file = filename)

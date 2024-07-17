@@ -278,7 +278,6 @@ Since mean case counts is directly related to population size/incidence, we woul
 Furthermore, the rate of the case-count-generating process is often changing in an epidemic, which cannot be accommodated by a Poisson model. 
 The negative binomial distribution may accurately model a time series if there is a changing process mean: for example, if the mean of a Poisson distribution itself follows a gamma distribution, the resulting distribution is negative binomial \cite{cook_notes_nodate}. 
 The result is that we should use the dispersion parameter of a negative binomial distribution to measure changes in meaningful variability in settings with differing base population/incidence, not the variance of a Poisson model. 
-In distributions that form part of the exponential family, the dispersion parameter determines the mean-variance relationship. 
 
 Negative binomial regression (in contrast to Poisson regression) can account for unobserved heterogeneity, time dependence in the rate of a process and contagion that all lead to overdispersion \cite{barron_analysis_1992}.
 We developed a method that quantifies the evolution of dispersion along incidence time series, allowing for the detection of changes in variability that are not due to changes in population size or overall burden of incidence.
@@ -314,7 +313,7 @@ There is an offset term in order to directly model counts (here, COVID-19 cases)
 So, the form of the probability mass function is:
 
 \begin{equation}
-x  f_t(I) = \binom{I + \theta - 1}{I} \frac{\mu}{\mu+\theta}^I \frac{\theta}{\mu +\theta}^\theta
+  f_t(I) = \binom{I + \theta - 1}{I} \frac{\mu}{\mu+\theta}^I \frac{\theta}{\mu +\theta}^\theta
 \end{equation}
 
 This form has expectation and variance as follows:
@@ -345,7 +344,7 @@ In row one and two of Fig. 1, we illustrated that a drop in \begin{math}\theta\e
 \begin{figure}[!h]
 \includegraphics[width=0.6\textwidth]{fig1}
 \caption{
-Detecting dispersion changes in incidence time series in populations of different sizes. A: Simulated incidence when dispersion is constant. B: When dispersion changes during the epidemic. C: Daily COVID-19 cases in Jefferson County, AL between 2020-09-10 and 2020-11-09 (X-axis is days since beginning of inclusion period for the model fit). D: Constant dispersion used in generation of above. E: Changing dispersion used in generation of above. F: Dispersion estimates from model fit to the above series. G: Performance of the method with simulated data that has different absolute differences in theta (horizontal axis of each pane) illustrates p-value distribution across different population sizes (each pane is one population size). O and X mark the null and alternative hypotheses indicated in panels D and E. 
+Detecting dispersion changes in incidence time series in populations of different sizes. A: Simulated incidence when dispersion is constant. B: When dispersion changes during the epidemic. C:  D: Constant dispersion used in generation of above. E: Changing dispersion used in generation of above. F: Dispersion estimates from model fit to the above series. G: Performance of the method with simulated data that has different absolute differences in theta (horizontal axis of each pane) illustrates p-value distribution across different population sizes (each pane is one population size). O and X mark the null and alternative hypotheses indicated in panels D and E. 
  }
 \label{fig1}
 \end{figure}

@@ -162,5 +162,5 @@ county <- dat_lg[!duplicated(dat_lg$fips),
 
 # Save
 filename <- "data/processed/nyt.Rdata"
-save(cases, incidence, imputed, pops, county,
+save(cases, incidence, imputed, pops, county, date_seq,
      file = filename)

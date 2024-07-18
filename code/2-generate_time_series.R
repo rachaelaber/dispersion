@@ -4,11 +4,8 @@
 rm(list = ls())
 
 source("code/curve_templates.R")
-load("data/processed/new_cases_lg_weekly.Rdata")
-populations <- populations_lg$population
-rm(populations_lg)
-rm(new_cases_lg_weekly)
-
+load("data/processed/nyt_weekly.Rdata")
+rm(cases, county, incidence, dates)
 
 # Parameters
 final_attack_rate <- 0.1
@@ -16,22 +13,19 @@ peak_time <- 30
 peak_width <- 200
 population_min <- 1000
 population_low <- 10000
-population_mid <- signif(min(populations), 2)
-population_max <- signif(max(populations), 2)
-theta_min <- 3
-theta_max <- 30
-theta_bonus <- 10^c(2, 4, 6)
+population_mid <- signif(min(pops), 2)
+population_max <- signif(max(pops), 2)
 breakpoint_min <- 20
 breakpoint_max <- 40
 
-ntheta <- 10      # Number of unique theta values
 nbreakpoint <- 5  # Number of unique breakpoint values
 
-nstep <- 60       # Number of time steps (days) in simulated trajectories
+nstep <- 60       # Number of time steps in simulated trajectories
 
 # Theta, breakpoint, population size, and curve type sequences
-theta1 <- c(seq(theta_min, theta_max, length.out = ntheta), theta_bonus)
-theta2 <- c(seq(theta_min, theta_max, length.out = ntheta), theta_bonus)
+# Max theta could be based on mu^2, where the alg performs well, alg boundaries, or emp. data
+theta1 <- c(.1, 1, 10, 100, 1000, 10e+06)
+theta2 <- c(.1, 1, 10, 100, 1000, 10e+06)
 breakpoint <- seq(breakpoint_min, breakpoint_max, length.out = nbreakpoint)
 population <- c(population_min, population_low, population_mid, population_max)
 curve_type <- c(1, 2)

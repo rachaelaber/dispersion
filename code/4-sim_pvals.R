@@ -15,12 +15,12 @@ pvals <- rep(NA, ncurve)
 
 for (i in 1:ncurve) {
   pvals[i] <- tryCatch(lrt(
-    y1 = curves[i, ][1:30],
-    y2 = curves[i, ][31:60],
+    y1 = curves[i, ][(curve_parms$breakpoint[i]-7):curve_parms$breakpoint[i]],
+    y2 = curves[i, ][(curve_parms$breakpoint[i]+1):(curve_parms$breakpoint[i] + 8)], 
     s1 = curve_parms$population[i],
     s2 = curve_parms$population[i],
-    i1 = 1:30,
-    i2 = 31:60,
+    i1 = 1:8,
+    i2 = 9:16,
     df1 = 3,
     df2 = 3
   )$p, error = function(e) return(NA))

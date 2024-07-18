@@ -4,17 +4,16 @@ graphics.off()
 library(viridis)
 
 # Prep data
-load("data/processed/lrt_lg_pops_weekly.Rdata")
-load("data/processed/new_cases_lg_weekly.Rdata")
-load("data/processed/theta_lg_pops_weekly.Rdata")
-load("data/processed/lrtps_lg_pops_weekly.Rdata")
-load("data/processed/processed_long_dat.Rdata")
+load("data/processed/lrt_lg_pops.Rdata")
+load("data/processed/nyt_weekly.Rdata")
+load("data/processed/theta_lg_pops.Rdata")
+load("data/processed/lrtps_lg_pops.Rdata")
 
 
 # Trim elements or columns that will have NAs for theta and lrt
-keep <- 30 : (length(dates) - 30 + 1)
+keep <- 8:(length(dates)-8+1)
 dates <- dates[keep]
-new_cases_lg_weekly <- new_cases_lg_weekly[, keep]
+cases <- cases[, keep]
 
 
 # Plot
@@ -38,7 +37,7 @@ x <- matrix(NA, nrow = length(breaks) - 1, ncol = nmy)
 
 for (i in 1:nmy) {
       these_thetas <- thetas[, my == umy[i]]
-      these_thetas[log10(these_thetas) < -3] <- NA    #TEMPORARY experimenting with suppressing very small thetas which I am suspecting might be a kind of failure in the estimatation process, like hitting boundary conditions in the optimizer?
+      #these_thetas[log10(these_thetas) < -3] <- NA    #TEMPORARY experimenting with suppressing very small thetas which I am suspecting might be a kind of failure in the estimatation process, like hitting boundary conditions in the optimizer?
       x[, i] <- as.numeric(table(cut(log10(these_thetas), breaks = breaks)))
 }
 
@@ -58,7 +57,7 @@ mtext("a", side = 3, line = 1, adj = 0)
 
 x <- thetas2
 
-image(dates, 1:150, t(log10(x)), 
+image(dates, 1:144, t(log10(x)), 
         breaks = breaks,
         col = colors, 
         yaxt = "n",
@@ -77,15 +76,15 @@ mtext("b", side = 3, line = 1, adj = 0)
 
 # 3
 incidence <- matrix(NA,
-                    nrow = nrow(new_cases_lg_weekly),
-                    ncol = ncol(new_cases_lg_weekly))
-for (i in seq_len(nrow(new_cases_lg_weekly))) {
-  incidence[i, ] <- new_cases_lg_weekly[i,] / populations_lg$population[i]
+                    nrow = nrow(cases),
+                    ncol = ncol(cases))
+for (i in seq_len(nrow(cases))) {
+  incidence[i, ] <- cases[i,] / county$population[i]
 }
 
 
 m <- substr(format(dates, "%b"), 1, 1)
-image(dates, 1:150, t(log10(incidence)),
+image(dates, 1:144, t(log10(incidence)),
       xaxt = "n",
       ylab = "",
       yaxt = "n",

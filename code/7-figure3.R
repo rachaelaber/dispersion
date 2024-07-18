@@ -6,20 +6,15 @@ library(viridis)
 
 
 # Load data
-load("data/processed/new_cases_lg_weekly.Rdata")
-load("data/processed/theta_lg_pops_weekly.Rdata")
-load("data/processed/processed_long_dat.Rdata") # for dates
-rm(new_cases, populations)
+load("data/processed/nyt_weekly.Rdata")
+load("data/processed/theta_lg_pops.Rdata")
 theta <- thetas2
-cases <- new_cases_lg_weekly
-pops <- populations_lg$population
+pops <- county$population
 rm(thetas1, thetas2, thetas)
-rm(populations_lg)
-rm(new_cases_lg_weekly)
 
 
 # Trim cases and dates to match theta
-keep <- 30:(length(dates) - 30 + 1)
+keep <- 8:(length(dates) - 8 + 1)
 dates <- dates[keep]
 cases <- cases[, keep]
 rm(keep)

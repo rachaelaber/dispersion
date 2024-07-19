@@ -63,30 +63,25 @@ for (j in 1:nrow(cases)) {
   
 }
 
-# Save/drop indices with theta too small
-# bad_indices <- thetas1 < 1e-10 | thetas2 < 1e-10
-# 
-# bad_indices2 <- thetas < 1e-10
-
 filename <- "data/processed/theta_lg_pops.Rdata"
 
-# thetas1[bad_indices] <- NA
-# 
-# thetas2[bad_indices] <- NA
-# 
-# thetas[bad_indices2] <- NA
+
+thetas[which(thetas > 999950)] <- NA
+thetas1[which(thetas1 > 999950)] <- NA
+thetas2[which(thetas2 > 999950)] <- NA
+
 
 save(thetas1, thetas2, thetas, file = filename)
 
 filename <- "data/processed/lrt_lg_pops.Rdata"
 
-# lrt_stats[bad_indices] <- NA
+lrt_stats[c(which(thetas > 999950), which(thetas1 > 999950), which(thetas2 > 999950))] <- NA
 
 save(lrt_stats, file = filename)
 
 filename <- "data/processed/lrtps_lg_pops.Rdata"
 
-# lrt_ps[bad_indices] <- NA
+lrt_ps[c(which(thetas > 999950), which(thetas1 > 999950), which(thetas2 > 999950))] <- NA
 
 save(lrt_ps, file = filename)
 

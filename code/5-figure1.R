@@ -13,7 +13,7 @@ pdf(filename)
 par(mfrow = c(3, 3))
 
 # Trim empirical incidence to same length as thetas2
-series <- cases[1, 8:(length(cases[1,]) - 8 + 1)]
+series <- cases[3, 8:(length(cases[1,]) - 8 + 1)]
 dates <- dates[8:(length(cases[1,]) - 8 + 1)]
 
 # Remove first observations from all
@@ -32,8 +32,8 @@ plot(curves[283,], xlab = "Day", type = "l", ylab = "Incidence")
 mtext("b", side = 3, line = 1, adj = 0)
 plot(dates[60:120], series[60:120], xaxt = "n", xlab = "Day", type = "l", ylab = "Incidence")
 
-at <- seq.Date(from = min(dates[60:120]), max(dates[60:120]), by = '10 days')
-labels <- seq(0, 60, by = 10)
+at <- seq.Date(from = min(dates[60:120]), to = max(dates[60:120]), by = "week")
+labels <- seq(0, 60)
 
 axis.Date(1, at = at, labels = labels)
 mtext("c", side = 3, line = 1, adj = 0 )
@@ -49,17 +49,17 @@ plot(c(rep(curve_parms$theta1[283], times = length(curves[283,])/2),
      xlab = "Day", ylab = expression(theta), col = 4, cex = .1, type = "l")
 mtext("e", side = 3, line = 1, adj = 0)
 mtext("X", side = 3, line = -2)
-plot(dates[60:120], thetas[60:120], type = "l", col = 4, xaxt = "n", xlab = "Day", ylab = expression(theta))
+plot(dates[60:120], thetas[3, 60:120], type = "l", col = 4, xaxt = "n", xlab = "Day", ylab = expression(theta))
 
-at <- seq.Date(from = min(dates[60:120]), max(dates[60:120]), by = '10 days')
-labels <- seq(0, 60, by = 10)
+at <- seq.Date(from = min(dates[60:120]), to = max(dates[60:120]), by = "week")
+labels <- seq(0, 60)
 
 axis.Date(1, at = at, labels = labels)
 mtext("f", side = 3, line = 1, adj = 0)
 
 
 # Row 3
-pops <- c(1.0e+03, 1.0e+04, 1.0e+07)
+pops <- c(1.0e+03, 4.7e+04, 1.0e+07)
 dtheta <- curve_parms$theta2 - curve_parms$theta1
 
 for (i in 1:length(pops)) {
@@ -73,6 +73,7 @@ for (i in 1:length(pops)) {
        main = "",
        xlab = expression(paste(abs(theta[2] - theta[1]))),
        ylab = "p-value",
+       xlim = c(0, 99),
        xaxt = "n", yaxt = "n",
        ylim = c(0, 1),
   )

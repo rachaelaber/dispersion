@@ -1,5 +1,7 @@
 rm(list = ls())
 
+source("code/lrt.R")
+
 
 load("data/processed/simulated_curves.Rdata")
 load("data/processed/nyt_weekly.Rdata") 
@@ -23,12 +25,12 @@ dates <- dates[8:(length(cases[1,]) - 8 + 1)]
 
 # Row 1
 which(curve_parms$theta1 == curve_parms$theta2 & curve_parms$breakpoint == 30 
-      & curve_parms$final_size == 1000 & curve_parms$curve_type == 1 & curve_parms$theta1 == 1e-01)
-plot(curves[253,], xlab = "Day", type = "l", ylab = "Incidence")
+      & curve_parms$final_size == 502500 & curve_parms$curve_type == 2 & curve_parms$theta1 == 1e-01)
+plot(curves[1333,], xlab = "Day", type = "l", ylab = "Incidence")
 mtext("a", side = 3, line = 1, adj = 0)
-which(curve_parms$theta1 == 1e-01 & curve_parms$theta2 == 1e+07 & curve_parms$breakpoint == 30 
-      & curve_parms$final_size == 1000 & curve_parms$curve_type == 1)
-plot(curves[283,], xlab = "Day", type = "l", ylab = "Incidence")
+which(curve_parms$theta1 == 1e-01 & curve_parms$theta2 == 1e+06 & curve_parms$breakpoint == 30 
+      & curve_parms$final_size == 502500 & curve_parms$curve_type == 2)
+plot(curves[1363,], xlab = "Day", type = "l", ylab = "Incidence")
 mtext("b", side = 3, line = 1, adj = 0)
 plot(dates[60:120], series[60:120], xaxt = "n", xlab = "Day", type = "l", ylab = "Incidence")
 
@@ -40,12 +42,12 @@ mtext("c", side = 3, line = 1, adj = 0 )
 
 
 # Row 2
-plot(rep(curve_parms$theta1[253], times = length(curves[253,])),
+plot(rep(curve_parms$theta1[1333], times = length(curves[1333,])),
      xlab = "Day", ylab = expression(theta), col = 4, cex = .1, type = "l")
 mtext("d", side = 3, line = 1, adj = 0)
 mtext("O", side = 3, line = -2)
-plot(c(rep(curve_parms$theta1[283], times = length(curves[283,])/2), 
-       rep(curve_parms$theta2[283], times = length(curves[283,])/2)),
+plot(c(rep(curve_parms$theta1[1363], times = length(curves[1363,])/2), 
+       rep(curve_parms$theta2[1363], times = length(curves[1363,])/2)),
      xlab = "Day", ylab = expression(theta), col = 4, cex = .1, type = "l")
 mtext("e", side = 3, line = 1, adj = 0)
 mtext("X", side = 3, line = -2)
@@ -59,7 +61,7 @@ mtext("f", side = 3, line = 1, adj = 0)
 
 
 # Row 3
-pops <- c(1.0e+03, 4.7e+04, 1.0e+07)
+pops <- c(50000, 10000000)
 dtheta <- curve_parms$theta2 - curve_parms$theta1
 
 for (i in 1:length(pops)) {
@@ -78,7 +80,7 @@ for (i in 1:length(pops)) {
        ylim = c(0, 1),
   )
   
-  mtext(letters[7:9][i], side = 3, line = 1, adj = 0)
+  mtext(letters[7:8][i], side = 3, line = 1, adj = 0)
   
   axis(1, seq(0, 6, 3))
   axis(2, seq(0, 1, 0.25))
@@ -95,5 +97,36 @@ for (i in 1:length(pops)) {
 
 }
 
-dev.off()
+#3,3
+inds <- which(curve_parms$theta1 == curve_parms$theta2) # indices where true theta remains the same
+curves <- curves[inds, ] # subset curves by those indices
+ncurve <- nrow(curves)
+curve_parms <- curve_parms[inds, ]
 
+
+phi0s <- rep(NA, length(inds))
+
+for (i in 1:nrow(curves)) {
+  phi0s[i] <- tryCatch(lrt(
+    y1 = curves[i, ][(curve_parms$breakpoint[i]-7):curve_parms$breakpoint[i]],
+    y2 = curves[i, ][(curve_parms$breakpoint[i]+1):(curve_parms$breakpoint[i] + 8)],
+    s1 = curve_parms$population[i],
+    s2 = curve_parms$population[i],
+    i1 = 1:8,
+    i2 = 9:16,
+    df1 = 3,
+    df2 = 3
+  )$phi0, error = function(e) return(NA))
+  
+  if (i %% 100 == 0) {
+    cat(i, "of", ncurve, "\n")
+  }
+}
+
+theta0s <- 1/phi0s
+true_theta <- curve_parms$theta1
+
+plot(log10(true_theta), log10(theta0s))
+abline(0, 1, col = "red")
+
+dev.off()

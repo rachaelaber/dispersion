@@ -15,7 +15,7 @@ pdf(filename)
 par(mfrow = c(3, 3))
 
 # Trim empirical incidence to same length as thetas2
-series <- cases[3, 8:(length(cases[1,]) - 8 + 1)]
+series <- cases[10, 8:(length(cases[1,]) - 8 + 1)]
 dates <- dates[8:(length(cases[1,]) - 8 + 1)]
 
 # Remove first observations from all
@@ -24,17 +24,18 @@ dates <- dates[8:(length(cases[1,]) - 8 + 1)]
 # thetas <- thetas[1, 35:dim(thetas2)[2]]
 
 # Row 1
-which(curve_parms$theta1 == curve_parms$theta2 & curve_parms$breakpoint == 30 
-      & curve_parms$final_size == 502500 & curve_parms$curve_type == 2 & curve_parms$theta1 == 1e-01)
-plot(curves[1333,], xlab = "Day", type = "l", ylab = "Incidence")
-mtext("a", side = 3, line = 1, adj = 0)
-which(curve_parms$theta1 == 1e-01 & curve_parms$theta2 == 1e+06 & curve_parms$breakpoint == 30 
-      & curve_parms$final_size == 502500 & curve_parms$curve_type == 2)
-plot(curves[1363,], xlab = "Day", type = "l", ylab = "Incidence")
-mtext("b", side = 3, line = 1, adj = 0)
-plot(dates[60:120], series[60:120], xaxt = "n", xlab = "Day", type = "l", ylab = "Incidence")
 
-at <- seq.Date(from = min(dates[60:120]), to = max(dates[60:120]), by = "week")
+plot(curves[which(curve_parms$theta1 == curve_parms$theta2 & curve_parms$breakpoint == 30 
+                  & curve_parms$final_size == 1000000 & curve_parms$curve_type == 2 & curve_parms$theta1 == 1e+01),], 
+     xlab = "Day", type = "l", ylab = "Incidence")
+mtext("a", side = 3, line = 1, adj = 0)
+plot(curves[which(curve_parms$theta1 == 1e-01 & curve_parms$theta2 == 1e+02 & curve_parms$breakpoint == 30 
+                  & curve_parms$final_size == 1000000 & curve_parms$curve_type == 2),], 
+     xlab = "Day", type = "l", ylab = "Incidence")
+mtext("b", side = 3, line = 1, adj = 0)
+plot(dates[1:61], series[1:61], xaxt = "n", xlab = "Day", type = "l", ylab = "Incidence")
+
+at <- seq.Date(from = min(dates[1:61]), to = max(dates[1:61]), by = "week")
 labels <- seq(0, 60)
 
 axis.Date(1, at = at, labels = labels)
@@ -42,18 +43,18 @@ mtext("c", side = 3, line = 1, adj = 0 )
 
 
 # Row 2
-plot(rep(curve_parms$theta1[1333], times = length(curves[1333,])),
+plot(rep(curve_parms$theta1[1707], times = length(curves[1707,])),
      xlab = "Day", ylab = expression(theta), col = 4, cex = .1, type = "l")
 mtext("d", side = 3, line = 1, adj = 0)
 mtext("O", side = 3, line = -2)
-plot(c(rep(curve_parms$theta1[1363], times = length(curves[1363,])/2), 
-       rep(curve_parms$theta2[1363], times = length(curves[1363,])/2)),
+plot(c(rep(curve_parms$theta1[1711], times = length(curves[1711,])/2), 
+       rep(curve_parms$theta2[1711], times = length(curves[1711,])/2)),
      xlab = "Day", ylab = expression(theta), col = 4, cex = .1, type = "l")
 mtext("e", side = 3, line = 1, adj = 0)
 mtext("X", side = 3, line = -2)
-plot(dates[60:120], thetas[3, 60:120], type = "l", col = 4, xaxt = "n", xlab = "Day", ylab = expression(theta))
+plot(dates[1:61], thetas[10, 1:61], type = "l", col = 4, xaxt = "n", xlab = "Day", ylab = expression(theta))
 
-at <- seq.Date(from = min(dates[60:120]), to = max(dates[60:120]), by = "week")
+at <- seq.Date(from = min(dates[1:61]), to = max(dates[1:61]), by = "week")
 labels <- seq(0, 60)
 
 axis.Date(1, at = at, labels = labels)
@@ -69,15 +70,15 @@ for (i in 1:length(pops)) {
   current_dtheta = dtheta[which(curve_parms$population == pops[i])]
   current_pvals = pvals[which(curve_parms$population == pops[i])]
   
-  plot(current_pvals ~ jitter(log10(abs(current_dtheta)), 1.5),
+  plot(current_pvals ~ jitter(abs(current_dtheta), 1.5),
        pch = 21, col = "darkgrey", cex = 0.2,
        bg = rgb(0.4, 0.4, 0.4, 0.3),
        main = "",
        xlab = expression(paste(abs(theta[2] - theta[1]))),
        ylab = "p-value",
-       xlim = c(0, 99),
-       xaxt = "n", yaxt = "n",
+       xlim = c(0, 100),
        ylim = c(0, 1),
+       xaxt = "n", yaxt = "n",
   )
   
   mtext(letters[7:8][i], side = 3, line = 1, adj = 0)
@@ -130,3 +131,4 @@ plot(log10(true_theta), log10(theta0s))
 abline(0, 1, col = "red")
 
 dev.off()
+

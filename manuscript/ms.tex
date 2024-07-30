@@ -229,7 +229,7 @@ Metrics of variability are often overlooked and useful ways to understand epidem
 For instance, superspreading of SARS-CoV-2 (the virus that causes COVID-19) can be elucidated by utilizing such metrics. 
 Our method identifies shifts in population-level dispersion in COVID-19 cases, allowing a more complete and predictive understanding at both the individual and population level, and allowing practitioners to prepare surge capacity in certain months. 
 Although classical theory predicts that there will be less dispersion when incidence is higher, we considered a more general negative binomial regression framework to account for processes that may also affect the spread of cases. 
-We investigated changes in dispersion and found that there are increases in dispersion around holiday periods in many US counties, concurrent with incidence increases. 
+We investigated changes in dispersion and found that there are increases in dispersion around peaks in incidence in many US counties.
 In addition, highly overdispersed patterns occur more frequently later in time series, consistent with more heterogeneity in transmission, susceptibility, and reporting. 
 Our method is robust to differences in population size and incidence, allowing for quantification of dispersion-indicative of superspreading dynamics-without artifactual contributions from other features.
 
@@ -242,7 +242,7 @@ Understanding disease spread is crucial for managing epidemics, but traditional 
 We developed a method to identify shifts in the spread patterns of SARS-CoV-2 (the virus that causes COVID-19) within a single time series.
 By examining spatiotemporal differences in how the virus spreads, we can better predict and prepare for surges in cases.
 We used negative binomial regression to account for factors that might influence the spread of cases, allowing us to use a single parameter to infer the degree of clustering of cases. 
-We found that during holiday periods, the spread of SARS-CoV-2 becomes more erratic, with some individuals spreading the virus to many more people than others. 
+We found that around incidence peaks, the spread of SARS-CoV-2 becomes more erratic, with some individuals spreading the virus to many more people than others. 
 As the pandemic progressed, the spread of the virus became erratic, suggesting increased differences in factors such as how people transmit the virus or susceptibility.
 Our method accurately measures spreading heterogeneity regardless of population size and incidence, providing a way to understand superspreading across a range of locations. 
 This can help public health officials better anticipate and manage outbreaks, especially during times when the virus spreads unpredictably.
@@ -264,7 +264,7 @@ Analyzing variability in terms of bursts of incidence is also important for plan
 Sun et al. \cite{sun_transmission_2021} found a combination of individual-based and population-based strategies was required for SARS-CoV-2 control, further highlighting the importance of considering population-level variability and its relationship to individual-level variability.
 
 Dispersion around a rolling mean (moving window) of an incidence time series may contain information about the size and frequency of local outbreaks. 
-Dispersion may be a more useful metric than variance because the same value of the dispersion parameter will result in a larger variance/mean ratio when the mean is larger, thus capturing clustering in the true sense, and not just reflecting the statistical artifact that large mean results in large variance. 
+Dispersion may be a useful metric because it forms a part of a way to more flexibly model variance as a function of the mean, as opposed to the equality of mean and variance implied by the Poisson distribution. 
 From the perspective of an infectious individual, incidence experienced in their local spatial-temporal neighborhood will be higher than the global mean when dispersion is high. 
 A ``mean crowding'' parameter was proposed, which is the mean number per individual of other individuals in the same quadrat \cite{lloyd_mean_1967}. 
 This is a useful way to think about dispersion in case count time series, as (absent other processes that influence dispersion such as variation in reporting) one can think of degree of dispersion as degree of clustering/crowding of cases, which is related to concepts like transmission heterogeneity. 
@@ -273,15 +273,14 @@ Individual-level variability in transmission is most often studied using contact
 However, contact tracing data requires intense investment of resources \cite{kretzschmar_impact_2020}, so analysis of incidence data may often be more feasible. 
 
 One of the reasons why studying variability in incidence time series is not more widely done is because it is difficult to disentangle the effects of population size/incidence on variance. 
-For instance, if we model a process as Poisson, we assume that if the mean of the process is large, the variance will be large as well. 
 Since mean case counts is directly related to population size/incidence, we would infer that variance in case counts is large in large population/incidence settings by default. 
-Furthermore, the rate of the case-count-generating process is often changing in an epidemic, which cannot be accommodated by a Poisson model. 
-The negative binomial distribution may accurately model a time series if there is a changing process mean: for example, if the mean of a Poisson distribution itself follows a gamma distribution, the resulting distribution is negative binomial \cite{cook_notes_nodate}. 
-The result is that we should use the dispersion parameter of a negative binomial distribution to measure changes in meaningful variability in settings with differing base population/incidence, not the variance of a Poisson model. 
+Furthermore, the rate of the case-count-generating process is often changing within a timestep, which cannot be accommodated by a Poisson model. 
+The negative binomial distribution may accurately model a time series if there is a changing process mean within a timestep: for example, if the mean of a Poisson distribution itself follows a gamma distribution, the resulting distribution is negative binomial \cite{cook_notes_nodate}. 
+The result is that we should use the dispersion parameter of a negative binomial distribution to measure changes in meaningful variability in settings with differing base population/incidence, not the variance. 
 
-Negative binomial regression (in contrast to Poisson regression) can account for unobserved heterogeneity, time dependence in the rate of a process and contagion that all lead to overdispersion \cite{barron_analysis_1992}.
+Negative binomial regression (in contrast to Poisson regression) can account for unobserved heterogeneity, time dependence in the rate of a process and contagion within a timestep that all lead to overdispersion \cite{barron_analysis_1992}.
 We developed a method that quantifies the evolution of dispersion along incidence time series, allowing for the detection of changes in variability that are not due to changes in population size or overall burden of incidence.
-We apply the method to COVID-19 incidence data in US counties to investigate the relationships between incidence, dispersion and epidemic dynamic regimes over a portion of the COVID-19 pandemic. 
+We applied the method to COVID-19 incidence data in US counties to investigate the relationships between incidence, dispersion and epidemic dynamic regimes over a portion of the COVID-19 pandemic. 
 From a modern theoretical ecology perspective, investigating beyond the first moment of a process has also been identified as important: ecological experiments are typically geared towards assessing the impacts of the mean strength of causal processes, however the variance about mean effects have been mostly ignored as a driver in biological assemblages, but may be as important as the mean \cite{benedetti-cecchi_importance_2003}.
 
 \section*{Materials and methods}
@@ -325,21 +324,21 @@ This form has expectation and variance as follows:
 
 \subsection*{Application to simulated data}
 
-For validity/power simulations, we used both Gaussian and uniform epidemic curves with an attack rate of 0.1 in the simulated set of time series--3,000 epidemic curves over 60 days each were produced, and a likelihood-ratio test (LRT) procedure was applied to each. 
+For validity/power simulations, we used both Gaussian and uniform epidemic curves with an attack rate of 0.1 in the simulated set of time series-- epidemic curves over 60 timesteps each were produced, and a likelihood-ratio test (LRT) procedure was applied to each. 
 Varying the effect size, location of the breakpoint, population size, and curve shape allowed us to test the validity and power of our approach \nameref{S1_Appendix}.
 
 \subsection*{Application to empirical data}
 To evaluate whether the negative binomial conditional distribution is needed (opposed to a Poisson/quasi-Poisson conditional distribution with the same model of process mean), inspection of mean-variance relationships using a diagnostic plot is possible \cite{ver_hoef_quasi-poisson_2007}, along with evaluation of dispersion statistics.
 We estimated \begin{math}\mu_t\end{math} and \begin{math}\theta\end{math} using iterative reweighted least-squares (procedure implemented via the NBPSeq R package \cite{NBPSeq} and from Di et al. \cite{yanming_nbp_2011}) with a moving window approach.
 For each window, \begin{math}\mu_t\end{math} was estimated using a spline function in time, and a single value of \begin{math}\theta\end{math} was estimated for the window. 
-By moving the window one time step at a time, a time series for \begin{math}\theta_t\end{math} was produced. We investigated large counties (top 4\% in each state), due to power constraints.
+By moving the window one time step at a time, a time series for \begin{math}\theta_t\end{math} was produced. We investigated large counties (largest three counties in each state), due to power constraints.
 
 % Results and Discussion can be combined.
 \section*{Results}
-We found that the negative binomial/LRT method is robust to differences in population size (for population sizes of at least 10,000) (Fig. 1).
+We found that the negative binomial/LRT method is robust to differences in population size (for population sizes included in the empirical data) (Fig. 1).
 For an analytical derivation, see the Supplemental Materials \nameref{S1_Appendix}.
 The criteria for adequate test performance are that the average p-value is 0.5 when the effect size is zero, and low average p-values are observed with increasing effect size. 
-In row one and two of Fig. 1, we illustrated that a drop in \begin{math}\theta\end{math} is associated with increased variability in simulated incidence time series, and that the same relationship is observable in the empirical time series, with an increase in \begin{math}\theta\end{math} corresponding to a decrease in variability around the trend in incidence.
+In row one and two of Fig. 1, we illustrated that an increase in \begin{math}\theta\end{math} is associated with decreased variability in simulated incidence time series, and that the same relationship is observable in the empirical time series, with an increase in \begin{math}\theta\end{math} corresponding to a decrease in variability around the trend in incidence. This pattern is independent of whether incidence increases or decreases, as seen in Fig. 1.5.
 
 \begin{figure}[!h]
 \includegraphics[width=0.6\textwidth]{fig1}
@@ -350,22 +349,19 @@ Detecting dispersion changes in incidence time series in populations of differen
 \end{figure}
 
 Highly overdispersed incidence patterns were observed more frequently later in time series, consistent with more heterogeneity in transmission, susceptibility and reporting. 
-Interestingly, the most dispersed category in Fig.2 (a) reaches its highest proportion near the end of the timeframe examined.
-In addition, there are increases in dispersion around the holiday periods in the dataset (Fig. 2.(b)), concurrent with increases in incidence (Fig. 2(c)). 
-The evidence for a change in \begin{math}\theta\end{math} was observed across many counties (evidenced by concentration of low p-values concurrent with peak incidence) (Fig. 2 (d)).
+The most dispersed category in Fig.2 (a) reaches its highest proportion near the end of the timeframe examined.
+In addition, there are increases in dispersion around the peaks in incidence in the dataset (Fig. 2.(b,c)).
+The evidence for a change in \begin{math}\theta\end{math} was observed across many counties (evidenced by concentration of low p-values around peak incidence) (Fig. 2 (d)).
 
 \begin{figure}[!h]
 \includegraphics[width=0.6\textwidth]{fig2}
 \caption{
-Incidence and dispersion between 2020-02-20 and 2023-03-19 in large counties in the US. A: Binned log of the dispersion parameter over time. B: Log of the dispersion parameter over time as well as for each of the large counties (y-axis). C: Log incidence (new cases per individual) over time as well as for each of the large counties (y-axis). D: LRT p-values over time as well as for each of the large counties (y-axis).
+Incidence and dispersion between 2020-01-04 and 2023-03-18 in large counties in the US. A: Binned log of the dispersion parameter over time. B: Log of the dispersion parameter over time as well as for each of the large counties (y-axis). C: Log incidence (new cases per individual) over time as well as for each of the large counties (y-axis). D: LRT p-values over time as well as for each of the large counties (y-axis).
 }
 \label{fig2}
 \end{figure}
 
-The occurrence of high dispersion at times of peak incidence is of interest because it has more impact on variance/mean relationships than when incidence is lower. 
-In other words, what makes a change in dispersion meaningful is how it affects variance-mean relationships. 
-For instance, if dispersion is high in a high incidence setting, the variance-mean ratio would be larger than for the same dispersion in a smaller incidence setting. 
-A change from \begin{math}\theta = 1000\end{math} to \begin{math}\theta = 100\end{math} is operationally significant for large populations during times of peak incidence due to this variance-mean scaling:
+What makes a change in dispersion meaningful is how it affects variance-mean relationships. 
 
 \begin{equation}
 var = \mu + \mu^2/\theta  
@@ -373,33 +369,19 @@ var = \mu + \mu^2/\theta
 
 Raising variance relative to mean implies spatiotemporal "crowding" of cases (i.e. localized surges) which may necessitate more surge capacity in hospitals and testing centers. 
 Additionally, it may indicate less diffuse epidemics that are potentially more subject to climate forcing \cite{dalziel_urbanization_2018}, or increased locally experienced mean density \cite{lloyd_mean_1967}. 
-Additionally, \begin{math}\theta\end{math} seems to behave like a state variable. 
-That is, its rate of change is dependent on its own value and the values of other state variables (like incidence), which determine the "state" of the system (Fig. 3). 
-State variables depend only on the current state and not on the history or the process, so they allow for the formulation of predictable relationships, such as those found in the laws of thermodynamics. 
-This predictability and simplicity are crucial for both theoretical studies and practical applications, and creating a reliable description of this (epidemic) system is overdue.
-
-\begin{figure}[!h]
-\includegraphics[width=0.6\textwidth]{fig3}
-\caption{
-Log of the mean (over a single time series) dispersion parameter v. log of the mean incidence (over a single time series; normalized by population size).
-}
-\label{fig3}
-\end{figure}
 
 \section*{Discussion}
-We presented an approach to compare variability in epidemic time series that does not detect artifacts based on population size and incidence. 
+We presented an approach to quantify variability in epidemic time series that does not detect artifacts based on population size and incidence. 
 Our method forms part of a larger push to investigate variability as an important attribute of epidemic time series.
 Burst-tree decomposition of time series’ has also facilitated computation of a burst-size distribution for a series given a specified time window \cite{jo_burst-tree_2020}, allowing comparison of variability within one location over time. 
 Similarly, spatial variation in superspreading potential has been investigated through e.g., risk maps of superspreading environments \cite{loo_identification_2021}.
 Methods that use incidence time series are a crucial part of this research area due to the ease of obtaining incidence data, so the timing/geographical allocation of public health resources can be achieved with limited resources. 
 Additionally, population-wide disease control approaches are often less effective than those which are targeted to individuals in high-transmission contexts \cite{lloyd-smith_superspreading_2005}, so models that incorporate transmission heterogeneity may catalyze the development of more efficient control strategies.
-Our results imply that we can revise our understanding of case count dispersion: dispersion is high at unexpected times (peak incidence) and corresponds to significant increases in variance when incidence is high. 
+Our results imply that we can revise our understanding of case count dispersion: dispersion is high at unexpected times (near peak incidence).
 Though large cities may be subject to more "smooth" epidemic dynamics, our contribution highlights the circumstances under which dynamics are less smooth in large counties. 
-In addition, a big city with more (smaller) hospitals could effectively be analogous to a collection of small towns, and therefore experience a benefit of reduced variance-mean relationships, especially during periods of peak incidence.
-This implies that there may be merit to revising current public health strategies. 
 Previous research to evaluate bursty dynamics based on Influenza-like Illness (ILI) times series’ showed that epidemics in smaller communities are concentrated on narrower windows of the influenza season - the proportion of disease incidence that occurred in a given week was a metric of interest \cite{dalziel_urbanization_2018}. 
-So, additional research is needed to understand the balance between burstiness of small communities and the potentially less severe effect of increased dispersion.
-%Though some kinds of time dependence in the rate can cause autocorrelation, as can contagion (if it occurs outside of set periods), and heterogeneity (if an omitted variable is correlated in time) \cite{barron_analysis_1992}, our focus on dispersion makes sense because we are concerned with the clustering of cases from the point of view of an individual case. Also, demographic structure (e.g., age structure) has the potential to affect temporal autocorrelation in transmission rate - the effects of age structure can be captured by a model that includes an infection rate that varies over time \cite{earn_dynamic_nodate}. 
+So, additional research is needed to understand the balance between burstiness of small communities and the potential impact of temporally changing dispersion in these areas.
+Though some kinds of time dependence in the rate can cause autocorrelation, as can contagion (if it occurs outside of set periods), and heterogeneity (if an omitted variable is correlated in time) \cite{barron_analysis_1992}, our focus on dispersion makes sense because we are concerned with the clustering of cases from the point of view of an individual case, which is caused by these factors operating within a set period. Also, demographic structure (e.g., age structure) has the potential to affect temporal autocorrelation in transmission rate - the effects of age structure can be captured by a model that includes an infection rate that varies over time \cite{earn_dynamic_nodate}. 
 
 \section*{Conclusion}
 

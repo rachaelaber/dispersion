@@ -37,22 +37,33 @@ x <- matrix(NA, nrow = length(breaks) - 1, ncol = nmy)
 
 for (i in 1:nmy) {
       these_thetas <- thetas[, my == umy[i]]
-      #these_thetas[log10(these_thetas) < -3] <- NA    #TEMPORARY experimenting with suppressing very small thetas which I am suspecting might be a kind of failure in the estimatation process, like hitting boundary conditions in the optimizer?
       x[, i] <- as.numeric(table(cut(log10(these_thetas), breaks = breaks)))
 }
 
 colors <- c(rev(viridis(length(breaks) - 1)))
+
 barplot(x,
       col = colors,
       names.arg = substr(umy, 1, 1), 
-      xlab = "Date", 
+      xlab = "Date",
+      xaxt = "n",
       ylab = expression(theta),
       main = "Dispersion")
 
 mtext("a", side = 3, line = 1, adj = 0)
 
+legend("topright", 
+       legend = c("1 (most dispersed)", "2", "3", "4", "5"), 
+       fill = colors,
+       bg = "white",
+       cex = 0.5)
 
-# Used entry [11,6] in legend example
+at <- seq.Date(from = min(dates), to = max(dates), by = 'month')
+labels <- format(at, format = "%b")
+labels <- substr(labels, 1, 1)
+
+axis.Date(1, at = at, labels = labels, ti)
+
 # 2
 
 x <- thetas2
@@ -107,7 +118,8 @@ upper_range <- c(1/20, seq(0.1, 1, len = 8))
 breakpoints <- c(lower_range, upper_range)
 nbreakpoint <- length(breakpoints)
 
-cols <- rev(cividis(nbreakpoint - 1))
+
+cols <- rev(viridis(nbreakpoint - 1))
 x[is.na(x)] <- 1
 image(dates,
       1:nrow(x),

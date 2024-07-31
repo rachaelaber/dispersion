@@ -22,10 +22,10 @@ nstep <- 60       # Number of time steps in simulated trajectories
 
 # Theta, breakpoint, population size, and curve type sequences
 # Max theta could be based on mu^2, where the alg performs well, alg boundaries, or emp. data
-theta1 <- c(.1, 1, 10, 100, 1000, 1e+06)
-theta2 <- c(.1, 1, 10, 100, 1000, 1e+06)
+theta1 <- c(0.1, 1.1, 2.1, 3.1, 4.1, 5.1, 6.1, 7.1, 8.1, 9.1, 10.1, 100, 1000, 1e+06)
+theta2 <- c(0.1, 1.1, 2.1, 3.1, 4.1, 5.1, 6.1, 7.1, 8.1, 9.1, 10.1, 100, 1000, 1e+06)
 breakpoint <- seq(breakpoint_min, breakpoint_max, length.out = nbreakpoint)
-population <- seq(population_min, population_max, length.out = 5)
+population <- c(10000, seq(population_min, population_max, length.out = 5))
 curve_type <- c(1, 2)
 
 # Expand grid and add final size

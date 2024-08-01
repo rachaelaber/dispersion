@@ -21,6 +21,6 @@ dates <- dates[8:(length(cases[1,]) - 8 + 1)]
 par(mfrow = c(3, 1))
 plot(dates, series, type = "h", ylab = "", main = "Case counts")
 plot(dates, lrt_stats[1,], type = "h", col = 2, ylab = "", main = "LRT")
-plot(dates, log(thetas[1,]), type = "l", col = 4, ylab = "", main = "Log Theta")
+plot(dates, log(thetas[1,]), type = "l", col = 4, ylab = "", main = expression(log(theta)))
 
 dev.off()

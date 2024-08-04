@@ -82,6 +82,7 @@ for (i in 1:length(pops)) {
   segments(ag[, 1], lo, ag[, 1], hi, col = 2, lwd = 3)
   
   text(0, 0.9, "O", cex = 1.2)
+  text(9, 0.9, "X", cex = 1.2)
 
 }
 

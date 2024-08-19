@@ -2,9 +2,6 @@ source("code/lrt.R")
 
 
 load("data/processed/simulated_curves.Rdata")
-load("data/processed/nyt_weekly.Rdata") 
-load("data/processed/theta_lg_pops.Rdata")
-load("data/processed/pvals_sim_LRT.Rdata")
 
 
 inds <- which(curve_parms$theta1 == curve_parms$theta2) # indices where true theta remains the same
@@ -32,8 +29,15 @@ for (i in 1:nrow(curves)) {
   }
 }
 
+
 theta0s <- 1/phi0s
 true_theta <- curve_parms$theta1
 
-plot(log10(true_theta), log10(theta0s))
+filename <- "figures/thetaest_v_theta.pdf"
+pdf(filename)
+
+plot(log10(true_theta), log10(theta0s), xlab = expression(log[10](theta[true])), ylab = expression(log[10](theta[est])),
+     col = ifelse(curve_parms$population < 50000, "red", "black"))
 abline(0, 1, col = "red")
+
+dev.off()

@@ -57,7 +57,7 @@ for (i in 1:length(pops)) {
   current_dtheta = dtheta[which(curve_parms$population == pops[i])]
   current_pvals = pvals[which(curve_parms$population == pops[i])]
   
-  plot(current_pvals ~ jitter(abs(current_dtheta), 0.2),
+  plot(current_pvals ~ jitter(abs(current_dtheta), 0.01),
        pch = 21, col = "darkgrey", cex = 0.2,
        bg = rgb(0.4, 0.4, 0.4, 0.3),
        main = "",

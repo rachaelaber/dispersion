@@ -39,12 +39,12 @@ mtext("b", side = 3, line = 1, adj = 0)
 # Row 2
 plot(rep(curve_parms$theta1[11188], times = length(curves[11188,])),
      xlab = "Day", ylab = expression(theta), col = 4, cex = .1, type = "l")
-mtext("d", side = 3, line = 1, adj = 0)
+mtext("c", side = 3, line = 1, adj = 0)
 mtext("O", side = 3, line = -2)
 plot(c(rep(curve_parms$theta1[11314], times = length(curves[11314,])/2), 
        rep(curve_parms$theta2[11314], times = length(curves[11314,])/2)),
      xlab = "Day", ylab = expression(theta), col = 4, cex = .1, type = "l")
-mtext("e", side = 3, line = 1, adj = 0)
+mtext("d", side = 3, line = 1, adj = 0)
 mtext("X", side = 3, line = -2)
 
 
@@ -57,7 +57,7 @@ for (i in 1:length(pops)) {
   current_dtheta = dtheta[which(curve_parms$population == pops[i])]
   current_pvals = pvals[which(curve_parms$population == pops[i])]
   
-  plot(current_pvals ~ jitter(abs(current_dtheta), 1.5),
+  plot(current_pvals ~ jitter(abs(current_dtheta), 0.2),
        pch = 21, col = "darkgrey", cex = 0.2,
        bg = rgb(0.4, 0.4, 0.4, 0.3),
        main = "",
@@ -68,14 +68,14 @@ for (i in 1:length(pops)) {
        xaxt = "n", yaxt = "n",
   )
   
-  mtext(letters[7:8][i], side = 3, line = 1, adj = 0)
+  mtext(letters[5:6][i], side = 3, line = 1, adj = 0)
   
   axis(1, seq(0, 9, 3))
   axis(2, seq(0, 1, 0.25))
   
   ag <- aggregate(current_pvals ~ abs(current_dtheta), FUN = median)
   points(ag[, 1], ag[, 2], pch = 19, col = 2, cex = 1)
-  
+
   ag <- aggregate(current_pvals ~ abs(current_dtheta), FUN = quantile, probs = c(0.25, 0.75))
   lo <- ag[, 2][, 1]
   hi <- ag[, 2][, 2]

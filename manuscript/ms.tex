@@ -347,11 +347,11 @@ The criteria for adequate test performance are that the average p-value is 0.5 w
 \begin{figure}[!h]
 \includegraphics[width=0.6\textwidth]{fig1}
 \caption{
-Detecting dispersion changes in incidence time series in populations of different sizes. A: Simulated incidence when dispersion is constant. B: When dispersion changes during the epidemic. C: Constant dispersion used in generation of above. D: Changing dispersion used in generation of above. E: Dispersion estimates from model fit to the above series. E: Performance of the method with simulated data that has different absolute differences in theta (horizontal axis of each pane) illustrates p-value distribution across different population sizes (each pane is one population size). O and X mark the null and alternative hypotheses indicated in panels C and D. 
+Detecting dispersion changes in incidence time series in populations of different sizes. A: Simulated incidence when dispersion is constant. B: When dispersion changes during the epidemic. C: Constant dispersion used in generation of above. D: Changing dispersion used in generation of above. E: Performance of the method with simulated data that has different absolute differences in theta (horizontal axis of each pane) illustrates p-value distribution across different population sizes (each pane is one population size). O and X mark the null and alternative hypotheses indicated in panels C and D. 
  }
 \label{fig1}
 \end{figure}
-The negative binomial framework for estimating \begin{math}\theta\end{math} is also robust across the population sizes examined (see Supplemental Materials \nameref{S1_Appendix}).
+The negative binomial framework for estimating \begin{math}\theta\end{math} is also robust across the population sizes examined (see \nameref{S1_Fig}).
 In row one and two of Fig. 1, we illustrated that an increase in \begin{math}\theta\end{math} is associated with decreased variability in simulated incidence time series. This pattern is observed in the empirical data, and is independent of whether incidence increases or decreases, as seen in Fig. 2(a, c).
 \begin{figure}[!h]
 \includegraphics[width=0.6\textwidth]{compare.pdf}
@@ -398,7 +398,11 @@ So, additional research is needed to understand the correspondence between burst
 % Include only the SI item label in the paragraph heading. Use the \nameref{label} command to cite SI items in the text.
 \paragraph*{S1 Fig.}
 \label{S1_Fig}
-{\bf Bold the title sentence.} Add descriptive text after the title of the item (optional).
+{\bf Estimates of the dispersion parameter from simulated data.} Points colored red for underlying population sizes less than 50,000.
+\begin{figure}[!h]
+\includegraphics[width=0.6\textwidth]{thetaest_v_theta.pdf}
+\label{S1}
+\end{figure}
 
 \paragraph*{S2 Fig.}
 \label{S2_Fig}

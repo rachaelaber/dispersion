@@ -10,5 +10,5 @@ This is a todo and changelog. I will check the boxes of things I have already do
 
 - [x] use barblots for incidence in fig1? superimpose a red line showing the template curve? If you do this, it would also help this figure serve as an "explainer" figure for readers who aren't immediately clear on what the analysis is. Basicially a picture that illustrates the difference between variability in incidence (akin to variance) and the incidence 'trend' (akin to the mean)
 
-- [] I worked on the abstract but did not really touch the author summary. If you like the direction the abstract went, can you revise the author summary as needed so it is aligned? I read through it and I thought it was pretty close already.
+- [x] I worked on the abstract but did not really touch the author summary. If you like the direction the abstract went, can you revise the author summary as needed so it is aligned? I read through it and I thought it was pretty close already.
 

@@ -230,9 +230,9 @@ Trends in infectious disease incidence provide important information about epide
 Higher-frequency variation around incidence trends can shed light on the processes driving transmission in complex populations, as transmission heterogeneity, shifting landscapes of susceptibility, and fluctuations in reporting can directly impact volatility in observed incidence.
 However, measures of incidence variability, and how it is changing over time, are often overlooked in population-level analyses of incidence data.
 Here we present a statistical framework to quantify temporal changes in case dispersion and detect discrete shifts in the dispersion parameter, which may signal new epidemic phases. 
-We apply the method to COVID-19 incidence data in X US counties from 20xx to 20yy.
+We apply the method to COVID-19 incidence data in 144 US counties from the January 1st, 2020 to March 23rd, 2023.
 While standard theory predicts that dispersion should be inversely proportional to incidence, our method reveals pronounced temporal trends in dispersion that are not explained by incidence alone but which are replicated across counties. 
-Dispersion increased around the major surge in 20xx, and highly overdispersed patterns became more frequent later in the time series.
+Dispersion increased around the major surge in 2022, and highly overdispersed patterns became more frequent later in the time series.
 These findings suggest that heterogeneity in transmission, susceptibility, and reporting may play causal roles in driving large surges and extending epidemic duration. 
 The dispersion of incidence time series can contain structured information which enhances predictive understanding of the underlying drivers of transmision, with applications as leading indicators for public health response.
 
@@ -242,14 +242,12 @@ The dispersion of incidence time series can contain structured information which
 % Use first person. PLOS ONE authors please skip this step. 
 % Author Summary not valid for PLOS ONE submissions.   
 \section*{Author summary}
-Understanding disease spread is crucial for managing epidemics, but traditional metrics often overlook the inherent variability in how viruses like SARS-CoV-2 (the virus that causes COVID-19) spread. 
-We developed a method to identify shifts in the degree of dispersion (case clustering) patterns of SARS-CoV-2  within a single time series.
-By examining spatiotemporal differences in how the virus spreads, we can better predict and prepare for surges in cases.
-We used negative binomial regression to account for factors that might confound the estimation of case count dispersion, allowing us to use a single parameter to infer the degree of dispersion (clustering) of cases. 
-We found that around incidence peaks, the spread of SARS-CoV-2 became more erratic, with some individuals potentially spreading the virus to many more people than others. 
-Additionally, as the pandemic progressed, the spread of the virus also became more erratic, suggesting increased differences in factors such as how people transmit the virus or how susceptible they are to the virus.
-Our method accurately measures disperison regardless of population size and incidence, providing a way to understand case count clustering across a range of locations. 
-This can help public health officials better anticipate and manage outbreaks, especially during times when the virus spreads unpredictably.
+Understanding patterns in infectious disease incidence is crucial for understanding epidemic dynamics and for developing effective public health responses, but traditional metrics often overlook the inherent variability in how viruses like SARS-CoV-2 (the virus that causes COVID-19) spread. Quantifying this variability (higher-frequency variation around incidence trends) can elucidate important underlying processes such as transmission heterogeneity. 
+We developed a method to identify shifts in the degree of dispersion (case clustering) patterns of SARS-CoV-2  within a single time series. We used negative binomial regression to account for factors that might confound the estimation of case count dispersion, allowing us to use a single parameter to infer the degree of dispersion (clustering) of cases. 
+We apply the method to incidence data in 144 US counties from the January 1st, 2020 to March 23rd, 2023, and find that conspicuous shifts in dispersion occur across counties concurrently, and that these shifts are not explained by incidence alone. 
+Around incidence peaks, dispersion increased spread, with some individuals potentially spreading the virus to many more people than others. 
+Additionally, as the pandemic progressed, dispersion also increased, suggesting increased differences in factors such as how people transmit the virus or how susceptible they are to the virus.
+Shifts in dispersion can indicate shifts in epidemic phase and information about underlying drivers of transmission, so our method to accurately measure disperison regardless of population size and incidence, provides a way to help public health officials anticipate and manage outbreaks.
 
 \linenumbers
 

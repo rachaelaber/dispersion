@@ -242,12 +242,12 @@ The dispersion of incidence time series can contain structured information which
 % Use first person. PLOS ONE authors please skip this step. 
 % Author Summary not valid for PLOS ONE submissions.   
 \section*{Author summary}
-Understanding patterns in infectious disease incidence is crucial for understanding epidemic dynamics and for developing effective public health responses, but traditional metrics often overlook the inherent variability in how viruses like SARS-CoV-2 (the virus that causes COVID-19) spread. Quantifying this variability (higher-frequency variation around incidence trends) can elucidate important underlying processes such as transmission heterogeneity. 
+Understanding patterns in infectious disease incidence is crucial for understanding epidemic dynamics and for developing effective public health responses, but traditional metrics often overlook the inherent variability in how viruses like SARS-CoV-2 (the virus that causes COVID-19) spread. Quantifying higher-frequency variation around incidence trends can elucidate important underlying processes such as transmission heterogeneity. 
 We developed a method to identify shifts in the degree of dispersion (case clustering) patterns of SARS-CoV-2  within a single time series. We used negative binomial regression to account for factors that might confound the estimation of case count dispersion, allowing us to use a single parameter to infer the degree of dispersion (clustering) of cases. 
-We apply the method to incidence data in 144 US counties from the January 1st, 2020 to March 23rd, 2023, and find that conspicuous shifts in dispersion occur across counties concurrently, and that these shifts are not explained by incidence alone. 
-Around incidence peaks, dispersion increased spread, with some individuals potentially spreading the virus to many more people than others. 
+We apply the method to incidence data in 144 US counties from the January 1st, 2020 to March 23rd, 2023, and find that conspicuous shifts in dispersion occurred across counties concurrently, and that these shifts are not explained by incidence alone. 
+Around incidence peaks, dispersion increased, potentially indicating that some individuals spread the virus to many more people than others. 
 Additionally, as the pandemic progressed, dispersion also increased, suggesting increased differences in factors such as how people transmit the virus or how susceptible they are to the virus.
-Shifts in dispersion can indicate shifts in epidemic phase and information about underlying drivers of transmission, so our method to accurately measure disperison regardless of population size and incidence, provides a way to help public health officials anticipate and manage outbreaks.
+Shifts in dispersion can indicate shifts in epidemic phase as well as provide information about underlying drivers of transmission, so our method to accurately measure disperison regardless of population size and incidence provides a way to help public health officials anticipate and manage outbreaks.
 
 \linenumbers
 
@@ -266,7 +266,7 @@ Similarly, \cite{ko2023time} found the dispersion parameter varied over time as 
 
 But tradiational contact tracing is very resource intensive, and although new approaches using digital technologies may improve its speed and availability \cite{kretzschmar_impact_2020} there is a need for complementary population-level analyses that can estimate the impacts of heteoregeneity using incidence data, which is more widely available.
 Sun et al. \cite{sun_transmission_2021} found a combination of individual-based and population-based strategies was required for SARS-CoV-2 control, highlighting the importance of considering population-level variability and its relationship to individual-level variability. 
-Statistical techniques to dispersion in epidemic time series at the population level are emerging.
+Statistical techniques to estimate dispersion in epidemic time series at the population level are emerging.
 One area of interest is how variability is related to different phases of an epidemic. For example, the mean and interannual coefficient of variation of measles incidence was used to construct a metric indicative of where a location may be on the path to elimination of a pathogen~\cite{graham_measles_2019}. 
 Analyzing variability in terms of bursts of incidence is also important for planning surge capacity in public health systems\cite{wallinga_metropolitan_2018}. 
 An index of effective aggregate dispersion (EffDI) was proposed to elucidate clusters of infection directly from incidence data \cite{schneckenreither_assessing_2023}. 

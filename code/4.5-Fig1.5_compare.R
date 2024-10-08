@@ -18,9 +18,16 @@ dates <- dates[8:(length(cases[1,]) - 8 + 1)]
 
 # Plot
 
-par(mfrow = c(3, 1))
-plot(dates, series, type = "h", ylab = "", main = "Case counts")
-plot(dates, lrt_stats[1,], type = "h", col = 2, ylab = "", main = "LRT")
-plot(dates, log(thetas[1,]), type = "l", col = 4, ylab = "", main = expression(log(theta)))
+par(mfrow = c(2, 1))
+plot(dates, series, type = "h", xlab = "Dates", ylab = "", main = "Case counts", cex.main = 1.9, cex.lab = 1.6, cex.axis = 1.5)
+is_sig <- lrt_stats[1, ] > qchisq(0.95, df = 1) # w/o correcting for multiple testing
+plot(dates, log10(thetas[1,]), type = "n", 
+     xlab = "Dates", ylab = "", 
+     main = expression(bold(log10(theta))), 
+     cex.main = 1.9, cex.lab = 1.6, cex.axis = 1.5)
+for (i in 1:(length(dates) - 1)) {
+  segment_color <- ifelse(is_sig[i], "red", "blue")
+    lines(dates[i:(i+1)], log10(thetas[1, i:(i+1)]), col = segment_color)
+}
 
 dev.off()

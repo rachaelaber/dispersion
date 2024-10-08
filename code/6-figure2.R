@@ -14,6 +14,7 @@ load("data/processed/lrtps_lg_pops.Rdata")
 keep <- 8:(length(dates)-8+1)
 dates <- dates[keep]
 cases <- cases[, keep]
+incidence <- incidence[, keep]
 
 
 # Plot
@@ -36,33 +37,36 @@ breaks <- log10(c(1, 3, 10, 100, 1000, 10^20))
 x <- matrix(NA, nrow = length(breaks) - 1, ncol = nmy)
 
 for (i in 1:nmy) {
-      these_thetas <- thetas[, my == umy[i]]
-      x[, i] <- as.numeric(table(cut(log10(these_thetas), breaks = breaks)))
+  these_thetas <- thetas[, my == umy[i]]
+  x[, i] <- as.numeric(table(cut(log10(these_thetas), breaks = breaks)))
 }
 
 colors <- c(rev(viridis(length(breaks) - 1)))
 
-barplot(x,
-      col = colors,
-      names.arg = substr(umy, 1, 1), 
-      xlab = "Date",
-      xaxt = "n",
-      ylab = expression(theta),
-      main = "Dispersion")
+# Store barplot result to get x positions for the bars
+bar_positions <- barplot(x,
+                         col = colors,
+                         names.arg = substr(umy, 1, 1), 
+                         xlab = "Date",
+                         xaxt = "n",  # Disable automatic x-axis to add manually
+                         ylab = expression(log10(theta)),
+                         main = expression(log10(theta)),
+                         cex.axis = 1,
+                         cex.main = 1.7,
+                         cex.lab = 1.4)
 
-mtext("a", side = 3, line = 1, adj = 0)
+mtext("a", side = 3, line = 1, adj = 0, cex = 1.7)
 
 legend("topright", 
        legend = c("1 (most dispersed)", "2", "3", "4", "5"), 
        fill = colors,
        bg = "white",
-       cex = 0.5)
+       cex = .6)
 
-at <- seq.Date(from = min(dates), to = max(dates), by = 'month')
-labels <- format(at, format = "%b")
-labels <- substr(labels, 1, 1)
-
-axis.Date(1, at = at, labels = labels, ti)
+# Manually adjust x-axis tick marks and labels
+at <- seq(1, nmy, by = 1)  # One for each month
+labels <- substr(umy, 1, 1)  # First character of each month
+axis(1, at = bar_positions, labels = labels, cex.axis = 1.2)
 
 # 2
 
@@ -75,40 +79,62 @@ image(dates, 1:144, t(log10(x)),
         ylab = "",
         xaxt = "n",
         xlab = "Date",
-        main = "Dispersion")
+        main = expression(log10(theta)),
+        cex.main = 1.7,
+        cex.lab = 1.4)
 
 at <- seq.Date(from = min(dates), to = max(dates), by = 'month')
 labels <- format(at, format = "%b")
 labels <- substr(labels, 1, 1)
 
-axis.Date(1, at = at, labels = labels, ti)
+axis.Date(1, at = at, labels = labels, ti, cex.axis = 1.3)
 
-mtext("b", side = 3, line = 1, adj = 0)
+mtext("b", side = 3, line = 1, adj = 0, cex = 1.7)
+
 
 # 3
-incidence <- matrix(NA,
-                    nrow = nrow(cases),
-                    ncol = ncol(cases))
-for (i in seq_len(nrow(cases))) {
-  incidence[i, ] <- cases[i,] / county$population[i]
+breaks <- seq(min(cases), max(cases), length.out = 8)
+breaks <- breaks[-c(1, 8)]
+x <- matrix(NA, nrow = length(breaks) - 1, ncol = nmy)
+
+for (i in 1:nmy) {
+  these <- cases[, my == umy[i]]
+  x[, i] <- as.numeric(table(cut(these, breaks = breaks)))
 }
 
+colors <- c(rev(viridis(length(breaks) - 1)))
 
-m <- substr(format(dates, "%b"), 1, 1)
-image(dates, 1:144, t(log10(incidence)),
-      xaxt = "n",
-      ylab = "",
-      yaxt = "n",
-      xlab = "Date",
-      main = "Incidence")
+bar_positions <- barplot(x,
+                         col = colors,
+                         names.arg = substr(umy, 1, 1), 
+                         xlab = "Date",
+                         xaxt = "n",  # Disable automatic x-axis to add manually
+                         ylab = "Cases",
+                         main = "Cases",
+                         cex.axis = 1,
+                         cex.main = 1.7,
+                         cex.lab = 1.4)
 
-at <- seq.Date(from = min(dates), to = max(dates), by = 'month')
-labels <- format(at, format = "%b")
-labels <- substr(labels, 1, 1)
+mtext("c", side = 3, line = 1, adj = 0, cex = 1.7)
 
-axis.Date(1, at = at, labels = labels)
+mean_cases <- colMeans(x)
+spline_cases <- spline(1:nmy, mean_cases)
+lines(bar_positions[spline_cases$x], spline_cases$y, col = "red", lwd = 2)
 
-mtext("c", side = 3, line = 1, adj = 0)
+legend("topleft", 
+       legend = c("1 (lowest)", "2", "3", "4", "5", "Mean cases"), 
+       fill = c(colors, NA),
+       border = NA,
+       lty = c(NA, NA, NA, NA, NA, 1),
+       col = c(rep("black", 5), "red"),
+       bg = "white",
+       cex = .6)
+
+# Manually adjust x-axis tick marks and labels
+at <- seq(1, nmy, by = 1)  # One for each month
+labels <- substr(umy, 1, 1)  # First character of each month
+axis(1, at = bar_positions, labels = labels, cex.axis = 1.2)
+
 
 # 4
 
@@ -130,14 +156,16 @@ image(dates,
       yaxt = "n",
       xaxt = "n",
       xlab = "Date",
-      main = "p-value")
+      main = "p-value",
+      cex.main = 1.7,
+      cex.lab = 1.4)
 
 at <- seq.Date(from = min(dates), to = max(dates), by = 'month')
 labels <- format(at, format = "%b")
 labels <- substr(labels, 1, 1)
 
-axis.Date(1, at = at, labels = labels)
+axis.Date(1, at = at, labels = labels, cex.axis = 1.3)
 
-mtext("d", side = 3, line = 1, adj = 0)
+mtext("d", side = 3, line = 1, adj = 0, cex = 1.7)
 
 dev.off()

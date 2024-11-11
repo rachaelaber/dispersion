@@ -39,5 +39,7 @@ pdf(filename)
 plot(log10(true_theta), log10(theta0s), xlab = expression(log[10](theta[true])), ylab = expression(log[10](theta[est])),
      col = ifelse(curve_parms$population < 50000, "red", "black"))
 abline(0, 1, col = "red")
+legend("bottomright", col = c("red", "black"), legend = c(expression(Population < 50000), expression(Population >= 500)), 
+       pch = 1, bty = "n")
 
 dev.off()

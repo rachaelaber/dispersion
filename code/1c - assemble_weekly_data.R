@@ -56,13 +56,11 @@ pop <- pop[pop$state != pop$county, ] # remove state rows
 rm(temp)
 
 
-
 # Merge epi and pop size data
 dat <- merge(epi, pop, by = "fips", all.x = TRUE)
 
 
-
-# Investiage unmatched fips
+# Investigate unmatched fips
 unmatched <- subset(dat, !complete.cases(dat))
 
 
@@ -90,7 +88,6 @@ for (i in 1:nstate) {
 }
 
 dat_lg <- dat[keep, ]
-
 
 
 # Assemble into matrices of county x week
@@ -132,7 +129,7 @@ for (i in 1:nfips) {
 
   # write to matrices, now calling new cases "cases"
   cases[i, ] <- ss$new_cases
-  incidence[i, ] <- ss$new_cases / ss$population
+  incidence[i, ] <- ss$new_cases/ss$population
   pops[i] <- ss$population[1]
 }
 

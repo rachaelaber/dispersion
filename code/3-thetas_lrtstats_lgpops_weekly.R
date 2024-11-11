@@ -65,23 +65,26 @@ for (j in 1:nrow(cases)) {
 
 filename <- "data/processed/theta_lg_pops.Rdata"
 
+bad <- which(thetas > 999950)
+bad1 <- which(thetas1 > 999950)
+bad2 <- which(thetas2 > 999950)
 
-thetas[which(thetas > 999950)] <- NA
-thetas1[which(thetas1 > 999950)] <- NA
-thetas2[which(thetas2 > 999950)] <- NA
+thetas[bad] <- NA
+thetas1[bad1] <- NA
+thetas2[bad2] <- NA
 
 
 save(thetas1, thetas2, thetas, file = filename)
 
 filename <- "data/processed/lrt_lg_pops.Rdata"
 
-lrt_stats[c(which(thetas > 999950), which(thetas1 > 999950), which(thetas2 > 999950))] <- NA
+lrt_stats[c(bad, bad1, bad2)] <- NA
 
 save(lrt_stats, file = filename)
 
 filename <- "data/processed/lrtps_lg_pops.Rdata"
 
-lrt_ps[c(which(thetas > 999950), which(thetas1 > 999950), which(thetas2 > 999950))] <- NA
+lrt_ps[c(bad, bad1, bad2)] <- NA
 
 save(lrt_ps, file = filename)
 

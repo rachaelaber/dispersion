@@ -15,8 +15,8 @@ pdf(filename)
 par(mfrow = c(3, 2))
 
 # Trim empirical incidence to same length as thetas2
-series <- cases[10, 8:(length(cases[1,]) - 8 + 1)]
-dates <- dates[8:(length(cases[1,]) - 8 + 1)]
+series <- cases[10, 8:(length(cases[10,]) - 8 + 1)]
+dates <- dates[8:(length(cases[10,]) - 8 + 1)]
 
 # Remove first observations from all
 # series <- series[35:length(series)]
@@ -28,25 +28,24 @@ dates <- dates[8:(length(cases[1,]) - 8 + 1)]
 plot(curves[which(curve_parms$theta1 == curve_parms$theta2 & curve_parms$breakpoint == 30 
                   & curve_parms$final_size == 1000000 & curve_parms$curve_type == 2 & curve_parms$theta1 == 1.1),], 
      xlab = "Day", type = "l", ylab = "Incidence", cex.lab = 1.7, cex.axis = 1.7)
-mtext("a", side = 3, line = 1, adj = 0, cex = 1.7)
+mtext("a", side = 3, line = 1, adj = 0, cex = 1.2)
 plot(curves[which(curve_parms$theta1 == 1.1 & curve_parms$theta2 == 10.1 & curve_parms$breakpoint == 30 
                   & curve_parms$final_size == 1000000 & curve_parms$curve_type == 2),], 
      xlab = "Day", type = "l", ylab = "Incidence", cex.lab = 1.7, cex.axis = 1.7)
-mtext("b", side = 3, line = 1, adj = 0, cex = 1.7)
+mtext("b", side = 3, line = 1, adj = 0, cex = 1.2)
 
 
 
 # Row 2
 plot(rep(curve_parms$theta1[11188], times = length(curves[11188,])),
-     xlab = "Day", ylab = expression(theta), col = 4, cex = .1, type = "l", cex.lab = 1.55, cex.axis = 1.5)
-mtext("c", side = 3, line = 1, adj = 0, cex = 1.7)
-mtext("O", side = 3, line = -2, cex = 1.7)
+     xlab = "Day", ylab = expression(theta), col = 4, cex = .1, type = "l", cex.lab = 1.55, cex.axis = 1.45, ylim = c(0, 11))
+mtext("c", side = 3, line = 1, adj = 0, cex = 1.2)
+mtext("O", side = 3, line = -2, cex = 1.2)
 plot(c(rep(curve_parms$theta1[11314], times = length(curves[11314,])/2), 
        rep(curve_parms$theta2[11314], times = length(curves[11314,])/2)),
-     xlab = "Day", ylab = expression(theta), col = 4, cex = .1, type = "l", cex.lab = 1.55, cex.axis = 1.5)
-mtext("d", side = 3, line = 1, adj = 0, cex = 1.7)
-mtext("X", side = 3, line = -2, cex = 1.7)
-
+     xlab = "Day", ylab = expression(theta), col = 4, cex = .1, type = "l", cex.lab = 1.55, cex.axis = 1.45, ylim = c(0, 11))
+mtext("d", side = 3, line = 1, adj = 0, cex = 1.2)
+mtext("X", side = 3, line = -2, cex = 1.2)
 
 # Row 3
 pops <- c(50000, 10000000)
@@ -68,7 +67,7 @@ for (i in 1:length(pops)) {
        xaxt = "n", yaxt = "n", cex.lab = 1.7
   )
   
-  mtext(letters[5:6][i], side = 3, line = 1, adj = 0, cex = 1.7)
+  mtext(letters[5:6][i], side = 3, line = 1, adj = 0, cex = 1.2)
   
   axis(1, seq(0, 9, 3), cex.axis = 1.7)
   axis(2, seq(0, 1, 0.25), cex.axis = 1.7)
@@ -81,12 +80,10 @@ for (i in 1:length(pops)) {
   hi <- ag[, 2][, 2]
   segments(ag[, 1], lo, ag[, 1], hi, col = 2, lwd = 3)
   
-  text(0, 0.9, "O", cex = 1.5)
-  text(9, 0.9, "X", cex = 1.5)
+  text(0, 0.9, "O", cex = 1.2)
+  text(9, 0.9, "X", cex = 1.2)
 
 }
-
-
 
 dev.off()
 

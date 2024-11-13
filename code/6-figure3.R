@@ -15,15 +15,28 @@ dates <- dates[keep]
 cases <- cases[, keep]
 incidence <- incidence[, keep]
 
-# Plot
-
+# PLOT
 filename <- "figures/fig3.pdf"
 pdf(filename)
-par(mfrow = c(2, 2))
+par(mfrow = c(3, 2))
 
-# 1. Cases 
+# 1. Mean cases
+par(mar = c(4, 4, 3, 6), xpd = TRUE) 
 
-# Create margin around plot 
+plot(dates, colMeans(cases), type = "l", lwd = 2, col = "black", xlab = "Date", 
+     ylab = "", main = "Mean cases", cex.main = 1.7, cex.lab = 1.4)
+
+mtext("a", side = 3, line = 1, adj = 0, cex = 1.5)
+
+# 2. Mean log10(theta)
+par(mar = c(4, 4, 3, 6), xpd = TRUE) 
+
+plot(dates, colMeans(log10(thetas), na.rm = T), type = "l", lwd = 2, col = "black", xlab = "Date", 
+     ylab = "", main = expression(bold(paste("Mean ", theta))), cex.main = 1.7, cex.lab = 1.4)
+
+mtext("b", side = 3, line = 1, adj = 0, cex = 1.5)
+
+# 3. Cases surface
 par(mar = c(4, 4, 3, 6), xpd = TRUE) 
 
 x <- cases
@@ -49,20 +62,19 @@ labels <- substr(labels, 1, 1)
 
 axis.Date(1, at = at, labels = labels, ti, cex.axis = 1.3)
 
-mtext("a", side = 3, line = 1, adj = 0, cex = 1.7)
+mtext("c", side = 3, line = 1, adj = 0, cex = 1.5)
 
-# Draw legend 
-legend("topright", inset = c(-0.47, 0.1),                    
+legend("topright", inset = c(-0.34, 0.1),                    
        legend = c("< 100", "< 1,000", "< 10,000",  "< 100,000", "< 200,000", "< 300,000"),
        fill = colors,
        cex = 0.8)
 
-# 2. Thetas (image)
+# 4. Thetas image
 
 # Create margin around plot 
 par(mar = c(4, 4, 3, 6), xpd = TRUE) 
 
-x <- thetas2
+x <- thetas
 
 breaks <- log10(c(1, 3, 10, 100, 1000, 10^20))
 
@@ -75,7 +87,7 @@ image(dates, 1:144, t(log10(x)),
       ylab = "",
       xaxt = "n",
       xlab = "Date",
-      main = expression(log10(theta)),
+      main = expression(bold(log10(theta))),
       cex.main = 1.7,
       cex.lab = 1.4)
 
@@ -85,20 +97,17 @@ labels <- substr(labels, 1, 1)
 
 axis.Date(1, at = at, labels = labels, ti, cex.axis = 1.3)
 
-mtext("b", side = 3, line = 1, adj = 0, cex = 1.7)
+mtext("d", side = 3, line = 1, adj = 0, cex = 1.5)
 
-# Draw legend 
-legend("topright", inset = c(-0.47, 0.1),                    
+legend("topright", inset = c(-0.34, 0.1),                    
        legend = c("< log10(3)", "< 1", "< 2", "< 3", "< 20"), 
        fill = colors,
        cex = 0.8)
 
-# 3. Thetas
-
-# Create margin around plot 
+# 5. Thetas barplot
 par(mar = c(4, 4, 3, 6), xpd = TRUE) 
 
-thetas <- thetas2
+thetas <- thetas
 my <- format(dates, "%b-%y")
 umy <- unique(my)
 nmy <- length(umy)
@@ -121,27 +130,22 @@ bar_positions <- barplot(x,
                          xlab = "Date",
                          xaxt = "n",  # Disable automatic x-axis to add manually
                          ylab = "Number of estimates",
-                         main = expression(log10(theta)),
-                         cex.axis = 1,
+                         main = expression(bold(log10(theta))),
                          cex.main = 1.7,
-                         cex.lab = 1.3)
+                         cex.lab = 1.4)
 
-mtext("c", side = 3, line = 1, adj = 0, cex = 1.7)
+mtext("e", side = 3, line = 1, adj = 0, cex = 1.5)
 
-# Manually adjust x-axis tick marks and labels
 at <- seq(1, nmy, by = 1)  # One for each month
 labels <- substr(umy, 1, 1)  # First character of each month
 axis(1, at = bar_positions, labels = labels, cex.axis = 1.2)
 
-# Draw legend 
-legend("topright", inset = c(-0.44, 0.1),                    
+legend("topright", inset = c(-0.31, 0.1),                    
        legend = c("< log10(3)", "< 1", "< 2", "< 3", "< 20"), 
        fill = colors,
        cex = 0.8)
 
-# 4. p-values
-
-# Create margin around plot 
+# 6. p-values surface
 par(mar = c(4, 4, 3, 6), xpd = TRUE) 
 
 x <- lrt_ps
@@ -171,10 +175,9 @@ labels <- substr(labels, 1, 1)
 
 axis.Date(1, at = at, labels = labels, cex.axis = 1.3)
 
-mtext("d", side = 3, line = 1, adj = 0, cex = 1.7)
+mtext("f", side = 3, line = 1, adj = 0, cex = 1.5)
 
-# Draw legend 
-legend("topright", inset = c(-0.4, 0.1),                    
+legend("topright", inset = c(-0.27, 0.1),                    
        legend = c(expression("" < 10^{-20}), expression("" < 10^{-11}), expression("" < 10^{-2}),
                   "< 0.05", "< 0.10", "< 0.55", "< 1"), 
        fill = cols,

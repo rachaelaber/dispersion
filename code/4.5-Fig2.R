@@ -23,16 +23,19 @@ plot(dates, series, type = "h", xlab = "Dates", ylab = "", main = "Case counts",
 mtext("a", side = 3, line = 1, adj = 0, cex = 1.3)
 
 
-is_sig <- lrt_stats[1, ] > qchisq(0.95, df = 1) # w/o correcting for multiple testing
+is_sig <- lrt_stats[1, ] > qchisq(0.9996753, df = 1) # w/o correcting for multiple testing
 plot(dates, log10(thetas[1,]), type = "n", 
      xlab = "Dates", ylab = "", 
      main = expression(bold(log10(theta))), 
-     cex.main = 1.3, cex.lab = 1, cex.axis = 1)
+     cex.main = 1.3, cex.lab = 1, cex.axis = 1, ylim = c(-4, 3))
 for (i in 1:(length(dates) - 1)) {
   segment_color <- ifelse(is_sig[i], "red", "blue")
-    lines(dates[i:(i+1)], log10(thetas[1, i:(i+1)]), col = segment_color)
+    lines(dates[i:(i+1)], log10(thetas[1, i:(i+1)]), col = segment_color, lwd = 2)
 }
-legend("bottomleft", legend = c(expression(chi^2 >= 3.841459), expression(chi^2 < 3.841459)), 
+
+lines(dates, log10(series) - log10(county$population[1]), lwd = 2)
+
+legend("left", legend = c(expression(chi^2 >= 12.92225), expression(chi^2 < 12.92225)), 
        lty = 1, col = c("red", "blue"), cex = 0.6, bty = "n")
 mtext("b", side = 3, line = 1, adj = 0, cex = 1.3)
 

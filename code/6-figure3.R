@@ -10,7 +10,7 @@ load("data/processed/theta_lg_pops.Rdata")
 load("data/processed/lrtps_lg_pops.Rdata")
 
 # Presumed reporting rate
-reporting_rate <- 0.10
+reporting_rate <- 10
 
 # Trim elements or columns that will have NAs for theta and lrt
 keep <- 8:(length(dates) - 8 + 1)
@@ -44,9 +44,11 @@ par(mar = c(4, 4, 3, 6), xpd = TRUE)
 
 x <- cases
 
-breaks <- log10(c(1, 3, 10, 100, 1000, 10^20))
+#breaks <- log10(c(0.1, 1, 10, 100, 1000, 10^20))
+#colors <- c(rev(viridis(length(breaks)-1)))
 
-colors <- c(rev(viridis(length(breaks) - 1)))
+breaks <- quantile(log10(thetas), probs = seq(0.01,0.99,len=100), na.rm = T)
+colors <- c(rev(mako(length(breaks) - 1)))
 
 image(dates, 1:144, log10(t(x)) - log10(reporting_rate),
       breaks = breaks, 
@@ -55,7 +57,7 @@ image(dates, 1:144, log10(t(x)) - log10(reporting_rate),
       ylab = "",
       xaxt = "n",
       xlab = "Date",
-      main = expression(bold(log10(cases)) - bold(log10(0.10))),
+      #main = expression(bold(log10(cases)) - bold(log10(0.10))),
       cex.main = 1.7,
       cex.lab = 1.4)
 
@@ -68,7 +70,7 @@ axis.Date(1, at = at, labels = labels, ti, cex.axis = 1.3)
 mtext("c", side = 3, line = 1, adj = 0, cex = 1.5)
 
 legend("topright", inset = c(-0.34, 0.1),                    
-       legend = c("< log10(3)", "< 1", "< 2", "< 3", "< 20"), 
+       legend = c("< 1", "< 2", "< 3", "< 20"), 
        fill = colors,
        cex = 0.8)
 
@@ -78,9 +80,8 @@ par(mar = c(4, 4, 3, 6), xpd = TRUE)
 
 x <- thetas
 
-breaks <- log10(c(1, 3, 10, 100, 1000, 10^20))
-
-colors <- c(rev(viridis(length(breaks) - 1)))
+#breaks <- log10(c(1, 3, 10, 100, 1000, 10^20))
+#colors <- c(rev(viridis(length(breaks) - 1)))
 
 image(dates, 1:144, t(log10(x)), 
       breaks = breaks,
@@ -89,7 +90,7 @@ image(dates, 1:144, t(log10(x)),
       ylab = "",
       xaxt = "n",
       xlab = "Date",
-      main = expression(bold(log10(theta))),
+      #main = expression(bold(log10(theta))),
       cex.main = 1.7,
       cex.lab = 1.4)
 
@@ -102,7 +103,7 @@ axis.Date(1, at = at, labels = labels, ti, cex.axis = 1.3)
 mtext("d", side = 3, line = 1, adj = 0, cex = 1.5)
 
 legend("topright", inset = c(-0.34, 0.1),                    
-       legend = c("< log10(3)", "< 1", "< 2", "< 3", "< 20"), 
+       legend = c("< 1", "< 2", "< 3", "< 20"), 
        fill = colors,
        cex = 0.8)
 
@@ -110,11 +111,11 @@ legend("topright", inset = c(-0.34, 0.1),
 par(mar = c(4, 4, 3, 6), xpd = TRUE) 
 
 thetas <- thetas
-my <- format(dates, "%b-%y")
+my <- format(dates, "%W-%y")
 umy <- unique(my)
 nmy <- length(umy)
 
-breaks <- log10(c(1, 3, 10, 100, 1000, 10^20))
+#breaks <- log10(c(1, 3, 10, 100, 1000, 10^20))
 
 x <- matrix(NA, nrow = length(breaks) - 1, ncol = nmy)
 
@@ -123,16 +124,17 @@ for (i in 1:nmy) {
   x[, i] <- as.numeric(table(cut(log10(these_thetas), breaks = breaks)))
 }
 
-colors <- c(rev(viridis(length(breaks) - 1)))
+#colors <- c(rev(viridis(length(breaks) - 1)))
 
 # Store barplot result to get x positions for the bars
 bar_positions <- barplot(x,
                          col = colors,
+                         border = colors,
                          names.arg = substr(umy, 1, 1), 
                          xlab = "Date",
                          xaxt = "n",  # Disable automatic x-axis to add manually
                          ylab = "Number of estimates",
-                         main = expression(bold(log10(theta))),
+                         #main = expression(bold(log10(theta))),
                          cex.main = 1.7,
                          cex.lab = 1.4)
 
@@ -143,7 +145,7 @@ labels <- substr(umy, 1, 1)  # First character of each month
 axis(1, at = bar_positions, labels = labels, cex.axis = 1.2)
 
 legend("topright", inset = c(-0.31, 0.1),                    
-       legend = c("< log10(3)", "< 1", "< 2", "< 3", "< 20"), 
+       legend = c("< 1", "< 2", "< 3", "< 20"), 
        fill = colors,
        cex = 0.8)
 
@@ -167,7 +169,7 @@ image(dates,
       yaxt = "n",
       xaxt = "n",
       xlab = "Date",
-      main = "p-value",
+      #main = "p-value",
       cex.main = 1.7,
       cex.lab = 1.4)
 

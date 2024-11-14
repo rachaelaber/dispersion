@@ -55,7 +55,7 @@ image(dates, 1:144, log10(t(x)) - log10(reporting_rate),
       ylab = "",
       xaxt = "n",
       xlab = "Date",
-      main = "Cases",
+      main = expression(bold(log10(cases)) - bold(log10(0.10))),
       cex.main = 1.7,
       cex.lab = 1.4)
 

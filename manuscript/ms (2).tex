@@ -316,17 +316,17 @@ The model is formulated with a linear predictor that includes a natural spline i
 Natural splines are cubic splines which are linear outside of the boundary knots \cite{perperoglou_review_2019}. 
 A recently proposed negative binomial regression model for time series of counts also accommodates serial dependence \cite{davis_negative_2009}. 
 
-A persistent challenge in investigating changes in variability has been ``spurious correlation'' with population size. 
+We model broad-scale change in incidence as $log(E[I_t / N])  = \sum_j \beta_j h_j(t)$. A persistent challenge in investigating changes in variability has been ``spurious correlation'' with population size. 
 Since population size influences the mean and variance of case count data and thus could have an impact on estimates of dispersion, we adjust for population size using an offset in the model. 
-There is an offset term in order to directly model counts (here, COVID-19 cases) per unit of observation (here, per individual).
+There is an offset term in order to directly model counts (here, COVID-19 cases) per unit of observation (here, per individual). Let $I_i$ be the number of infections at time step i and $h_i$
 
 \begin{align}
-  \log(E[Y_i]/n_i) &= \beta_1h_1(t_i) + \beta_2h_2(t_i) + \beta_3h_3(t_i) \\
-  \log(E[Y_i])-\log(n_i) &= \beta_1h_1(t_i) + \beta_2h_2(t_i) + \beta_3h_3(t_i) \\ 
-  \log(E[Y_i]) &= \beta_1 h_1(t_i) + \beta_2h_2(t_i) + \beta_3 h_3(t_i) + log(n_i) 
+  \log(E[I]/N) &= \beta_1h_1(t_i) + \beta_2h_2(t_i) + \beta_3h_3(t_i) \\
+  \log(E[I])-\log(N) &= \beta_1h_1(t_i) + \beta_2h_2(t_i) + \beta_3h_3(t_i) \\ 
+  \log(E[I_i]) &= \beta_1 h_1(t_i) + \beta_2h_2(t_i) + \beta_3 h_3(t_i) + log(n_i) 
 \end{align}
 
-Thus, the form of the probability mass function for incidence at a time step is:
+The form of the probability mass function for incidence at a time step is:
 
 \begin{equation}
   f_t(I) = \binom{I + \theta - 1}{I} \left(\dfrac{\mu}{\mu+\theta}\right)^I \left(\dfrac{\theta}{\mu +\theta}\right)^\theta

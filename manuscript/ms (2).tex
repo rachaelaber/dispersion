@@ -274,23 +274,29 @@ However, traditional contact tracing is very resource intensive, and although ne
 Statistical techniques that make inference based on the variability of epidemic time series at the population level are emerging. Working from population-level incidence data, the offspring distribution dispersion parameter was recovered \cite{kirkegaard_superspreading_2021}.
 Another area of interest is how incidence variability is related to different phases of an epidemic. For example, the mean and interannual coefficient of variation of measles incidence were used to construct a metric indicative of where a location may be on the path to elimination of a pathogen~\cite{graham_measles_2019}. 
 Analyzing variability in terms of bursts of incidence is also important for planning surge capacity in public health systems\cite{wallinga_metropolitan_2018}. 
-Dispersion is a way to specifically capture clustering of cases in epidemic time series. An index of effective aggregate dispersion (EffDI) was proposed to elucidate clusters of infection directly from incidence data \cite{schneckenreither_assessing_2023}. In the current work, our interest is in the dispersion of epidemic time series.
+Dispersion is a way to specifically capture clustering of cases in epidemic time series. 
+An index of effective aggregate dispersion (EffDI) was proposed to elucidate clusters of infection directly from incidence data \cite{schneckenreither_assessing_2023}. In the current work, our interest is in the dispersion of epidemic time series.
 
 Incidence dispersion dynamics are distinct from, but related to, the dispersion parameter of the offspring distribution. 
 Infectious disease transmission follows a branching process, as new infections result from exposure to individuals who are currently infectious. 
 Under a wide range of configurations for a branching process model, including the vast majority of parsimonious ones, the number of infected individuals $I_t$ at time $t$ will have a negative binomial distribution \cite{kendall_stochastic_1949}: $I_t \sim NB \left( \mu_t, \theta_t \right)$, where $\mu_t$ is the expected value for $I_t$ and $\theta_t$ is the dispersion parameter. 
-The dispersion parameter is related to the variance of incidence by $\mathrm{Var}[I_t] = \mu_t + \mu_t^2 / \theta_t$. 
+The dispersion parameter is related to the variance of infections by $\mathrm{Var}[I_t] = \mu_t + \mu_t^2 / \theta_t$. 
 Importantly, smaller values of the dispersion parameter $\theta_t$ correspond to increasing amounts of dispersion, which increase the amounts by which the variance in realized number infected $I_t$ exceeds the expected value, $\mu_t$. 
 Conversely, the distribution of $I_t$ tends to a Poisson distribution (where the variance equals mean) as $\theta_t$ becomes large. 
 This model is common in population biology (e.g., in the study of measles \cite{grenfell_dynamics_2002}).
 
-An interpretation of the dispersion parameter for a time series model of counts is that events are $1 + \theta^{-1}$ times as ``crowded" in time relative to a Poisson process with the same mean \cite{lloyd_mean_1967}. For example, $\theta = 1$ corresponds to a situation where the average number of infections in the same time step as a randomly selected case will exceed the Poisson expectation by a factor of two. In a simple example relevant to surge capacity in the healthcare system, $\theta = 1$ implies that a random infectious individual visiting the emergency department at a hospital would find it on average to be twice as crowded with other infectious individuals (infected by the same pathogen) than expected for a Poisson process with the same incidence rate.
+An interpretation of the dispersion parameter for a time series model of counts is that events are $1 + \theta^{-1}$ times as ``crowded" in time relative to a Poisson process with the same mean \cite{lloyd_mean_1967}. 
+For example, $\theta = 1$ corresponds to a situation where the average number of infections in the same time step as a randomly selected case will exceed the Poisson expectation by a factor of two. 
+In a simple example relevant to surge capacity in the healthcare system, $\theta = 1$ implies that a random infectious individual visiting the emergency department at a hospital would find it on average to be twice as crowded with other infectious individuals (infected by the same pathogen) than expected for a Poisson process with the same incidence rate.
 
-Modeling $\mu_t$ and $\theta_t$ is important to the prediction of epidemic trajectories. A time-series approximation to compartment epidemic models uses $\mu_t = \lambda I_{t-1}$ where $\lambda$ is the current local rate at which infections at time $t-1$ produces new infections at time $t$ and $\theta_t = I_{t-1}$. 
+Modeling $\mu_t$ and $\theta_t$ is important to the prediction of epidemic trajectories. A time-series approximation to compartment epidemic models uses $\mu_t = \lambda I_{t-1}$ where $\lambda$ is the current local rate at which infections at time $t-1$ produce new infections at time $t$ and $\theta_t = I_{t-1}$. 
 \begin{equation}
     \mathrm{I_t} = NB(\mu = \lambda I_{t-1}, \theta_t = I_{t-1})
 \end{equation}
-The assertion that $\theta_t = I_{t-1}$ comes from the assumption that each of the individuals who acquired the infection at $t-1$ form ``independent lineages'' with identically distributed ``local'' rate parameter. Under these conditions, $\theta_t = I_{t-1}$ is a good approximation for sufficiently large populations (\cite{kendall_stochastic_1949}, \cite{bjornstad_dynamics_nodate}). However, this model assumes that subpopulations of infectious individuals emanating from one infected individuals are independent and statistically identical to those from another. That is, the model assumes susceptible depletion in one lineage does not affect another, transmission rates are equal across lineages, and reporting rates do not vary across lineages. 
+The assertion that $\theta_t = I_{t-1}$ comes from the assumption that each of the individuals who acquired the infection at $t-1$ form ``independent lineages'' with identically distributed ``local'' rate parameter. 
+Under these conditions, $\theta_t = I_{t-1}$ is a good approximation for sufficiently large populations (\cite{kendall_stochastic_1949}, \cite{bjornstad_dynamics_nodate}). 
+However, this model assumes that subpopulations of infectious individuals emanating from one infected individual are independent and statistically identical to those from another. 
+That is, the model assumes susceptible depletion in one lineage does not affect another, transmission rates are equal across lineages, and reporting rates do not vary across lineages. 
 
 In practice, the above assumptions may not hold, and thus we instead estimate $\theta_t$ to understand how heterogeneity in transmission, susceptibility and reporting (and other factors) are driving epidemic dynamics. 
 Instead of assuming $\theta_t = I_{t-1}$, drivers of $\theta_t$ can be investigated, first by quantifying how it changes over time and to what degree it is governed by $I_t$. 
@@ -300,35 +306,35 @@ Instead of $\mu_t = \lambda I_{t-1}$, which is a special kind of moving window, 
 Furthermore, the rate of the case-count-generating process is often changing within a time step, which cannot be accommodated by a Poisson model. 
 The negative binomial distribution may accurately model a time series if there is a changing process mean within a time step: for example, if the mean of a Poisson distribution itself follows a gamma distribution, the resulting distribution is negative binomial \cite{cook_notes_nodate}. 
 Negative binomial regression (in contrast to Poisson regression) can account for unobserved heterogeneity, time dependence in the rate of a process and contagion within a time step that all lead to overdispersion \cite{barron_analysis_1992}.
-This is an additional reason that the dispersion parameter of a negative binomial distribution should be used to measure changes in meaningful case count clustering in settings with differing base population/incidence. 
+This is an additional reason that the dispersion parameter of a negative binomial distribution should be used to measure changes in meaningful case count clustering in settings with differing base populations/incidence. 
 
-We develop a method that quantifies the evolution of dispersion along incidence time series, allowing for the detection of changes in clustering that are not due to changes in population size or overall burden of incidence.
+We develop a method that quantifies the evolution of dispersion along case count time series, allowing for the detection of changes in clustering that are not due to changes in population size or overall burden of incidence.
 We apply the method to COVID-19 \emph{weekly} new cases (to avoid irregularities in daily data reporting, such as when all weekend cases are reported on Monday) in large US counties to investigate the relationships between incidence, dispersion and epidemic dynamic regimes over a portion of the COVID-19 pandemic. 
 
 \section*{Materials and methods}
 \subsection*{Introduction to the method}
 
 % For figure citations, please use "Fig" instead of "Figure".
-Classical approaches \cite{grenfell_dynamics_2002} model incidence at a time step using a negative binomial variable with expectation equal to the epidemic intensity and dispersion parameter equal to previous incidence. However, other processes besides the current number infected might affect dispersion, so we instead investigate changes in dispersion over time to understand processes that may leave a signal in dispersion. 
+Classical approaches \cite{grenfell_dynamics_2002} model infections at a time step using a negative binomial variable with expectation equal to the epidemic intensity and dispersion parameter equal to previous infections. However, other processes besides the current number infected might affect dispersion, so we instead investigate changes in dispersion over time to understand processes that may leave a signal in dispersion. 
 
-Our general framework is that incidence at a time step is drawn from a negative binomial distribution with time-varying mean and dispersion parameter (the dispersion parameter varies more slowly than the mean parameter). 
-The model is formulated with a linear predictor that includes a natural spline in time with three degrees of freedom to account for autocorrelation in case counts. 
+Our general framework is that the number of infections at a time step is drawn from a negative binomial distribution with time-varying mean and dispersion parameter (the dispersion parameter varies more slowly than the mean parameter). 
+The model is formulated with a linear predictor that includes a natural spline in time to account for autocorrelation in case counts. 
 Natural splines are cubic splines which are linear outside of the boundary knots \cite{perperoglou_review_2019}. 
 A recently proposed negative binomial regression model for time series of counts also accommodates serial dependence \cite{davis_negative_2009}. 
 
-We model broad-scale change in incidence as 
+Letting $I_t$ be the number of infections at time $t$ in a population of size $N$, we model broad-scale change in incidence as 
 \begin{equation}
   \log(E[I_t / N])  = \sum_j \beta_j h_j(t)
 \end{equation}
-A persistent challenge in investigating changes in incidence dispersion the statistical impact of population size on dispersion. 
-Since population size influences the mean and variance of case count data it impacts estimates of dispersion even in populations that are otherwise identical.
-Accordingly, population size appears as an offset in our model of broad-scale incidence changes.
-Letting $I_t$ be the number of infections at time $t$ in a population of size $N$, equation (x) implies
+where $h_j(t)$ are basis functions for the natural spline and $\beta_j$ are their associated parameters.
+A persistent challenge in investigating changes in the dispersion of case counts is the statistical impact of population size. 
+Since population size influences the mean and variance of case count data, it impacts estimates of dispersion even in populations that are otherwise identical.
+Accordingly, population size appears as an offset in our model of broad-scale incidence changes. That is, Eq 2 implies
 \begin{equation}
   \log(E[I_t]) &= \sum_j \beta_j h_j(t) + \log(N) 
 \end{equation}
 
-The form of the probability mass function for incidence at a time step is:
+The form of the probability mass function for infections at a time step is:
 
 \begin{equation}
   f_t(I) = \binom{I + \theta - 1}{I} \left(\dfrac{\mu}{\mu+\theta}\right)^I \left(\dfrac{\theta}{\mu +\theta}\right)^\theta
@@ -345,12 +351,16 @@ The form of the expectation and variance from this model is below.
 
 Note that high variability/dispersion corresponds to low values of the dispersion parameter, \begin{math}\theta\end{math}.
 In addition to fitting the model at each time step, we developed a straightforward likelihood-ratio test (LRT) that can be applied at each time step. This involves fitting both a null model (no \begin{math}\theta\end{math} change) and a two-part (\begin{math}\theta\end{math}-change) model.
-In sum, our method identifies shifts in population-level dispersion in incidence while accounting for population size. 
+In sum, our method identifies shifts in population-level dispersion in infections while accounting for population size. 
 
 \subsection*{Application to simulated data}
 
 To test the validity and power of the LRT, we simulated both Gaussian and uniform epidemic curves with an attack rate (proportion of the population who become infected) of 0.1. Epidemic curves spanning 60 time steps each were produced, and the likelihood-ratio test (LRT) procedure was applied to each at its known change point in \begin{math}\theta\end{math}. 
-Varying the magnitude of the \begin{math}\theta\end{math} change, location of the change in the curve, population size underlying the curve, and curve shape (as mentioned above) allowed us to test the validity and power of our approach across a range of situations.
+Varying the magnitude of the \begin{math}\theta\end{math} change, location of the change in the curve, population size underlying the curve, and curve shape (as mentioned above) allowed us to test the validity and power of our approach across a range of scenarios.
+
+\subsection*{Data availability and processing}
+
+COVID-19 cumulative case data are from [The New York Times](https://github.com/nytimes/covid-19-data/) and county population sizes are from [The United States Census Bureau](https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/counties/totals/. Cumulative cases for the largest three counties in each state were converted to weekly counts by keeping the last observation from each week and differenced to compute new cases.
 
 \subsection*{Application to empirical data}
 
@@ -360,7 +370,7 @@ By moving the window one time step at a time, a time series of \begin{math}\thet
 
 % Results and Discussion can be combined.
 \section*{Results}
-We found that the LRT method is robust across population sizes (for population sizes included in the empirical data) (Fig.\ 1 e, f).
+We found that the LRT method is robust across population sizes (for population sizes included in the empirical data) (Fig\ 1 e, f).
 The criteria for adequate test performance are that the average p-value is 0.5 when the effect size is zero, and lower average p-values are observed with increasing effect sizes. 
 
 \begin{figure}[!h]
@@ -372,20 +382,21 @@ Detecting dispersion changes in incidence time series in populations of differen
 \end{figure}
 
 The negative binomial framework for estimating \begin{math}\theta\end{math} is also robust across the population sizes examined, and a large portion of inaccurate estimates correspond to counties with small population sizes outside of the range considered (\nameref{S1_Fig}).
-In row one and two of Fig.\ 1, we illustrate that an increase in \begin{math}\theta\end{math} is associated with decreased dispersion in simulated case count time series. This pattern is observed in the empirical data, and is independent of whether incidence is high or low, as seen in Fig.\ 2, where an example time series of $log_{10}\theta$ estimated from empirical data in Jefferson County, AL shows decreasing values around periods in which cases increase in volatility. For example, consider the period of time around the beginning of 2022, in which high case count variability coincides with low values of $log_{10}\theta$. 
-Additionally, the dispersion parameter changed as new variability regimes began ($log_{10}\theta$ values colored red in Fig.\ 2 b). There were departures from the dispersion parameter under the model in Equation 1, especially around the beginning of 2022 and the end of the time frame examined (Fig.\ 2 b). The dispersion parameter under the model in Equation 1 can be plotted by taking a series of previous incidence and adding an offset to account for the reporting rate (log10($\theta_t$) in the model = log10(I_{t-1}) = log10(cases_{t-1}/reporting rate) = log10(cases_{t-1}) - log10(reporting rate)).
+In row one and two of Fig\ 1, we illustrate that an increase in \begin{math}\theta\end{math} is associated with decreased dispersion in simulated case count time series. This pattern is observed in the empirical data, and is independent of whether incidence is high or low, as seen in Fig\ 2, where an example time series of $log_{10}\theta$ estimated from empirical data in Jefferson County, AL shows decreasing values around periods in which cases increase in volatility. For example, consider the period of time around the beginning of 2022, in which high case count variability coincides with low values of $log_{10}\theta$. 
+Additionally, the dispersion parameter changed as new variability regimes began ($log_{10}\theta$ values colored red in Fig\ 2 b). 
+There were departures from the dispersion parameter expected under the model in Eq 1, especially around the beginning of 2022 and the end of the time series (Fig\ 2 b). The dispersion parameter under the model in Eq 1 can be plotted by taking a series of previous cases and adding an offset to account for the reporting rate (log10($\theta_t$) in the model in Eq 1 = log10(I_{t-1}) = log10(reported_cases_{t-1}/reporting rate) = log10(reported_cases_{t-1}) - log10(reporting rate)).
 
 \begin{figure}[!h]
 \includegraphics[width=1\textwidth]{fig2.pdf}
-\caption{Negative binomial regression/LRT method applied to case counts between 2020-01-04 and 2023-03-18 from Jefferson County, AL. a: Case counts. b: Time series of $log_{10}\theta$ colored by whether the associated LRT statistic is greater than the Bonferroni-corrected level 0.05 quantile of a chi-square random variable with one degree of freedom (red indicates areas of putative change in $\theta$). The black line represents the dispersion parameter under the model from Equation 1, assuming a reporting rate of 0.10.
+\caption{Negative binomial regression/LRT method applied to case counts between 2020-01-04 and 2023-03-18 from Jefferson County, AL. a: Case counts. b: Time series of $log_{10}\theta$ colored by whether the associated LRT statistic is greater than the Bonferroni-corrected level 0.05 quantile of a chi-square random variable with one degree of freedom (red indicates areas of putative change in $\theta$). The black line represents the dispersion parameter under the model from Eq 1, assuming a reporting rate of 0.10.
 }
 \label{fig2}
 \end{figure}
 
-Highly overdispersed incidence patterns were observed for many of the examined counties more frequently later in time series, consistent with more heterogeneity in transmission, susceptibility and reporting. 
-The most dispersed category in Fig.\ 3 (e) reaches its highest proportion near the end of the time frame examined.
-In addition, there are increases in dispersion around the peaks in incidence in the dataset (Fig. 3 c, d).
-Evidence for a change in \begin{math}\theta\end{math} was observed across many counties (evidenced by a concentration of low p-values around peak incidence) (Fig.\ 3 f). Note that these p-values should be corrected for multiple testing when used for inference instead of visualization.
+Highly overdispersed patterns were observed for many of the examined counties more frequently later in time series, consistent with more heterogeneity in transmission, susceptibility and reporting. 
+The most dispersed category in Fig\ 3 (e) reaches its highest proportion near the end of the time frame examined.
+In addition, there are increases in dispersion around the peaks in incidence in the dataset (Fig 3 c, d).
+Evidence for a change in \begin{math}\theta\end{math} was observed across many counties (evidenced by a concentration of low p-values around peak incidence) (Fig\ 3 f). Note that these p-values should be corrected for multiple testing when used for inference instead of visualization.
 
 \begin{figure}[!h]
 \centering
@@ -396,34 +407,38 @@ Incidence and dispersion between 2020-01-04 and 2023-03-18 in large counties in 
 \label{fig3}
 \end{figure}
 
-Raising variance relative to mean (higher dispersion) implies spatiotemporal "crowding" of cases (i.e. localized surges) which may necessitate more surge capacity in hospitals and testing centers. Therefore, it may be the case that there were more surges on the way up to or on the way down from peak incidence. It appears that there are more surges on the way up to, and on the way down from, peak incidence. 
+Raising variance relative to mean (higher dispersion) implies spatiotemporal "crowding" of cases (i.e. localized surges) which may necessitate more surge capacity in hospitals and testing centers. 
+It appears that there are more surges on the way up to, and on the way down from, peak incidence. 
 This indicates less diffuse epidemic dynamics that are potentially more subject to climate forcing \cite{dalziel_urbanization_2018}, and increased locally experienced mean density \cite{lloyd_mean_1967}. 
 
 \section*{Discussion}
 
 We developed an approach to quantify clustering of cases in epidemic time series that is less susceptible to detecting artifacts based on population size and incidence. 
-Our method forms part of a larger initiative to investigate variability in incidence as an important attribute of epidemic time series using novel metrics.
+Our method forms part of a larger initiative to investigate variability in infections as an important attribute of epidemic time series using novel metrics.
 For instance, burst-tree decomposition of time series has also facilitated computation of a burst-size distribution for a series given a specified time window \cite{jo_burst-tree_2020}, allowing comparison of variability within one location over time. 
 Spatial variation in superspreading potential has been investigated through risk maps of superspreading environments \cite{loo_identification_2021}, so future work could investigate the correspondence between our dispersion metric and indicators of a high risk of superspreading.
 
 Methods that use incidence time series are crucial due to the ease of obtaining this type of data, so the timing and geographical allocation of public health resources can be achieved with limited resources. 
 Additionally, population-wide disease control approaches are often less effective than those which are targeted to individuals in high-transmission contexts \cite{lloyd-smith_superspreading_2005}, so identifying candidate time periods when transmission heterogeneity is high may catalyze the development of more efficient control strategies.
 
-Application of the methods we developed to empirical case count time series spanning from the beginning of 2020 to early 2023 revealed distinct increases in dispersion both near the end of the time frame considered and near peaks in COVID-19 incidence.
-These results imply that we can revise our understanding of case count dispersion: dispersion is high \emph{near} peak incidence, suggesting that dispersion is not simply governed by incidence. These departures from the level of dispersion expected under the model represented in Equation 1 represent time periods in which the assumptions may be violated and cases may be highly clustered in time.
-
-Though large cities may be subject to more "smooth" epidemic dynamics, our contribution highlights the circumstances under which dynamics are less smooth in large populations.
+Application of the methods we developed to empirical case count time series spanning from the beginning of 2020 to early 2023 revealed distinct increases in dispersion both near the end of the time series considered and near peaks in COVID-19 incidence.
+These results imply that we can revise our understanding of case count dispersion: dispersion is high \emph{near} peak incidence, suggesting that dispersion is not simply governed by incidence. 
+These departures from the level of dispersion expected under the model represented in Eq 1 represent time periods in which the assumptions may be violated and cases may be highly clustered in time.
 
 Previous research to evaluate bursty dynamics based on Influenza-like Illness (ILI) times series showed that epidemics in smaller communities were concentrated on narrower windows of the influenza season; the proportion of disease incidence that occurred in a given week was a metric of interest \cite{dalziel_urbanization_2018}. 
-So, additional research is needed to understand the relationship between burstiness in small communities and temporally changing dispersion in these areas.
+Though large cities may be subject to more "smooth" epidemic dynamics, our contribution highlights the circumstances under which dynamics are less smooth in large populations.
+Additional research is needed to understand the relationship between burstiness in small communities and temporally changing dispersion in these areas.
 
-Since there are regimes of the COVID-19 epidemic that are subject to increased dispersion across large counties, these may be candidate time periods for rolling out extra surge capacity in large counties. But, as mentioned above, further research is needed to understand whether this phenomenon occurs in small and mid-sized counties. 
+Since there are regimes of the COVID-19 epidemic that are subject to increased dispersion across large counties, these may be candidate time periods for rolling out extra surge capacity in large counties. 
+But, as mentioned above, further research is needed to understand whether this phenomenon occurs in small counties. 
 
 \section*{Conclusion}
-We presented an approach to quantify clustering of cases in epidemic time series that does not detect artifacts based on population size and incidence. 
+We presented an approach to quantify clustering of cases in epidemic time series that is less susceptible to detecting artifacts based on population size and incidence. 
 While our estimation framework facilitates comparison of dispersion between counties and also over time in a given county, our LRT framework additionally allows for detection of changing dispersion. 
-Application of these methods to empirical incidence time series spanning from the beginning of 2020 to early 2023 revealed distinct increases in dispersion both near the end of the time window and near peaks in COVID-19 incidence. 
-These findings will assist in the allocation of public health resources, especially in the planning of surge capacity. Since there are regimes of the COVID-19 epidemic that are subject to increased dispersion across large counties, these may be candidate time periods for rolling out extra capacity. However, further research is needed to understand this phenomenon in small counties, as well as for other pathogens.
+Application of these methods to empirical case count time series spanning from the beginning of 2020 to early 2023 revealed distinct increases in dispersion both near the end of the time series and near peaks in COVID-19 incidence. 
+These findings will assist in the allocation of public health resources, especially in the planning of surge capacity. 
+Since there are regimes of the COVID-19 epidemic that are subject to increased dispersion across large counties, these may be candidate time periods for rolling out extra capacity. 
+However, further research is needed to understand this phenomenon in small counties, as well as for other pathogens.
 
 \section*{Supporting information}
 

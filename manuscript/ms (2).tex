@@ -244,14 +244,11 @@ The dispersion of incidence time series can contain structured information which
 \section*{Author summary}
 Understanding patterns in infectious disease incidence is crucial for understanding epidemic dynamics and for developing effective public health responses. 
 However, traditional metrics used to quantify incidence patterns often overlook variability as an important characteristic of incidence time series. 
-Quantifying higher-frequency variation around incidence trends can elucidate important underlying processes, including transmission heterogeneity or changes in the susceptibility landscape.
-We developed a statistical framework to quantify temporal changes in incidence dispersion within a single time series. 
-We used negative binomial regression to account for factors that might confound the estimation of dispersion, allowing us to use a single parameter to infer the degree of incidence dispersion. 
-We applied the method to COVID-19 incidence data from 144 US counties from January 1st, 2020 to March 23rd, 2023, and found that conspicuous shifts in dispersion occurred across counties concurrently, and that these shifts were not explained by incidence alone. 
+Quantifying variability around incidence trends can elucidate important underlying processes, including transmission heterogeneity.
+We developed a statistical framework to quantify temporal changes in case count dispersion within a single time series and applied the method to COVID-19 case count data. We found that conspicuous shifts in dispersion occurred across counties concurrently, and that these shifts were not explained by incidence alone. 
 Dispersion increased around peaks in incidence such as the major surge in cases in 2022, and dispersion also increased as the pandemic progressed. 
-These increases potentially indicate that some individuals spread SARS-CoV-2 (the virus that causes COVID-19) to many more people than others, that the susceptibility landscape changed, or that there were changes in reporting.
-Shifts in dispersion can indicate shifts in epidemic phase as well as provide information about important underlying biological processes. 
-Therefore, our method to estimate dispersion provides a way for public health officials to anticipate and manage changes in epidemic regime and the drivers of transmission. 
+These increases potentially indicate transmission heterogeneity, changes in the susceptibility landscape, or that there were changes in reporting.
+Shifts in dispersion can also indicate shifts in epidemic phase, so our method provides a way for public health officials to anticipate and manage changes in epidemic regime and the drivers of transmission. 
 
 \linenumbers
 

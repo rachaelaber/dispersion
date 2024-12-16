@@ -1,0 +1,53 @@
+\begin{thebibliography}{6}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Guo et~al.(2023)Guo, Zhao, Lee, Hung, Wong, Chow, Yam, Wang, Wang,
+  Chong, et~al.]{guo2023statistical}
+Zihao Guo, Shi Zhao, Shui~Shan Lee, Chi~Tim Hung, Ngai~Sze Wong, Tsz~Yu Chow,
+  Carrie Ho~Kwan Yam, Maggie~Haitian Wang, Jingxuan Wang, Ka~Chun Chong, et~al.
+\newblock A statistical framework for tracking the time-varying superspreading
+  potential of covid-19 epidemic.
+\newblock \emph{Epidemics}, 42:\penalty0 100670, 2023.
+
+\bibitem[Kirkegaard and Sneppen(2021)]{kirkegaard2021superspreading}
+Julius~B Kirkegaard and Kim Sneppen.
+\newblock Superspreading quantified from bursty epidemic trajectories.
+\newblock \emph{Scientific Reports}, 11\penalty0 (1):\penalty0 24124, 2021.
+
+\bibitem[Ko et~al.(2023)Ko, Furuse, Otani, Yamauchi, Ninomiya, Saito, Imamura,
+  Cook, Ahiko, Fujii, et~al.]{ko2023time}
+Yura~K Ko, Yuki Furuse, Kanako Otani, Masato Yamauchi, Kota Ninomiya, Mayuko
+  Saito, Takeaki Imamura, Alex~R Cook, Tadayuki Ahiko, Shunji Fujii, et~al.
+\newblock Time-varying overdispersion of sars-cov-2 transmission during the
+  periods when different variants of concern were circulating in japan.
+\newblock \emph{Scientific Reports}, 13\penalty0 (1):\penalty0 13230, 2023.
+
+\bibitem[Kretzschmar et~al.(2020)Kretzschmar, Rozhnova, Bootsma, van Boven,
+  van~de Wijgert, and Bonten]{kretzschmar2020impact}
+Mirjam~E Kretzschmar, Ganna Rozhnova, Martin~CJ Bootsma, Michiel van Boven,
+  Janneke~HHM van~de Wijgert, and Marc~JM Bonten.
+\newblock Impact of delays on effectiveness of contact tracing strategies for
+  covid-19: a modelling study.
+\newblock \emph{The Lancet Public Health}, 5\penalty0 (8):\penalty0 e452--e459,
+  2020.
+
+\bibitem[Lloyd-Smith et~al.(2005)Lloyd-Smith, Schreiber, Kopp, and
+  Getz]{lloyd2005superspreading}
+James~O Lloyd-Smith, Sebastian~J Schreiber, P~Ekkehard Kopp, and Wayne~M Getz.
+\newblock Superspreading and the effect of individual variation on disease
+  emergence.
+\newblock \emph{Nature}, 438\penalty0 (7066):\penalty0 355--359, 2005.
+
+\bibitem[Sun et~al.(2021)Sun, Wang, Gao, Wang, Luo, Ren, Zhan, Chen, Zhao,
+  Huang, et~al.]{sun2021transmission}
+Kaiyuan Sun, Wei Wang, Lidong Gao, Yan Wang, Kaiwei Luo, Lingshuang Ren, Zhifei
+  Zhan, Xinghui Chen, Shanlu Zhao, Yiwei Huang, et~al.
+\newblock Transmission heterogeneities, kinetics, and controllability of
+  sars-cov-2.
+\newblock \emph{Science}, 371\penalty0 (6526):\penalty0 eabe2424, 2021.
+
+\end{thebibliography}

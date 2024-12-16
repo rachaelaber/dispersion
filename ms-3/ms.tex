@@ -1,0 +1,67 @@
+\documentclass[11pt,letterpaper]{article}
+
+% Packages
+\usepackage{authblk} % For author affiliations
+\usepackage{graphicx} % For including graphics
+\usepackage{amsmath, amssymb} % For mathematical symbols
+\usepackage{hyperref} % For hyperlinks
+\usepackage{natbib} % For bibliography
+\usepackage[margin=1in]{geometry} % Standard margins
+\usepackage{lineno} % For line numbers
+
+% Metadata
+\title{Time-series modeling of epidemics in complex populations: detecting changes in incidence volatility over time}
+\author[1]{Rachael Aber}
+\author[2]{Yanming Di}
+\author[1,3]{Benjamin D. Dalziel}
+\affil[1]{Department of Integrative Biology, Oregon State University, Corvallis, Oregon, USA}
+\affil[2]{Department of Statistics, Oregon, Oregon State University, Corvallis, Oregon, USA}
+\affil[3]{Department of Mathematics, Oregon State University, Corvallis, Oregon, USA}
+\date{} % No date for submissions
+
+% Begin Document
+\begin{document}
+
+\linenumbers\maketitle
+
+\begin{abstract}
+Trends in infectious disease incidence provide important information about epidemic dynamics and prospects for control. 
+Higher-frequency variation around incidence trends can shed light on the processes driving epidemics in complex populations, as transmission heterogeneity, shifting landscapes of susceptibility, and fluctuations in reporting can impact the volatility of observed case counts.
+However, measures of temporal volatility in incidence, and how it changes over time, is often overlooked in population-level analyses of incidence data, which typically focus on moving averages.
+Here we present a statistical framework to quantify temporal changes in incidence dispersion and detect discrete shifts in the dispersion parameter, which may signal new epidemic phases. 
+We apply the method to COVID-19 incidence data in 144 US counties from the January 1st, 2020 to March 23rd, 2023.
+Theory predicts that dispersion should be inversely proportional to incidence, however our method reveals pronounced temporal trends in dispersion that are not explained by incidence alone, but which are replicated across counties. 
+In particular, dispersion increased around the major surge in cases in 2022, and highly overdispersed patterns became more frequent later in the time series.
+These findings suggest that heterogeneity in transmission, susceptibility, and reporting could play important roles in driving large surges and extending epidemic duration. 
+The dispersion of incidence time series can contain structured information which enhances predictive understanding of the underlying drivers of transmission, with potential applications as leading indicators for public health response.
+\end{abstract}
+
+\section*{Author summary}
+Understanding patterns in infectious disease incidence is crucial for understanding epidemic dynamics and for developing effective public health responses. 
+However, traditional metrics used to quantify incidence patterns often overlook variability as an important characteristic of incidence time series. 
+Quantifying variability around incidence trends can elucidate important underlying processes, including transmission heterogeneity.
+We developed a statistical framework to quantify temporal changes in case count dispersion within a single time series and applied the method to COVID-19 case count data. We found that conspicuous shifts in dispersion occurred across counties concurrently, and that these shifts were not explained by incidence alone. 
+Dispersion increased around peaks in incidence such as the major surge in cases in 2022, and dispersion also increased as the pandemic progressed. 
+These increases potentially indicate transmission heterogeneity, changes in the susceptibility landscape, or that there were changes in reporting.
+Shifts in dispersion can also indicate shifts in epidemic phase, so our method provides a way for public health officials to anticipate and manage changes in epidemic regime and the drivers of transmission. 
+
+\section*{Introduction}
+Time series of infectious disease incidence appear, to varying degrees, ``noisy'', showing higher frequency fluctuations (e.g., day-to-day or week-to-week fluctations) around trends at the broader temporal ranges typical for epidemic curves (e.g., months or years).
+Short-term fluctuations in incidence time series are often caused in part by variable reporting, but also reflect the population-level impacts of transmission heterogeneity, and/or changes in susceptiblility~\cite{lloyd2005superspreading, kirkegaard2021superspreading, sun2021transmission,guo2023statistical,ko2023time}.
+Metrics of variability in incidence time series may therefore carry information regarding underlying drivers of transmission, and offer a relatively unexplored avenue for understanding epidemic dynamics. 
+
+Contact tracing data has revealed temporal changes in the variability of individual reproductive numbers, quantified by shifts in the dispersion parameter of the offspring distribution in branching process models~\cite{guo2023statistical,ko2023time}.
+However, the scaling from individual-level transmission heterogeneity to population-level epidemic dynamics is not fully understood.
+In addition, traditional contact tracing is very resource intensive, and although new approaches using digital technologies may improve its speed and availability~\cite{kretzschmar2020impact}, there is a need for complementary population-level analyses that can estimate heterogeneity using incidence data, which is more widely available.
+The importance of considering population-level variability and its relationship to individual-level variability is further highlighted by the finding that a combination of individual-based and population-based strategies was required for SARS-CoV-2 control~\cite{sun2021transmission}. 
+An important challenge therefore is to develop methods that can detect changes in population-level variability in incidence time series, and to interpret these changes in terms of underlying transmission processes.
+
+\section*{Acknowledgments}
+RA work on this project was supported by X and Y. BDD work on this project was supported by the National Science Foundation (NSF) grants (X, Y) and by the David and Lucile Packard Foundation.
+
+\section*{References}
+\bibliographystyle{plainnat} % Use plainnat or another appropriate style
+\bibliography{references} % Create a references.bib file
+
+% End Document
+\end{document}

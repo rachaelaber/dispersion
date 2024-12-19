@@ -96,7 +96,7 @@ In practice, these assumption will not often hold, and our aim in this paper is 
 
 \section*{Methods}
 By definition incidence volatility is fast relative to broadscale epidemic dynamics. 
-Consequently, in order to estimate incidence volatility we first model incidence at broad spatiotemporal scales using natural splines~\citep{perperoglou2019review} fitted within a moving window
+Consequently, in order to estimate incidence volatility we first model incidence at broad spatiotemporal scales using natural splines~\citep{perperoglou2019review}. To allow for diverse shapes in the broadscale epidemic dynamics, these are fitted within a moving window
 \begin{equation}
   \log\left(\dfrac{\mu_t}{N}\right)  = \sum_{j=1}^J \beta_j^{(t)} h_j(t)
 \end{equation}
@@ -118,7 +118,7 @@ The form of the probability mass function for infections at a time step is:
 where $\mu$ is estimated via the linear predictor outlined above. 
 
 We estimate $\theta_t$ given observed incidence using an iteratively reweighted least-squares procedure implemented via the NBPSeq R package~\citep{di2015nbpseq}. 
-For each time window, a series of $\mu_s$ from $s = t-\Delta$ to $s = t + \Delta$ is estimated using the spline, and a single value of $\theta_t$ is fitted. [more detail needed]
+For each time window, a series of $\mu_s$ from $s = t-\Delta$ to $s = t + \Delta$ is estimated using the spline, and a single value of $\theta_t$ is fitted.
 
 In addition to fitting the model at each time step, we developed a likelihood-ratio test (LRT) that can be applied at each time step to test the hypothesis that $\theta$ has changed. This involves fitting and comparing both a null model (no \begin{math}\theta\end{math} change) and a two-part (\begin{math}\theta\end{math}-change) model. [more detail needed]
 

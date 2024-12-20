@@ -56,32 +56,28 @@ for (i in 1:length(pops)) {
   current_dtheta = dtheta[which(curve_parms$population == pops[i])]
   current_pvals = pvals[which(curve_parms$population == pops[i])]
   
-  plot(current_pvals ~ jitter(abs(current_dtheta), 0.01),
-       pch = 21, col = "darkgrey", cex = 0.2,
-       bg = rgb(0.4, 0.4, 0.4, 0.3),
-       main = "",
+  df <- data.frame(adt = abs(current_dtheta), p = current_pvals)
+  
+  boxplot(p ~ adt, data = df, subset = adt <= 9,
        xlab = expression(paste(abs(theta[2] - theta[1]))),
-       ylab = "p-value",
-       xlim = c(0, 9),
-       ylim = c(0, 1),
-       xaxt = "n", yaxt = "n", cex.lab = 1.7
+       ylab = "p-value", col = "lightblue"
   )
   
   mtext(letters[5:6][i], side = 3, line = 1, adj = 0, cex = 1.2)
   
-  axis(1, seq(0, 9, 3), cex.axis = 1.7)
-  axis(2, seq(0, 1, 0.25), cex.axis = 1.7)
+  #axis(1, seq(0, 9, 3), cex.axis = 1.7)
+  #axis(2, seq(0, 1, 0.25), cex.axis = 1.7)
   
-  ag <- aggregate(current_pvals ~ abs(current_dtheta), FUN = median)
-  points(ag[, 1], ag[, 2], pch = 19, col = 2, cex = 1)
+  #ag <- aggregate(current_pvals ~ abs(current_dtheta), FUN = median)
+  #points(ag[, 1], ag[, 2], pch = 19, col = 2, cex = 1)
 
-  ag <- aggregate(current_pvals ~ abs(current_dtheta), FUN = quantile, probs = c(0.25, 0.75))
-  lo <- ag[, 2][, 1]
-  hi <- ag[, 2][, 2]
-  segments(ag[, 1], lo, ag[, 1], hi, col = 2, lwd = 3)
+  #ag <- aggregate(current_pvals ~ abs(current_dtheta), FUN = quantile, probs = c(0.25, 0.75))
+  #lo <- ag[, 2][, 1]
+  #hi <- ag[, 2][, 2]
+  #segments(ag[, 1], lo, ag[, 1], hi, col = 2, lwd = 3)
   
-  text(0, 0.9, "O", cex = 1.2)
-  text(9, 0.9, "X", cex = 1.2)
+  text(1, 0.9, "O", cex = 1.2)
+  text(10, 0.9, "X", cex = 1.2)
 
 }
 

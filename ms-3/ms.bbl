@@ -91,6 +91,13 @@ Perperoglou A, Sauerbrei W, Abrahamowicz M, Schmid M.
 \newblock A review of spline function procedures in R.
 \newblock BMC Medical Research Methodology. 2019;19:1--16.
 
+\bibitem{MASS}
+Venables WN, Ripley BD.
+\newblock Modern Applied Statistics with S.
+\newblock 4th ed. New York: Springer; 2002.
+\newblock ISBN 0-387-95457-0.
+\newblock Available from: \url{https://www.stats.ox.ac.uk/pub/MASS4/}.
+
 \bibitem{di2015nbpseq}
 Di Y, Schafer D, Cumbie J, Chang J.
 \newblock NBPSeq: Negative Binomial Models for RNA-Sequencing Data.

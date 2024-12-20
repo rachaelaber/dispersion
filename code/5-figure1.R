@@ -37,18 +37,19 @@ mtext("b", side = 3, line = 1, adj = 0, cex = 1.2)
 
 
 # Row 2
-plot(rep(curve_parms$theta1[11188], times = length(curves[11188, ])),
-  xlab = "Day", ylab = expression(theta), col = 4, cex = .1, type = "l", cex.lab = 1.55, cex.axis = 1.45, ylim = c(0, 11) #nolint 
-)
+plot(rep(curve_parms$theta1[which(curve_parms$theta1 == curve_parms$theta2 & curve_parms$breakpoint == 30 & curve_parms$final_size == 1000000 & curve_parms$curve_type == 2 & curve_parms$theta1 == 1.1)], 
+         times = length(curves[which(curve_parms$theta1 == curve_parms$theta2 & curve_parms$breakpoint == 30 & curve_parms$final_size == 1000000 & curve_parms$curve_type == 2 & curve_parms$theta1 == 1.1),])),
+     xlab = "Day", ylab = expression(theta), col = 4, cex = .1, type = "l", cex.lab = 1.55, cex.axis = 1.45, ylim = c(0, 11))
+
 mtext("c", side = 3, line = 1, adj = 0, cex = 1.2)
 mtext("O", side = 3, line = -2, cex = 1.2)
-plot(
-  c(
-    rep(curve_parms$theta1[11314], times = length(curves[11314, ]) / 2),
-    rep(curve_parms$theta2[11314], times = length(curves[11314, ]) / 2)
-  ),
-  xlab = "Day", ylab = expression(theta), col = 4, cex = .1, type = "l", cex.lab = 1.55, cex.axis = 1.45, ylim = c(0, 11) #nolint 
-)
+
+plot(c(rep(curve_parms$theta1[which(curve_parms$theta1 == 1.1 & curve_parms$theta2 == 10.1 & curve_parms$breakpoint == 30 & curve_parms$final_size == 1000000 & curve_parms$curve_type == 2)], 
+           times = length(curves[which(curve_parms$theta1 == 1.1 & curve_parms$theta2 == 10.1 & curve_parms$breakpoint == 30 & curve_parms$final_size == 1000000 & curve_parms$curve_type == 2),])/2), 
+       rep(curve_parms$theta2[which(curve_parms$theta1 == 1.1 & curve_parms$theta2 == 10.1 & curve_parms$breakpoint == 30 & curve_parms$final_size == 1000000 & curve_parms$curve_type == 2)], 
+           times = length(curves[which(curve_parms$theta1 == 1.1 & curve_parms$theta2 == 10.1 & curve_parms$breakpoint == 30  & curve_parms$final_size == 1000000 & curve_parms$curve_type == 2),])/2)),
+     xlab = "Day", ylab = expression(theta), col = 4, cex = .1, type = "l", cex.lab = 1.55, cex.axis = 1.45, ylim = c(0, 11))
+
 mtext("d", side = 3, line = 1, adj = 0, cex = 1.2)
 mtext("X", side = 3, line = -2, cex = 1.2)
 

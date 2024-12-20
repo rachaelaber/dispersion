@@ -16,9 +16,9 @@ population_max <- signif(max(pops), 1)
 breakpoint_min <- 20
 breakpoint_max <- 40
 
-nbreakpoint <- 5  # Number of unique breakpoint values
+nbreakpoint <- 5 # Number of unique breakpoint values
 
-nstep <- 60       # Number of time steps in simulated trajectories
+nstep <- 60 # Number of time steps in simulated trajectories
 
 # Theta, breakpoint, population size, and curve type sequences
 # Max theta could be based on mu^2, where the alg performs well, alg boundaries, or emp. data
@@ -29,11 +29,13 @@ population <- c(10000, seq(population_min, population_max, length.out = 5))
 curve_type <- c(1, 2)
 
 # Expand grid and add final size
-curve_parms <- expand.grid(theta1 = theta1,
-                           theta2 = theta2,
-                           breakpoint = breakpoint,
-                           population = population,
-                           curve_type = curve_type)
+curve_parms <- expand.grid(
+  theta1 = theta1,
+  theta2 = theta2,
+  breakpoint = breakpoint,
+  population = population,
+  curve_type = curve_type
+)
 
 curve_parms$final_size <- final_attack_rate * curve_parms$population
 
@@ -43,27 +45,27 @@ rm(theta1, theta2, breakpoint, population, curve_type)
 ncurve <- nrow(curve_parms)
 curves <- matrix(NA, nrow = ncurve, ncol = nstep)
 for (i in 1:ncurve) {
+  breakpoint <- curve_parms$breakpoint[i]
+  theta1 <- curve_parms$theta1[i]
+  theta2 <- curve_parms$theta2[i]
+  final_size <- curve_parms$final_size[i]
+  curve_type <- curve_parms$curve_type[i]
 
-    breakpoint <- curve_parms$breakpoint[i]
-    theta1 <- curve_parms$theta1[i]
-    theta2 <- curve_parms$theta2[i]
-    final_size <- curve_parms$final_size[i]
-    curve_type <- curve_parms$curve_type[i]
+  means <- get_template(
+    param = c(final_size, peak_time, peak_width, nstep),
+    type = curve_type
+  )
 
-    means <- get_template(param = c(final_size, peak_time, peak_width, nstep),
-                          type = curve_type)
+  means1 <- means[1:breakpoint]
+  means2 <- means[(breakpoint + 1):length(means)]
 
-    means1 <- means[1:breakpoint]
-    means2 <- means[(breakpoint + 1):length(means)]
+  k1 <- theta1
+  k2 <- theta2
 
-    k1 <- theta1
-    k2 <- theta2
+  c1 <- rnbinom(n = length(means1), mu = means1, size = k1)
+  c2 <- rnbinom(n = length(means2), mu = means2, size = k2)
 
-    c1 <- rnbinom(n = length(means1), mu = means1, size = k1) 
-    c2 <- rnbinom(n = length(means2), mu = means2, size = k2) 
-
-    curves[i, ] <- c(c1, c2)
-
+  curves[i, ] <- c(c1, c2)
 }
 
 # Save curves

@@ -38,7 +38,7 @@ Trends in infectious disease incidence provide important information about epide
 Higher-frequency variation around incidence trends can shed light on the processes driving epidemics in complex populations, as transmission heterogeneity, shifting landscapes of susceptibility, and fluctuations in reporting can impact the volatility of observed case counts.
 However, measures of temporal volatility in incidence, and how volatility changes over time, are often overlooked in population-level analyses of incidence data, which typically focus on moving averages.
 Here we present a statistical framework to quantify temporal changes in incidence dispersion and detect rapid shifts in the dispersion parameter, which may signal new epidemic phases. 
-We apply the method to COVID-19 incidence data in 144 US counties from the January 1st, 2020 to March 23rd, 2023.
+We apply the method to COVID-19 incidence data in 144 United States (US) counties from the January 1st, 2020 to March 23rd, 2023.
 Theory predicts that dispersion should be inversely proportional to incidence, however our method reveals pronounced temporal trends in dispersion that are not explained by incidence alone, but which are replicated across counties. 
 In particular, dispersion increased around the major surge in cases in 2022, and highly overdispersed patterns became more frequent later in the time series.
 These findings suggest that heterogeneity in transmission, susceptibility, and reporting could play important roles in driving large surges and extending epidemic duration. 
@@ -49,7 +49,8 @@ The dispersion of incidence time series can contain structured information which
 \section*{Author summary}
 Understanding patterns in infectious disease incidence is crucial for understanding epidemic dynamics and for developing effective public Traditional metrics used to quantify incidence patterns often overlook variability as an important characteristic of incidence time series. 
 Quantifying variability around incidence trends can elucidate important underlying processes, including transmission heterogeneity.
-We developed a statistical framework to quantify temporal changes in case count dispersion within a single time series and applied the method to COVID-19 case count data. We found that conspicuous shifts in dispersion occurred across counties concurrently, and that these shifts were not explained by incidence alone. 
+We developed a statistical framework to quantify temporal changes in case count dispersion within a single time series and applied the method to COVID-19 case count data. 
+We found that conspicuous shifts in dispersion occurred across counties concurrently, and that these shifts were not explained by incidence alone. 
 Dispersion increased around peaks in incidence such as the major surge in cases in 2022, and dispersion also increased as the pandemic progressed. 
 These increases potentially indicate transmission heterogeneity, changes in the susceptibility landscape, or that there were changes in reporting.
 Shifts in dispersion can also indicate shifts in epidemic phase, so our method provides a way for public health officials to anticipate and manage changes in epidemic regime and the drivers of transmission. 
@@ -129,11 +130,26 @@ Stochastic noise was then added to these templates by sampling from a negative b
 This allowed us to simulate epidemic curves with variation in dispersion, as well as the special case when $\theta_1 = \theta_2$.
 
 \subsection*{Data availability and processing}
-We applied our method to cumulative COVID-19 case countes in US counties~\citep{nytimes_covid19}.
-Population sizes were from The United States Census Bureau~\citep{us_census_county_population_2021}.
+We applied our method to cumulative COVID-19 case counts in United States (US) counties~\citep{nytimes_covid19}.
+Population sizes were from taken the US Census Bureau~\citep{us_census_county_population_2021}.
 Cumulative cases for the largest three counties in each state were converted to weekly counts by keeping the last observation from each week and differenced to compute new cases. Missing values for new cases were all at the beginning of the pandemic and were imputed as zero. 
 Approximately 0.24\% of new cases were negative due to corrections in the cumulative data. These were also imputed as zero. 
-We used a width paramter of $\delta = 8$ and set the degrees of freedom parameter for the natural splines to $J = 3$.  
+We used a width paramter of $\delta = 8$ week and set the degrees of freedom parameter for the natural splines to $J = 3$.  
+[This seems like a wide window and a low-df spline. Why did we choose these and what happens if we use different values? Some sort of sensitivity analysis is probably needed, even if it is just to run the analysis using a smaller window and larger df]
+
+\section*{Results and Discussion}
+Our estimates of $\theta$ were robust across the population sizes included in the empirical analysis of U.S. counties. 
+However, inaccuracies were more common in counties with small populations outside the examined range.%(\nameref{S1_Fig}). 
+We found that the LRT method of testing for sharp changes in $\theta$ is also robust across population sizes represented in the empirical data (Fig\ 1 e, f). 
+Adequate test performance is characterized by an average \( p \)-value of 0.5 when the effect size is zero, with decreasing average $p$-values as the effect size increases. 
+
+\begin{figure}[!ht]
+\includegraphics[width=1\textwidth]{fig1}
+\caption{
+Detecting changes in dispersion within incidence time series for populations of different sizes. (a, b) Simulated case counts with constant (a) and changing (b) dispersion parameters. (c, d) Dispersion parameters used to generate the data in (a) and (b), respectively. (e, f) LRT performance under varying absolute differences in \(\theta\) (horizontal axis), showing \( p \)-value distributions for population sizes of 50,000 (e) and 10,000,000 (f), representing the range in the empirical data. The null and alternative hypotheses (O and X) correspond to the parameters in (c) and (d). Red vertical lines indicate interquartile ranges.
+}\label{fig1}
+\end{figure}
+
 
 
 \section*{Acknowledgments}

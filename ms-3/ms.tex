@@ -117,10 +117,9 @@ The form of the probability mass function for infections at a time step is:
 \end{equation}
 where $\mu$ is estimated via the linear predictor outlined above. 
 
-We estimate $\theta_t$ given observed incidence using an iteratively reweighted least-squares procedure implemented via the NBPSeq R package~\citep{di2015nbpseq}. 
-For each time window, a series of $\mu_s$ from $s = t-\Delta$ to $s = t + \Delta$ is estimated using the spline, and a single value of $\theta_t$ is fitted.
+Since the 'glm.nb' function in the MASS R package \cite{MASS} doesn't accomodate an offset term, we estimated $\theta_t$ given observed incidence using an iteratively reweighted least-squares (IRLS) procedure for mean estimation in conjunction with an optimization procedure to compute $\theta_t$. That is, for each time window, a series of $\mu_s$ from $s = t-\Delta$ to $s = t + \Delta$ was estimated using the spline and offset term via IRLS in the NBPSeq R package~\citep{di2015nbpseq}. Then, a single value of $\theta_t$ for the time window was computed via an optimization procedure. 
 
-In addition to fitting the model at each time step, we developed a likelihood-ratio test (LRT) that can be applied at each time step to test the hypothesis that $\theta$ has changed. This involves fitting and comparing both a null model (no \begin{math}\theta\end{math} change) and a two-part (\begin{math}\theta\end{math}-change) model. [more detail needed]
+In addition to fitting the model at each time step, we developed a likelihood-ratio test (LRT) that could be applied at each time step to test the hypothesis that $\theta$ has changed. This involves fitting and comparing both a null model (no \begin{math}\theta\end{math} change) and a two-part (\begin{math}\theta\end{math}-change) model. For the null model, an optimization for a single $\theta$ value for the time window was performed, and for the \begin{math}\theta\end{math}-change model, an optimization for a $\theta$ value during the first half of the window was performed, as well as an optimization for the second half. 
 
 \subsection*{Application to simulated data}
 

@@ -60,7 +60,8 @@ for (i in 1:length(pops)) {
   
   boxplot(p ~ adt, data = df, subset = adt <= 9,
        xlab = expression(paste(abs(theta[2] - theta[1]))),
-       ylab = "p-value", col = "lightblue"
+       ylab = "p-value", col = "lightblue",
+       range = 0
   )
   
   mtext(letters[5:6][i], side = 3, line = 1, adj = 0, cex = 1.2)

@@ -12,8 +12,7 @@ thetas1 <- matrix(NA, nrow = nrow(cases), ncol = 154)
 thetas2 <- matrix(NA, nrow = nrow(cases), ncol = 154)
 thetas <- matrix(NA, nrow = nrow(cases), ncol = 154)
 
-for (j in 1:nrow(cases)) {
-  
+for (j in seq_len(nrow(cases))) {
   print(paste("County", j, "of", nrow(cases)))
 
   series <- cases[j, ]
@@ -40,17 +39,16 @@ for (j in 1:nrow(cases)) {
     })
 
     if (!is.na(out[1])) {
-        theta1 <- c(theta1, 1 / out$phi11)
-        theta2 <- c(theta2, 1 / out$phi12)
-        theta <- c(theta, 1/ out$phi0)
-        lrt_stat <- c(lrt_stat, out$lambda)
-        lrt_p <- c(lrt_p, out$p)
-  
-    }else{
+      theta1 <- c(theta1, 1 / out$phi11)
+      theta2 <- c(theta2, 1 / out$phi12)
+      theta <- c(theta, 1 / out$phi0)
+      lrt_stat <- c(lrt_stat, out$lambda)
+      lrt_p <- c(lrt_p, out$p)
+    } else {
       lrt_stat <- c(lrt_stat, NA)
       lrt_p <- c(lrt_p, NA)
       theta1 <- c(theta1, NA)
-      theta2 <- c(theta2, NA) 
+      theta2 <- c(theta2, NA)
       theta <- c(theta, NA)
     }
   }
@@ -60,7 +58,6 @@ for (j in 1:nrow(cases)) {
   thetas1[j, ] <- theta1
   thetas2[j, ] <- theta2
   thetas[j, ] <- theta
-  
 }
 
 filename <- "data/processed/theta_lg_pops.Rdata"
@@ -87,4 +84,3 @@ filename <- "data/processed/lrtps_lg_pops.Rdata"
 lrt_ps[c(bad, bad1, bad2)] <- NA
 
 save(lrt_ps, file = filename)
-

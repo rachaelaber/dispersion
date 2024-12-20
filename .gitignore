@@ -5,3 +5,4 @@ data/raw/us-counties-2021.csv
 data/raw/us-counties-2022.csv
 data/raw/us-counties-2023.csv
 data/raw/co-est2021-alldata.csv
+*.fdb_latexmk

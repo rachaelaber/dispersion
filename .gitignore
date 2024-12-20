@@ -13,3 +13,8 @@ data/raw/co-est2021-alldata.csv
 *.log
 *.fls
 *.gz
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.gz

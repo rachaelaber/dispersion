@@ -19,6 +19,7 @@ cases <- cases[, keep]
 incidence <- incidence[, keep]
 
 # PLOT
+
 filename <- "figures/fig3.pdf"
 pdf(filename)
 par(mfrow = c(3, 2))
@@ -32,14 +33,19 @@ plot(dates, colMeans(cases), type = "l", lwd = 2, col = "black", xlab = "Date",
 mtext("a", side = 3, line = 1, adj = 0, cex = 1.5)
 
 # 2. Mean log10(theta)
+
 par(mar = c(4, 4, 3, 6), xpd = TRUE) 
 
 plot(dates, colMeans(log10(thetas), na.rm = T), type = "l", lwd = 2, col = "black", xlab = "Date", 
-     ylab = "", main = expression(bold(paste("Mean ", theta))), cex.main = 1.7, cex.lab = 1.4)
+     ylab = "", main = expression(bold("Mean " * log[10](theta))), cex.main = 1.7, cex.lab = 1.4,
+     ylim = c(0, 8))
+
+lines(dates, colMeans(log10(cases + 0.0001) - log10(reporting_rate), na.rm = T), lty = 2)
 
 mtext("b", side = 3, line = 1, adj = 0, cex = 1.5)
 
-# 3. log10(cases) surface (adjusted for reporting)
+# 3. log10(EXPECTED thetas) surface
+
 par(mar = c(4, 4, 3, 6), xpd = TRUE) 
 
 x <- cases
@@ -106,10 +112,11 @@ legend("topright", inset = c(-0.34, 0.1),
        fill = colors,
        cex = 0.8)
 
-# 5. Thetas barplot
+# 5. log10(EXPECTED thetas) barplot
+
 par(mar = c(4, 4, 3, 6), xpd = TRUE) 
 
-thetas <- thetas
+thetas <- cases/reporting_rate
 my <- format(dates, "%b-%y")
 umy <- unique(my)
 nmy <- length(umy)
@@ -132,9 +139,9 @@ bar_positions <- barplot(x,
                          xlab = "Date",
                          xaxt = "n",  # Disable automatic x-axis to add manually
                          ylab = "Number of estimates",
-                         main = expression(bold(log10(theta))),
                          cex.main = 1.7,
-                         cex.lab = 1.4)
+                         cex.lab = 1.4,
+                         main = expression(bold(log10(cases)) - bold(log10(0.10))))
 
 mtext("e", side = 3, line = 1, adj = 0, cex = 1.5)
 

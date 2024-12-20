@@ -38,8 +38,8 @@ for (i in 1:(length(dates) - 1)) {
 
 lines(dates, log10(c(NA, series[-length(series)])) - log10(reporting_rate), lwd = 2)
 
-legend("left", legend = c(expression(chi^2 >= 12.92225), expression(chi^2 < 12.92225)), 
-       lty = 1, col = c("red", "blue"), cex = 0.6, bty = "n")
+# legend("left", legend = c(expression(chi^2 >= 12.92225), expression(chi^2 < 12.92225)), 
+#        lty = 1, col = c("red", "blue"), cex = 0.6, bty = "n")
 mtext("b", side = 3, line = 1, adj = 0, cex = 1.3)
 
 dev.off()

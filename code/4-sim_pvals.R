@@ -4,6 +4,12 @@ graphics.off()
 
 source("code/lrt.R")
 
+
+# Parameters
+ww <- 8
+df <- 3
+
+
 # Load simulated curves
 filename <- "data/processed/simulated_curves.RData"
 load(filename)
@@ -14,16 +20,22 @@ ncurve <- nrow(curves)
 pvals <- rep(NA, ncurve)
 
 for (i in 1:ncurve) {
+
+  iy1 <- (curve_parms$breakpoint[i] - ww + 1):curve_parms$breakpoint[i]
+  iy2 <- (curve_parms$breakpoint[i] + 1):(curve_parms$breakpoint[i] + ww)
+
   pvals[i] <- tryCatch(lrt(
-    y1 = curves[i, ][(curve_parms$breakpoint[i]-7):curve_parms$breakpoint[i]],
-    y2 = curves[i, ][(curve_parms$breakpoint[i]+1):(curve_parms$breakpoint[i] + 8)], 
+    y1 = curves[i, ][iy1],
+    y2 = curves[i, ][iy2],
     s1 = curve_parms$population[i],
     s2 = curve_parms$population[i],
-    i1 = 1:8,
-    i2 = 9:16,
-    df1 = 3,
-    df2 = 3
-  )$p, error = function(e) return(NA))
+    i1 = 1:ww,
+    i2 = (ww + 1):(2 * ww),
+    df1 = df,
+    df2 = df
+  )$p, error = function(e) {
+    return(NA)
+  })
 
   if (i %% 100 == 0) {
     cat(i, "of", ncurve, "\n")

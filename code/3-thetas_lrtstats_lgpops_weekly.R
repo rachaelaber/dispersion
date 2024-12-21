@@ -2,15 +2,27 @@
 rm(list = ls())
 
 source("code/lrt.R")
-
 load("data/processed/nyt_weekly.Rdata")
 
+
+# Parameters
+ww <- 8
+df <- 3
+
+
+
+# Calculated quantities
+ncounty <- nrow(cases)
+nweek <- ncol(cases)
+nestimate <- length((ww + 1):(nweek - ww))
+
+
 # Set up empty matrices and loop through counties and time points
-lrt_stats <- matrix(NA, nrow = nrow(cases), ncol = 154)
-lrt_ps <- matrix(NA, nrow = nrow(cases), ncol = 154)
-thetas1 <- matrix(NA, nrow = nrow(cases), ncol = 154)
-thetas2 <- matrix(NA, nrow = nrow(cases), ncol = 154)
-thetas <- matrix(NA, nrow = nrow(cases), ncol = 154)
+lrt_stats <- matrix(NA, nrow = nrow(cases), ncol = nestimate)
+lrt_ps <- matrix(NA, nrow = nrow(cases), ncol = nestimate)
+thetas1 <- matrix(NA, nrow = nrow(cases), ncol = nestimate)
+thetas2 <- matrix(NA, nrow = nrow(cases), ncol = nestimate)
+thetas <- matrix(NA, nrow = nrow(cases), ncol = nestimate)
 
 for (j in seq_len(nrow(cases))) {
   print(paste("County", j, "of", nrow(cases)))
@@ -23,17 +35,17 @@ for (j in seq_len(nrow(cases))) {
   theta2 <- c()
   theta <- c()
 
-  for (i in 8:(length(series) - 8 + 1)) {
-    Y <- series[(i - 8):(i + 8)]
+  for (i in (ww + 1):(nweek - ww)) {
+    y <- series[(i - ww):(i + ww)]
 
     out <- tryCatch(lrt(
-      y1 = Y[1:(length(Y) / 2)], y2 = Y[((length(Y) / 2) + 1):length(Y)],
+      y1 = y[1:(length(y) / 2)], y2 = y[((length(y) / 2) + 1):length(y)],
       s1 = pops[j],
       s2 = pops[j],
-      i1 = 1:8,
-      i2 = 9:16,
-      df1 = 3,
-      df2 = 3
+      i1 = 1:ww,
+      i2 = (ww + 1):(2 * ww),
+      df1 = df,
+      df2 = df
     ), error = function(e) {
       return(NA)
     })

@@ -10,7 +10,6 @@ ww <- 8
 df <- 3
 
 
-
 # Calculated quantities
 ncounty <- nrow(cases)
 nweek <- ncol(cases)
@@ -36,10 +35,15 @@ for (j in seq_len(nrow(cases))) {
   theta <- c()
 
   for (i in (ww + 1):(nweek - ww)) {
-    y <- series[(i - ww):(i + ww)]
+    
+    iy1 <- (i - ww + 1):i
+    iy2 <- (i + 1):(i + ww)
+    
+    #y <- series[(i - ww):(i + ww)]
 
     out <- tryCatch(lrt(
-      y1 = y[1:(length(y) / 2)], y2 = y[((length(y) / 2) + 1):length(y)],
+      y1 = series[iy1], 
+      y2 = series[iy2],
       s1 = pops[j],
       s2 = pops[j],
       i1 = 1:ww,
@@ -74,25 +78,12 @@ for (j in seq_len(nrow(cases))) {
 
 filename <- "data/processed/theta_lg_pops.Rdata"
 
-bad <- which(thetas > 999950)
-bad1 <- which(thetas1 > 999950)
-bad2 <- which(thetas2 > 999950)
-
-thetas[bad] <- NA
-thetas1[bad1] <- NA
-thetas2[bad2] <- NA
-
-
 save(thetas1, thetas2, thetas, file = filename)
 
 filename <- "data/processed/lrt_lg_pops.Rdata"
 
-lrt_stats[c(bad, bad1, bad2)] <- NA
-
 save(lrt_stats, file = filename)
 
 filename <- "data/processed/lrtps_lg_pops.Rdata"
-
-lrt_ps[c(bad, bad1, bad2)] <- NA
 
 save(lrt_ps, file = filename)

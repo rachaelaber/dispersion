@@ -7,7 +7,7 @@ graphics.off()
 df <- 3
 ww <- 8
 theta <- 10
-s <- 10^3
+s <- 10^4
 
 
 # Load data and functions
@@ -53,6 +53,8 @@ y1 <- out$y1
 y2 <- out$y2
 i1 <- out$i1
 i2 <- out$i2
+mu1 <- out$mu1
+mu2 <- out$mu2
 
 
 #
@@ -94,7 +96,7 @@ plot(c(y1, y2),
   xlab = "Time",
   ylab = "Cases"
 )
-
+lines(c(mu1, mu2), col = 2, lwd = 3)
 
 par(cex = 2)
 

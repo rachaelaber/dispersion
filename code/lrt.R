@@ -12,7 +12,8 @@ library("gam")
 ##' @param i1, i2, indices (e.g. days)
 ##' @param df1, df2, d.f. for the spline on either side
 ##' @param surface, logical, whether to return a likelihood surface instead
-##' @param ptol, Poisson tolerance, below which phi is assumed effectively 0
+##' @param ptol, Poisson tolerance, below which phi is effectively 0
+##' @param ztol Zero tolerance, above which phi puts almost all mass at 0
 ##'
 ##'
 ##' @return
@@ -20,7 +21,8 @@ library("gam")
 
 lrt <- function(y1, y2, s1, s2, i1, i2, df1, df2,
                 surface = FALSE,
-                ptol = 1e-3) {
+                ptol = 1e-3,
+                ztol = 1e3) {
   ## Find spline basis
   x1 <- ns(i1, df = df1, intercept = TRUE) # nolint
   x2 <- ns(i2, df = df2, intercept = TRUE) # nolint
@@ -89,13 +91,19 @@ lrt <- function(y1, y2, s1, s2, i1, i2, df1, df2,
     p = p, lambda = lambda, l0 = l0, l11 = l11, l12 = l12,
     phi0 = phi0, phi11 = phi11, phi12 = phi12,
     res01 = res01, res02 = res02, res11 = res11, res12 = res12,
-    fail_to_reject_poisson = FALSE
+    fail_to_reject_poisson = FALSE,
+    collapse_to_zero = FALSE
   )
 
   fail_to_reject_poisson <-
     fitdata$phi0 < ptol |
     fitdata$phi11 < ptol |
     fitdata$phi12 < ptol
+
+  collapse_to_zero <-
+    fitdata$phi0 > ztol |
+    fitdata$phi11 > ztol |
+    fitdata$phi12 > ztol
 
   if (fail_to_reject_poisson) {
     fitdata$p <- NA
@@ -108,6 +116,19 @@ lrt <- function(y1, y2, s1, s2, i1, i2, df1, df2,
     fitdata$res11 <- NA
     fitdata$res12 <- NA
     fitdata$fail_to_reject_poisson <- TRUE
+  }
+
+  if (collapse_to_zero) {
+    fitdata$p <- NA
+    fitdata$l0 <- NA
+    fitdata$l11 <- NA
+    fitdata$l12 <- NA
+    fitdata$lambda <- NA
+    fitdata$res01 <- NA
+    fitdata$res02 <- NA
+    fitdata$res11 <- NA
+    fitdata$res12 <- NA
+    fitdata$collapse_to_zero <- TRUE
   }
 
   if (surface) {

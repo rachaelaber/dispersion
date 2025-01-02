@@ -73,7 +73,7 @@ image(dates, 1:144, log10(t(x)) - log10(reporting_rate),
   ylab = "",
   xaxt = "n",
   xlab = "Date",
-  main = expression(bold(log10(cases)) - bold(log10(0.10))),
+  main = expression(bold(log10(theta[0]))),
   cex.main = 1.7,
   cex.lab = 1.4
 )
@@ -159,7 +159,7 @@ bar_positions <- barplot(x,
   ylab = "Number of estimates",
   cex.main = 1.7,
   cex.lab = 1.4,
-  main = expression(bold(log10(cases)) - bold(log10(0.10)))
+  main = expression(bold(log10(theta[0])))
 )
 
 mtext("e", side = 3, line = 1, adj = 0, cex = 1.5)

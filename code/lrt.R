@@ -13,7 +13,7 @@ library("gam")
 ##' @param df1, df2, d.f. for the spline on either side
 ##' @param surface, logical, whether to return a likelihood surface instead
 ##' @param ptol, Poisson tolerance, below which phi is effectively 0
-##' @param ztol Zero tolerance, above which phi puts almost all mass at 0
+##' @param ztol, Zero tolerance, above which phi puts almost all mass at 0
 ##'
 ##'
 ##' @return

@@ -8,7 +8,7 @@ df <- 3
 ww <- 8
 ptol <- 1e-4
 ztol <- 1e4
-nsim <- 10^3
+nsim <- 2 * 10^3
 
 
 # Load data and functions
@@ -72,8 +72,13 @@ simdata <- data.frame(
   theta2 = 10^runif(nsim, -2.5, 2.5)
 )
 
-i <- sample.int(nsim, ceiling(0.1 * nsim)) # set theta2 = theta1 for some data
+i <- sample.int(nsim, ceiling(0.1 * nsim)) # set some theta2 = theta1
 simdata$theta2[i] <- simdata$theta1[i]
+
+x <- abs(log10(simdata$theta2 / simdata$theta1))
+i <- x > 3 # rare very large differences
+simdata$theta2[i] <- simdata$theta1[i] # set theta1 = theta2
+
 
 
 simdata$theta1_est <- NA
@@ -100,12 +105,15 @@ for (i in seq_len(nrow(simdata))) {
 
 
 # Plot
+filename <- "figures/fig1.pdf"
+pdf(filename)
+
+
 par(mfrow = c(2, 2))
 
 
 # panel a
-par(cex = 2)
-par(mar = c(5, 5, 3, 1))
+par(pin = c(2, 2))
 plot(incidence_smooth * 1000,
   type = "l",
   lwd = 3,
@@ -118,7 +126,7 @@ a <- 86
 b <- a + 2 * ww - 1
 
 lines(a:b, incidence_smooth[a:b] * 1000,
-  lwd = 10,
+  lwd = 5,
   col = 2
 )
 
@@ -126,8 +134,6 @@ lines(a:b, incidence_smooth[a:b] * 1000,
 
 # panel b
 target <- 73
-par(cex = 2)
-par(mar = c(5, 5, 3, 1))
 cases_snippet <- cases[target, a:b]
 
 out <- dispersion_test( # nolint
@@ -151,7 +157,7 @@ plot(a:b, cases_snippet * 1e-3,
 )
 
 lines(a:b, y * 1e-3, col = 2, lwd = 3)
-segments(a + ww, -1e6, a + ww, 1e6, lty = 3, lwd = 3)
+segments(a + ww, -1e6, a + ww, 1e6)
 
 theta1_est_rounded <- format(round(out$theta1_est, 1), nsmall = 1)
 theta2_est_rounded <- format(round(out$theta2_est, 1), nsmall = 1)
@@ -160,16 +166,14 @@ text(
   a,
   0.95 * ylim[2],
   bquote(hat(theta)[1] == .(theta1_est_rounded)),
-  pos = 4,
-  cex = 0.75
+  pos = 4
 )
 
 text(
   b,
   0.95 * ylim[2],
   bquote(hat(theta)[2] == .(theta2_est_rounded)),
-  pos = 2,
-  cex = 0.75
+  pos = 2
 )
 
 
@@ -202,7 +206,7 @@ if (0) {
     0.95 * ylim[2],
     bquote(theta[1] == .(theta1_est_rounded)),
     pos = 4,
-    cex = 0.75
+    cex = 1.5
   )
 
   text(
@@ -210,7 +214,7 @@ if (0) {
     0.95 * ylim[2],
     bquote(theta[2] == .(theta2_est_rounded)),
     pos = 2,
-    cex = 0.75
+    cex = 1.5
   )
 }
 
@@ -222,8 +226,7 @@ col[simdata$theta1_est > 1 / ptol] <- "purple"
 col[simdata$theta1_est < 1 / ztol] <- "blue"
 
 
-par(cex = 2)
-par(mar = c(5, 5, 3, 1))
+
 plot(
   x = log10(simdata$theta1),
   y = log10(simdata$theta1_est),
@@ -245,36 +248,36 @@ abline(0, 1, col = 2, lwd = 5)
 
 
 # panel d
+x <- abs(log10(simdata$theta2 / simdata$theta1))
+y <- log2(simdata$p)
+
+
 plot(
-  x = abs(log10(simdata$theta2 / simdata$theta1)),
-  y = simdata$p,
+  x = x,
+  y = y,
   xlab = expression(abs(log[10] ~ (theta[2] / theta[1]))),
   ylab = "p",
-  xlim = c(0, 3),
-  xaxt = "n"
+  xaxt = "n",
+  yaxt = "n"
 )
-axis(1, at = c(0, 1, 2, 3))
-
-
-x <- abs(log10(simdata$theta2 / simdata$theta1))
-
-x0 <- x == 0
-x1 <- !x0 & x <= log10(2)
-x2 <- !x0 & !x1 & x <= log10(5)
-x3 <- !x0 & !x1 & !x2 & x <= log10(10)
-
-p0 <- median(simdata$p[x0], na.rm = TRUE)
-p1 <- median(simdata$p[x1], na.rm = TRUE)
-p2 <- median(simdata$p[x2], na.rm = TRUE)
-p3 <- median(simdata$p[x3], na.rm = TRUE)
-
-xx <- log10(c(1, 2, 5, 10))
-pp <- c(p0, p1, p2, p3)
-points(xx, pp,
-  pch = 21,
-  col = 2,
-  cex = 2,
-  bg = 2,
-  lwd = 5,
-  type = "b"
+axis(1, at = c(0, 1, 2, 3, 4, 5))
+axis(2,
+  at = log2(c(0.5, 10^seq(-3, -12, -3))),
+  labels = expression(2^-1, 10^-3, 10^-6, 10^-9, 10^-12)
 )
+
+library(mgcv)
+fit <- gam(y ~ s(x))
+xp <- seq(0, 4, len = 100)
+pred <- predict(fit, newdata = data.frame(x = xp), se.fit = TRUE)
+yp <- pred$fit
+yu <- yp + 3 * pred$se.fit
+yl <- yp - 3 * pred$se.fit
+
+polygon(c(xp, rev(xp)), c(yu, rev(yl)), col = rgb(1, 0, 0, 0.3), border = NA)
+
+lines(xp, yp, col = 2, lwd = 5)
+lines(xp, yu, col = 2, lwd = 1)
+lines(xp, yl, col = 2, lwd = 1)
+
+dev.off()

@@ -8,6 +8,14 @@ load("data/processed/lrt_lg_pops.Rdata")
 load("data/processed/nyt_weekly.Rdata")
 load("data/processed/theta_lg_pops.Rdata")
 load("data/processed/lrtps_lg_pops.Rdata")
+load('data/processed/ftr_poiss_lg_pops.Rdata')
+load('data/processed/ctzs_lg_pops.Rdata')
+
+mean(ftr_poiss)
+mean(ctzs)
+mean(thetas)
+mean(thetas1)
+mean(thetas2)
 
 # Parameters
 reporting_rate <- 0.10

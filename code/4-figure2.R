@@ -13,12 +13,6 @@ reporting_rate <- 0.10
 series <- cases[1, 8:(length(cases[1,]) - 8)]
 dates <- dates[8:(length(cases[1,]) - 8)]
 
-# Remove first observations from all
-#series <- series[35:length(series)]
-#dates <- dates[35: length(dates)]
-#lrt_stats <- lrt_stats[1, 35:dim(lrt_stats)[2]]
-#thetas <- thetas[1, 35:dim(thetas)[2]]
-
 # Plot
 
 par(mfrow = c(2, 1))
@@ -30,7 +24,7 @@ is_sig <- lrt_stats[1, ] > qchisq(0.9996753, df = 1) # w/o correcting for multip
 plot(dates, log10(thetas[1,]), type = "n", 
      xlab = "Dates", ylab = "", 
      main = expression(bold(log10(theta))), 
-     cex.main = 1.3, cex.lab = 1, cex.axis = 1, ylim = c(0, 5))
+     cex.main = 1.3, cex.lab = 1, cex.axis = 1, ylim = c(-5, 5))
 for (i in 1:(length(dates) - 1)) {
   segment_color <- ifelse(is_sig[i], "red", "blue")
     lines(dates[i:(i+1)], log10(thetas[1, i:(i+1)]), col = segment_color, lwd = 2)

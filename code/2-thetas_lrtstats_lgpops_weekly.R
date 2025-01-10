@@ -1,19 +1,22 @@
-# Compute thetas and LRT statistics for large counties over time
+# Compute thetas for large counties over time
 rm(list = ls())
 
 source("code/lrt.R")
+source("code/dispersion_test.R")
 load("data/processed/nyt_weekly.Rdata")
 
 
 # Parameters
 ww <- 8
 df <- 3
+ptol <- 1e-4
+ztol <- 1e4
 
 
 # Calculated quantities
 ncounty <- nrow(cases)
 nweek <- ncol(cases)
-nestimate <- length((ww + 1):(nweek - ww))
+nestimate <- length(ww:(nweek - ww))
 
 
 # Set up empty matrices and loop through counties and time points
@@ -22,6 +25,8 @@ lrt_ps <- matrix(NA, nrow = nrow(cases), ncol = nestimate)
 thetas1 <- matrix(NA, nrow = nrow(cases), ncol = nestimate)
 thetas2 <- matrix(NA, nrow = nrow(cases), ncol = nestimate)
 thetas <- matrix(NA, nrow = nrow(cases), ncol = nestimate)
+ftr_poiss <- matrix(NA, nrow = nrow(cases), ncol = nestimate)
+ctzs <- matrix(NA, nrow = nrow(cases), ncol = nestimate)
 
 for (j in seq_len(nrow(cases))) {
   print(paste("County", j, "of", nrow(cases)))
@@ -33,47 +38,34 @@ for (j in seq_len(nrow(cases))) {
   theta1 <- c()
   theta2 <- c()
   theta <- c()
+  ftr_pois <- c()
+  ctz <- c()
 
-  for (i in (ww + 1):(nweek - ww)) {
+  for (i in ww:(nweek - ww)) {
     
-    iy1 <- (i - ww + 1):i
-    iy2 <- (i + 1):(i + ww)
+    y <- series[(i-ww+1):(i + ww)]
     
-    #y <- series[(i - ww):(i + ww)]
+    out <- dispersion_test(y = y, s = pops[j], df = df, ptol = ptol , ztol = ztol)
+    print(out)
 
-    out <- tryCatch(lrt(
-      y1 = series[iy1], 
-      y2 = series[iy2],
-      s1 = pops[j],
-      s2 = pops[j],
-      i1 = 1:ww,
-      i2 = (ww + 1):(2 * ww),
-      df1 = df,
-      df2 = df
-    ), error = function(e) {
-      return(NA)
-    })
+    theta1 <- c(theta1, 1 / out$theta1_est)
+    theta2 <- c(theta2, 1 / out$theta2_est)
+    theta <- c(theta, 1 / out$theta0_est)
+    lrt_stat <- c(lrt_stat, out$lambda)
+    lrt_p <- c(lrt_p, out$p)
+    ftr_pois <- c(ftr_pois, out$fail_to_reject_poisson)
+    ctz <- c(ctz, out$collapse_to_zero)
 
-    if (!is.na(out[1])) {
-      theta1 <- c(theta1, 1 / out$phi11)
-      theta2 <- c(theta2, 1 / out$phi12)
-      theta <- c(theta, 1 / out$phi0)
-      lrt_stat <- c(lrt_stat, out$lambda)
-      lrt_p <- c(lrt_p, out$p)
-    } else {
-      lrt_stat <- c(lrt_stat, NA)
-      lrt_p <- c(lrt_p, NA)
-      theta1 <- c(theta1, NA)
-      theta2 <- c(theta2, NA)
-      theta <- c(theta, NA)
     }
-  }
 
-  lrt_stats[j, ] <- lrt_stat
-  lrt_ps[j, ] <- lrt_p
-  thetas1[j, ] <- theta1
-  thetas2[j, ] <- theta2
-  thetas[j, ] <- theta
+ lrt_stats[j, ] <- lrt_stat
+ lrt_ps[j, ] <- lrt_p
+ thetas1[j, ] <- theta1
+ thetas2[j, ] <- theta2
+ thetas[j, ] <- theta
+ ftr_poiss[j, ] <- ftr_pois
+ ctzs[j, ] <- ctz
+ 
 }
 
 filename <- "data/processed/theta_lg_pops.Rdata"
@@ -87,3 +79,11 @@ save(lrt_stats, file = filename)
 filename <- "data/processed/lrtps_lg_pops.Rdata"
 
 save(lrt_ps, file = filename)
+
+filename <- "data/processed/ftr_poiss_lg_pops.Rdata"
+
+save(ftr_poiss, file = filename)
+
+filename <- "data/processed/ctzs_lg_pops.Rdata"
+
+save(ctzs, file = filename)

@@ -10,8 +10,8 @@ pdf(filename, width = 6, height = 6)
 reporting_rate <- 0.10
 
 # Trim to same length as outputs
-series <- cases[1, 8:(length(cases[1,]) - 8 + 1)]
-dates <- dates[8:(length(cases[1,]) - 8 + 1)]
+series <- cases[1, 8:(length(cases[1,]) - 8)]
+dates <- dates[8:(length(cases[1,]) - 8)]
 
 # Remove first observations from all
 #series <- series[35:length(series)]

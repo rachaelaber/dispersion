@@ -14,7 +14,7 @@ reporting_rate <- 0.10
 ww <- 8
 
 # Trim elements or columns that will have NAs for theta and lrt
-keep <- (ww + 1):(length(dates) - ww)
+keep <- ww:(length(dates) - ww)
 dates <- dates[keep]
 cases <- cases[, keep]
 incidence <- incidence[, keep]

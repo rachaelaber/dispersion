@@ -33,6 +33,7 @@ dispersion_test <- function(y, s, df, ptol, ztol) {
     res02 <- NA
     res11 <- NA
     res22 <- NA
+    lambda <- NA
     p <- NA
     fail_to_reject_poisson <- NA
     collapse_to_zero <- NA
@@ -44,6 +45,7 @@ dispersion_test <- function(y, s, df, ptol, ztol) {
     res02 <- out$res02
     res11 <- out$res11
     res22 <- out$res22
+    lambda <- out$lambda
     p <- out$p
     fail_to_reject_poisson <- out$fail_to_reject_poisson
     collapse_to_zero <- out$collapse_to_zero
@@ -57,6 +59,7 @@ dispersion_test <- function(y, s, df, ptol, ztol) {
     res02 = res02,
     res11 = res11,
     res22 = res22,
+    lambda = lambda,
     p = p,
     fail_to_reject_poisson = fail_to_reject_poisson,
     collapse_to_zero = collapse_to_zero

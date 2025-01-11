@@ -48,9 +48,9 @@ for (j in seq_len(nrow(cases))) {
     out <- dispersion_test(y = y, s = pops[j], df = df, ptol = ptol , ztol = ztol)
     print(out)
 
-    theta1 <- c(theta1, 1 / out$theta1_est)
-    theta2 <- c(theta2, 1 / out$theta2_est)
-    theta <- c(theta, 1 / out$theta0_est)
+    theta1 <- c(theta1, out$theta1_est)
+    theta2 <- c(theta2,  out$theta2_est)
+    theta <- c(theta,  out$theta0_est)
     lrt_stat <- c(lrt_stat, out$lambda)
     lrt_p <- c(lrt_p, out$p)
     ftr_pois <- c(ftr_pois, out$fail_to_reject_poisson)

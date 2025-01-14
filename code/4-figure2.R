@@ -20,7 +20,7 @@ plot(dates, series, type = "h", xlab = "Dates", ylab = "", main = "Case counts",
 mtext("a", side = 3, line = 1, adj = 0, cex = 1.3)
 
 
-is_sig <- lrt_stats[1, ] > qchisq(0.9996753, df = 1) # w/o correcting for multiple testing
+is_sig <- lrt_stats[1, ] > qchisq(0.9996732, df = 1) 
 plot(dates, log10(thetas[1,]), type = "n", 
      xlab = "Dates", ylab = "", 
      main = expression(bold(log10(theta))), 

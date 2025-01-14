@@ -373,7 +373,7 @@ The criteria for adequate test performance are that the average p-value is 0.5 w
 \begin{figure}[!h]
 \includegraphics[width=1\textwidth]{fig1}
 \caption{
-Detecting dispersion changes in incidence time series in populations of different sizes. a: Simulated case counts when dispersion is constant. b: Simulated case counts when dispersion changes. c: Constant dispersion parameter used in generation of the above. d: Changing dispersion parameter used in generation of the above. e, f: Performance of the LRT with simulated data that have different absolute differences in \begin{math}\theta\end{math} (horizontal axis of each panel) illustrates p-value distribution in population size of 50,000 (e) and population size of 10,000,000 (f), which represent the range in the empirical data. O and X mark the null and alternative hypotheses indicated in panels c and d. Red vertical lines represent the interquartile range. 
+Detecting dispersion changes in case count time series. a: Sampled time period (red line) from overall US COVID-19 incidence per 1,000 people between 2020-01-04 and 2023-03-18. b: Cases per 1,000 people in Douglas County, NE over the sample time period with estimated mean values (red) and estimated dispersion values on either side of the midpoint. c: Estimated $\theta$ v. true $\theta$  with values outside of tolerance plotted in purple (close to Poisson) and blue (close to collapsing to zero). d: p-value versus absolute difference in $log_{10}\theta$. Red curve and red shading depict ***, respectively. 
  }
 \label{fig1}
 \end{figure}
@@ -399,7 +399,7 @@ Evidence for a change in \begin{math}\theta\end{math} was observed across many c
 \centering
 \includegraphics[width=0.85\textwidth]{fig3.pdf}
 \caption{
-Incidence and dispersion between 2020-01-04 and 2023-03-18 in large counties in the US. a: Mean COVID-19 cases of the 144 US counties over time. b: Mean $\theta$ of the 144 US counties over time. c: log10(case counts) - log10(reporting rate) over time for each of the large counties (y-axis). This represents $log_{10}\theta$ under the model in Equation 1. d: $log_{10}\theta$ over time for each of the large counties (y-axis). e: Binned $log_{10}\theta$ estimates for all counties over time. f: LRT p-values over time for each of the large counties (y-axis).
+Incidence and dispersion between 2020-01-04 and 2023-03-18 in large counties in the US. a: Mean COVID-19 cases of the 144 US counties over time. b: Mean $log_{10}\theta$ of the 144 US counties over time. Dashed line represents expected value of $log_{10}\theta_0$ under the null model in Equation 1. c: log10(case counts) - log10(reporting rate) over time for each of the large counties (y-axis). This again represents $log_{10}\theta_0$ under the model in Equation 1. d: $log_{10}\theta$ over time for each of the large counties (y-axis). e: Binned $log_{10}\theta_0$ for all counties over time. f: LRT p-values over time for each of the large counties (y-axis).
 }
 \label{fig3}
 \end{figure}

@@ -22,7 +22,8 @@ library("gam")
 lrt <- function(y1, y2, s1, s2, i1, i2, df1, df2,
                 surface = FALSE,
                 ptol = 1e-3,
-                ztol = 1e3) {
+                ztol = 1e3,
+                ret_boundary_est = TRUE) {
   ## Find spline basis
   x1 <- ns(i1, df = df1, intercept = TRUE) # nolint
   x2 <- ns(i2, df = df2, intercept = TRUE) # nolint
@@ -116,6 +117,12 @@ lrt <- function(y1, y2, s1, s2, i1, i2, df1, df2,
     fitdata$res11 <- NA
     fitdata$res12 <- NA
     fitdata$fail_to_reject_poisson <- TRUE
+    
+    if (!ret_boundary_est){
+      fitdata$phi0 <- NA
+      fitdata$phi11 <- NA
+      fitdata$phi12 <- NA
+    }
   }
 
   if (collapse_to_zero) {
@@ -129,6 +136,12 @@ lrt <- function(y1, y2, s1, s2, i1, i2, df1, df2,
     fitdata$res11 <- NA
     fitdata$res12 <- NA
     fitdata$collapse_to_zero <- TRUE
+    
+    if (!ret_boundary_est){
+      fitdata$phi0 <- NA
+      fitdata$phi11 <- NA
+      fitdata$phi12 <- NA
+    }
   }
 
   if (surface) {

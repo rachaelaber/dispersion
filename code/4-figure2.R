@@ -77,10 +77,12 @@ plot(dates, log10(theta0a),
   type = "l", ylim = c(0, 6), xlab = "",
   ylab = expression(paste(log[10], "(", theta, ")"))
 )
-lines(dates, log10(theta0b))
+lines(dates, log10(theta0b), col = "blue")
 lines(dates, log10(thetas), col = "grey")
 mtext("c", side = 3, line = 1, adj = 0, cex = 1.3)
 
+legend("topleft", legend=c("Reporting rate 0.1", "Reporting rate 0.9", "Estimated"),
+       col=c("black", "blue", "grey"), cex=0.7, lty = 1, bt = "n")
 
 # d
 is_sig <- lrt_stats[1, ] > qchisq(0.9996732, df = 1)
@@ -95,5 +97,7 @@ plot(dates, lrt_stats[target_county, ],
 )
 mtext("d", side = 3, line = 1, adj = 0, cex = 1.3)
 
+legend("topleft", legend=c(expression("X ">chi[1-alpha/153]^2), expression("X "<=chi[1-alpha/153]^2)),
+       col=c("red", "black"), cex=0.7, pch = c(19, 1), bt = "n")
 
 dev.off()

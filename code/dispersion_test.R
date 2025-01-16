@@ -1,7 +1,7 @@
 # Wrapper for lrt
 # expects length(y) to be even
 
-dispersion_test <- function(y, s, df, ptol, ztol) {
+dispersion_test <- function(y, s, df, ptol, ztol, ret_boundary_est = TRUE) {
   ww <- length(y) / 2
 
   i1 <- 1:ww
@@ -49,6 +49,13 @@ dispersion_test <- function(y, s, df, ptol, ztol) {
     p <- out$p
     fail_to_reject_poisson <- out$fail_to_reject_poisson
     collapse_to_zero <- out$collapse_to_zero
+  }
+
+  boundary_hit <- fail_to_reject_poisson | collapse_to_zero
+  if (boundary_hit && !ret_boundary_est) {
+    theta0_est <- NA
+    theta1_est <- NA
+    theta2_est <- NA
   }
 
   return(list(

@@ -4,16 +4,12 @@ graphics.off()
 library(viridis)
 
 # Prep data
-load("data/processed/lrt_lg_pops.Rdata")
 load("data/processed/nyt_weekly.Rdata")
 load("data/processed/theta_lg_pops.Rdata")
-load("data/processed/lrtps_lg_pops.Rdata")
-load("data/processed/ftr_poiss_lg_pops.Rdata")
-load("data/processed/ctzs_lg_pops.Rdata")
 
 
 # Parameters
-reporting_rate <- 0.10
+reporting_rate <- 0.5
 ww <- 8
 
 
@@ -51,20 +47,25 @@ plot(dates, colMeans(log10(thetas), na.rm = TRUE),
   main = expression(bold("Mean " * log[10](theta))),
   cex.main = 1.7,
   cex.lab = 1.4,
-  ylim = c(1, 5)
+  yaxt = "n",
+  ylim = c(0.8, 2.2)
 )
+axis(2, c(1, 1.5, 2))
+
 par(xpd = TRUE)
 mtext("b", side = 3, line = 1, adj = 0, cex = 1.5)
+
+
 
 
 # c. cases surface
 par(mar = c(4, 4, 3, 6), xpd = TRUE)
 
-x <- log10(cases / 0.1)
+x <- log10(cases)
 
-breaks <- log10(10^(seq(0, 5, len = 10)))
+breaks <- c(-1, 0, 1, 1.5, 2, 3, 4)
 
-colors <- c(viridis(length(breaks) - 1))
+colors <- viridis(length(breaks) - 1)
 
 image(dates, 1:144, t(x),
   breaks = breaks,
@@ -73,7 +74,7 @@ image(dates, 1:144, t(x),
   ylab = "",
   xaxt = "n",
   xlab = "Date",
-  main = expression(bold(log10(theta[0]))),
+  main = expression(bold(log10(cases))),
   cex.main = 1.7,
   cex.lab = 1.4
 )
@@ -88,22 +89,22 @@ mtext("c", side = 3, line = 1, adj = 0, cex = 1.5)
 
 legend("topright",
   inset = c(-0.34, 0.1),
-  legend = rep("", length(colors)),
-  fill = colors,
+  legend = expression(10^0, 10^1, 10^2, 10^4),
+  fill = colors[c(2, 3, 5, 6)],
   cex = 0.8
 )
 
-# 4. log10(thetas) image
+# d. log10(thetas) image
 
 par(mar = c(4, 4, 3, 6), xpd = TRUE)
 
-x <- thetas
+x <- log10(thetas)
 
-breaks <- log10(c(1, 3, 10, 100, 1000, 10^20))
+breaks <- c(-1, 0, 1, 1.5, 2, 3, 4)
 
-colors <- c(rev(viridis(length(breaks) - 1)))
+colors <- viridis(length(breaks) - 1)
 
-image(dates, 1:144, t(log10(x)),
+image(dates, 1:144, t(x),
   breaks = breaks,
   col = colors,
   yaxt = "n",
@@ -125,53 +126,48 @@ mtext("d", side = 3, line = 1, adj = 0, cex = 1.5)
 
 legend("topright",
   inset = c(-0.34, 0.1),
-  legend = c("< log10(3)", "< 1", "< 2", "< 3", "< 20"),
-  fill = colors,
+  legend = expression(10^0, 10^1, 10^2, 10^4),
+  fill = colors[c(2, 3, 5, 6)],
   cex = 0.8
 )
 
-# 5. log10(EXPECTED thetas) barplot
+
+#e. theta0 surface
+
+# d. log10(thetas) image
 
 par(mar = c(4, 4, 3, 6), xpd = TRUE)
 
-thetas <- cases / reporting_rate
-my <- format(dates, "%b-%y")
-umy <- unique(my)
-nmy <- length(umy)
+x <- log10(cases / reporting_rate)
 
-breaks <- log10(c(1, 3, 10, 100, 1000, 10^20))
+breaks <- c(-1, 0, 1, 1.5, 2, 3, 4)
 
-x <- matrix(NA, nrow = length(breaks) - 1, ncol = nmy)
+colors <- viridis(length(breaks) - 1)
 
-for (i in 1:nmy) {
-  these_thetas <- thetas[, my == umy[i]]
-  x[, i] <- as.numeric(table(cut(log10(these_thetas), breaks = breaks)))
-}
-
-colors <- c(rev(viridis(length(breaks) - 1)))
-
-# Store barplot result to get x positions for the bars
-bar_positions <- barplot(x,
+image(dates, 1:144, t(x),
+  breaks = breaks,
   col = colors,
-  names.arg = substr(umy, 1, 1),
+  yaxt = "n",
+  ylab = "",
+  xaxt = "n",
   xlab = "Date",
-  xaxt = "n", # Disable automatic x-axis to add manually
-  ylab = "Number of estimates",
+  main = expression(bold(log10(theta0))),
   cex.main = 1.7,
-  cex.lab = 1.4,
-  main = expression(bold(log10(theta[0])))
+  cex.lab = 1.4
 )
 
-mtext("e", side = 3, line = 1, adj = 0, cex = 1.5)
+at <- seq.Date(from = min(dates), to = max(dates), by = "month")
+labels <- format(at, format = "%b")
+labels <- substr(labels, 1, 1)
 
-at <- seq(1, nmy, by = 1) # One for each month
-labels <- substr(umy, 1, 1) # First character of each month
-axis(1, at = bar_positions, labels = labels, cex.axis = 1.2)
+axis.Date(1, at = at, labels = labels, ti, cex.axis = 1.3)
+
+mtext("d", side = 3, line = 1, adj = 0, cex = 1.5)
 
 legend("topright",
-  inset = c(-0.31, 0.1),
-  legend = c("< log10(3)", "< 1", "< 2", "< 3", "< 20"),
-  fill = colors,
+  inset = c(-0.34, 0.1),
+  legend = expression(10^0, 10^1, 10^2, 10^4),
+  fill = colors[c(2, 3, 5, 6)],
   cex = 0.8
 )
 
@@ -208,19 +204,15 @@ axis.Date(1, at = at, labels = labels, cex.axis = 1.3)
 
 mtext("f", side = 3, line = 1, adj = 0, cex = 1.5)
 
-legend("topright",
+legend(
+  "topright",
   inset = c(-0.27, 0.1),
   legend = c(
-    expression("" < 10^{
-      -20
-    }), expression("" < 10^{
-      -11
-    }), expression("" < 10^{
-      -2
-    }),
-    "< 0.05", "< 0.10", "< 0.55", "< 1"
+    expression(10^-11), 
+    expression(10^-2),
+    "0.05", "0.10", "0.55", "1"
   ),
-  fill = cols,
+  fill = cols[-1],
   cex = 0.8
 )
 

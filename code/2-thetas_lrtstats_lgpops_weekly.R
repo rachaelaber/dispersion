@@ -42,48 +42,42 @@ for (j in seq_len(nrow(cases))) {
   ctz <- c()
 
   for (i in ww:(nweek - ww)) {
-    
-    y <- series[(i-ww+1):(i + ww)]
-    
-    out <- dispersion_test(y = y, s = pops[j], df = df, ptol = ptol , ztol = ztol)
-    print(out)
+    y <- series[(i - ww + 1):(i + ww)]
+
+    out <- dispersion_test(
+      y = y,
+      s = pops[j],
+      df = df,
+      ptol = ptol,
+      ztol = ztol,
+      ret_boundary_est = FALSE
+    )
 
     theta1 <- c(theta1, out$theta1_est)
-    theta2 <- c(theta2,  out$theta2_est)
-    theta <- c(theta,  out$theta0_est)
+    theta2 <- c(theta2, out$theta2_est)
+    theta <- c(theta, out$theta0_est)
     lrt_stat <- c(lrt_stat, out$lambda)
     lrt_p <- c(lrt_p, out$p)
     ftr_pois <- c(ftr_pois, out$fail_to_reject_poisson)
     ctz <- c(ctz, out$collapse_to_zero)
+  }
 
-    }
-
- lrt_stats[j, ] <- lrt_stat
- lrt_ps[j, ] <- lrt_p
- thetas1[j, ] <- theta1
- thetas2[j, ] <- theta2
- thetas[j, ] <- theta
- ftr_poiss[j, ] <- ftr_pois
- ctzs[j, ] <- ctz
- 
+  lrt_stats[j, ] <- lrt_stat
+  lrt_ps[j, ] <- lrt_p
+  thetas1[j, ] <- theta1
+  thetas2[j, ] <- theta2
+  thetas[j, ] <- theta
+  ftr_poiss[j, ] <- ftr_pois
+  ctzs[j, ] <- ctz
 }
 
 filename <- "data/processed/theta_lg_pops.Rdata"
-
-save(thetas1, thetas2, thetas, file = filename)
-
-filename <- "data/processed/lrt_lg_pops.Rdata"
-
-save(lrt_stats, file = filename)
-
-filename <- "data/processed/lrtps_lg_pops.Rdata"
-
-save(lrt_ps, file = filename)
-
-filename <- "data/processed/ftr_poiss_lg_pops.Rdata"
-
-save(ftr_poiss, file = filename)
-
-filename <- "data/processed/ctzs_lg_pops.Rdata"
-
-save(ctzs, file = filename)
+save(thetas1,
+  thetas2,
+  thetas,
+  lrt_stats,
+  lrt_ps,
+  ftr_poiss,
+  ctzs,
+  file = filename
+)

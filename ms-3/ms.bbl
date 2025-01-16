@@ -6,6 +6,26 @@ Lloyd-Smith JO, Schreiber SJ, Kopp PE, Getz WM.
   emergence.
 \newblock Nature. 2005;438(7066):355--359.
 
+\bibitem{lloyd2007maximum}
+Lloyd-Smith JO.
+\newblock Maximum likelihood estimation of the negative binomial dispersion
+  parameter for highly overdispersed data, with applications to infectious
+  diseases.
+\newblock PloS one. 2007;2(2):e180.
+
+\bibitem{lau2017spatial}
+Lau MS, Dalziel BD, Funk S, McClelland A, Tiffany A, Riley S, et~al.
+\newblock Spatial and temporal dynamics of superspreading events in the
+  2014--2015 West Africa Ebola epidemic.
+\newblock Proceedings of the National Academy of Sciences.
+  2017;114(9):2337--2342.
+
+\bibitem{dalziel2018urbanization}
+Dalziel BD, Kissler S, Gog JR, Viboud C, Bj{\o}rnstad ON, Metcalf CJE, et~al.
+\newblock Urbanization and humidity shape the intensity of influenza epidemics
+  in US cities.
+\newblock Science. 2018;362(6410):75--79.
+
 \bibitem{kirkegaard2021superspreading}
 Kirkegaard JB, Sneppen K.
 \newblock Superspreading quantified from bursty epidemic trajectories.
@@ -36,6 +56,12 @@ Kretzschmar ME, Rozhnova G, Bootsma MC, van Boven M, van~de Wijgert JH, Bonten
   COVID-19: a modelling study.
 \newblock The Lancet Public Health. 2020;5(8):e452--e459.
 
+\bibitem{blumberg2013inference}
+Blumberg S, Lloyd-Smith JO.
+\newblock Inference of R 0 and transmission heterogeneity from the size
+  distribution of stuttering chains.
+\newblock PLoS computational biology. 2013;9(5):e1002993.
+
 \bibitem{schneckenreither2023assessing}
 Schneckenreither G, Herrmann L, Reisenhofer R, Popper N, Grohs P.
 \newblock Assessing the heterogeneity in the transmission of infectious
@@ -46,12 +72,6 @@ Schneckenreither G, Herrmann L, Reisenhofer R, Popper N, Grohs P.
 Graham M, Winter AK, Ferrari M, Grenfell B, Moss WJ, Azman AS, et~al.
 \newblock Measles and the canonical path to elimination.
 \newblock Science. 2019;364(6440):584--587.
-
-\bibitem{dalziel2018urbanization}
-Dalziel BD, Kissler S, Gog JR, Viboud C, Bj{\o}rnstad ON, Metcalf CJE, et~al.
-\newblock Urbanization and humidity shape the intensity of influenza epidemics
-  in US cities.
-\newblock Science. 2018;362(6410):75--79.
 
 \bibitem{wallinga2018metropolitan}
 Wallinga J.
@@ -73,12 +93,12 @@ Grenfell BT, Bj{\o}rnstad ON, Finkenst{\"a}dt BF.
 \bibitem{barron1992analysis}
 Barron DN.
 \newblock The analysis of count data: Overdispersion and autocorrelation.
-\newblock Sociological methodology. 1992:179--220.
+\newblock Sociological methodology. 1992;p. 179--220.
 
 \bibitem{lloyd1967mean}
 Lloyd M.
 \newblock Mean crowding'.
-\newblock The Journal of Animal Ecology. 1967:1--30.
+\newblock The Journal of Animal Ecology. 1967;p. 1--30.
 
 \bibitem{bjornstad2002dynamics}
 Bj{\o}rnstad ON, Finkenst{\"a}dt BF, Grenfell BT.
@@ -94,20 +114,18 @@ Perperoglou A, Sauerbrei W, Abrahamowicz M, Schmid M.
 \bibitem{di2015nbpseq}
 Di Y, Schafer D, Cumbie J, Chang J.
 \newblock NBPSeq: Negative Binomial Models for RNA-Sequencing Data.
-\newblock R package version 03 0, URL http://CRAN R-project. 2015.
+\newblock R package version 03 0, URL http://CRAN R-project. 2015;.
 
 \bibitem{nytimes_covid19}
 {The New York Times}.
 \newblock Coronavirus (COVID-19) Data in the United States.
-\newblock GitHub. 2024.
-\newblock Available from: \url{github.com/nytimes/covid-19-data}.
+\newblock GitHub. 2024;Available from: \url{github.com/nytimes/covid-19-data}.
 
 \bibitem{us_census_county_population_2021}
 {United States Census Bureau}.
 \newblock Annual County Resident Population Estimates: April 1, 2020 to July 1,
   2021.
-\newblock US Census Bureau Population Estimates Program. 2021.
-\newblock Available from:
+\newblock US Census Bureau Population Estimates Program. 2021;Available from:
   \url{www2.census.gov/programs-surveys/popest/datasets/2020-2021/counties/totals}.
 
 \end{thebibliography}

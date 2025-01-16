@@ -8,13 +8,14 @@ load("data/processed/lrt_lg_pops.Rdata")
 load("data/processed/nyt_weekly.Rdata")
 load("data/processed/theta_lg_pops.Rdata")
 load("data/processed/lrtps_lg_pops.Rdata")
-load('data/processed/ftr_poiss_lg_pops.Rdata')
-load('data/processed/ctzs_lg_pops.Rdata')
+load("data/processed/ftr_poiss_lg_pops.Rdata")
+load("data/processed/ctzs_lg_pops.Rdata")
 
 
 # Parameters
 reporting_rate <- 0.10
 ww <- 8
+
 
 # Trim elements or columns that will have NAs for theta and lrt
 keep <- ww:(length(dates) - ww)
@@ -22,13 +23,13 @@ dates <- dates[keep]
 cases <- cases[, keep]
 incidence <- incidence[, keep]
 
-# PLOT
 
+# Plot
 filename <- "figures/fig3.pdf"
 pdf(filename)
 par(mfrow = c(3, 2))
 
-# 1. Mean cases
+# a. Mean cases
 par(mar = c(4, 4, 3, 6))
 
 plot(dates, colMeans(cases),
@@ -40,8 +41,8 @@ par(xpd = TRUE)
 mtext("a", side = 3, line = 1, adj = 0, cex = 1.5)
 par(xpd = FALSE)
 
-# 2. Mean log10(theta)
 
+# b. Mean log10(theta)
 par(mar = c(4, 4, 3, 6))
 
 plot(dates, colMeans(log10(thetas), na.rm = TRUE),
@@ -52,24 +53,20 @@ plot(dates, colMeans(log10(thetas), na.rm = TRUE),
   cex.lab = 1.4,
   ylim = c(1, 5)
 )
-
-theta_null <- log10(cases + 0.0001) - log10(reporting_rate)
-lines(dates, colMeans(theta_null, na.rm = TRUE), lty = 2)
-
 par(xpd = TRUE)
 mtext("b", side = 3, line = 1, adj = 0, cex = 1.5)
 
-# 3. log10(EXPECTED thetas) surface
 
+# c. cases surface
 par(mar = c(4, 4, 3, 6), xpd = TRUE)
 
-x <- cases
+x <- log10(cases / 0.1)
 
-breaks <- log10(c(1, 3, 10, 100, 1000, 10^20))
+breaks <- log10(10^(seq(0, 5, len = 10)))
 
-colors <- c(rev(viridis(length(breaks) - 1)))
+colors <- c(viridis(length(breaks) - 1))
 
-image(dates, 1:144, log10(t(x)) - log10(reporting_rate),
+image(dates, 1:144, t(x),
   breaks = breaks,
   col = colors,
   yaxt = "n",
@@ -91,7 +88,7 @@ mtext("c", side = 3, line = 1, adj = 0, cex = 1.5)
 
 legend("topright",
   inset = c(-0.34, 0.1),
-  legend = c("< log10(3)", "< 1", "< 2", "< 3", "< 20"),
+  legend = rep("", length(colors)),
   fill = colors,
   cex = 0.8
 )

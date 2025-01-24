@@ -113,59 +113,33 @@ Accordingly, population size appears as an offset in our model of broad-scale in
   \log(\mu_t) = \sum_{j=1}^J \beta_j^{(t)} h_j(t) + \log(N) 
 \end{equation}
 
-The form of the probability mass function for infections at a time step is:
+The form of the probability mass function (PMF) for infections at a time step is:
 \begin{equation}
   f_t(I) = \binom{I + \theta - 1}{I} {\left( \frac{\mu}{\mu + \theta} \right)}^I {\left( \frac{\theta}{\mu + \theta} \right)}^\theta
 \end{equation}
 where $\mu$ is estimated via the linear predictor outlined above. 
 
-We estimated $\theta_t$ given observed incidence using an iteratively reweighted least-squares (IRLS) procedure for mean estimation in conjunction with an optimization procedure to compute $\theta_t$. 
-That is, for each time window, a series of $\mu_s$ from $s = t-\Delta$ to $s = t + \Delta$ was estimated using the spline and offset term via IRLS in the NBPSeq R package~\citep{di2015nbpseq}. Then, a single value of $\theta_t$ for the time window was computed via an optimization procedure. 
+We estimate $\theta_t$ from observed incidence data using an iteratively reweighted least-squares (IRLS) procedure for mean estimation, combined with a maximum likelihood optimization to compute $\theta_t$. 
+Specifically, within each time window, the spline model with an offset term was used to estimate a series of $\mu_s$ values for $s = t-\Delta$ to $s = t + \Delta$ via IRLS, as implemented in the \texttt{NBPSeq} R package~\citep{di2015nbpseq}. 
+A single value of $\theta_t$ was then calculated for the entire time window by maximizing the likelihood function, which is based on the negative binomial probability mass function defined above.
 
-In addition to fitting the model at each time step, we developed a likelihood-ratio test (LRT) that could be applied at each time step to test the hypothesis that $\theta$ has changed. 
-This involves fitting and comparing both a null model (no \begin{math}\theta\end{math} change) and a two-part ($\theta$-change) model. 
-For the null model, an optimization for a single $\theta$ value for the time window was performed, and for the $\theta$-change model, an optimization for a $\theta$ value during the first half of the window was performed, as well as an optimization for the second half. 
+In addition to fitting the model at each time step, we developed a likelihood-ratio test (LRT) to test the hypothesis that $\theta$ has changed at each time step. 
+This test involves fitting and comparing two models: a null model (no $\theta$ change) and a two-part model (with a $\theta$ change). 
+For the null model, a single $\theta$ value was fitted for the entire time window. 
+For the $\theta$-change model, separate $\theta$ values were fitted for the left (from $t-\Delta$ to $t$) and right (from $t$ to $t + \Delta$) halves of the time window.
 
-Since very large $\theta$ correspond to processes that are operationally nearly identical to a Poisson process, the test will not produce a p-value if any of the three values are greater than a user-specified threshold. 
-In the applicatio below we set this threshold at $10^3$, meaning that theta estimates with temporal crowding that was within $0.1\%$ of that expected for a Poisson process was considered effectively Poisson.
+Very large $\theta$ values correspond to processes that are operationally identical to a Poisson process. 
+Accordingly, the test does not produce a $p$-value if any of the three $\theta$ estimates exceed a user-specified threshold. 
+In the application below, we set this threshold at $10^3$, meaning that $\theta$ estimates with temporal crowding within $0.1\%$ of that expected for a Poisson process were considered effectively Poisson.
 
-Very large $\theta$ estimates are often produced in small populations when the process can't be distinguished from a Poisson process. Therefore, we have very small $\phi = 1/\theta$  values be considered zero, at which point we fail to reject the Poisson hypothesis.
+Similarly, values of $\theta$ very close to 0 focus all of the mass of the PMF on 0, representing a scenario where the probability of observing any infections approaches zero. As with the Poisson-like tolerance described in the previous paragraph, our algorithm does not produce a $p$-value if any of the three $\theta$ estimates are below a user-specified threshold. This threshold will depend on the presence of contiguous sections of the time series being analyzed during which no cases are observed. In the application below, we set this threshold to $10^{-3}$, because $\theta$ values below this level correspond to 0 frequencies that greatly exceed those in the data.
 
-In addition, we imposed restrictions on $\theta$ estimates such that $\theta = 0$ (point mass) results in no p-value being produced in the test result. So, large $\phi$ are considered values where we fail to reject the point mass hypothesis.
-
-Additionally, we included an option to retrieve the likelihood of a range of theta values in addition to these restrictions. 
+With both upper and lower $\theta$ thresholds--—corresponding to Poisson-like and zero tolerances, respectively—--maximum likelihood estimates (MLEs) of $\theta$ beyond these thresholds exhibited unbounded behavior. When $\theta$ exceeded the upper threshold, corresponding to processes operationally identical to a Poisson process, the MLE tended to grow arbitrarily large, with the likelihood surface reaching its maximum at the upper boundary of the calculated domain. Conversely, when $\theta$ fell below the lower threshold, representing extreme overdispersion with probability mass concentrated near zero, the MLE approached zero, and the likelihood surface peaked at the lower boundary of the domain. This behavior reflects the inability of the model to reliably estimate $\theta$ when it lies outside the specified thresholds 
+(Fig. 1a)
 
 \subsection*{Application to simulated data}
 
 Our simulation samples start points and theta values, and incidence is modeled according to overall incidence trends.
-
-To test the validity and power of the methods, we epidemic curves with known values of $\mu$ and $\theta$.
-We varied the magnitude of the $\theta$ change, location of the change in the curve, population size underlying the curve, and curve shape to test the validity and power of our approach across a range of scenarios.
-Epidemic curves were created from a deterministic skeleton (template) that either assumed a flat distribution of incidence over time or a Gaussian-shaped distribution, with parameters controlling the total epidemic size, peak time, peak width, and duration. 
-Stochastic noise was then added to these templates by sampling from a negative binomial distribution with mean given by the template values.Each curve was split into two equal pieces and separate dispersion parameters $\theta_1$ and $\theta_2$ were used in each respective piece, before and after the breakpoint. 
-This allowed us to simulate epidemic curves with variation in dispersion, as well as the special case when $\theta_1 = \theta_2$.
-
-\subsection*{Data availability and processing}
-We applied our method to cumulative COVID-19 case counts in United States (US) counties~\citep{nytimes_covid19}.
-Population sizes were from taken the US Census Bureau~\citep{us_census_county_population_2021}.
-Cumulative cases for the largest three counties in each state were converted to weekly counts by keeping the last observation from each week and differenced to compute new cases. Missing values for new cases were all at the beginning of the pandemic and were imputed as zero. 
-Approximately 0.24\% of new cases were negative due to corrections in the cumulative data. These were also imputed as zero. 
-We used a width paramter of $\delta = 8$ week and set the degrees of freedom parameter for the natural splines to $J = 3$.  
-[This seems like a wide window and a low-df spline. Why did we choose these and what happens if we use different values? Some sort of sensitivity analysis is probably needed, even if it is just to run the analysis using a smaller window and larger df]
-
-\section*{Results and Discussion}
-Our estimates of $\theta$ were robust across the population sizes included in the empirical analysis of U.S. counties. 
-However, inaccuracies were more common in counties with small populations outside the examined range.%(\nameref{S1_Fig}). 
-We found that the LRT method of testing for sharp changes in $\theta$ is also robust across population sizes represented in the empirical data (Fig\ 1 e, f). 
-Adequate test performance for the LRT is characterized by an average $p$-value of 0.5 when the effect size is zero, with decreasing average $p$-values as the effect size increases. 
-
-%\begin{figure}[!ht]
-%\includegraphics[width=1\textwidth]{fig1}
-%\caption{
-%Detecting changes in dispersion within incidence time series for populations of different sizes. (a, b) Simulated case counts with constant (a) and changing (b) dispersion parameters. (c, d) Dispersion parameters used to generate the data in (a) and (b), respectively. (e, f) LRT performance under varying absolute differences in \(\theta\) (horizontal axis), showing \( p \)-value distributions for population sizes of 50,000 (e) and 10,000,000 (f), representing the range in the empirical data. The null and alternative hypotheses (O and X) correspond to the parameters in (c) and (d). Red vertical lines indicate interquartile ranges.
-%}\label{fig1}
-%\end{figure}
-
 
 
 

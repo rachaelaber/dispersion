@@ -93,12 +93,12 @@ Grenfell BT, Bj{\o}rnstad ON, Finkenst{\"a}dt BF.
 \bibitem{barron1992analysis}
 Barron DN.
 \newblock The analysis of count data: Overdispersion and autocorrelation.
-\newblock Sociological methodology. 1992;p. 179--220.
+\newblock Sociological methodology. 1992:179--220.
 
 \bibitem{lloyd1967mean}
 Lloyd M.
 \newblock Mean crowding'.
-\newblock The Journal of Animal Ecology. 1967;p. 1--30.
+\newblock The Journal of Animal Ecology. 1967:1--30.
 
 \bibitem{bjornstad2002dynamics}
 Bj{\o}rnstad ON, Finkenst{\"a}dt BF, Grenfell BT.
@@ -114,18 +114,6 @@ Perperoglou A, Sauerbrei W, Abrahamowicz M, Schmid M.
 \bibitem{di2015nbpseq}
 Di Y, Schafer D, Cumbie J, Chang J.
 \newblock NBPSeq: Negative Binomial Models for RNA-Sequencing Data.
-\newblock R package version 03 0, URL http://CRAN R-project. 2015;.
-
-\bibitem{nytimes_covid19}
-{The New York Times}.
-\newblock Coronavirus (COVID-19) Data in the United States.
-\newblock GitHub. 2024;Available from: \url{github.com/nytimes/covid-19-data}.
-
-\bibitem{us_census_county_population_2021}
-{United States Census Bureau}.
-\newblock Annual County Resident Population Estimates: April 1, 2020 to July 1,
-  2021.
-\newblock US Census Bureau Population Estimates Program. 2021;Available from:
-  \url{www2.census.gov/programs-surveys/popest/datasets/2020-2021/counties/totals}.
+\newblock R package version 03 0, URL http://CRAN R-project. 2015.
 
 \end{thebibliography}

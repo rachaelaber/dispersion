@@ -361,9 +361,9 @@ COVID-19 cumulative case data are from [The New York Times](https://github.com/n
 
 \subsection*{Application to empirical data}
 
-We estimated \begin{math}\mu_t\end{math} and \begin{math}\theta_t\end{math} using iteratively reweighted least-squares (procedure implemented via the NBPSeq R package \cite{NBPSeq}) using a window around each time step.
-For each window, a series of \begin{math}\mu_t\end{math} was estimated using a spline function in time, and a single value of \begin{math}\theta\end{math} was estimated for that window. 
-By moving the window one time step at a time, a time series of \begin{math}\theta_t\end{math} was produced. We investigated large counties (the three counties with the largest populations in each state), due to power constraints and convergence issues.
+
+For each time step in each empirical epidemic curve, a series of \begin{math}\mu_t\end{math} and a single value of \begin{math}\theta\end{math} was estimated for the corresponding window. 
+By moving the window one time step at a time, time series of \begin{math}\theta\end{math} estimates and p-values were produced. We investigated large counties (the three counties with the largest populations in each state).
 
 % Results and Discussion can be combined.
 \section*{Results}

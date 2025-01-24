@@ -119,7 +119,7 @@ The form of the probability mass function (PMF) for infections at a time step is
 \end{equation}
 where $\mu$ is estimated via the linear predictor outlined above. 
 
-We estimate $\theta_t$ from observed incidence data using an iteratively reweighted least-squares (IRLS) procedure for mean estimation, combined with a maximum likelihood optimization to compute $\theta_t$. 
+We estimate $\theta_t$ from observed incidence data using an iteratively reweighted least-squares (IRLS) procedure for mean estimation, combined with the optimize function in R, which uses a combination of golden section search and successive parabolic interpolation, to compute $\theta_t$. 
 Specifically, within each time window, the spline model with an offset term was used to estimate a series of $\mu_s$ values for $s = t-\Delta$ to $s = t + \Delta$ via IRLS, as implemented in the \texttt{NBPSeq} R package~\citep{di2015nbpseq}. 
 A single value of $\theta_t$ was then calculated for the entire time window by maximizing the likelihood function, which is based on the negative binomial probability mass function defined above.
 

@@ -139,7 +139,24 @@ With both upper and lower $\theta$ thresholds--—corresponding to Poisson-like 
 
 \subsection*{Application to simulated data}
 
-To test the fidelity of our $\theta$ estimates and the validity and power of our LRT, we simulated epidemic curves spanning 16 time steps each. Our simulation framework samples the start point of each curve and a $\theta$ value on each side of the midpoint. Incidence modeled according to overall incidence trends ((Fig\ 1 a) is scaled by the population size for that curve (population sizes used ranged from $10^3$ to $10^7$). Equal $\theta$ values on both sides of the midpoint were set for 10% of the epidemic curves. The estimation framework and LRT was applied to each epidemic curve in the simulated data in order to produce estimates of $\theta$ on either side of the midpoint, as well as a p-value from the LRT. This approach allowed us to test the robustness of our framework over a range of $\theta$ difference magnitudes, underlying population sizes, and point of the epidemic curve at which the procedure is applied.
+To test the fidelity of our $\theta$ estimates and the validity and power of our LRT, we simulated epidemic curves spanning 16 time steps each. Our simulation framework samples the start point of each curve and a $\theta$ value on each side of the midpoint. Incidence modeled according to overall incidence trends ((Fig\ 1 a) is scaled by the population size for that curve (population sizes used ranged from $10^3$ to $10^7$). Equal $\theta$ values on both sides of the midpoint were set for 10% of the epidemic curves. The estimation framework and LRT was applied to each epidemic curve in the simulated data in order to produce estimates of $\theta$ on either side of the midpoint, as well as a p-value from the LRT. This approach allowed us to test the robustness of our framework over a range of $\theta$ difference magnitudes, underlying population sizes, and point of the epidemic curve at which the procedure was applied.
+
+\section*{Results and Discussion}
+Our LRT framework is robust across population sizes. That is, when the effect size is zero, the p-values are on average 0.5 and as the effect size increases, the p-values shrink toward zero (Fig\ 1 d). 
+
+Additionally, the $\theta$ estimates produced are close to the true values used in simulations (Fig\ 1 c), regardless of the underlying population size. The estimates that are not close correspond to instances when the boundary is reached.
+
+Need to discuss Figure 1 b somewhere.
+
+\begin{figure}[!h]
+\includegraphics[width=1\textwidth]{fig1}
+\caption{
+Detecting dispersion changes in case count time series. a: Sampled time period (red line) from overall US COVID-19 incidence per 1,000 people between 2020-01-04 and 2023-03-18. b: Cases per 1,000 people in Douglas County, NE over the sample time period with estimated mean values (red) and estimated dispersion values on either side of the midpoint. c: Estimated $\theta$ v. true $\theta$  with values outside of tolerance plotted in purple (close to Poisson) and blue (close to collapsing to zero). d: p-value versus absolute difference in $log_{10}\theta$. Red curve and red shading depict ***, respectively. 
+ }
+\label{fig1}
+\end{figure}
+
+
 
 \section*{Acknowledgments}
 RA work on this project was supported by X and Y. BDD work on this project was supported by the National Science Foundation (NSF) grants (X, Y) and by the David and Lucile Packard Foundation.

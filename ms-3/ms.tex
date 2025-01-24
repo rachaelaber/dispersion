@@ -141,6 +141,16 @@ With both upper and lower $\theta$ thresholds--—corresponding to Poisson-like 
 
 To test the fidelity of our $\theta$ estimates and the validity and power of our LRT, we simulated epidemic curves spanning 16 time steps each. Our simulation framework samples the start point of each curve and a $\theta$ value on each side of the midpoint. Incidence modeled according to overall incidence trends ((Fig\ 1 a) is scaled by the population size for that curve (population sizes used ranged from $10^3$ to $10^7$). Equal $\theta$ values on both sides of the midpoint were set for 10% of the epidemic curves. The estimation framework and LRT was applied to each epidemic curve in the simulated data in order to produce estimates of $\theta$ on either side of the midpoint, as well as a p-value from the LRT. This approach allowed us to test the robustness of our framework over a range of $\theta$ difference magnitudes, underlying population sizes, and point of the epidemic curve at which the procedure was applied.
 
+\subsection*{Data availability and processing}
+
+COVID-19 cumulative case data are from [The New York Times](https://github.com/nytimes/covid-19-data/) and county population sizes are from [The United States Census Bureau](https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/counties/totals/. Cumulative cases for the largest three counties in each state were converted to weekly counts by keeping the last observation from each week and differenced to compute new cases. Note that missing values for new cases were all at the beginning of the pandemic and were imputed as zero. Apprxoimately 0.24% of new cases were negative due to corrections in the cumulative data. These were also imputed as zero.
+
+\subsection*{Application to empirical data}
+
+
+For each time step in each empirical epidemic curve, a series of \begin{math}\mu_t\end{math} and a single value of \begin{math}\theta\end{math} was estimated for the corresponding window. 
+By moving the window one time step at a time, time series of \begin{math}\theta\end{math} estimates and p-values were produced. We investigated large counties (the three counties with the largest populations in each state).
+
 \section*{Results and Discussion}
 Our LRT framework is robust across population sizes. That is, when the effect size is zero, the p-values are on average 0.5 and as the effect size increases, the p-values shrink toward zero (Fig\ 1 d). 
 

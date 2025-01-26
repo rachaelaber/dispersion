@@ -9,6 +9,8 @@ ww <- 8
 ptol <- 1e-4
 ztol <- 1e4
 nsim <- 2 * 10^3
+poprange <- c(4, 7)   # range of population sizes, log10 scale
+thetamag <- 2         # largest value of abs(log10(theta))
 
 
 # Load data and functions
@@ -67,9 +69,9 @@ sim <- function(theta1, theta2, s, a = NULL, b = NULL) {
 
 # Apply
 simdata <- data.frame(
-  s = 10^runif(nsim, 3, 7),
-  theta1 = 10^runif(nsim, -2.5, 2.5),
-  theta2 = 10^runif(nsim, -2.5, 2.5)
+  s = 10^runif(nsim, poprange[1], poprange[2]),
+  theta1 = 10^runif(nsim, -thetamag, thetamag),
+  theta2 = 10^runif(nsim, -thetamag, thetamag)
 )
 
 i <- sample.int(nsim, ceiling(0.1 * nsim)) # set some theta2 = theta1
@@ -118,7 +120,8 @@ plot(incidence_smooth * 1000,
   type = "l",
   lwd = 3,
   xlab = "Week",
-  ylab = "Cases per 1000"
+  ylab = "Cases per 1000",
+  main = "a"
 )
 
 u <- 25:(144 - 2 * ww)
@@ -153,7 +156,8 @@ ylim[1] <- 0
 plot(a:b, cases_snippet * 1e-3,
   xlab = "Week",
   ylab = "Cases per 1000",
-  ylim = ylim
+  ylim = ylim,
+  main = "b"
 )
 
 lines(a:b, y * 1e-3, col = 2, lwd = 3)
@@ -232,10 +236,10 @@ plot(
   y = log10(simdata$theta1_est),
   xlab = expression(theta[1]),
   ylab = expression(hat(theta)[1]),
-  cex = 1,
   col = col,
   xaxt = "n",
   yaxt = "n",
+  main = "c"
 )
 axis(1, at = c(-2, 0, 2), labels = expression(10^-2, 10^0, 10^2))
 axis(2,
@@ -258,7 +262,8 @@ plot(
   xlab = expression(abs(log[10] ~ (theta[2] / theta[1]))),
   ylab = "p",
   xaxt = "n",
-  yaxt = "n"
+  yaxt = "n",
+  main = "d"
 )
 axis(1, at = c(0, 1, 2, 3, 4, 5))
 axis(2,

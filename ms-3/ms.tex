@@ -92,6 +92,7 @@ In a sufficiently large host population, and when the infectious pathogen can be
 \end{equation}
 where time-varying reproductive number $R_t$ gives the expected number of secondary infections aqcuired from an infected indivual at time $t$, and the generation time is set to 1 without loss of generality~\citep{kendall1949stochastic, bjornstad2002dynamics}. 
 Setting $\theta_t = I_t$ arises from the assumption that individuals who acquire the infection at time $t$ form independent lineages with identically distributed local rate parameters.
+In applications this model for $theta$ beomes $\theta_t = C_t / \rho_t$ where $C_t$ represents reported cases and $\rho$ the reporting rate, which relates reported cases to the true number of infections as $C_t = \rho_t I_t$.
 However, this requires that susceptible depletion in one lineage does not affect another, that transmission rates are equal across lineages, and that reporting rates do not vary across lineages. 
 
 In practice, these assumption will not often hold, and our aim in this paper is to develop, test and apply an alternative approach, which makes data-driven estimates of $\theta_t$, including identifying timepoints when $\theta$ is changing rapidly, which may help to reveal the impacts of heterogeneity in transmission, susceptibility, and reporting. 
@@ -138,42 +139,57 @@ With both upper and lower $\theta$ thresholds--—corresponding to Poisson-like 
 (Fig. 1a)
 
 \subsection*{Application to simulated data}
-
-To test the fidelity of our $\theta$ estimates and the validity and power of our LRT, we simulated epidemic curves spanning 16 time steps each. Our simulation framework samples the start point of each curve and a $\theta$ value on each side of the midpoint. Incidence modeled according to overall incidence trends ((Fig\ 1 a) is scaled by the population size for that curve (population sizes used ranged from $10^3$ to $10^7$). Equal $\theta$ values on both sides of the midpoint were set for 10% of the epidemic curves. The estimation framework and LRT was applied to each epidemic curve in the simulated data in order to produce estimates of $\theta$ on either side of the midpoint, as well as a p-value from the LRT. This approach allowed us to test the robustness of our framework over a range of $\theta$ difference magnitudes, underlying population sizes, and point of the epidemic curve at which the procedure was applied.
-
-\subsection*{Data availability and processing}
-
-COVID-19 cumulative case data are from [The New York Times](https://github.com/nytimes/covid-19-data/) and county population sizes are from [The United States Census Bureau](https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/counties/totals/. Cumulative cases for the largest three counties in each state were converted to weekly counts by keeping the last observation from each week and differenced to compute new cases. Note that missing values for new cases were all at the beginning of the pandemic and were imputed as zero. Apprxoimately 0.24% of new cases were negative due to corrections in the cumulative data. These were also imputed as zero.
+We evaluated the robustness of our framework to a range of population sizes, magnitudes of dispersion changes, and shapes of underlying incidence trends by generating 2,000 simulated epidemic curves with known parameters. 
+Epidemic trends were modeled as smoothed incidence series derived from 16-week sections randomly selected from US COVID-19 data (described below), scaled to reflect different population sizes ranging from $10^3$ to $10^7$. 
+For each simulated trajectory, dispersion parameters ($\theta_1$ and $\theta_2$) were assigned to the two halves of the selected 16-week window, and case counts were simulated using a negative binomial distribution, where the mean ($\mu$) was based on the smoothed incidence trend scaled by the population size. 
+The values of $\theta_1$ and $\theta_2$ were drawn from a uniform distribution spanning $10^{-2}$ to $10^{2}$, with 10\% of simulations set to have no change in dispersion ($\theta_1 = \theta_2$). 
+Extremely large differences in dispersion (absolute log-ratio $>3$) were capped by setting $\theta_2 = \theta_1$. 
 
 \subsection*{Application to empirical data}
-
-
-For each time step in each empirical epidemic curve, a series of \begin{math}\mu_t\end{math} and a single value of \begin{math}\theta\end{math} was estimated for the corresponding window. 
-By moving the window one time step at a time, time series of \begin{math}\theta\end{math} estimates and p-values were produced. We investigated large counties (the three counties with the largest populations in each state).
+We applied our framework to COVID-19 case data for the United States at the administrative level of counties, compiled by The New York Times, based on reports from state and local health agencies between Jan 4, 2020, and March 18, 2023~\citep{nytimes_covid19_2021}, and using county population sizes estimated for 2021 from the United States Census Bureau~\citep{us_census_county_estimates_2021}.
+Cumulative cases for the largest three counties in each state were converted to weekly counts by keeping the last observation from each week and differencing to compute new cases. Occasionally, reported cumulative case counts were not monotonically increasing due to corrections posted by local agencies as they resolved incoming data. 
+As a result, approximately 0.24\% of estimated new cases across all counties in the dataset were negative and these were set to zero. 
+For each county, we analyzed overlapping 16-week windows, shifting one week (i.e., one timestep) at a time. 
+Within each window, the framework estimated the dispersion parameter ($\theta$) using a natural spline with three degrees of freedom to model the broad-scale trend in incidence. 
+Outputs included estimated dispersion parameters ($\theta_1$, $\theta_2$, for the left and right halves of each window, and $\theta$ for the entire window), likelihood ratio test statistics, $p$-values for changes in dispersion at the midpoint of the window, and flags for boundary conditions such as failure to reject Poisson-like dispersion or collapse to extreme overdispersion.
 
 \section*{Results and Discussion}
-Our LRT framework is robust across population sizes. That is, when the effect size is zero, the p-values are on average 0.5 and as the effect size increases, the p-values shrink toward zero (Fig\ 1 d). 
+The simulation studies indicate our LRT framework accurately detects changes in dispersion, with p-values averaging 0.5 when the effect size is zero and shrinking toward zero as the effect size increases (Fig.~\ref{fig1}). 
+The framework is also robust to the range of population sizes we addressed in the empirical data---county population sizes ranged from approximately 48 thousand to 9.9 million, and we tested the framework on simulated populations between 10 thousand and 10 million, yielding accurate estimates within the range of $\theta$ values, $10^-2 \leq \theta \leq 10^2$.
 
-Additionally, the $\theta$ estimates produced are close to the true values used in simulations (Fig\ 1 c), regardless of the underlying population size. The estimates that are not close correspond to instances when the boundary is reached.
-
-Need to discuss Figure 1 b somewhere.
-
-\begin{figure}[!h]
+\clearpage
+\begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{fig1}
 \caption{
-Detecting dispersion changes in case count time series. a: Sampled time period (red line) from overall US COVID-19 incidence per 1,000 people between 2020-01-04 and 2023-03-18. b: Cases per 1,000 people in Douglas County, NE over the sample time period with estimated mean values (red) and estimated dispersion values on either side of the midpoint. c: Estimated $\theta$ v. true $\theta$  with values outside of tolerance plotted in purple (close to Poisson) and blue (close to collapsing to zero). d: p-value versus absolute difference in $log_{10}\theta$. Red curve and red shading depict ***, respectively. 
- }
-\label{fig1}
+Detecting dispersion changes in case count time series. 
+a: Weekly incidence of COVID-19 in the United States, with time measured in weeks since January 4, 2020, showing an example of a randomly-selected 16 week period used as an incidence trend when in simulation-based validation of the LRT test (red). 
+b: Cases in in one county (Douglas County, Nebraska) over the sample time period with estimated incidence trend (red) and estimated dispersion values on either side of the midpoint. 
+c: Estimated $\theta$ versus true $\theta$ in simulation studies combining a randomly-selected section of the national incidence curve with a random population size and set of dispersion values. Estimated values outside of tolerance plotted in purple (close to Poisson) and blue (close to collapsing to zero). 
+d: Statistical power of the LRT test.}\label{fig1}
 \end{figure}
+\clearpage
 
+Paragraph on results shown in figure 2.
 
+\clearpage
+\begin{figure}[!ht]
+\includegraphics[width=1\textwidth]{fig2}
+\caption{Dispersion analysis of weekly COVID-19 case data for one county. 
+a: Weekly incidence in Jefferson County, Alabama. 
+b: Estimated dispersion parameter over time. 
+c: Comparison of estimated dispersion (grey) with predicted values under the standard model of $\theta_{t+1} = C_{t} / \rho_t$ where $C_t$ represents reported cases and $\rho_t$ the reporting rate, for constant values of $\rho_t = 0.1$ (black) and $\rho_t = 0.9$ (blue). 
+This wide range of constant values is intended to enclose the $theta$ values that would be predicted by the standard model under under variable $\rho$.
+d: Likelihood ratio test (LRT) statistic over time, highlighting statistically large changes in dispersion (red), defined as p-values less than the Bonferroni-corrected 5\% quantile of a chi-square random variable with one degree of freedom.}\label{fig2}
+\end{figure}
+\clearpage
 
 \section*{Acknowledgments}
 RA work on this project was supported by X and Y. BDD work on this project was supported by the National Science Foundation (NSF) grants (X, Y) and by the David and Lucile Packard Foundation.
 
+\clearpage
 \section*{References}
-\bibliographystyle{vancouver} % Use plainnat or another appropriate style
-\bibliography{references} % Create a references.bib file
+\bibliographystyle{vancouver} 
+\bibliography{references} 
 
 % End Document
 \end{document}

@@ -33,7 +33,7 @@
 
 \linenumbers\maketitle
 
-\begin{abstract}
+\begin{Abstract}
 Trends in infectious disease incidence provide important information about epidemic dynamics and prospects for control. 
 Higher-frequency variation around incidence trends can shed light on the processes driving epidemics in complex populations, as transmission heterogeneity, shifting landscapes of susceptibility, and fluctuations in reporting can impact the volatility of observed case counts.
 However, measures of temporal volatility in incidence, and how volatility changes over time, are often overlooked in population-level analyses of incidence data, which typically focus on moving averages.
@@ -82,7 +82,7 @@ Conversely, the distribution of $I_t$ tends to a Poisson distribution (where the
 The negative binomial distribution may also accurately model a time series if there is a changing process mean within a time step: for example, if the mean of a Poisson distribution itself follows a gamma distribution, the resulting distribution is negative binomial. 
 Negative binomial regression (in contrast to Poisson regression) can account for unobserved heterogeneity, time dependence in the rate of a process and contagion within a time step that all lead to overdispersion~\citep{barron1992analysis}.
 
-An interpretation of the dispersion parameter for a time series model of counts is that events are $1 + \theta^{-1}$ times as ``crowded'' in time relative to a Poisson process with the same mean~\citep{lloyd1967mean} (see Supplemental Information). 
+An interpretation of the dispersion parameter for a time series model of counts is that events are $1 + \theta^{-1}$ times as ``crowded'' in time relative to a Poisson process with the same mean~\citep{lloyd1967mean} (see derivation in S1 Text). 
 For example, $\theta = 1$ corresponds to a situation where the average number of infections in the same time step as a randomly selected case will exceed the Poisson expectation by a factor of two. 
 In a simple example relevant to surge capacity in healthcare systems, $\theta = 1$ implies that a random infectious individual visiting the emergency department at a hospital would find it on average to be twice as crowded with other infectious individuals (infected by the same pathogen) than expected for a Poisson process with the same incidence rate.
 
@@ -105,7 +105,7 @@ Consequently, in order to estimate incidence volatility we first model incidence
 \end{equation}
 where $N$ represents population size, $h_j(t)$ are basis functions, $J$ is the degrees of freedom for the splines, and $\beta_j^{(t)}$ are fitted parameters for a symmetrical window of half-width $\Delta$, centered at $t$, i.e., extending from $t-\Delta$ to $t + \Delta$. 
 The degrees of freedom to be used for the splines, and the width of the moving window will depend on the application.
-Explaination of the specific choices we used $J$ and $\Delta$ for our application to COVID-19 cases in US counties is described below.
+Explanation of the specific choices we used $J$ and $\Delta$ for our application to COVID-19 cases in US counties is described below.
 
 Modeling the underlying epidemic dynamics based on log-transformed incidence allows us to address the statistical effects of population size on the relationship between the mean and variance in count data, which would otherwise confound our analysis.
 Specifically, since population size influences the mean and variance of case count data, it impacts dispersion in different-sized populations that are otherwise identical.

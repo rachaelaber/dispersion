@@ -154,8 +154,8 @@ Within each window, the framework estimated the dispersion parameter ($\theta$) 
 Outputs included estimated dispersion parameters ($\theta_1$, $\theta_2$, for the left and right halves of each window, and $\theta$ for the entire window), likelihood ratio test statistics, $p$-values for changes in dispersion at the midpoint of the window, and flags for boundary conditions such as failure to reject Poisson-like dispersion or collapse to extreme overdispersion.
 
 \section*{Results and Discussion}
-The simulation studies indicate our LRT framework accurately detects changes in dispersion, with p-values averaging 0.5 when the effect size is zero and shrinking toward zero as the effect size increases (Fig.~\ref{fig1}). 
-The framework is also robust to the range of population sizes we addressed in the empirical data---county population sizes ranged from approximately 48 thousand to 9.9 million, and we tested the framework on simulated populations between 10 thousand and 10 million, yielding accurate estimates within the range of $\theta$ values, $10^-2 \leq \theta \leq 10^2$.
+The simulation studies indicate our LRT framework accurately detects changes in dispersion, with p-values averaging 0.5 when the effect size is zero and decreasibg toward zero as the effect size increases (Fig.~\ref{fig1}). 
+The framework is also robust to the range of population sizes we addressed in the empirical data---county population sizes ranged from approximately 48 thousand to 9.9 million, and we tested the framework on simulated populations between 10 thousand and 10 million, yielding accurate estimates within the range of $\theta$ values, $10^-2 \leq \theta \leq 10^2$, which encompasses all operationally relevant values of $\theta$ for COVID-19 incidence data and many other infectious diseases: values lower than this range would focus the PMF for cases almost entirely on 0 while values higher than this range are effectively Poisson. 
 
 \clearpage
 \begin{figure}[!ht]
@@ -169,12 +169,18 @@ d: Statistical power of the LRT test.}\label{fig1}
 \end{figure}
 \clearpage
 
-Paragraph on results shown in figure 2.
+Applying the method to COVID-19 cases in US counties enabled investigation of changes in the $\theta$ in relation to both observed trends and model expectations (Figure 2). 
+Periods of increased case count variability corresponded with decreases in the dispersion parameter, indicating that $\log_{10}\theta$ was dynamic and displayed both expected and unexpected patterns of variation. 
+In some instances, $\theta$ appeared to vary inversely with incidence, aligning with standard epidemic theory, while in other periods, deviations from that expectation occurred, potentially highlighting shifts in the underlying transmission dynamics. 
+Notably, significant changes in the dispersion parameter were observed during major epidemic transitions, such as the surge at the beginning of 2022, coinciding with heightened volatility in reported cases, and at the end of the time series, during the approach to endemicity as the landscape of susceptibility was changing and potentially becoming more complex~\citep{lavine2021immunological}.
+In other words, as a larger portion of incidence involved repeat infections (albiet potentially with different variants), prior immunity became a larger factor shaping epidemic dynamics, and potentially impacting the demography of burden, in particular the burden as it depends on age, and potentially particularly in children~\citep{lavine2021immunological}.
+These findings underscore the complex behavior of the dispersion parameter, which both varied with changes in case count regimes and highlighted departures from the model expectations described by Eq. 1.
 
 \clearpage
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{fig2}
 \caption{Dispersion analysis of weekly COVID-19 case data for one county. 
+Analysis for all counties together is shown in Fig 3.
 a: Weekly incidence in Jefferson County, Alabama. 
 b: Estimated dispersion parameter over time. 
 c: Comparison of estimated dispersion (grey) with predicted values under the standard model of $\theta_{t+1} = C_{t} / \rho_t$ where $C_t$ represents reported cases and $\rho_t$ the reporting rate, for constant values of $\rho_t = 0.1$ (black) and $\rho_t = 0.9$ (blue). 

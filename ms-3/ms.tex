@@ -99,13 +99,13 @@ In practice, these assumption will not often hold, and our aim in this paper is 
 
 \section*{Methods}
 By definition incidence volatility is fast relative to broadscale epidemic dynamics. 
-Consequently, in order to estimate incidence volatility we first model incidence at broad spatiotemporal scales using natural splines~\citep{perperoglou2019review}. To allow for diverse shapes in the broadscale epidemic dynamics, these are fitted within a moving window
+Consequently, in order to estimate incidence volatility we first model incidence at broad spatiotemporal scales using natural splines~\citep{perperoglou2019review}. To allow for diverse shapes in the broadscale epidemic dynamics, spline modeling is conducted in a moving window such that for each half of the window
 \begin{equation}
   \log\left(\dfrac{\mu_t}{N}\right)  = \sum_{j=1}^J \beta_j^{(t)} h_j(t)
 \end{equation}
-where $N$ represents population size, $h_j(t)$ are basis functions, $J$ is the degrees of freedom for the splines, and $\beta_j^{(t)}$ are fitted parameters for a symmetrical window of half-width $\Delta$, centered at $t$, i.e., extending from $t-\Delta$ to $t + \Delta$. 
-The degrees of freedom to be used for the splines, and the width of the moving window will depend on the application.
-Explaination of the specific choices we used $J$ and $\Delta$ for our application to COVID-19 cases in US counties is described below.
+where $N$ represents population size, $h_j(t)$ are basis functions, the degrees of freedom is equal to the number of knots $k$ for the natural spline, $J = k + d +1$, where $d$ is the degree of the polynomial, and $\beta_j^{(t)}$ are fitted parameters. The window has half-width $\Delta$, centered at $t$, i.e., extending from $t-\Delta$ to $t + \Delta$. 
+The degrees of freedom (number of knots) to be used for the natural splines, and the width of the moving window will depend on the application.
+Explaination of the specific choices we used for our application to COVID-19 cases in US counties is described below.
 
 Modeling the underlying epidemic dynamics based on log-transformed incidence allows us to address the statistical effects of population size on the relationship between the mean and variance in count data, which would otherwise confound our analysis.
 Specifically, since population size influences the mean and variance of case count data, it impacts dispersion in different-sized populations that are otherwise identical.
@@ -135,8 +135,7 @@ In the application below, we set this threshold at $10^3$, meaning that $\theta$
 
 Similarly, values of $\theta$ very close to 0 focus all of the mass of the PMF on 0, representing a scenario where the probability of observing any infections approaches zero. As with the Poisson-like tolerance described in the previous paragraph, our algorithm does not produce a $p$-value if any of the three $\theta$ estimates are below a user-specified threshold. This threshold will depend on the presence of contiguous sections of the time series being analyzed during which no cases are observed. In the application below, we set this threshold to $10^{-3}$, because $\theta$ values below this level correspond to 0 frequencies that greatly exceed those in the data.
 
-With both upper and lower $\theta$ thresholds--—corresponding to Poisson-like and zero tolerances, respectively—--maximum likelihood estimates (MLEs) of $\theta$ beyond these thresholds exhibited unbounded behavior. When $\theta$ exceeded the upper threshold, corresponding to processes operationally identical to a Poisson process, the MLE tended to grow arbitrarily large, with the likelihood surface reaching its maximum at the upper boundary of the calculated domain. Conversely, when $\theta$ fell below the lower threshold, representing extreme overdispersion with probability mass concentrated near zero, the MLE approached zero, and the likelihood surface peaked at the lower boundary of the domain. This behavior reflects the inability of the model to reliably estimate $\theta$ when it lies outside the specified thresholds 
-(Fig. 1a)
+With both upper and lower $\theta$ thresholds--—corresponding to Poisson-like and zero tolerances, respectively—--maximum likelihood estimates (MLEs) of $\theta$ beyond these thresholds exhibited unbounded behavior. When $\theta$ exceeded the upper threshold, corresponding to processes operationally identical to a Poisson process, the MLE tended to grow arbitrarily large, with the likelihood function reaching its maximum at the upper boundary of the calculated domain. Conversely, when $\theta$ fell below the lower threshold, representing extreme overdispersion with probability mass concentrated near zero, the MLE approached zero, and the likelihood function peaked at the lower boundary of the domain. This behavior reflects the inability of the model to reliably estimate $\theta$ when it lies outside the specified thresholds (Fig. 1c).
 
 \subsection*{Application to simulated data}
 We evaluated the robustness of our framework to a range of population sizes, magnitudes of dispersion changes, and shapes of underlying incidence trends by generating 2,000 simulated epidemic curves with known parameters. 
@@ -150,11 +149,11 @@ We applied our framework to COVID-19 case data for the United States at the admi
 Cumulative cases for the largest three counties in each state were converted to weekly counts by keeping the last observation from each week and differencing to compute new cases. Occasionally, reported cumulative case counts were not monotonically increasing due to corrections posted by local agencies as they resolved incoming data. 
 As a result, approximately 0.24\% of estimated new cases across all counties in the dataset were negative and these were set to zero. 
 For each county, we analyzed overlapping 16-week windows, shifting one week (i.e., one timestep) at a time. 
-Within each window, the framework estimated the dispersion parameter ($\theta$) using a natural spline with three degrees of freedom to model the broad-scale trend in incidence. 
+Within each window, the framework estimated the dispersion parameter ($\theta$) using a natural spline with three degrees of freedom for each half of the window to model the broad-scale trend in incidence. 
 Outputs included estimated dispersion parameters ($\theta_1$, $\theta_2$, for the left and right halves of each window, and $\theta$ for the entire window), likelihood ratio test statistics, $p$-values for changes in dispersion at the midpoint of the window, and flags for boundary conditions such as failure to reject Poisson-like dispersion or collapse to extreme overdispersion.
 
 \section*{Results and Discussion}
-The simulation studies indicate our LRT framework accurately detects changes in dispersion, with p-values averaging 0.5 when the effect size is zero and decreasibg toward zero as the effect size increases (Fig.~\ref{fig1}). 
+The simulation studies indicate our LRT framework accurately detects changes in dispersion, with p-values averaging 0.5 when the effect size is zero and decreasing toward zero as the effect size increases (Fig. 1d ~\ref{fig1}). 
 The framework is also robust to the range of population sizes we addressed in the empirical data---county population sizes ranged from approximately 48 thousand to 9.9 million, and we tested the framework on simulated populations between 10 thousand and 10 million, yielding accurate estimates within the range of $\theta$ values, $10^-2 \leq \theta \leq 10^2$, which encompasses all operationally relevant values of $\theta$ for COVID-19 incidence data and many other infectious diseases: values lower than this range would focus the PMF for cases almost entirely on 0 while values higher than this range are effectively Poisson. 
 
 \clearpage
@@ -173,7 +172,7 @@ Applying the method to COVID-19 cases in US counties enabled investigation of ch
 Periods of increased case count variability corresponded with decreases in the dispersion parameter, indicating that $\log_{10}\theta$ was dynamic and displayed both expected and unexpected patterns of variation. 
 In some instances, $\theta$ appeared to vary inversely with incidence, aligning with standard epidemic theory, while in other periods, deviations from that expectation occurred, potentially highlighting shifts in the underlying transmission dynamics. 
 Notably, significant changes in the dispersion parameter were observed during major epidemic transitions, such as the surge at the beginning of 2022, coinciding with heightened volatility in reported cases, and at the end of the time series, during the approach to endemicity as the landscape of susceptibility was changing and potentially becoming more complex~\citep{lavine2021immunological}.
-In other words, as a larger portion of incidence involved repeat infections (albiet potentially with different variants), prior immunity became a larger factor shaping epidemic dynamics, and potentially impacting the demography of burden, in particular the burden as it depends on age, and potentially particularly in children~\citep{lavine2021immunological}.
+In other words, as a larger portion of incidence involved repeat infections (albeit potentially with different variants), prior immunity became a larger factor shaping epidemic dynamics, and potentially impacting the demography of burden, in particular the burden as it depends on age, and potentially particularly in children~\citep{lavine2021immunological}.
 These findings underscore the complex behavior of the dispersion parameter, which both varied with changes in case count regimes and highlighted departures from the model expectations described by Eq. 1.
 
 \clearpage

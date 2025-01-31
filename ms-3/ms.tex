@@ -153,8 +153,8 @@ Within each window, the framework estimated the dispersion parameter ($\theta$) 
 Outputs included estimated dispersion parameters ($\theta_1$, $\theta_2$, for the left and right halves of each window, and $\theta$ for the entire window), likelihood ratio test statistics, $p$-values for changes in dispersion at the midpoint of the window, and flags for boundary conditions such as failure to reject Poisson-like dispersion or collapse to extreme overdispersion.
 
 \section*{Results and Discussion}
-The simulation studies indicate our LRT framework accurately detects changes in dispersion, with p-values averaging 0.5 when the effect size is zero and decreasing toward zero as the effect size increases (Fig. 1d ~\ref{fig1}). 
-The framework is also robust to the range of population sizes we addressed in the empirical data---county population sizes ranged from approximately 48 thousand to 9.9 million, and we tested the framework on simulated populations between 10 thousand and 10 million, yielding accurate estimates within the range of $\theta$ values, $10^-2 \leq \theta \leq 10^2$, which encompasses all operationally relevant values of $\theta$ for COVID-19 incidence data and many other infectious diseases: values lower than this range would focus the PMF for cases almost entirely on 0 while values higher than this range are effectively Poisson. 
+
+Simulations indicate that the LRT framework accurately detects changes in dispersion, with p-values converging to 0.5 as the effect size approaches 0, reflecting the uniform distribution of p-values under the null hypothesis, and decreasing toward zero as the effect size increases (Fig.~\ref{fig1}). The framework is also robust to the range of population sizes present in the empirical data—county populations ranged from approximately 48 thousand to 9.9 million, and we tested the framework on simulated populations between 10 thousand and 10 million. Across this range, the method produced accurate estimates for $\theta$ within $10^{-2} \leq \theta \leq 10^2$, encompassing all operationally relevant values for COVID-19 incidence data and many other infectious diseases. Lower values would concentrate the probability mass function (PMF) for cases almost entirely on 0, while higher values effectively correspond to a Poisson distribution.
 
 \clearpage
 \begin{figure}[!ht]
@@ -168,23 +168,27 @@ d: Statistical power of the LRT test.}\label{fig1}
 \end{figure}
 \clearpage
 
-Applying the method to COVID-19 cases in US counties enabled investigation of changes in the $\theta$ in relation to both observed trends and model expectations (Figure 2). 
-Periods of increased case count variability corresponded with decreases in the dispersion parameter, indicating that $\log_{10}\theta$ was dynamic and displayed both expected and unexpected patterns of variation. 
-In some instances, $\theta$ appeared to vary inversely with incidence, aligning with standard epidemic theory, while in other periods, deviations from that expectation occurred, potentially highlighting shifts in the underlying transmission dynamics. 
-Notably, significant changes in the dispersion parameter were observed during major epidemic transitions, such as the surge at the beginning of 2022, coinciding with heightened volatility in reported cases, and at the end of the time series, during the approach to endemicity as the landscape of susceptibility was changing and potentially becoming more complex~\citep{lavine2021immunological}.
-In other words, as a larger portion of incidence involved repeat infections (albeit potentially with different variants), prior immunity became a larger factor shaping epidemic dynamics, and potentially impacting the demography of burden, in particular the burden as it depends on age, and potentially particularly in children~\citep{lavine2021immunological}.
-These findings underscore the complex behavior of the dispersion parameter, which both varied with changes in case count regimes and highlighted departures from the model expectations described by Eq. 1.
+
+Applying the method to COVID-19 cases in US counties enabled investigation of changes in dispersion in relation to both observed trends and model expectations (Figure~\ref{fig2}).  
+Periods of increased case count variability corresponded with decreases in $\theta$, indicating that dispersion was dynamic. 
+Changes in dispersion exhibited both expected and unexpected patterns of variation relative to standard theory.  
+In some instances, $\theta$ varied inversely with incidence, consistent with standard epidemic theory, while in other periods, deviations from this expectation occurred, potentially signaling shifts in underlying transmission dynamics.  
+Notably, significant changes in the dispersion parameter were observed during major epidemic transitions, such as the surge at the beginning of 2022, and at the end of the time series, when the pandemic was transitioning toward endemicity as the landscape of susceptibility was evolving~\citep{lavine2021immunological}.  
+The landscape of susceptibility was evolving as a larger proportion of cases involved reinfections.  
+These findings underscore the complex behavior of the dispersion parameter, which not only varied with changes in case count regimes but also revealed departures from the model expectations described by Eq.~1, which are consistent with changes in the underlying drivers of transmission. 
+
+The next paragraph should look across all counties and reference Fig 3.
 
 \clearpage
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{fig2}
-\caption{Dispersion analysis of weekly COVID-19 case data for one county. 
-Analysis for all counties together is shown in Fig 3.
-a: Weekly incidence in Jefferson County, Alabama. 
-b: Estimated dispersion parameter over time. 
-c: Comparison of estimated dispersion (grey) with predicted values under the standard model of $\theta_{t+1} = C_{t} / \rho_t$ where $C_t$ represents reported cases and $\rho_t$ the reporting rate, for constant values of $\rho_t = 0.1$ (black) and $\rho_t = 0.9$ (blue). 
-This wide range of constant values is intended to enclose the $theta$ values that would be predicted by the standard model under under variable $\rho$.
-d: Likelihood ratio test (LRT) statistic over time, highlighting statistically large changes in dispersion (red), defined as p-values less than the Bonferroni-corrected 5\% quantile of a chi-square random variable with one degree of freedom.}\label{fig2}
+\caption{Dispersion analysis of weekly COVID-19 case data for Jefferson County, Alabama. 
+Results for all counties are shown in Figure 3  %.~\ref{fig3}.  
+a: Weekly reported COVID-19 incidence.  
+b: Estimated dispersion parameter ($\theta$) over time.  
+c: Comparison of estimated dispersion (gray) with predicted values from the standard model $\theta_{t+1} = C_t / \rho_t$, where $C_t$ is reported cases and $\rho_t$ is the reporting rate. Predictions are shown for fixed $\rho_t = 0.1$ (black) and $\rho_t = 0.9$ (blue), chosen to encompass the range of $\theta$ expected under variable $\rho$.  
+d: Likelihood ratio test (LRT) statistic over time. Statistically significant changes in dispersion (red) correspond to p-values below the Bonferroni-corrected 5\% threshold of a chi-square distribution with one degree of freedom.  
+}\label{fig2}
 \end{figure}
 \clearpage
 

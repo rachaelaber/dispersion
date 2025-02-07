@@ -162,7 +162,7 @@ labels <- substr(labels, 1, 1)
 
 axis.Date(1, at = at, labels = labels, ti, cex.axis = 1.3)
 
-mtext("d", side = 3, line = 1, adj = 0, cex = 1.5)
+mtext("e", side = 3, line = 1, adj = 0, cex = 1.5)
 
 legend("topright",
   inset = c(-0.34, 0.1),

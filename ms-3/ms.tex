@@ -33,7 +33,7 @@
 
 \linenumbers\maketitle
 
-\begin{Abstract}
+\begin{abstract}
 Trends in infectious disease incidence provide important information about epidemic dynamics and prospects for control. 
 Higher-frequency variation around incidence trends can shed light on the processes driving epidemics in complex populations, as transmission heterogeneity, shifting landscapes of susceptibility, and fluctuations in reporting can impact the volatility of observed case counts.
 However, measures of temporal volatility in incidence, and how volatility changes over time, are often overlooked in population-level analyses of incidence data, which typically focus on moving averages.
@@ -170,21 +170,14 @@ d: Statistical power of the LRT test.}\label{fig1}
 \end{figure}
 \clearpage
 
-
-Applying the method to COVID-19 cases in US counties enabled investigation of changes in dispersion in relation to both observed trends and model expectations (Figure~\ref{fig2}).  
+Applying the method to COVID-19 cases in US counties enabled investigation of changes in dispersion in relation to both observed trends and model expectations based on case counts (Figure~\ref{fig2}).  
 Periods of increased case count variability corresponded with decreases in $\theta$, indicating that dispersion was dynamic. 
 Changes in dispersion exhibited both expected and unexpected patterns of variation relative to standard theory.  
 In some instances, $\theta$ varied inversely with incidence, consistent with standard epidemic theory, while in other periods, deviations from this expectation occurred, potentially signaling shifts in underlying transmission dynamics.  
-Notably, significant changes in the dispersion parameter were observed during major epidemic transitions, such as the surge at the beginning of 2022, and at the end of the time series, when the pandemic was transitioning toward endemicity as the landscape of susceptibility was evolving~\citep{lavine2021immunological}.  
+Notably, significant changes in the dispersion parameter were observed during major epidemic transitions.
+For example, during the beginning of 2022, and at the end of the time series, when the pandemic was transitioning toward endemicity as the landscape of susceptibility was evolving~\citep{lavine2021immunological}.  
 The landscape of susceptibility was evolving as a larger proportion of cases involved reinfections.  
 These findings underscore the complex behavior of the dispersion parameter, which not only varied with changes in case count regimes but also revealed departures from the model expectations described by Eq.~1, which are consistent with changes in the underlying drivers of transmission. 
-
-Highly overdispersed patterns were observed for many of the examined counties more frequently later in time series, consistent with more heterogeneity in transmission, susceptibility and reporting. 
-In addition, there are increases in dispersion around the peaks in incidence (Figure~\ref{fig3}).
-Evidence for a change in \begin{math}\theta\end{math} was observed across many counties (evidenced by a concentration of low p-values around peak incidence) (Figure~\ref{fig3}). Note that these p-values should be corrected for multiple testing when used for inference instead of visualization.
-Raising variance relative to mean (higher dispersion) implies spatiotemporal "crowding" of cases (i.e. localized surges) which may necessitate more surge capacity in hospitals and testing centers. 
-It appears that there are more surges on the way up to, and on the way down from, peak incidence, some of which departs from the dispersion expected under standard epidemic theory. 
-This indicates less diffuse epidemic dynamics that are potentially more subject to climate forcing \cite{dalziel_urbanization_2018}, and increased locally experienced mean density \cite{lloyd_mean_1967} at unexpected points in the COVID-19 pandemic. 
 
 \clearpage
 \begin{figure}[!ht]
@@ -198,6 +191,21 @@ d: Likelihood ratio test (LRT) statistic over time. Statistically significant ch
 }\label{fig2}
 \end{figure}
 \clearpage
+
+Dispersion increased markedly around the peaks in incidence during the major 2022 wave, from late December 2021 to early February 2022 (Figure~\ref{fig3}).
+This is in strong contrast to standard epidemic theory which predicts that dispersion should decrease as incidence rises.
+A high concentration of low $p$-values around peak incidence (Figure~\ref{fig3}) corroborates widespread changes in $\theta$ across counties, reinforcing the statistical significance of this pattern.
+While these $p$-values should be corrected for multiple testing if used for inference rather than visualization, the overall trend suggests a systematic departure from theoretical expectations.
+Highly overdispersed patterns were also observed more frequently later in the time series, pointing to increasing heterogeneity in transmission, susceptibility, and reporting during the later phases of the pandemic. 
+In both the 2022 wave and later in the pandemic, localized surges indicated by higher dispersion may have played a larger role in pandemic dynamics than expected, including potentially placing increased demand for surge capacity in hospitals and testing centers.
+
+\clearpage
+\begin{figure}[!ht]
+\includegraphics[width=1\textwidth]{fig3}
+\caption{caption.}\label{fig3}
+\end{figure}
+\clearpage
+
 
 \section*{Acknowledgments}
 RA work on this project was supported by X and Y. BDD work on this project was supported by the National Science Foundation (NSF) grants (X, Y) and by the David and Lucile Packard Foundation.

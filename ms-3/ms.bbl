@@ -137,4 +137,16 @@ Lavine JS, Bjornstad ON, Antia R.
   endemicity.
 \newblock Science. 2021;371(6530):741--745.
 
+\bibitem{jo_burst-tree_2020}
+Jo HH, Hiraoka T, Kivelä M.
+\newblock Burst-tree decomposition of time series reveals the structure of
+  temporal correlations.
+\newblock Scientific Reports. 2020;10(1):12202.
+
+\bibitem{loo_identification_2021}
+Loo BPY, Tsoi KH, Wong PPY, Lai PC.
+\newblock Identification of superspreading environment under {COVID}-19 through
+  human mobility data.
+\newblock Scientific Reports. 2021;11(1):4699.
+
 \end{thebibliography}

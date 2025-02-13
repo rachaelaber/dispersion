@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.9.6)  6 FEB 2025 20:54
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.9.6)  13 FEB 2025 00:59
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -397,23 +397,23 @@ Package pdftex.def Info: fig3.pdf  used on input line 204.
 
 ] (/Users/benjamda/Git/aber/2023_paper/ms-3/ms.bbl [15
 
-]) [16] (/Users/benjamda/Git/aber/2023_paper/ms-3/ms.aux)
+] [16]) [17] (/Users/benjamda/Git/aber/2023_paper/ms-3/ms.aux)
 Package rerunfilecheck Info: File `ms.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 10107 strings out of 478994
- 146735 string characters out of 5858185
- 456432 words of memory out of 5000000
- 27401 multiletter control sequences out of 15000+600000
+ 10116 strings out of 478994
+ 146964 string characters out of 5858185
+ 456904 words of memory out of 5000000
+ 27407 multiletter control sequences out of 15000+600000
  411610 words of font info for 58 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 71i,5n,74p,1018b,491s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 71i,5n,74p,1018b,544s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on /Users/benjamda/Git/aber/2023_paper/ms-3/ms.pdf (16 pages, 700917 bytes).
+Output written on /Users/benjamda/Git/aber/2023_paper/ms-3/ms.pdf (17 pages, 720773 bytes).
 PDF statistics:
- 245 PDF objects out of 1000 (max. 8388607)
- 205 compressed objects within 3 object streams
- 56 named destinations out of 1000 (max. 500000)
+ 257 PDF objects out of 1000 (max. 8388607)
+ 216 compressed objects within 3 object streams
+ 59 named destinations out of 1000 (max. 500000)
  16 words of extra memory for PDF output out of 10000 (max. 10000000)
 

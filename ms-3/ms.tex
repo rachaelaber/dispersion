@@ -202,34 +202,23 @@ In both the 2022 wave and later in the pandemic, localized surges indicated by h
 \clearpage
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{fig3}
-\caption{Incidence and dispersion between 2020-01-04 and 2023-03-18 in large counties in the US. 
+\caption{Incidence and dispersion between Jan 4, 2020 and March 18, 2023, in large counties in the US.
 a: Mean COVID-19 cases of the 144 US counties over time. 
-b: Mean $log_{10}\theta$ of the 144 US counties over time.  
-c: $log_{10}(cases)$ over time for each of the 144 counties (y-axis).
-d: $log_{10}\theta$ over time for each of the 144 counties (y-axis).
-e: Expected value of $log_{10}\theta_0$ under the null model in Equation 1 ($log_{10}(cases)$ - log_{10}(reporting rate)$) over time for each of the 144 counties (y-axis).
-f: LRT p-values over time for each of the 144 counties (y-axis).}
-\label{fig3}
+b: Mean $\log_{10}\theta$ of the 144 US counties over time.  
+c: $\log_{10}(cases)$ over time for each of the 144 counties.
+d: $\log_{10}\theta$ over time for each of the 144 counties.
+e: Expected value of $\log_{10}\theta_0$ under the null model, assuming a reporting rate of 0.5.
+f: LRT p-values over time for each location.}\label{fig3}
 \end{figure}
 \clearpage
 
-We presented an approach to quantify clustering of cases in epidemic time series that is less susceptible to detecting artifacts based on population size and incidence. 
-While our estimation framework facilitates comparison of dispersion between counties and also over time in a given county, our LRT framework additionally allows for detection of changing dispersion. 
 Our method forms part of a larger interest in investigating variability in infections as an important attribute of epidemic time series using novel metrics.
-For instance, burst-tree decomposition of time series has also facilitated computation of a burst-size distribution for a series given a specified time window \cite{jo_burst-tree_2020}, allowing comparison of variability within one location over time. 
-Spatial variation in superspreading potential has been investigated through risk maps of superspreading environments \cite{loo_identification_2021}, so future work could investigate the correspondence between our dispersion metric and indicators of a high risk of superspreading.
-Methods that use incidence time series are crucial due to the ease of obtaining this type of data, so the timing and geographical allocation of public health resources can be achieved with limited resources. 
-Additionally, population-wide disease control approaches are often less effective than those which are targeted to individuals in high-transmission contexts \cite{lloyd2005superspreading}, so identifying candidate time periods when transmission heterogeneity is high may catalyze the development of more efficient control strategies.
-
-Application of the methods we developed to empirical case count time series spanning from the beginning of 2020 to early 2023 revealed distinct increases in dispersion both near the end of the time series considered and near peaks in COVID-19 incidence.
-These results imply that dispersion is high \emph{near} peak incidence, suggesting that high dispersion is not simply associated with low incidence. 
-Observed departures from the level of dispersion expected under the model represented in Eq 1 represent time periods in which the assumptions of the null model may be violated and cases may be highly clustered in time.
-
-Previous research to evaluate bursty dynamics based on Influenza-like Illness (ILI) times series showed that epidemics in smaller communities were concentrated on narrower windows of the influenza season; the proportion of disease incidence that occurred in a given week was a metric of interest \cite{dalziel2018urbanization}. 
-Though large cities may be subject to more "smooth" epidemic dynamics, our contribution highlights the circumstances under which dynamics are less smooth in large populations.
-
-Since there are regimes of the COVID-19 epidemic that are subject to increased dispersion across large counties, these may be candidate time periods for rolling out extra surge capacity in large counties. 
-However, further research is needed to understand whether this phenomenon occurs in smaller counties and for other pathogens.
+For instance, burst-tree decomposition of time series has also facilitated computation of a burst-size distribution for a series given a specified time window~\citep{jo_burst-tree_2020}, allowing comparison of variability within one location over time. 
+Spatial variation in superspreading potential has been investigated through risk maps of superspreading environments~\citep{loo_identification_2021}, and future work could investigate the correspondence between dispersion in case count time series, as quantified here, and indicators of a high risk of superspreading, with the potential to further illucidate drivers of transmission risk across scales, and more finely resolve landscapes of susceptibility.
+Additionally, as population-wide disease control may be less effective than those which are focussed to individuals in high-transmission contexts~\citep{lloyd2005superspreading}, identifying candidate time periods when transmission heterogeneity is high may catalyze the development of more effective control strategies, particularly those that connect vulnerable populations with resources at critical times.
+The finding that dispersion increased rather than decreased during the 2022 surge challenges theoretical expectations and suggests that fundamental assumptions about the scaling of transmission dynamics may require reevaluation. 
+One hypothesis is that transmission heterogeneity could play a role in driving large surges, amplifying incidence beyond what homogeneous models predict. 
+Future work could investigate whether bursts of highly clustered transmission events generate feedback that accelerates epidemic spread, which, if true, could refine predictive models of contagion dynamics in complex populations.
 
 \section*{Acknowledgments}
 RA work on this project was supported by X and Y. BDD work on this project was supported by the National Science Foundation (NSF) grants (X, Y) and by the David and Lucile Packard Foundation.

@@ -11,15 +11,17 @@
 \usepackage{setspace} % linespacing
 \usepackage{hyperref} % For hyperlinks
 
-% Redefine the \figurename to make it bold
-\renewcommand{\figurename}{\textbf{Figure}}
-
 % Set 1.5 spacing
 \setstretch{1.5}
 
+% Remove parentheses around equation numbers
+\renewcommand{\eqref}[1]{Eq.~\ref{#1}}
+
+% Change figure references to "Fig. X" instead of "Figure X"
+\renewcommand{\figurename}{Fig.}
 
 % Set citation style
-\setcitestyle{numbers} 
+\setcitestyle{square, numbers} 
 
 % Metadata
 \title{Time-series modeling of epidemics in complex populations: detecting changes in incidence volatility over time}
@@ -165,8 +167,7 @@ Simulations indicate that the LRT framework accurately detects changes in disper
 \clearpage
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{fig1}
-\caption{
-Detecting dispersion changes in case count time series. 
+\caption{{\bf Fig 1. Detecting dispersion changes in case count time series.}
 a: Weekly incidence of COVID-19 in the United States, with time measured in weeks since January 4, 2020, showing an example of a randomly-selected 16 week period used as an incidence trend when in simulation-based validation of the LRT test (red). 
 b: Cases in in one county (Douglas County, Nebraska) over the sample time period with estimated incidence trend (red) and estimated dispersion values on either side of the midpoint. 
 c: Estimated $\theta$ versus true $\theta$ in simulation studies combining a randomly-selected section of the national incidence curve with a random population size and set of dispersion values. Estimated values outside of tolerance plotted in purple (close to Poisson) and blue (close to collapsing to zero). 
@@ -181,12 +182,12 @@ In some instances, $\theta$ varied inversely with incidence, consistent with sta
 Notably, significant changes in the dispersion parameter were observed during major epidemic transitions.
 For example, during the beginning of 2022, and at the end of the time series, when the pandemic was transitioning toward endemicity as the landscape of susceptibility was evolving~\citep{lavine2021immunological}.  
 The landscape of susceptibility was evolving as a larger proportion of cases involved reinfections.  
-These findings underscore the complex behavior of the dispersion parameter, which not only varied with changes in case count regimes but also revealed departures from the model expectations described by Eq.~1, which are consistent with changes in the underlying drivers of transmission. 
+These findings underscore the complex behavior of the dispersion parameter, which not only varied with changes in case count regimes but also revealed departures from the model expectations described by Eq ~1, which are consistent with changes in the underlying drivers of transmission. 
 
 \clearpage
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{fig2}
-\caption{Dispersion analysis of weekly COVID-19 case data for Jefferson County, Alabama. 
+\caption{{\bf Fig 2. Dispersion analysis of weekly COVID-19 case data for Jefferson County, Alabama.} 
 Results for all counties are shown in Figure 3  %.~\ref{fig3}.  
 a: Weekly reported COVID-19 incidence.  
 b: Estimated dispersion parameter ($\theta$) over time.  
@@ -206,7 +207,7 @@ In both the 2022 wave and later in the pandemic, localized surges indicated by h
 \clearpage
 \begin{figure}[!ht]
 \includegraphics[width=1\textwidth]{fig3}
-\caption{Incidence and dispersion between Jan 4, 2020 and March 18, 2023, in large counties in the US.
+\caption{{\bf Fig 3. Incidence and dispersion between Jan 4, 2020 and March 18, 2023, in large counties in the US.}
 a: Mean COVID-19 cases of the 144 US counties over time. 
 b: Mean $\log_{10}\theta$ of the 144 US counties over time.  
 c: $\log_{10}(cases)$ over time for each of the 144 counties.

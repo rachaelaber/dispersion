@@ -5,7 +5,7 @@
 \usepackage{authblk} % author affiliations
 \usepackage{graphicx} % graphics
 \usepackage{amsmath, amssymb} % mathematical symbols
-\usepackage{natbib} % bibliography
+\usepackage[numbers,square]{natbib}
 \usepackage[margin=1in]{geometry} % margins
 \usepackage{lineno} % line numbers
 \usepackage{setspace} % linespacing
@@ -15,7 +15,7 @@
 \setstretch{1.5}
 
 % Set citation style
-\setcitestyle{numbers} 
+\setcitestyle{numbers,square}
 
 % Metadata
 \title{Time-series modeling of epidemics in complex populations: detecting changes in incidence volatility over time}
@@ -90,6 +90,7 @@ In a simple example relevant to surge capacity in healthcare systems, $\theta = 
 In a sufficiently large host population, and when the infectious pathogen can be assumed to spread in nonoverlapping generations, the number of infections each generation is often modeled as
 \begin{equation}
     I_{t+1} \sim NB(\mu_t = R_t I_t, \theta_t = I_t)
+    \label{eq1}
 \end{equation}
 where time-varying reproductive number $R_t$ gives the expected number of secondary infections aqcuired from an infected indivual at time $t$, and the generation time is set to 1 without loss of generality~\citep{kendall1949stochastic, bjornstad2002dynamics}. 
 Setting $\theta_t = I_t$ arises from the assumption that individuals who acquire the infection at time $t$ form independent lineages with identically distributed local rate parameters.
@@ -176,7 +177,10 @@ In some instances, $\theta$ varied inversely with incidence, consistent with sta
 Notably, significant changes in the dispersion parameter were observed during major epidemic transitions.
 For example, during the beginning of 2022, and at the end of the time series, when the pandemic was transitioning toward endemicity as the landscape of susceptibility was evolving~\citep{lavine2021immunological}.  
 The landscape of susceptibility was evolving as a larger proportion of cases involved reinfections.  
-These findings underscore the complex behavior of the dispersion parameter, which not only varied with changes in case count regimes but also revealed departures from the model expectations described by Eq.~1, which are consistent with changes in the underlying drivers of transmission. 
+These findings underscore the complex behavior of the dispersion parameter, 
+which not only varied with changes in case count regimes but also revealed 
+departures from the model expectations described by Eq (\ref{eq1}), which are 
+consistent with changes in the underlying drivers of transmission. 
 
 \clearpage
 \begin{figure}[!ht]

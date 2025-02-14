@@ -11,6 +11,9 @@
 \usepackage{setspace} % linespacing
 \usepackage{hyperref} % For hyperlinks
 
+% Redefine the \figurename to make it bold
+\renewcommand{\figurename}{\textbf{Figure}}
+
 % Set 1.5 spacing
 \setstretch{1.5}
 
@@ -138,7 +141,7 @@ In the application below, we set this threshold at $10^3$, meaning that $\theta$
 
 Similarly, values of $\theta$ very close to 0 focus all of the mass of the PMF on 0, representing a scenario where the probability of observing any infections approaches zero. As with the Poisson-like tolerance described in the previous paragraph, our algorithm does not produce a $p$-value if any of the three $\theta$ estimates are below a user-specified threshold. This threshold will depend on the presence of contiguous sections of the time series being analyzed during which no cases are observed. In the application below, we set this threshold to $10^{-3}$, because $\theta$ values below this level correspond to 0 frequencies that greatly exceed those in the data.
 
-With both upper and lower $\theta$ thresholds--—corresponding to Poisson-like and zero tolerances, respectively—--maximum likelihood estimates (MLEs) of $\theta$ beyond these thresholds exhibited unbounded behavior. When $\theta$ exceeded the upper threshold, corresponding to processes operationally identical to a Poisson process, the MLE tended to grow arbitrarily large, with the likelihood function reaching its maximum at the upper boundary of the calculated domain. Conversely, when $\theta$ fell below the lower threshold, representing extreme overdispersion with probability mass concentrated near zero, the MLE approached zero, and the likelihood function peaked at the lower boundary of the domain. This behavior reflects the inability of the model to reliably estimate $\theta$ when it lies outside the specified thresholds (Fig.~\ref{fig1}).
+With both upper and lower $\theta$ thresholds--—corresponding to Poisson-like and zero tolerances, respectively—--maximum likelihood estimates (MLEs) of $\theta$ beyond these thresholds exhibited unbounded behavior. When $\theta$ exceeded the upper threshold, corresponding to processes operationally identical to a Poisson process, the MLE tended to grow arbitrarily large, with the likelihood function reaching its maximum at the upper boundary of the calculated domain. Conversely, when $\theta$ fell below the lower threshold, representing extreme overdispersion with probability mass concentrated near zero, the MLE approached zero, and the likelihood function peaked at the lower boundary of the domain. This behavior reflects the inability of the model to reliably estimate $\theta$ when it lies outside the specified thresholds (Fig~\ref{fig1}).
 
 \subsection*{Application to simulated data}
 We evaluated the robustness of our framework to a range of population sizes, magnitudes of dispersion changes, and shapes of underlying incidence trends by generating 2,000 simulated epidemic curves with known parameters. 
@@ -157,7 +160,7 @@ Outputs included estimated dispersion parameters ($\theta_1$, $\theta_2$, for th
 
 \section*{Results and Discussion}
 
-Simulations indicate that the LRT framework accurately detects changes in dispersion, with p-values converging to 0.5 as the effect size approaches 0, reflecting the uniform distribution of p-values under the null hypothesis, and decreasing toward zero as the effect size increases (Fig.~\ref{fig1}). The framework is also robust to the range of population sizes present in the empirical data—county populations ranged from approximately 48 thousand to 9.9 million, and we tested the framework on simulated populations between 10 thousand and 10 million. Across this range, the method produced accurate estimates for $\theta$ within $10^{-2} \leq \theta \leq 10^2$, encompassing all operationally relevant values for COVID-19 incidence data and many other infectious diseases. Lower values would concentrate the probability mass function (PMF) for cases almost entirely on 0, while higher values effectively correspond to a Poisson distribution.
+Simulations indicate that the LRT framework accurately detects changes in dispersion, with p-values converging to 0.5 as the effect size approaches 0, reflecting the uniform distribution of p-values under the null hypothesis, and decreasing toward zero as the effect size increases (Fig~\ref{fig1}). The framework is also robust to the range of population sizes present in the empirical data—county populations ranged from approximately 48 thousand to 9.9 million, and we tested the framework on simulated populations between 10 thousand and 10 million. Across this range, the method produced accurate estimates for $\theta$ within $10^{-2} \leq \theta \leq 10^2$, encompassing all operationally relevant values for COVID-19 incidence data and many other infectious diseases. Lower values would concentrate the probability mass function (PMF) for cases almost entirely on 0, while higher values effectively correspond to a Poisson distribution.
 
 \clearpage
 \begin{figure}[!ht]
@@ -171,7 +174,7 @@ d: Statistical power of the LRT test.}\label{fig1}
 \end{figure}
 \clearpage
 
-Applying the method to COVID-19 cases in US counties enabled investigation of changes in dispersion in relation to both observed trends and model expectations based on case counts (Figure~\ref{fig2}).  
+Applying the method to COVID-19 cases in US counties enabled investigation of changes in dispersion in relation to both observed trends and model expectations based on case counts (Fig~\ref{fig2}).  
 Periods of increased case count variability corresponded with decreases in $\theta$, indicating that dispersion was dynamic. 
 Changes in dispersion exhibited both expected and unexpected patterns of variation relative to standard theory.  
 In some instances, $\theta$ varied inversely with incidence, consistent with standard epidemic theory, while in other periods, deviations from this expectation occurred, potentially signaling shifts in underlying transmission dynamics.  
@@ -193,9 +196,9 @@ d: Likelihood ratio test (LRT) statistic over time. Statistically significant ch
 \end{figure}
 \clearpage
 
-Dispersion increased markedly around the peaks in incidence during the major 2022 wave, from late December 2021 to early February 2022 (Figure~\ref{fig3}).
+Dispersion increased markedly around the peaks in incidence during the major 2022 wave, from late December 2021 to early February 2022 (Fig~\ref{fig3}).
 This is in strong contrast to standard epidemic theory which predicts that dispersion should decrease as incidence rises.
-A high concentration of low $p$-values around peak incidence (Figure~\ref{fig3}) corroborates widespread changes in $\theta$ across counties, reinforcing the statistical significance of this pattern.
+A high concentration of low $p$-values around peak incidence (Fig~\ref{fig3}) corroborates widespread changes in $\theta$ across counties, reinforcing the statistical significance of this pattern.
 While these $p$-values should be corrected for multiple testing if used for inference rather than visualization, the overall trend suggests a systematic departure from theoretical expectations.
 Highly overdispersed patterns were also observed more frequently later in the time series, pointing to increasing heterogeneity in transmission, susceptibility, and reporting during the later phases of the pandemic. 
 In both the 2022 wave and later in the pandemic, localized surges indicated by higher dispersion may have played a larger role in pandemic dynamics than expected, including potentially placing increased demand for surge capacity in hospitals and testing centers.
@@ -220,6 +223,12 @@ Additionally, as population-wide disease control may be less effective than thos
 The finding that dispersion increased rather than decreased during the 2022 surge challenges theoretical expectations and suggests that fundamental assumptions about the scaling of transmission dynamics may require reevaluation. 
 One hypothesis is that transmission heterogeneity could play a role in driving large surges, amplifying incidence beyond what homogeneous models predict. 
 Future work could investigate whether bursts of highly clustered transmission events generate feedback that accelerates epidemic spread, which, if true, could refine predictive models of contagion dynamics in complex populations.
+
+\section*{Supporting Information}
+
+\paragraph*{S1 Text.}
+\label{S1_Text}
+{\bf Derivation of the relationship between the disperion parameter and the mean crowding parameter.}
 
 \section*{Acknowledgments}
 RA work on this project was supported by X and Y. BDD work on this project was supported by the National Science Foundation (NSF) grants (X, Y) and by the David and Lucile Packard Foundation.

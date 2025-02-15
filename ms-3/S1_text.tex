@@ -1,13 +1,18 @@
-S1 Text. Derivation of the relationship between the disperion parameter and the mean crowding parameter. 
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
 
-Let $m^*$ be mean crowding and $m$ be the mean. By definition, we have $m^* = m +(\sigma^2/m -1)$. 
-Therefore, we have that $m^*- m = \sigma^2/m -1$.
+{\noindent \bf S1 Text. Derivation of the relationship between the disperion parameter and the mean crowding parameter.}\\
 
-We also have that $\sigma^2 = m + m^2/\theta$, by definition of negative binomial variance, where $\theta$ is the dispersion parameter. This is equivalent to $\sigma^2/m = 1 + m/\theta$.
-Therefore, we have that $m/\theta = \sigma^2/m - 1$.
+\noindent 1. Let $m^*$ be mean crowding and $m$ be the mean.\\
+$m^* = m +(\frac{\sigma^2}{m} -1)$ (by definition of mean crowding)\\
+$ \implies m^*- m = \frac{\sigma^2}{m} -1$\\
 
-By equating these, we have $m^*- m = m/\theta$. 
+\noindent 2. Let $\theta$ be the dispersion parameter and $\sigma^2$ be the variance of the negative binomial distribution.\\ 
+$\sigma^2 = m + \frac{m^2}{\theta}$ (by definition of negative binomial variance)\\ $\implies \frac{\sigma^2}{m} = 1 + \frac{m}{\theta}$\\
+$\implies \frac{m}{\theta} = \frac{\sigma^2}{m} - 1$\\
 
-Dividing both sides by $m$, we have $m^*/m - 1 = 1/\theta$
+\noindent 3. $\frac{m^*}{m} - 1 = \frac{1}{\theta}$ (by equating the left-hand sides of the results in 1 and 2 and dividing by $m$) \\
+$\implies m^*= m + \frac{m}{\theta}$
 
-Finally, we have that $m^*= m/\theta + m$
+\end{document}

@@ -11,6 +11,10 @@
 \usepackage{setspace} % linespacing
 \usepackage{hyperref} % For hyperlinks
 
+\usepackage{caption} % Ensure the caption package is included
+\captionsetup{labelformat=empty} % Suppress automatic "Figure X" label
+
+
 % Set 1.5 spacing
 \setstretch{1.5}
 
@@ -19,7 +23,7 @@
 
 % Metadata
 \title{Time-series modeling of epidemics in complex populations: detecting changes in incidence volatility over time}
-\author[1,2,3]{Rachael Aber}
+\author[1,2,3*]{Rachael Aber}
 \author[2]{Yanming Di}
 \author[1,4]{Benjamin D. Dalziel}
 \affil[1]{Department of Integrative Biology, Oregon State University, Corvallis, Oregon, USA}
@@ -58,8 +62,16 @@ Shifts in dispersion can also indicate shifts in epidemic phase, so our method p
 
 \clearpage
 \section*{Introduction}
-Time series of infectious disease incidence appear, to varying degrees, ``noisy'', showing higher frequency fluctuations (e.g., day-to-day or week-to-week fluctations) around trends at the broader temporal ranges typical for epidemic curves (e.g., months or years).
-Short-term fluctuations in incidence time series are caused in part by variable reporting, but may also reflect the population-level impacts of transmission heterogeneity and changes in the landscape of susceptiblility~\citep{lloyd2005superspreading,lloyd2007maximum, lau2017spatial, dalziel2018urbanization, kirkegaard2021superspreading, sun2021transmission,guo2023statistical,ko2023time}.
+Time series of infectious disease incidence appear, to varying degrees, 
+``noisy'', showing higher frequency fluctuations (e.g., day-to-day or 
+week-to-week fluctuations) around trends at the broader temporal ranges typical 
+for epidemic curves (e.g., months or years).
+Short-term fluctuations in incidence time series are caused in part by variable 
+reporting, but may also reflect the population-level impacts of transmission 
+heterogeneity and changes in the landscape of 
+susceptibility~\citep{lloyd2005superspreading,lloyd2007maximum, lau2017spatial, 
+dalziel2018urbanization, kirkegaard2021superspreading, 
+sun2021transmission,guo2023statistical,ko2023time}.
 Metrics of variability in incidence time series may therefore carry information regarding underlying drivers of transmission, and offer a relatively unexplored avenue for understanding epidemic dynamics. 
 
 Contact tracing data has revealed temporal changes in the variability of individual reproductive numbers, quantified by shifts in the dispersion parameter of the offspring distribution in branching process models~\citep{guo2023statistical,ko2023time}. 
@@ -74,9 +86,14 @@ For example, a recently-developed method uses population-level incidence data to
 It is also possible to estimate the dispersion parameter of the offspring distribution from the distribution of the final size of a series of localized outbreaks~\citep{blumberg2013inference}.
 Clustering of cases has also been estimated directly from incidence data~\citep{schneckenreither2023assessing}.
 Another important application links variability in incidence to epidemic phases; for example, changes in the mean and interannual coefficient of variation of measles incidence have been used to identify a country’s position on the path to elimination, providing insights into vaccination strategies and epidemiological dynamics~\citep{graham2019measles}. 
-Analysis of the shape of epidemic curves for influenza in cities may identify contexts where incidence is focussed more intensely (proportionally more infections in a smaller span of time) with implications for the sensitivity of cities to climate forcing and for surge capacity in the health system~\citep{dalziel2018urbanization, wallinga2018metropolitan}. 
+Analysis of the shape of epidemic curves for influenza in cities may identify 
+contexts where incidence is focused more intensely (proportionally more 
+infections in a smaller span of time) with implications for the sensitivity of 
+cities to climate forcing and for surge capacity in the health 
+system~\citep{dalziel2018urbanization, wallinga2018metropolitan}. 
 
-What drives indicence dispersion and how does it relate to the underlying branching process of transmission, and to observations of cases? 
+What drives incidence dispersion and how does it relate to the underlying 
+branching process of transmission, and to observations of cases? 
 Under a wide range of configurations for a branching process model of contagion spread, the number of infected individuals $I_t$ at time $t$ will have a negative binomial distribution~\citep{kendall1949stochastic, grenfell2002dynamics}, $I_t \sim NB \left( \mu_t, \theta_t \right)$, where $\mu_t$ is the expectation for $I_t$ and $\theta_t$ is the dispersion parameter. 
 The variance is related to the mean and dispersion parameters by $\mathrm{Var}[I_t] = \mu_t + \mu_t^2 / \theta_t$, so smaller values of the dispersion parameter $\theta_t$ correspond to increasing amounts of dispersion, which increase the amounts by which the variance in realized number infected $I_t$ exceeds the expected value, $\mu_t$. 
 Conversely, the distribution of $I_t$ tends to a Poisson distribution (where the variance equals mean) as $\theta_t$ becomes large. 
@@ -92,9 +109,14 @@ In a sufficiently large host population, and when the infectious pathogen can be
     I_{t+1} \sim NB(\mu_t = R_t I_t, \theta_t = I_t)
     \label{eq1}
 \end{equation}
-where time-varying reproductive number $R_t$ gives the expected number of secondary infections aqcuired from an infected indivual at time $t$, and the generation time is set to 1 without loss of generality~\citep{kendall1949stochastic, bjornstad2002dynamics}. 
+where time-varying reproductive number $R_t$ gives the expected number of 
+secondary infections acquired from an infected individual at time $t$, and the 
+generation time is set to 1 without loss of 
+generality~\citep{kendall1949stochastic, bjornstad2002dynamics}. 
 Setting $\theta_t = I_t$ arises from the assumption that individuals who acquire the infection at time $t$ form independent lineages with identically distributed local rate parameters.
-In applications, this model for $theta$ beomes $\theta_t = C_t / \rho_t$ where $C_t$ represents reported cases and $\rho$ the reporting rate, which relates reported cases to the true number of infections as $C_t = \rho_t I_t$.
+In applications, this model for $theta$ becomes $\theta_t = C_t / \rho_t$ where 
+$C_t$ represents reported cases and $\rho$ the reporting rate, which relates 
+reported cases to the true number of infections as $C_t = \rho_t I_t$.
 However, this requires that susceptible depletion in one lineage does not affect another, that transmission rates are equal across lineages, and that reporting rates do not vary across lineages. 
 
 In practice, these assumption will not often hold, and our aim in this paper is to develop, test and apply an alternative approach which produces data-driven estimates of $\theta_t$, including identifying timepoints when $\theta$ is changing rapidly, which may help to reveal the impacts of heterogeneity in transmission, susceptibility, and reporting. 
@@ -164,7 +186,9 @@ Simulations indicate that the LRT framework accurately detects changes in disper
 \includegraphics[width=1\textwidth]{fig1}
 \caption{{\bf Fig 1. Detecting dispersion changes in case count time series.}
 a: Weekly incidence of COVID-19 in the United States, with time measured in weeks since January 4, 2020, showing an example of a randomly-selected 16 week period used as an incidence trend when in simulation-based validation of the LRT test (red). 
-b: Cases in in one county (Douglas County, Nebraska) over the sample time period with estimated incidence trend (red) and estimated dispersion values on either side of the midpoint. 
+b: Cases in one county (Douglas County, Nebraska) over the sample time period 
+with estimated incidence trend (red) and estimated dispersion values on either 
+side of the midpoint. 
 c: Estimated $\theta$ versus true $\theta$ in simulation studies combining a randomly-selected section of the national incidence curve with a random population size and set of dispersion values. Estimated values outside of tolerance plotted in purple (close to Poisson) and blue (close to collapsing to zero). 
 d: Statistical power of the LRT test.}\label{fig1}
 \end{figure}
@@ -217,8 +241,18 @@ f: LRT p-values over time for each location.}\label{fig3}
 
 Our method forms part of a larger interest in investigating variability in infections as an important attribute of epidemic time series using novel metrics.
 For instance, burst-tree decomposition of time series has also facilitated computation of a burst-size distribution for a series given a specified time window~\citep{jo_burst-tree_2020}, allowing comparison of variability within one location over time. 
-Spatial variation in superspreading potential has been investigated through risk maps of superspreading environments~\citep{loo_identification_2021}, and future work could investigate the correspondence between dispersion in case count time series, as quantified here, and indicators of a high risk of superspreading, with the potential to further illucidate drivers of transmission risk across scales, and more finely resolve landscapes of susceptibility.
-Additionally, as population-wide disease control may be less effective than those which are focussed to individuals in high-transmission contexts~\citep{lloyd2005superspreading}, identifying candidate time periods when transmission heterogeneity is high may catalyze the development of more effective control strategies, particularly those that connect vulnerable populations with resources at critical times.
+Spatial variation in superspreading potential has been investigated through 
+risk maps of superspreading environments~\citep{loo_identification_2021}, and 
+future work could investigate the correspondence between dispersion in case 
+count time series, as quantified here, and indicators of a high risk of 
+superspreading, with the potential to further elucidate drivers of transmission 
+risk across scales, and more finely resolve landscapes of susceptibility.
+Additionally, as population-wide disease control may be less effective than 
+those which are focused to individuals in high-transmission 
+contexts~\citep{lloyd2005superspreading}, identifying candidate time periods 
+when transmission heterogeneity is high may catalyze the development of more 
+effective control strategies, particularly those that connect vulnerable 
+populations with resources at critical times.
 The finding that dispersion increased rather than decreased during the 2022 surge challenges theoretical expectations and suggests that fundamental assumptions about the scaling of transmission dynamics may require reevaluation. 
 One hypothesis is that transmission heterogeneity could play a role in driving large surges, amplifying incidence beyond what homogeneous models predict. 
 Future work could investigate whether bursts of highly clustered transmission events generate feedback that accelerates epidemic spread, which, if true, could refine predictive models of contagion dynamics in complex populations.
@@ -227,10 +261,8 @@ Future work could investigate whether bursts of highly clustered transmission ev
 
 \paragraph*{S1 Text.}
 \label{S1_Text}
-{\bf Derivation of the relationship between the disperion parameter and the mean crowding parameter.}
-
-\section*{Acknowledgments}
-RA work on this project was supported by X and Y. BDD work on this project was supported by the National Science Foundation (NSF) grants (X, Y) and by the David and Lucile Packard Foundation.
+{\bf Derivation of the relationship between the dispersion parameter and the 
+mean crowding parameter.}
 
 \clearpage
 \bibliographystyle{vancouver} 

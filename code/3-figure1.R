@@ -107,7 +107,7 @@ for (i in seq_len(nrow(simdata))) {
 
 
 # Plot
-filename <- "figures/fig1.pdf"
+filename <- "ms-3/fig1.pdf"
 pdf(filename)
 
 
@@ -121,8 +121,9 @@ plot(incidence_smooth * 1000,
   lwd = 3,
   xlab = "Week",
   ylab = "Cases per 1000",
-  main = "a"
 )
+
+mtext("a", side = 3, line = 1, adj = 0, cex = 1.2)
 
 u <- 25:(144 - 2 * ww)
 a <- 86
@@ -157,8 +158,9 @@ plot(a:b, cases_snippet * 1e-3,
   xlab = "Week",
   ylab = "Cases per 1000",
   ylim = ylim,
-  main = "b"
 )
+
+mtext("b", side = 3, line = 1, adj = 0, cex = 1.2)
 
 lines(a:b, y * 1e-3, col = 2, lwd = 3)
 segments(a + ww, -1e6, a + ww, 1e6)
@@ -239,13 +241,14 @@ plot(
   col = col,
   xaxt = "n",
   yaxt = "n",
-  main = "c"
 )
 axis(1, at = c(-2, 0, 2), labels = expression(10^-2, 10^0, 10^2))
 axis(2,
   at = c(-6, -3, 0, 3, 6),
   labels = expression(10^-6, 10^-3, 10^0, 10^3, 10^6)
 )
+
+mtext("c", side = 3, line = 1, adj = 0, cex = 1.2)
 
 abline(0, 1, col = 2, lwd = 5)
 
@@ -263,13 +266,15 @@ plot(
   ylab = "p",
   xaxt = "n",
   yaxt = "n",
-  main = "d"
 )
 axis(1, at = c(0, 1, 2, 3, 4, 5))
 axis(2,
   at = log2(c(0.5, 10^seq(-3, -12, -3))),
   labels = expression(2^-1, 10^-3, 10^-6, 10^-9, 10^-12)
 )
+
+mtext("d", side = 3, line = 1, adj = 0, cex = 1.2)
+
 
 library(mgcv)
 fit <- gam(y ~ s(x))

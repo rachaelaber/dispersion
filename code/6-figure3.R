@@ -33,7 +33,7 @@ labels <- format(at, format = "%b %y")
 
 
 # Plot
-filename <- "figures/fig3.pdf"
+filename <- "ms-3/fig3.pdf"
 pdf(filename)
 par(mfrow = c(3, 2))
 
@@ -50,7 +50,7 @@ plot(dates, colSums(cases) / sum(pops) * 1000,
 )
 
 par(xpd = TRUE)
-mtext("a", side = 3, line = 1, adj = 0, cex = 1.5)
+mtext("a", side = 3, line = 1, adj = 0, cex = 1.2)
 par(xpd = FALSE)
 
 axis(1, at = at, labels = labels, cex.axis = 1.3)
@@ -72,7 +72,7 @@ plot(dates, log10(colMeans(thetas, na.rm = TRUE)),
 axis(2, c(1, 2, 3))
 
 par(xpd = TRUE)
-mtext("b", side = 3, line = 1, adj = 0, cex = 1.5)
+mtext("b", side = 3, line = 1, adj = 0, cex = 1.2)
 
 axis(1, at = at, labels = labels, cex.axis = 1.3)
 
@@ -102,7 +102,7 @@ image(dates, 1:144, t(x),
 
 axis.Date(1, at = at, labels = labels, ti, cex.axis = 1.3)
 
-mtext("c", side = 3, line = 1, adj = 0, cex = 1.5)
+mtext("c", side = 3, line = 1, adj = 0, cex = 1.2)
 
 legend("topright",
   inset = c(-0.34, 0.1),
@@ -137,7 +137,7 @@ image(dates, 1:144, t(x),
 
 axis.Date(1, at = at, labels = labels, ti, cex.axis = 1.3)
 
-mtext("d", side = 3, line = 1, adj = 0, cex = 1.5)
+mtext("d", side = 3, line = 1, adj = 0, cex = 1.2)
 
 legend("topright",
   inset = c(-0.34, 0.1),
@@ -171,7 +171,7 @@ image(dates, 1:144, t(x),
 
 axis.Date(1, at = at, labels = labels, ti, cex.axis = 1.3)
 
-mtext("e", side = 3, line = 1, adj = 0, cex = 1.5)
+mtext("e", side = 3, line = 1, adj = 0, cex = 1.2)
 
 legend("topright",
   inset = c(-0.34, 0.1),
@@ -211,7 +211,7 @@ image(dates,
 
 axis.Date(1, at = at, labels = labels, cex.axis = 1.3)
 
-mtext("f", side = 3, line = 1, adj = 0, cex = 1.5)
+mtext("f", side = 3, line = 1, adj = 0, cex = 1.2)
 
 legend(
   "topright",

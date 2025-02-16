@@ -11,7 +11,7 @@ load("data/processed/nyt_weekly.Rdata")
 load("data/processed/theta_lg_pops.Rdata")
 
 
-filename <- "figures/fig2.pdf"
+filename <- "ms-3/fig2.pdf"
 pdf(filename, width = 6, height = 6)
 
 
@@ -52,7 +52,7 @@ plot(dates, cases / pop * 1000,
   cex.axis = 1,
   yaxt = "n"
 )
-mtext("a", side = 3, line = 1, adj = 0, cex = 1.3)
+mtext("a", side = 3, line = 1, adj = 0, cex = 1.1)
 axis(2, seq(0, 30, 10))
 
 # b
@@ -65,7 +65,7 @@ plot(dates, log10(thetas),
   cex.lab = 1,
   cex.axis = 1
 )
-mtext("b", side = 3, line = 1, adj = 0, cex = 1.3)
+mtext("b", side = 3, line = 1, adj = 0, cex = 1.1)
 
 
 # c
@@ -77,7 +77,7 @@ plot(dates, log10(theta0a),
 )
 lines(dates, log10(theta0b), col = "blue")
 lines(dates, log10(thetas), col = "grey")
-mtext("c", side = 3, line = 1, adj = 0, cex = 1.3)
+mtext("c", side = 3, line = 1, adj = 0, cex = 1.1)
 
 legend("topleft",
   legend = c("Reporting rate 0.1", "Reporting rate 0.9", "Estimated"),
@@ -95,7 +95,7 @@ plot(dates, lrt_stats[target_county, ],
   ylab = "LRT statistic", cex.lab = 1, cex.axis = 1,
   cex = cex
 )
-mtext("d", side = 3, line = 1, adj = 0, cex = 1.3)
+mtext("d", side = 3, line = 1, adj = 0, cex = 1.1)
 
 legend("topleft",
   legend = c(

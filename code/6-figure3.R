@@ -35,35 +35,34 @@ labels <- format(at, format = "%b %y")
 # Plot
 filename <- "ms-3/fig3.pdf"
 pdf(filename)
-par(mfrow = c(3, 2))
+par(mfrow = c(6, 1))
 
 # Cases time series
-par(mar = c(4, 4, 3, 6))
+par(mar = c(1, 1, 1.1, 1))
 
 plot(dates, colSums(cases) / sum(pops) * 1000,
   type = "l", lwd = 2, col = "black", xlab = "",
   xaxt = "n",
   ylab = "",
   ylim = c(0, 20),
-  main = "Cases per 1000 pop",
-  cex.main = 1.7, cex.lab = 1.4
+  #main = "Cases per 1000 pop",
+  cex.main = 1.4, cex.lab = 1.4
 )
 
 par(xpd = TRUE)
-mtext("a", side = 3, line = 1, adj = 0, cex = 1.2)
+mtext("a", side = 3, line = .1, adj = 0, cex = 1.2)
 par(xpd = FALSE)
 
 axis(1, at = at, labels = labels, cex.axis = 1.3)
 
-
 # Mean theta time series
-par(mar = c(4, 4, 3, 6))
+par(mar = c(1, 1, 1, 1))
 
 plot(dates, log10(colMeans(thetas, na.rm = TRUE)),
   type = "l", lwd = 2, col = "black", xlab = "",
   ylab = "",
-  main = expression(bold("Mean " * log[10](theta))),
-  cex.main = 1.7,
+  #main = expression(bold("Mean " * log[10](theta))),
+  cex.main = 1.4,
   cex.lab = 1.4,
   yaxt = "n",
   xaxt = "n",
@@ -72,12 +71,12 @@ plot(dates, log10(colMeans(thetas, na.rm = TRUE)),
 axis(2, c(1, 2, 3))
 
 par(xpd = TRUE)
-mtext("b", side = 3, line = 1, adj = 0, cex = 1.2)
-
+mtext("b", side = 3, line = .1, adj = 0, cex = 1.2)
+mtext(expression(bold("Mean " * log[10](theta))), side = 3, line = -1.3, adj = 2, cex = 1.2)
 axis(1, at = at, labels = labels, cex.axis = 1.3)
 
 # Cases surface
-par(mar = c(4, 4, 3, 6), xpd = TRUE)
+par(mar = c(1, 1, 1, 4), xpd = TRUE)
 
 x <- cases
 
@@ -95,26 +94,27 @@ image(dates, 1:144, t(x),
   ylab = "",
   xaxt = "n",
   xlab = "",
-  main = "Cases",
+  #main = "Cases",
   cex.main = 1.7,
   cex.lab = 1.4
 )
 
-axis.Date(1, at = at, labels = labels, ti, cex.axis = 1.3)
+axis.Date(1, at = at, labels = labels, cex.axis = 1.3)
 
-mtext("c", side = 3, line = 1, adj = 0, cex = 1.2)
+mtext("c", side = 3, line = .1, adj = 0, cex = 1.2)
 
 legend("topright",
-  inset = c(-0.34, 0.1),
+  inset = c(-0.07, 0.1),
   legend = expression(10^0, 10^2, 10^4, 10^6),
   fill = colors[c(2, 9, 15, 20)],
-  cex = 0.8
+  cex = 0.8,
+  title = "Cases"
 )
 
 
 
 # Theta surface
-par(mar = c(4, 4, 3, 6), xpd = TRUE)
+par(mar = c(1, 1, 1, 4), xpd = TRUE)
 
 x <- log10(thetas)
 
@@ -130,25 +130,26 @@ image(dates, 1:144, t(x),
   ylab = "",
   xaxt = "n",
   xlab = "",
-  main = expression(paste(theta)),
+  #main = expression(paste(theta)),
   cex.main = 1.7,
   cex.lab = 1.4
 )
 
-axis.Date(1, at = at, labels = labels, ti, cex.axis = 1.3)
+axis.Date(1, at = at, labels = labels, cex.axis = 1.3)
 
-mtext("d", side = 3, line = 1, adj = 0, cex = 1.2)
+mtext("d", side = 3, line = .1, adj = 0, cex = 1.2)
 
 legend("topright",
-  inset = c(-0.34, 0.1),
+  inset = c(-0.07, 0.1),
   legend = expression(10^0, 10^1, 10^2, 10^3, 10^4, 10^5),
   fill = colors[c(2, 3, 5, 6, 7, 8)],
-  cex = 0.8
+  cex = 0.8,
+  title = expression(paste(theta))
 )
 
 
 # theta0 (null expectation for theta)
-par(mar = c(4, 4, 3, 6), xpd = TRUE)
+par(mar = c(1, 1, 1, 4), xpd = TRUE)
 
 x <- log10(cases / reporting_rate)
 
@@ -164,20 +165,21 @@ image(dates, 1:144, t(x),
   ylab = "",
   xaxt = "n",
   xlab = "",
-  main = expression(paste(theta[null])),
+  #main = expression(paste(theta[null])),
   cex.main = 1.7,
   cex.lab = 1.4
 )
 
-axis.Date(1, at = at, labels = labels, ti, cex.axis = 1.3)
+axis.Date(1, at = at, labels = labels, cex.axis = 1.3)
 
-mtext("e", side = 3, line = 1, adj = 0, cex = 1.2)
+mtext("e", side = 3, line = .1, adj = 0, cex = 1.2)
 
 legend("topright",
-  inset = c(-0.34, 0.1),
+  inset = c(-0.07, 0.1),
   legend = expression(10^0, 10^1, 10^2, 10^3, 10^4, 10^5),
   fill = colors[c(2, 3, 5, 6, 7, 8)],
-  cex = 0.8
+  cex = 0.8,
+  title = expression(paste(theta[null]))
 )
 
 
@@ -185,7 +187,7 @@ legend("topright",
 
 
 # p-values surface
-par(mar = c(4, 4, 3, 6), xpd = TRUE)
+par(mar = c(1, 1, 1, 4), xpd = TRUE)
 
 x <- lrt_ps
 lower_range <- c(0, 10^seq(-20, -2, len = 3))
@@ -204,25 +206,26 @@ image(dates,
   yaxt = "n",
   xaxt = "n",
   xlab = "",
-  main = expression(P(theta[1] == theta[2])),
+  #main = expression(P(theta[1] == theta[2])),
   cex.main = 1.7,
   cex.lab = 1.4
 )
 
 axis.Date(1, at = at, labels = labels, cex.axis = 1.3)
 
-mtext("f", side = 3, line = 1, adj = 0, cex = 1.2)
+mtext("f", side = 3, line = .1, adj = 0, cex = 1.2)
 
 legend(
   "topright",
-  inset = c(-0.27, 0.1),
+  inset = c(-0.08, 0.1),
   legend = c(
     expression(10^-11),
     expression(10^-2),
     "0.05", "0.2", "1"
   ),
   fill = colors[-1],
-  cex = 0.8
+  cex = 0.8,
+  title = (expression(P(theta[1] == theta[2])))
 )
 
 dev.off()

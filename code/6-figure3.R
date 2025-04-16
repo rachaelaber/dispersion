@@ -49,9 +49,7 @@ plot(dates, colSums(cases) / sum(pops) * 1000,
   cex.main = 1.4, cex.lab = 1.4
 )
 
-par(xpd = TRUE)
 mtext("a", side = 3, line = .1, adj = 0, cex = 1.2)
-par(xpd = FALSE)
 
 axis(1, at = at, labels = labels, cex.axis = 1.3)
 
@@ -70,13 +68,12 @@ plot(dates, log10(colMeans(thetas, na.rm = TRUE)),
 )
 axis(2, c(1, 2, 3))
 
-par(xpd = TRUE)
 mtext("b", side = 3, line = .1, adj = 0, cex = 1.2)
 mtext(expression(bold("Mean " * log[10](theta))), side = 3, line = -1.3, adj = 2, cex = 1.2)
 axis(1, at = at, labels = labels, cex.axis = 1.3)
 
 # Cases surface
-par(mar = c(1.8, 1, 1, 4), xpd = TRUE)
+par(mar = c(1.8, 1, 1, 4), xpd = T)
 
 x <- cases
 
@@ -114,7 +111,7 @@ legend("topright",
 
 
 # Theta surface
-par(mar = c(1.8, 1, 1, 4), xpd = TRUE)
+par(mar = c(1.8, 1, 1, 4), xpd = T)
 
 x <- log10(thetas)
 
@@ -149,7 +146,7 @@ legend("topright",
 
 
 # theta0 (null expectation for theta)
-par(mar = c(1.8, 1, 1, 4), xpd = TRUE)
+par(mar = c(1.8, 1, 1, 4), xpd = T)
 
 x <- log10(cases / reporting_rate)
 
@@ -187,7 +184,7 @@ legend("topright",
 
 
 # p-values surface
-par(mar = c(1.9, 1, 1, 4), xpd = TRUE)
+par(mar = c(1.9, 1, 1, 4), xpd = T)
 
 x <- lrt_ps
 lower_range <- c(0, 10^seq(-20, -2, len = 3))

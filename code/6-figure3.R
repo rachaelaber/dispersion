@@ -38,7 +38,7 @@ pdf(filename)
 par(mfrow = c(6, 1))
 
 # Cases time series
-par(mar = c(1, 1, 1.1, 1))
+par(mar = c(1.8, 1, 1.1, 4))
 
 plot(dates, colSums(cases) / sum(pops) * 1000,
   type = "l", lwd = 2, col = "black", xlab = "",
@@ -56,7 +56,7 @@ par(xpd = FALSE)
 axis(1, at = at, labels = labels, cex.axis = 1.3)
 
 # Mean theta time series
-par(mar = c(1, 1, 1, 1))
+par(mar = c(1.8, 1, 1, 4))
 
 plot(dates, log10(colMeans(thetas, na.rm = TRUE)),
   type = "l", lwd = 2, col = "black", xlab = "",
@@ -76,7 +76,7 @@ mtext(expression(bold("Mean " * log[10](theta))), side = 3, line = -1.3, adj = 2
 axis(1, at = at, labels = labels, cex.axis = 1.3)
 
 # Cases surface
-par(mar = c(1, 1, 1, 4), xpd = TRUE)
+par(mar = c(1.8, 1, 1, 4), xpd = TRUE)
 
 x <- cases
 
@@ -114,7 +114,7 @@ legend("topright",
 
 
 # Theta surface
-par(mar = c(1, 1, 1, 4), xpd = TRUE)
+par(mar = c(1.8, 1, 1, 4), xpd = TRUE)
 
 x <- log10(thetas)
 
@@ -149,7 +149,7 @@ legend("topright",
 
 
 # theta0 (null expectation for theta)
-par(mar = c(1, 1, 1, 4), xpd = TRUE)
+par(mar = c(1.8, 1, 1, 4), xpd = TRUE)
 
 x <- log10(cases / reporting_rate)
 
@@ -187,7 +187,7 @@ legend("topright",
 
 
 # p-values surface
-par(mar = c(1, 1, 1, 4), xpd = TRUE)
+par(mar = c(1.9, 1, 1, 4), xpd = TRUE)
 
 x <- lrt_ps
 lower_range <- c(0, 10^seq(-20, -2, len = 3))

@@ -42,7 +42,7 @@ par(mfrow = c(4, 1))
 
 
 # a
-par(mar = c(1.8, 4, 1.9, 1.8))
+par(mar = c(1.8, 4.4, 1.9, 1.8))
 plot(dates, cases / pop * 1000,
   type = "h",
   xlab = "",
@@ -56,11 +56,11 @@ mtext("a", side = 3, line = 1, adj = 0, cex = 1.1)
 axis(2, seq(0, 30, 10))
 
 # b
-par(mar = c(1.8, 4, 1.8, 1.8))
+par(mar = c(1.8, 4.4, 1.8, 1.8))
 plot(dates, log10(thetas),
   type = "l",
   xlab = "",
-  ylab = expression(paste(log[10], "(", theta, ")")),
+  ylab = expression(paste(log[10], "(", hat(theta)[t], ")")),
   cex.main = 1.3,
   ylim = c(-0.2, 3),
   cex.lab = 1,
@@ -70,12 +70,12 @@ mtext("b", side = 3, line = 1, adj = 0, cex = 1.1)
 
 
 # c
-par(mar = c(1.8, 4, 1.8, 1.8))
+par(mar = c(1.8, 4.4, 1.8, 1.8))
 theta0a <- c(NA, cases[-length(cases)] / 0.1)
 theta0b <- c(NA, cases[-length(cases)] / 0.9)
 plot(dates, log10(theta0a),
   type = "l", ylim = c(0, 6), xlab = "",
-  ylab = expression(paste(log[10], "(", theta, ")"))
+  ylab = expression(paste(log[10], "(", theta[t], ")"))
 )
 lines(dates, log10(theta0b), col = "blue")
 lines(dates, log10(thetas), col = "grey")
@@ -87,7 +87,7 @@ legend("topleft",
 )
 
 # d
-par(mar = c(1.9, 4, 1.8, 1.8))
+par(mar = c(1.9, 4.4, 1.8, 1.8))
 is_sig <- lrt_stats[1, ] > qchisq(0.9996732, df = 1)
 
 pch <- ifelse(is_sig, 19, 1)

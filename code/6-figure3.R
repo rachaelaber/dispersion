@@ -140,8 +140,8 @@ legend("topright",
   inset = c(-0.07, 0.1),
   legend = expression(10^0, 10^1, 10^2, 10^3, 10^4, 10^5),
   fill = colors[c(2, 3, 5, 6, 7, 8)],
-  cex = 0.8,
-  title = expression(paste(theta))
+  cex = .85,
+  title = expression(paste(theta[t]))
 )
 
 
@@ -175,8 +175,8 @@ legend("topright",
   inset = c(-0.07, 0.1),
   legend = expression(10^0, 10^1, 10^2, 10^3, 10^4, 10^5),
   fill = colors[c(2, 3, 5, 6, 7, 8)],
-  cex = 0.8,
-  title = expression(paste(theta[null]))
+  cex = .85,
+  title = expression(theta[t * "," * "null"])
 )
 
 

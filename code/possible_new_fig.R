@@ -22,7 +22,7 @@ rm(keep)
 
 
 
-# Slide window Spearman's correlation bewteen cases and theta
+# Slide window Spearman's correlation between cases and theta
 window_size <- 32
 n_boot <- 1000 # Number of bootstrap replicates
 
@@ -65,11 +65,10 @@ for (i in rho_seq) {
   rho_pval[i] <- mean(abs(boot_out$t) >= abs(rho[i]))
 }
 
+filename <- "S1_Fig.pdf"
+pdf(filename)
 
 # Plot with confidence intervals
-graphics.off()
-par(pin = c(6, 6))
-par(cex = 3)
 plot(rho_dates, rho,
   type = "l", col = "blue", lwd = 2,
   ylim = c(-0.2, 0.5),
@@ -80,3 +79,5 @@ polygon(c(rho_dates, rev(rho_dates)), c(rho_lower, rev(rho_upper)),
   col = adjustcolor("blue", alpha.f = 0.2), border = NA
 )
 abline(h = 0, lty = 1)
+
+dev.off()

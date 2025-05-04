@@ -38,7 +38,7 @@ pdf(filename)
 par(mfrow = c(6, 1))
 
 # Cases time series
-par(mar = c(1.8, 1, 1.1, 4))
+par(mar = c(1, 2, 1.1, 4))
 
 plot(dates, colSums(cases) / sum(pops) * 1000,
   type = "l", lwd = 2, col = "black", xlab = "",
@@ -46,15 +46,15 @@ plot(dates, colSums(cases) / sum(pops) * 1000,
   ylab = "",
   ylim = c(0, 20),
   #main = "Cases per 1000 pop",
-  cex.main = 1.4, cex.lab = 1.4
+  cex.main = 1.4, cex.lab = 1.4, cex.axis = 0.8
 )
 
 mtext("a", side = 3, line = .1, adj = 0, cex = 1.2)
 
-axis(1, at = at, labels = labels, cex.axis = 1.3)
+#axis(1, at = at, labels = labels, cex.axis = 1.3)
 
 # Mean theta time series
-par(mar = c(1.8, 1, 1, 4))
+par(mar = c(1, 2, 1, 4))
 
 plot(dates, log10(colMeans(thetas, na.rm = TRUE)),
   type = "l", lwd = 2, col = "black", xlab = "",
@@ -64,16 +64,17 @@ plot(dates, log10(colMeans(thetas, na.rm = TRUE)),
   cex.lab = 1.4,
   yaxt = "n",
   xaxt = "n",
-  ylim = c(0.8, 3)
+  ylim = c(0.8, 3),
+  cex.axis = .85
 )
 axis(2, c(1, 2, 3))
 
 mtext("b", side = 3, line = .1, adj = 0, cex = 1.2)
 mtext(expression(bold("Mean " * log[10](theta))), side = 3, line = -1.3, adj = 2, cex = 1.2)
-axis(1, at = at, labels = labels, cex.axis = 1.3)
+#axis(1, at = at, labels = labels, cex.axis = 1.3)
 
 # Cases surface
-par(mar = c(1.8, 1, 1, 4), xpd = T)
+par(mar = c(1, 2, 1, 4), xpd = T)
 
 x <- cases
 
@@ -96,12 +97,13 @@ image(dates, 1:144, t(x),
   cex.lab = 1.4
 )
 
-axis.Date(1, at = at, labels = labels, cex.axis = 1.3)
+#axis.Date(1, at = at, labels = labels, cex.axis = 1.3)
 
 mtext("c", side = 3, line = .1, adj = 0, cex = 1.2)
 
 legend("topright",
-  inset = c(-0.07, 0.1),
+  x.intersp = 2.79,     
+  inset = c(-0.0839, 0.1),
   legend = expression(10^0, 10^2, 10^4, 10^6),
   fill = colors[c(2, 9, 15, 20)],
   cex = 0.8,
@@ -111,7 +113,7 @@ legend("topright",
 
 
 # Theta surface
-par(mar = c(1.8, 1, 1, 4), xpd = T)
+par(mar = c(1, 2, 1, 4), xpd = T)
 
 x <- log10(thetas)
 
@@ -132,12 +134,13 @@ image(dates, 1:144, t(x),
   cex.lab = 1.4
 )
 
-axis.Date(1, at = at, labels = labels, cex.axis = 1.3)
+#axis.Date(1, at = at, labels = labels, cex.axis = 1.3)
 
 mtext("d", side = 3, line = .1, adj = 0, cex = 1.2)
 
 legend("topright",
-  inset = c(-0.07, 0.1),
+  x.intersp = 2.1,     
+  inset = c(-0.084, 0.1),
   legend = expression(10^0, 10^1, 10^2, 10^3, 10^4, 10^5),
   fill = colors[c(2, 3, 5, 6, 7, 8)],
   cex = .85,
@@ -146,7 +149,7 @@ legend("topright",
 
 
 # theta0 (null expectation for theta)
-par(mar = c(1.8, 1, 1, 4), xpd = T)
+par(mar = c(1, 2, 1, 4), xpd = T)
 
 x <- log10(cases / reporting_rate)
 
@@ -167,12 +170,13 @@ image(dates, 1:144, t(x),
   cex.lab = 1.4
 )
 
-axis.Date(1, at = at, labels = labels, cex.axis = 1.3)
+#axis.Date(1, at = at, labels = labels, cex.axis = 1.3)
 
 mtext("e", side = 3, line = .1, adj = 0, cex = 1.2)
 
 legend("topright",
-  inset = c(-0.07, 0.1),
+  x.intersp = 2.1,     
+  inset = c(-0.084, 0.1),
   legend = expression(10^0, 10^1, 10^2, 10^3, 10^4, 10^5),
   fill = colors[c(2, 3, 5, 6, 7, 8)],
   cex = .85,
@@ -181,10 +185,8 @@ legend("topright",
 
 
 
-
-
 # p-values surface
-par(mar = c(1.9, 1, 1, 4), xpd = T)
+par(mar = c(1.9, 2, 1, 4), xpd = T)
 
 x <- lrt_ps
 lower_range <- c(0, 10^seq(-20, -2, len = 3))
@@ -214,7 +216,8 @@ mtext("f", side = 3, line = .1, adj = 0, cex = 1.2)
 
 legend(
   "topright",
-  inset = c(-0.08, 0.1),
+  x.intersp = 2,
+  inset = c(-0.085, 0.1),
   legend = c(
     expression(10^-11),
     expression(10^-2),

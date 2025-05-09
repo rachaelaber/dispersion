@@ -43,9 +43,8 @@ par(mar = c(1, 2, 1.1, 4))
 plot(dates, colSums(cases) / sum(pops) * 1000,
   type = "l", lwd = 2, col = "black", xlab = "",
   xaxt = "n",
-  ylab = "",
   ylim = c(0, 20),
-  #main = "Cases per 1000 pop",
+  main = "Cases per 1000 pop.",
   cex.main = 1.4, cex.lab = 1.4, cex.axis = 0.8
 )
 
@@ -58,8 +57,7 @@ par(mar = c(1, 2, 1, 4))
 
 plot(dates, log10(colMeans(thetas, na.rm = TRUE)),
   type = "l", lwd = 2, col = "black", xlab = "",
-  ylab = "",
-  #main = expression(bold("Mean " * log[10](theta))),
+  main = expression(bold("Mean " * log[10](theta))),
   cex.main = 1.4,
   cex.lab = 1.4,
   yaxt = "n",

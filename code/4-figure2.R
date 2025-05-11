@@ -12,7 +12,7 @@ load("data/processed/theta_lg_pops.Rdata")
 
 
 filename <- "ms-3/fig2.pdf"
-pdf(filename, width = 6, height = 6)
+pdf(filename)
 
 
 # Trim cases to same frame as theta estimates

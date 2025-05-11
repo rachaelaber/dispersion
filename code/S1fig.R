@@ -65,7 +65,7 @@ for (i in rho_seq) {
   rho_pval[i] <- mean(abs(boot_out$t) >= abs(rho[i]))
 }
 
-filename <- "S1_Fig.pdf"
+filename <- "ms-3/S1_Fig.pdf"
 pdf(filename)
 
 # Plot with confidence intervals

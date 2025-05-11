@@ -19,3 +19,4 @@ data/raw/co-est2021-alldata.csv
 *.log
 *.gz
 *.fdb_latexmk
+.Rhistory

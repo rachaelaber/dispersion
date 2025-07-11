@@ -83,7 +83,7 @@ mtext("c", side = 3, line = 1, adj = 0, cex = 1.1)
 
 legend("topleft",
   legend = c("Reporting rate 0.1", "Reporting rate 0.9", "Estimated"),
-  col = c("black", "blue", "grey"), cex = 0.7, lty = 1, bt = "n"
+  col = c("black", "blue", "grey"), cex = 1.0, lty = 1, bt = "n"
 )
 
 # d
@@ -105,7 +105,7 @@ legend("topleft",
     expression("X " > chi[1 - alpha / 153]^2),
     expression("X " <= chi[1 - alpha / 153]^2)
   ),
-  col = c("red", "black"), cex = 0.7, pch = c(19, 1), bt = "n"
+  col = c("red", "black"), cex = 1.1, pch = c(19, 1), bt = "n"
 )
 
 dev.off()
